@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke="#EAF4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- IcyPower emblem (clean recreation — replace with the official file when ready) -->
+  <circle cx="60" cy="60" r="54"/>
+  <!-- sun -->
+  <circle cx="60" cy="30" r="3.4" fill="#EAF4FF" stroke="none"/>
+  <!-- mountain ridge -->
+  <path d="M20 72 L40 46 L52 60 L60 40 L72 62 L84 48 L100 72" stroke-width="2.6"/>
+  <!-- meditating figure -->
+  <circle cx="60" cy="50" r="6"/>
+  <path d="M45 73 C49 61 53 59 60 59 C67 59 71 61 75 73" stroke-width="2.6"/>
+  <path d="M47 74 L60 65 L73 74" stroke-width="2.6"/>
+  <!-- waves -->
+  <path d="M22 84 q9 -6.5 18 0 t18 0 t18 0 t18 0" stroke-width="2.4"/>
+  <path d="M27 93 q8 -6 16 0 t16 0 t16 0" stroke-width="2.4"/>
+</svg>

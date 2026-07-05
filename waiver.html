@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>הצהרת בריאות — ICE THERAPY</title>
+<style>
+  :root{
+    --ice:#1b7fb5; --ice-dark:#0d5a85; --ice-light:#e8f4fb;
+    --ink:#16242e; --muted:#5d6b75; --line:#d9e2e8;
+    --ok:#1d9e75; --warn:#b8741a; --warn-bg:#fcf2e2; --danger:#c0392b;
+    --radius:16px; --shadow:0 4px 24px rgba(13,90,133,.08);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    margin:0;font-family:"Assistant","Heebo",-apple-system,"Segoe UI",sans-serif;
+    background:#f4f8fb;color:var(--ink);line-height:1.5;
+    font-size:17px;-webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 0 40px}
+  .hero{
+    background:linear-gradient(160deg,var(--ice) 0%,var(--ice-dark) 100%);
+    color:#fff;padding:34px 22px 30px;text-align:center;border-radius:0 0 28px 28px;
+  }
+  .hero .mark{font-size:34px;line-height:1}
+  .hero h1{margin:10px 0 4px;font-size:23px;font-weight:700;letter-spacing:-.2px}
+  .hero p{margin:0;opacity:.9;font-size:15px}
+  .hero .who{margin-top:10px;font-size:13px;opacity:.8}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:20px;margin:18px 14px;
+  }
+  .card h2{margin:0 0 4px;font-size:18px;font-weight:700;color:var(--ice-dark)}
+  .card .hint{margin:0 0 16px;font-size:14px;color:var(--muted)}
+  label.field{display:block;margin-bottom:16px}
+  label.field>span.lab,.qlab{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+  .req{color:var(--danger)}
+  input[type=text],input[type=tel],input[type=email],input[type=date]{
+    width:100%;padding:13px 14px;font-size:17px;border:1.5px solid var(--line);
+    border-radius:12px;background:#fbfdfe;color:var(--ink);font-family:inherit;transition:border-color .15s;
+  }
+  input:focus{outline:none;border-color:var(--ice)}
+  .opt{
+    display:flex;align-items:center;gap:13px;padding:14px;margin-bottom:9px;
+    border:1.5px solid var(--line);border-radius:13px;cursor:pointer;
+    font-size:16px;background:#fbfdfe;transition:.12s;user-select:none;
+  }
+  .opt:active{transform:scale(.99)}
+  .opt input{appearance:none;width:24px;height:24px;min-width:24px;border:2px solid #b9c7d0;border-radius:7px;margin:0;position:relative;transition:.12s}
+  .opt input[type=radio]{border-radius:50%}
+  .opt input:checked{background:var(--ice);border-color:var(--ice)}
+  .opt input:checked::after{content:"✓";color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .opt.checked{border-color:var(--ice);background:var(--ice-light)}
+  .opt.none{border-style:dashed}
+  .opt.none.checked{border-color:var(--ok);background:#e7f6f0}
+  .opt.none.checked input{background:var(--ok);border-color:var(--ok)}
+  .consent{align-items:flex-start;font-size:15px;line-height:1.45;color:#2c3a44}
+  #healthWarn{display:none;margin-top:6px;padding:13px 14px;background:var(--warn-bg);
+    border:1px solid #eac88a;border-radius:12px;color:var(--warn);font-size:14px;font-weight:600}
+  textarea{width:100%;padding:13px 14px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:#fbfdfe;font-family:inherit;min-height:70px;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--ice)}
+  .sigwrap{position:relative}
+  canvas{width:100%;height:170px;border:1.5px dashed #b9c7d0;border-radius:13px;background:#fff;touch-action:none;display:block}
+  .sigclear{position:absolute;top:8px;left:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13px;color:var(--muted);font-family:inherit}
+  .legal{font-size:13.5px;color:#46535d;background:#f7fafc;border-radius:12px;padding:14px 15px;margin-bottom:14px;line-height:1.6}
+  .legal b{color:var(--ink)}
+  .submit{
+    display:block;width:calc(100% - 28px);margin:6px 14px 0;padding:17px;
+    background:var(--ice);color:#fff;border:none;border-radius:15px;
+    font-size:19px;font-weight:700;font-family:inherit;cursor:pointer;
+    box-shadow:0 6px 18px rgba(27,127,181,.35);transition:.12s;
+  }
+  .submit:active{transform:scale(.985)}
+  .submit:disabled{background:#9fb6c2;box-shadow:none}
+  .footnote{text-align:center;font-size:12.5px;color:var(--muted);margin:14px 20px 0}
+  #done{display:none;text-align:center;padding:70px 24px}
+  #done .big{font-size:64px}
+  #done h2{font-size:24px;margin:14px 0 6px;color:var(--ok)}
+  #done p{color:var(--muted);margin:0}
+  #done button{margin-top:26px;background:none;border:1.5px solid var(--line);color:var(--ice-dark);padding:13px 26px;border-radius:13px;font-size:16px;font-family:inherit;font-weight:600}
+  .err{border-color:var(--danger)!important;animation:shake .3s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="mark">❄️</div>
+    <h1>הצהרת בריאות</h1>
+    <p>סדנת נשימות מעגליות וטבילה במי קרח · ICE THERAPY</p>
+    <div class="who">בהדרכת אורון מרום</div>
+  </div>
+
+  <form id="form" novalidate>
+
+    <!-- פרטים אישיים -->
+    <div class="card">
+      <h2>פרטים אישיים</h2>
+      <p class="hint">כמה פרטים קצרים ומתחילים ✌️</p>
+
+      <label class="field">
+        <span class="lab">שם מלא <span class="req">*</span></span>
+        <input type="text" name="name" autocomplete="name" required />
+      </label>
+
+      <label class="field">
+        <span class="lab">תאריך הסדנה <span class="req">*</span></span>
+        <input type="date" name="workshop_date" required />
+      </label>
+
+      <label class="field">
+        <span class="lab">תאריך לידה <span class="req">*</span></span>
+        <input type="date" name="dob" required />
+      </label>
+
+      <label class="field">
+        <span class="lab">טלפון <span class="req">*</span></span>
+        <input type="tel" name="phone" inputmode="tel" autocomplete="tel" required />
+      </label>
+
+      <label class="field">
+        <span class="lab">אימייל <span class="req">*</span></span>
+        <input type="email" name="email" inputmode="email" autocomplete="email" required />
+      </label>
+
+      <label class="field" style="margin-bottom:0">
+        <span class="lab">איש קשר לחירום — טלפון <span class="req">*</span></span>
+        <input type="tel" name="emergency" inputmode="tel" required />
+      </label>
+    </div>
+
+    <!-- בריאות -->
+    <div class="card">
+      <h2>סינון בריאותי</h2>
+
+      <div class="qlab">האם את/ה מרגיש/ה בריא/ה כרגע? <span class="req">*</span></div>
+      <div class="opt" data-toggle><input type="radio" name="currently_healthy" value="כן" required /><span>כן</span></div>
+      <div class="opt" data-toggle style="margin-bottom:18px"><input type="radio" name="currently_healthy" value="לא" /><span>לא</span></div>
+
+      <div class="qlab">סמן/י כל מצב רפואי שרלוונטי אלייך:</div>
+      <div class="opt" data-health data-toggle><input type="checkbox" name="h_heart" /><span>בעיות לב / לחץ דם גבוה</span></div>
+      <div class="opt" data-health data-toggle><input type="checkbox" name="h_epilepsy" /><span>אפילפסיה / פרכוסים</span></div>
+      <div class="opt" data-health data-toggle><input type="checkbox" name="h_pregnant" /><span>הריון</span></div>
+      <div class="opt" data-health data-toggle><input type="checkbox" name="h_autoimmune" /><span>מחלה אוטואימונית (פרקים / קרוהן / סוכרת / אסתמה)</span></div>
+      <div class="opt" data-health data-toggle><input type="checkbox" name="h_surgery" /><span>ניתוח / פציעה / מחלה לאחרונה</span></div>
+      <div class="opt none" data-none data-toggle><input type="checkbox" name="h_none" /><span><b>אין לי אף אחד מהמצבים הנ"ל</b></span></div>
+
+      <div id="healthWarn">⚠️ סימנת מצב רפואי — ההשתתפות בסדנה מותנית באישור רופא. נא לעדכן את המדריך לפני הטבילה.</div>
+
+      <label class="field" style="margin-top:18px;margin-bottom:0">
+        <span class="lab">פירוט מצב רפואי / בעיות אחרות / משהו נוסף שחשוב שהמדריך יידע <span style="color:var(--muted);font-weight:400">(אם רלוונטי)</span></span>
+        <textarea name="notes" placeholder="לדוגמה: אילו מחלות אוטואימוניות, תרופות, פציעות ישנות וכו׳"></textarea>
+      </label>
+    </div>
+
+    <!-- הצהרות -->
+    <div class="card">
+      <h2>הצהרות ואישור</h2>
+
+      <div class="legal">
+        סדנת <b>ICE THERAPY</b> כוללת נשימות מעגליות וטבילה במי קרח בהדרכת אורון מרום. הפעילות מתבצעת באופן בטוח ומקצועי, אך לא ניתן להעריך את מצבו הבריאותי של כל משתתף. ההחלטה להשתתף היא באחריותו האישית של המשתתף, ומומלץ להתייעץ עם רופא במידת הצורך.
+      </div>
+
+      <div class="opt consent" data-toggle><input type="checkbox" name="c_liability" required /><span>אני משתתף/ת מרצוני החופשי ועל אחריותי בלבד, ולא אטיל על אורון מרום או מי מטעמו אחריות לכל נזק או פציעה כתוצאה מההשתתפות. <span class="req">*</span></span></div>
+
+      <div class="opt consent" data-toggle><input type="checkbox" name="c_health" required /><span>אני מצהיר/ה שקיבלתי את כל המידע על הפעילות ואני במצב פיזי ונפשי תקין להשתתפות. <span class="req">*</span></span></div>
+
+      <div class="opt consent" data-toggle><input type="checkbox" name="c_media" required /><span>ידוע לי שהמפגשים מצולמים ושהמדריך רשאי לעשות שימוש שיווקי בצילומים. (אם אינך מעוניין/ת — סמן/י וכתוב/כתבי לנו בהערות) <span class="req">*</span></span></div>
+    </div>
+
+    <!-- חתימה -->
+    <div class="card">
+      <h2>חתימה</h2>
+      <p class="hint">חתום/חתמי באצבע על המסך <span class="req">*</span></p>
+      <div class="sigwrap">
+        <canvas id="sig"></canvas>
+        <button type="button" class="sigclear" id="sigClear">נקה</button>
+      </div>
+      <p class="footnote" style="margin-top:10px">התאריך היום: <span id="today"></span></p>
+    </div>
+
+    <button type="submit" class="submit" id="submitBtn">שליחת ההצהרה ✓</button>
+    <p class="footnote">בלחיצה על שליחה את/ה מאשר/ת את כל ההצהרות לעיל.</p>
+  </form>
+
+  <div id="done">
+    <div class="big">❄️</div>
+    <h2>תודה, נרשמת!</h2>
+    <p>ההצהרה נשלחה בהצלחה. נתראה במים 🧊</p>
+    <button type="button" onclick="location.reload()">מילוי טופס חדש</button>
+  </div>
+
+</div>
+
+<script>
+/* ===== email delivery via FormSubmit (free, no account). =====
+   Submissions are emailed to the address in this endpoint.
+   (After activation we can swap this for a masked endpoint to hide the email.) */
+const ENDPOINT = "https://formsubmit.co/ajax/eb97c228c84dae28103adcae66a0cc08";
+
+/* prefill today's date everywhere */
+const todayISO = new Date().toISOString().slice(0,10);
+document.getElementById('today').textContent =
+  new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric'});
+const wd = document.querySelector('[name=workshop_date]'); if(wd) wd.value = todayISO;
+
+/* tappable rows (checkbox + radio) */
+function syncOpts(){document.querySelectorAll('.opt[data-toggle]').forEach(r=>{r.classList.toggle('checked',r.querySelector('input').checked);});}
+document.querySelectorAll('.opt[data-toggle]').forEach(row=>{
+  const cb=row.querySelector('input');
+  row.addEventListener('click',e=>{
+    if(e.target!==cb){ cb.checked = cb.type==='radio' ? true : !cb.checked; cb.dispatchEvent(new Event('change')); }
+  });
+});
+document.querySelectorAll('.opt[data-toggle] input').forEach(i=>i.addEventListener('change',syncOpts));
+syncOpts();
+
+/* health logic */
+const healthBoxes=[...document.querySelectorAll('[data-health] input')];
+const noneBox=document.querySelector('[data-none] input');
+const warn=document.getElementById('healthWarn');
+function refreshHealth(){warn.style.display=healthBoxes.some(b=>b.checked)?'block':'none';}
+healthBoxes.forEach(b=>b.addEventListener('change',()=>{ if(b.checked){noneBox.checked=false;} refreshHealth(); syncOpts(); }));
+noneBox.addEventListener('change',()=>{ if(noneBox.checked){healthBoxes.forEach(b=>b.checked=false);} refreshHealth(); syncOpts(); });
+
+/* signature pad */
+const canvas=document.getElementById('sig'), ctx=canvas.getContext('2d');
+let drawing=false, hasSig=false;
+function fit(){const r=canvas.getBoundingClientRect();const d=window.devicePixelRatio||1;
+  canvas.width=r.width*d;canvas.height=r.height*d;ctx.scale(d,d);
+  ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#16242e';}
+setTimeout(fit,60);
+function pos(e){const r=canvas.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top};}
+function start(e){drawing=true;hasSig=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();}
+function move(e){if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();}
+function end(){drawing=false;}
+canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);
+canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end);
+document.getElementById('sigClear').addEventListener('click',()=>{ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;});
+
+/* submit */
+const form=document.getElementById('form');
+const v = n => (form.elements[n] && form.elements[n].value ? form.elements[n].value.trim() : '');
+const chk = n => !!(form.elements[n] && form.elements[n].checked);
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  let bad=null;
+  form.querySelectorAll('[required]').forEach(el=>{
+    let ok;
+    if(el.type==='radio'){ ok=!!form.querySelector('[name="'+el.name+'"]:checked'); }
+    else if(el.type==='checkbox'){ ok=el.checked; }
+    else { ok=el.value.trim()!==''; }
+    const target = (el.type==='checkbox'||el.type==='radio') ? el.closest('.opt') : el;
+    if(target) target.classList.toggle('err',!ok);
+    if(!ok && !bad) bad=target;
+  });
+  if(!hasSig){canvas.classList.add('err');if(!bad)bad=canvas;} else canvas.classList.remove('err');
+  if(bad){bad.scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+  const payload = {
+    _subject: "הצהרת בריאות חדשה — " + v('name'),
+    _template: "table",
+    _captcha: "false",
+    _replyto: v('email'),
+    "שם מלא": v('name'),
+    "תאריך הסדנה": v('workshop_date'),
+    "תאריך לידה": v('dob'),
+    "טלפון": v('phone'),
+    "אימייל": v('email'),
+    "איש קשר לחירום": v('emergency'),
+    "מרגיש/ה בריא/ה כרגע": v('currently_healthy'),
+    "בעיות לב / לחץ דם": chk('h_heart')?'כן':'לא',
+    "אפילפסיה / פרכוסים": chk('h_epilepsy')?'כן':'לא',
+    "הריון": chk('h_pregnant')?'כן':'לא',
+    "מחלה אוטואימונית": chk('h_autoimmune')?'כן':'לא',
+    "ניתוח / פציעה לאחרונה": chk('h_surgery')?'כן':'לא',
+    'אין מצבים רפואיים': chk('h_none')?'כן':'לא',
+    "הערות / פירוט": v('notes'),
+    "אישור אחריות אישית": chk('c_liability')?'מאושר ✓':'',
+    "אישור הצהרת בריאות": chk('c_health')?'מאושר ✓':'',
+    "אישור צילום ושיווק": chk('c_media')?'מאושר ✓':'',
+    "תאריך חתימה": document.getElementById('today').textContent,
+    "חתימה (base64)": canvas.toDataURL('image/png')
+  };
+
+  /* local backup on the device */
+  const store=JSON.parse(localStorage.getItem('ice_waivers')||'[]');
+  store.push(payload); localStorage.setItem('ice_waivers',JSON.stringify(store));
+
+  const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.textContent='שולח…';
+  try{
+    const res=await fetch(ENDPOINT,{
+      method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error('send failed');
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    btn.disabled=false; btn.textContent='שליחת ההצהרה ✓';
+    alert('השליחה נכשלה — בדוק/בדקי חיבור אינטרנט ונסה/נסי שוב. (הטופס נשמר מקומית במכשיר)');
+  }
+});
+</script>
+</body>
+</html>

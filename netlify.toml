@@ -1,0 +1,20 @@
+# Netlify config for IcyPower — static site (no build step).
+# Deploy: drag this whole folder onto https://app.netlify.com/drop
+# or connect the repo and Netlify will publish it as-is.
+
+[build]
+  publish = "."
+
+# Assets aren't fingerprinted (styles.css, main.js, images keep the same
+# names across updates), so tell browsers to revalidate every time instead
+# of caching for days. This makes changes appear immediately for visitors.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Never cache the HTML pages themselves.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
