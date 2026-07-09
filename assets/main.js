@@ -97,4 +97,21 @@
       d.addEventListener('click', function () { clearInterval(timer); showSlide(i); timer = setInterval(function () { showSlide(cur + 1); }, 2000); });
     });
   }
+
+  /* ---- steps: mobile swipe carousel dot sync ---- */
+  var stepEls = document.querySelectorAll('.steps .step');
+  var stepDots = document.querySelectorAll('.steps-dots .dot');
+  if (stepEls.length && stepDots.length && 'IntersectionObserver' in window) {
+    var stepsContainer = document.querySelector('.steps');
+    var stepIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var idx = Array.prototype.indexOf.call(stepEls, e.target);
+          stepDots.forEach(function (d) { d.classList.remove('active'); });
+          if (stepDots[idx]) stepDots[idx].classList.add('active');
+        }
+      });
+    }, { root: stepsContainer, threshold: 0.6 });
+    stepEls.forEach(function (el) { stepIo.observe(el); });
+  }
 })();
