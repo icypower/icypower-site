@@ -24,26 +24,27 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-10
-- **What changed:** Larger homepage revision from Eldar's session: removed
-  the redundant sessions subtitle; replaced the static "worked with"
-  logo-chip row with a real auto-scrolling logo carousel (real files in
-  `assets/img/logos/` — IDF, Reichman University, Nagev academy, Student
-  Union, GB); moved the "קצת עלינו" about section down to just before the
-  final CTA, condensed its copy to 2 paragraphs, relabeled founders
-  "מייסד ומדריך" (avatars still initials — real photos pending from Eldar);
-  session cards now show photo-dominant (was ~35% of card height, now
-  ~56%) with the icon as a floating badge on the photo's edge instead of a
-  separate tile; "How it works" replaced its boxed cards (`.steps`) with a
-  connected-circle timeline (`.steps-timeline`) so it no longer looks like
-  a copy of the session cards; deleted the redundant "why it works"
-  (benefits) section entirely; normalized every em-dash (—) to a plain
-  hyphen (-) site-wide.
+- **What changed:** Homepage revision (logo carousel, About repositioned +
+  condensed, session-card photo ratio flip, steps timeline redesign,
+  benefits section removed, dashes normalized — see History for the full
+  list) followed by a second pass in the same session: the hero is now
+  content-sized (matches `.page-hero`'s existing pattern) instead of
+  `min-height:92vh`, so it ends right after its content instead of a huge
+  empty gap — removed the now-redundant scroll-down cue too; the final CTA
+  band's padding was reduced so it's noticeably shorter; the contact
+  form's success message is no longer an inline block that replaced the
+  form (it read as stranded in a corner) — it's now a small rounded
+  `.toast` that fades in near the bottom of the screen and disappears on
+  its own after 5s (no close button), and the form resets and stays
+  usable right after submitting.
 - **Why:** Eldar reviewed the live site and found the sessions subtitle
   redundant, the trust strip too generic (wanted real client logos), the
-  about section buried too early in the page and text-heavy, the session
-  cards text-heavy relative to their photos, the steps section visually
+  about section buried too early and text-heavy, the session cards
+  text-heavy relative to their photos, the steps section visually
   indistinguishable from the session cards above it, the benefits section
-  repetitive of earlier content, and inconsistent dash styles.
+  repetitive, dash styles inconsistent, the hero far too tall relative to
+  its content, the final CTA too tall, and the post-submit contact form
+  message awkwardly placed.
 - **Next goal:** None pending for this repo specifically. Still waiting on
   Eldar for: real founder photos (to replace the initial-letter avatars),
   a real vertical clip for `assets/video/about.mp4`, and a hero background
@@ -80,6 +81,10 @@ that already happened once (see History).
   founders relabeled, session cards made photo-dominant, steps section
   redesigned as a connected timeline, benefits section removed, all
   em-dashes normalized to hyphens.
+- 2026-07-10 — Hero shrunk to a content-sized box (was min-height:92vh),
+  scroll-cue removed as no longer needed; final CTA band padding reduced;
+  contact form success message changed from an inline block to a small
+  self-dismissing toast, form now resets after a successful submit.
 
 ## What this is
 
