@@ -100,8 +100,9 @@
 
   /* ---- contact form: submit via fetch, no page navigation ---- */
   var contactForm = document.getElementById('contactForm');
-  var formSuccess = document.getElementById('formSuccess');
-  if (contactForm && formSuccess) {
+  var formToast = document.getElementById('formToast');
+  var toastTimer;
+  if (contactForm && formToast) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -111,8 +112,11 @@
         body: new FormData(contactForm),
         mode: 'no-cors'
       }).then(function () {
-        contactForm.hidden = true;
-        formSuccess.hidden = false;
+        contactForm.reset();
+        if (submitBtn) submitBtn.disabled = false;
+        clearTimeout(toastTimer);
+        formToast.classList.add('show');
+        toastTimer = setTimeout(function () { formToast.classList.remove('show'); }, 5000);
       }).catch(function () {
         // fall back to a normal submit if the request itself failed
         contactForm.submit();
