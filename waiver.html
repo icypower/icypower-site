@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>הצהרת בריאות — ICE THERAPY</title>
+<title>הצהרת בריאות - ICE THERAPY</title>
 <style>
   :root{
     --ice:#1b7fb5; --ice-dark:#0d5a85; --ice-light:#e8f4fb;
@@ -125,7 +125,7 @@
       </label>
 
       <label class="field" style="margin-bottom:0">
-        <span class="lab">איש קשר לחירום — טלפון <span class="req">*</span></span>
+        <span class="lab">איש קשר לחירום - טלפון <span class="req">*</span></span>
         <input type="tel" name="emergency" inputmode="tel" required />
       </label>
     </div>
@@ -146,7 +146,7 @@
       <div class="opt" data-health data-toggle><input type="checkbox" name="h_surgery" /><span>ניתוח / פציעה / מחלה לאחרונה</span></div>
       <div class="opt none" data-none data-toggle><input type="checkbox" name="h_none" /><span><b>אין לי אף אחד מהמצבים הנ"ל</b></span></div>
 
-      <div id="healthWarn">⚠️ סימנת מצב רפואי — ההשתתפות בסדנה מותנית באישור רופא. נא לעדכן את המדריך לפני הטבילה.</div>
+      <div id="healthWarn">⚠️ סימנת מצב רפואי - ההשתתפות בסדנה מותנית באישור רופא. נא לעדכן את המדריך לפני הטבילה.</div>
 
       <label class="field" style="margin-top:18px;margin-bottom:0">
         <span class="lab">פירוט מצב רפואי / בעיות אחרות / משהו נוסף שחשוב שהמדריך יידע <span style="color:var(--muted);font-weight:400">(אם רלוונטי)</span></span>
@@ -166,7 +166,7 @@
 
       <div class="opt consent" data-toggle><input type="checkbox" name="c_health" required /><span>אני מצהיר/ה שקיבלתי את כל המידע על הפעילות ואני במצב פיזי ונפשי תקין להשתתפות. <span class="req">*</span></span></div>
 
-      <div class="opt consent" data-toggle><input type="checkbox" name="c_media" required /><span>ידוע לי שהמפגשים מצולמים ושהמדריך רשאי לעשות שימוש שיווקי בצילומים. (אם אינך מעוניין/ת — סמן/י וכתוב/כתבי לנו בהערות) <span class="req">*</span></span></div>
+      <div class="opt consent" data-toggle><input type="checkbox" name="c_media" required /><span>ידוע לי שהמפגשים מצולמים ושהמדריך רשאי לעשות שימוש שיווקי בצילומים. (אם אינך מעוניין/ת - סמן/י וכתוב/כתבי לנו בהערות) <span class="req">*</span></span></div>
     </div>
 
     <!-- חתימה -->
@@ -259,7 +259,7 @@ form.addEventListener('submit',async e=>{
   if(bad){bad.scrollIntoView({behavior:'smooth',block:'center'});return;}
 
   const payload = {
-    _subject: "הצהרת בריאות חדשה — " + v('name'),
+    _subject: "הצהרת בריאות חדשה - " + v('name'),
     _template: "table",
     _captcha: "false",
     _replyto: v('email'),
@@ -300,7 +300,7 @@ form.addEventListener('submit',async e=>{
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     btn.disabled=false; btn.textContent='שליחת ההצהרה ✓';
-    alert('השליחה נכשלה — בדוק/בדקי חיבור אינטרנט ונסה/נסי שוב. (הטופס נשמר מקומית במכשיר)');
+    alert('השליחה נכשלה - בדוק/בדקי חיבור אינטרנט ונסה/נסי שוב. (הטופס נשמר מקומית במכשיר)');
   }
 });
 </script>

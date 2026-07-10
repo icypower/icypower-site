@@ -200,7 +200,8 @@ img{max-width:100%;display:block}
 /* ---------- sessions grid ---------- */
 .sessions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .session-card{
-  position:relative;display:flex;flex-direction:column;gap:10px;
+  --card-photo-h:220px; /* photo now dominates the card; kept as a var so the icon badge can align to its edge without duplicated numbers */
+  position:relative;display:flex;flex-direction:column;gap:6px;
   padding:20px 20px;border-radius:var(--radius);
   background:var(--card);
   border:1px solid var(--line);
@@ -215,34 +216,43 @@ img{max-width:100%;display:block}
 }
 .session-card:hover{transform:translateY(-5px);border-color:var(--line-strong);background:var(--card-hover);box-shadow:0 16px 34px -16px rgba(20,40,60,.34)}
 .session-card:hover::after{transform:scaleX(1)}
-.session-card .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
-.session-card .ic svg{width:20px;height:20px}
-.session-card h3{margin-top:2px}
-.session-card p{font-size:.9rem}
+/* icon is a floating badge straddling the photo's bottom edge, not a separate tile below it */
+.session-card .ic{
+  position:absolute;z-index:2;
+  top:calc(var(--card-photo-h) - 22px);
+  inset-inline-start:20px;
+  width:44px;height:44px;border-radius:12px;
+  display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);
+  border:3px solid var(--card);
+  box-shadow:0 6px 16px -6px rgba(20,40,60,.4);
+}
+.session-card .ic svg{width:22px;height:22px}
+.session-card h3{margin-top:12px}
+.session-card p{font-size:.88rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .session-card .more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:.95rem}
 .session-card .more svg{width:18px;height:18px;transition:transform .25s var(--ease)}
 .session-card:hover .more svg{transform:translateX(-5px)} /* RTL: arrow points/moves left */
 
-/* ---------- steps ---------- */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step}
-.step{position:relative;padding:30px 26px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:0 8px 24px -14px rgba(20,40,60,.28)}
-.step .num{
-  font-size:.85rem;font-weight:800;color:var(--accent);letter-spacing:.1em;
+/* ---------- steps: connected timeline (deliberately not a card grid, to read
+   differently from the session cards right above it) ---------- */
+.steps-timeline{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-block-start:6px}
+.steps-timeline::before{
+  content:"";position:absolute;z-index:0;
+  inset-inline-start:calc(100%/6);inset-inline-end:calc(100%/6);
+  top:36px;height:2px;background:var(--line-strong);
 }
-.step .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-block:14px}
-.step .ic svg{width:26px;height:26px}
+.step{position:relative;z-index:1;text-align:center}
+.step-circle{
+  position:relative;z-index:2;
+  width:72px;height:72px;border-radius:50%;
+  display:grid;place-items:center;margin-inline:auto;margin-block-end:18px;
+  background:var(--accent);color:#fff;
+  box-shadow:0 10px 26px -10px var(--accent-glow);
+}
+.step-circle svg{width:30px;height:30px}
+.step-num{display:block;font-size:.82rem;font-weight:800;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
 .step h3{margin-bottom:8px}
-.step p{font-size:.98rem}
-/* dots are for the mobile swipe carousel only — enabled inside that media query */
-.steps-dots{display:none}
-
-/* ---------- benefits ---------- */
-.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.benefit{padding:24px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--card);box-shadow:0 8px 24px -14px rgba(20,40,60,.28)}
-.benefit .ic{width:42px;height:42px;color:var(--accent);margin-bottom:12px}
-.benefit .ic svg{width:30px;height:30px}
-.benefit h3{font-size:1.1rem;margin-bottom:6px}
-.benefit p{font-size:.94rem}
+.step p{font-size:.96rem}
 
 /* ---------- proof: stats / logos / testimonials ---------- */
 .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:46px}
@@ -251,16 +261,32 @@ img{max-width:100%;display:block}
 .stat span{color:var(--ink-faint);font-size:.95rem;font-weight:600}
 .stat b .warm{color:var(--accent)}
 
-.logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin-bottom:0}
 /* trust strip — pull it up tight under the FAQ so it doesn't feel isolated */
 .trust-strip{padding-block:0;margin-block-start:calc(-1 * clamp(1.25rem,4vw,2.75rem))}
-.logos .lbl{width:100%;text-align:center;color:var(--ink-faint);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-weight:700}
-.logo-chip{
-  display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:999px;
-  border:1px solid var(--line-strong);background:var(--card);
-  font-weight:700;color:var(--ink-dim);font-size:1rem;
+.trust-strip .lbl{display:block;text-align:center;color:var(--ink-faint);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px;font-weight:700}
+
+/* logo carousel: auto-scrolls, pauses on hover/focus; fixed-height tiles with
+   object-fit:contain handle mixed logo orientations (wide/tall) consistently */
+.logo-carousel{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
 }
-.logo-chip svg{width:18px;height:18px;color:var(--accent)}
+.logo-track{
+  display:flex;align-items:center;gap:20px;width:max-content;
+  animation:logoScroll 26s linear infinite;
+}
+.logo-carousel:hover .logo-track,
+.logo-carousel:focus-within .logo-track{animation-play-state:paused}
+.logo-tile{
+  flex:none;height:66px;width:150px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:10px 20px;
+}
+.logo-tile img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+@keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.logo-track{animation:none}}
 
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .quote{padding:28px 26px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);box-shadow:0 8px 24px -14px rgba(20,40,60,.28)}
@@ -519,26 +545,16 @@ img{max-width:100%;display:block}
 
 /* ---------- session card photo header ---------- */
 .card-photo{
-  height:128px;
+  height:var(--card-photo-h);
   background-size:cover;background-position:center;
   border-radius:calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
   margin-block-start:-20px;
   margin-inline:-20px;
-  margin-block-end:14px;
+  margin-block-end:26px; /* clearance below the floating icon badge before the heading */
   transition:transform .5s var(--ease);
   overflow:hidden;
 }
 .session-card:hover .card-photo{transform:scale(1.05)}
-
-/* ---------- step photo background ---------- */
-.step-bg{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  opacity:.10;z-index:0;
-  transition:opacity .4s;
-}
-.step:hover .step-bg{opacity:.16}
-.step>*:not(.step-bg){position:relative;z-index:1}
 
 /* ---------- new responsive for added components ---------- */
 @media(max-width:960px){
@@ -583,8 +599,7 @@ img{max-width:100%;display:block}
 
 /* ---------- responsive ---------- */
 @media (max-width:960px){
-  .sessions-grid,.steps,.testimonials{grid-template-columns:repeat(2,1fr)}
-  .benefits{grid-template-columns:repeat(2,1fr)}
+  .sessions-grid,.testimonials{grid-template-columns:repeat(2,1fr)}
   .gallery-grid,.gallery-grid.home{grid-template-columns:repeat(2,1fr)}
   .split,.contact-grid,.footer-grid{grid-template-columns:1fr;gap:28px}
   .split .media{order:-1}
@@ -604,12 +619,12 @@ img{max-width:100%;display:block}
   .testimonials{grid-template-columns:1fr}
   /* Sessions: compact 2-up tiles on mobile only (desktop untouched) */
   .sessions-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .session-card{padding:14px 14px 16px;gap:7px;border-radius:14px}
-  .session-card .card-photo{height:92px;margin:-14px -14px 6px;border-radius:12px 12px 0 0}
-  .session-card .ic{width:34px;height:34px;border-radius:9px}
+  .session-card{padding:14px 14px 16px;gap:5px;border-radius:14px;--card-photo-h:168px}
+  .session-card .card-photo{margin:-14px -14px 22px;border-radius:12px 12px 0 0}
+  .session-card .ic{width:34px;height:34px;border-radius:9px;top:calc(var(--card-photo-h) - 17px);inset-inline-start:14px;border-width:2px}
   .session-card .ic svg{width:19px;height:19px}
-  .session-card h3{font-size:.98rem;line-height:1.2}
-  .session-card p{font-size:.8rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .session-card h3{font-size:.98rem;line-height:1.2;margin-top:8px}
+  .session-card p{font-size:.8rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .session-card .more{font-size:.8rem}
   .gallery-grid,.gallery-grid.home{grid-template-columns:1fr 1fr}
   .gtile.wide{grid-column:span 2}
@@ -621,29 +636,16 @@ img{max-width:100%;display:block}
   .section{padding-block:2.25rem}
   .section.tight{padding-block:1.75rem}
 
-  /* How it works: horizontal snap carousel instead of 3 stacked cards */
-  .steps{
-    display:flex;grid-template-columns:none;gap:16px;counter-reset:none;
-    overflow-x:auto;scroll-snap-type:x mandatory;
-    margin-inline:-22px;padding-inline:22px;padding-block-end:4px;
-    scrollbar-width:none;-ms-overflow-style:none;
+  /* How it works: vertical connected timeline on mobile (circle beside text,
+     line running through the circles) instead of the desktop's centered row */
+  .steps-timeline{grid-template-columns:1fr;gap:32px;padding-block-start:0}
+  .steps-timeline::before{
+    inset-inline-start:32px;inset-inline-end:auto;
+    top:32px;bottom:32px;height:auto;width:2px;
   }
-  .steps::-webkit-scrollbar{display:none}
-  .step{flex:0 0 82%;scroll-snap-align:center}
-  .steps-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
-  .steps-dots .dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--line-strong);transition:background .3s,transform .3s;
-  }
-  .steps-dots .dot.active{background:var(--accent);transform:scale(1.3)}
-
-  /* Why it works: compact 2x2 grid instead of 4 stacked cards */
-  .benefits{grid-template-columns:repeat(2,1fr);gap:12px}
-  .benefit{padding:16px}
-  .benefit .ic{width:32px;height:32px;margin-bottom:8px}
-  .benefit .ic svg{width:22px;height:22px}
-  .benefit h3{font-size:1rem}
-  .benefit p{font-size:.82rem}
+  .step{display:flex;align-items:flex-start;gap:16px;text-align:start}
+  .step-circle{margin-inline:0;flex:none;margin-block-end:0;width:64px;height:64px}
+  .step-circle svg{width:26px;height:26px}
 }
 
 /* about-photo-as-background + hide faq-photo: shares the same breakpoint the
