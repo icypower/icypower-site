@@ -58,7 +58,17 @@ that already happened once (see History).
   `C:\Users\eldar\Desktop\claudecode\icypower-site` (a clean, separate git
   checkout of this repo — NOT a subfolder of `icypower-management`
   anymore). Deploys only happen via `git push` to `main`, per the rule
-  below — never `wrangler pages deploy`.
+  below — never `wrangler pages deploy`. One deploy this session failed at
+  the `deploy` stage with `Error: Failed to publish your Function. Got
+  error: Unknown internal error occurred.` — this project has no Functions
+  at all, so it's a transient Cloudflare-side glitch, not a real problem
+  with the code (the asset upload itself had already succeeded). Fix: `POST
+  /accounts/{account_id}/pages/projects/icypower/deployments/{id}/retry`
+  via the Cloudflare API (using `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`)
+  — the retry succeeded immediately. If a deploy ever looks like it didn't
+  take effect after pushing, check
+  `GET .../pages/projects/icypower/deployments` for a `failure` status
+  before assuming the CSS/HTML is wrong.
 
 ### History
 - 2026-07-10 — Repo created (split from `icypower-management`, history
@@ -85,6 +95,16 @@ that already happened once (see History).
   scroll-cue removed as no longer needed; final CTA band padding reduced;
   contact form success message changed from an inline block to a small
   self-dismissing toast, form now resets after a successful submit.
+- 2026-07-10 — Fixed the logo carousel's loop math (was a plain -50% shift,
+  which doesn't land on a real repeat boundary with an odd gap count —
+  caused a visible jump/blank gap); rebuilt as 4 identical `.logo-set`
+  groups shifted by an exact pixel amount. Redesigned the hero further:
+  photo background replaced with a blue gradient + twinkling spark
+  accents, text sizes shrunk and pinned to the right instead of centered,
+  large-screen max-width scale-up reduced so it stays compact on wide
+  monitors. This push's Cloudflare deploy failed on an unrelated transient
+  `Failed to publish your Function` error (no Functions exist in this
+  project) — retried via the Cloudflare API and it succeeded immediately.
 
 ## What this is
 
