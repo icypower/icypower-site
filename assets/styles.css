@@ -272,38 +272,55 @@ img{max-width:100%;display:block}
 .trust-strip{padding-block:0;margin-block-start:calc(-1 * clamp(1.25rem,4vw,2.75rem))}
 .trust-strip .lbl{display:block;text-align:center;color:var(--ink-faint);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px;font-weight:700}
 
-/* logo carousel: auto-scrolls, pauses on hover/focus; fixed-height tiles with
-   object-fit:contain handle mixed logo orientations (wide/tall) consistently */
+/* logo coverflow carousel: one centered, largest card up front; the
+   others stack smaller/dimmer/further back on each side, partially
+   peeking out at the edges. Prev/next arrows step through them (one
+   auto-advances too); clicking a side card jumps straight to it. */
 .logo-carousel{
-  overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  padding-block:10px;
 }
-.logo-track{
-  display:flex;align-items:center;gap:20px;width:max-content;
-  animation:logoScroll 26s linear infinite;
-}
-.logo-carousel:hover .logo-track,
-.logo-carousel:focus-within .logo-track{animation-play-state:paused}
-/* Each .logo-set is one full, identical copy of the 5 logos. Looping by an
-   exact pixel amount (one set's width + the gap after it) — instead of a
-   round -50% — is what makes the wrap seamless: with an odd number of
-   total gaps across the whole track, -50% lands mid-gap rather than on a
-   real repeat boundary, which is what caused the visible jump/blank gap.
-   4 copies also keeps the track comfortably wider than any real viewport,
-   so there's always more track queued up before the loop resets. */
-.logo-set{display:flex;align-items:center;gap:20px;flex:none}
-.logo-tile{
-  flex:none;height:66px;width:150px;
+.logo-stage{
+  position:relative;flex:none;
+  width:min(560px,64vw);height:150px;
   display:flex;align-items:center;justify-content:center;
-  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
-  padding:10px 20px;
+  overflow:hidden;
 }
-.logo-tile img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-/* 5 tiles * 150px + 4 inner gaps * 20px = 830px per set; +20px for the gap
-   that leads into the next set = 850px to advance exactly one full cycle */
-@keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-850px)}}
-@media(prefers-reduced-motion:reduce){.logo-track{animation:none}}
+.logo-card{
+  position:absolute;flex:none;
+  width:160px;height:112px;
+  background:#fff;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px 22px;
+  box-shadow:0 16px 32px -12px rgba(20,40,60,.32);
+  transition:transform .5s var(--ease),opacity .5s var(--ease);
+  cursor:pointer;
+}
+.logo-card img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.logo-card.pos-0{transform:translateX(0) scale(1);z-index:5;opacity:1}
+.logo-card.pos-1{transform:translateX(-138px) scale(.84);z-index:4;opacity:.9}
+.logo-card.pos--1{transform:translateX(138px) scale(.84);z-index:4;opacity:.9}
+.logo-card.pos-2{transform:translateX(-250px) scale(.68);z-index:3;opacity:.55}
+.logo-card.pos--2{transform:translateX(250px) scale(.68);z-index:3;opacity:.55}
+.logo-nav{
+  flex:none;width:42px;height:42px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--card);border:1px solid var(--line-strong);color:var(--accent);
+  cursor:pointer;transition:background .2s,transform .2s;
+}
+.logo-nav:hover{background:var(--card-hover);transform:scale(1.06)}
+.logo-nav svg{width:20px;height:20px}
+@media(max-width:680px){
+  .logo-carousel{gap:8px}
+  .logo-stage{width:min(320px,76vw);height:110px}
+  .logo-card{width:118px;height:84px;padding:12px 16px;border-radius:13px}
+  .logo-card.pos-1{transform:translateX(-100px) scale(.82)}
+  .logo-card.pos--1{transform:translateX(100px) scale(.82)}
+  .logo-card.pos-2{transform:translateX(-180px) scale(.64)}
+  .logo-card.pos--2{transform:translateX(180px) scale(.64)}
+  .logo-nav{width:34px;height:34px}
+  .logo-nav svg{width:16px;height:16px}
+}
 
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .quote{padding:28px 26px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);box-shadow:0 8px 24px -14px rgba(20,40,60,.28)}

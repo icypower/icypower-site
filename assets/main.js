@@ -98,6 +98,40 @@
     });
   }
 
+  /* ---- logo coverflow carousel: center card largest, arrows + click-to-jump ---- */
+  var logoStage = document.getElementById('logoStage');
+  var logoCards = logoStage ? Array.prototype.slice.call(logoStage.querySelectorAll('.logo-card')) : [];
+  if (logoStage && logoCards.length) {
+    var logoActive = 0;
+    var logoCount = logoCards.length;
+    function renderLogos() {
+      logoCards.forEach(function (card, i) {
+        var offset = i - logoActive;
+        if (offset > logoCount / 2) offset -= logoCount;
+        if (offset < -logoCount / 2) offset += logoCount;
+        card.className = 'logo-card pos-' + offset;
+      });
+    }
+    var logoTimer;
+    function goLogo(delta) {
+      logoActive = (logoActive + delta + logoCount) % logoCount;
+      renderLogos();
+    }
+    function resetLogoTimer() {
+      clearInterval(logoTimer);
+      logoTimer = setInterval(function () { goLogo(1); }, 3200);
+    }
+    renderLogos();
+    resetLogoTimer();
+    var prevBtn = document.querySelector('.logo-nav.prev');
+    var nextBtn = document.querySelector('.logo-nav.next');
+    if (prevBtn) prevBtn.addEventListener('click', function () { goLogo(-1); resetLogoTimer(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goLogo(1); resetLogoTimer(); });
+    logoCards.forEach(function (card, i) {
+      card.addEventListener('click', function () { logoActive = i; renderLogos(); resetLogoTimer(); });
+    });
+  }
+
   /* ---- contact form: submit via fetch, no page navigation ---- */
   var contactForm = document.getElementById('contactForm');
   var formToast = document.getElementById('formToast');
