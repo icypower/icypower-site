@@ -23,20 +23,31 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-07-10
-- **What changed:** Homepage revision (logo carousel, About repositioned +
+- **Date:** 2026-07-11
+- **What changed:** The "כבר עבדנו עם" logo widget is now a **manual
+  coverflow carousel** (`.logo-stage`/`.logo-card` in `styles.css`,
+  render logic in `main.js`) — one large centered logo card with the
+  other 4 stacked smaller/dimmer on either side, round prev/next arrows,
+  click-a-side-card-to-jump, still auto-advances every ~3.2s. This
+  replaced an auto-scrolling marquee version from earlier the same day
+  that had a real bug (see History) and then didn't match what Eldar
+  actually wanted (he wanted the manual card-stack look, not a scroller)
+  — if you're asked to touch the logos widget again, this coverflow
+  version is the one to build on, not the marquee.
+- **Earlier the same day:** Homepage revision (About repositioned +
   condensed, session-card photo ratio flip, steps timeline redesign,
   benefits section removed, dashes normalized — see History for the full
-  list) followed by a second pass in the same session: the hero is now
-  content-sized (matches `.page-hero`'s existing pattern) instead of
-  `min-height:92vh`, so it ends right after its content instead of a huge
-  empty gap — removed the now-redundant scroll-down cue too; the final CTA
-  band's padding was reduced so it's noticeably shorter; the contact
-  form's success message is no longer an inline block that replaced the
-  form (it read as stranded in a corner) — it's now a small rounded
-  `.toast` that fades in near the bottom of the screen and disappears on
-  its own after 5s (no close button), and the form resets and stays
-  usable right after submitting.
+  list). Then the hero was made content-sized (matches `.page-hero`'s
+  existing pattern) instead of `min-height:92vh` so it ends right after
+  its content instead of a huge empty gap, then further shrunk again and
+  given a blue-gradient-plus-sparks background instead of a photo (still
+  too tall/text too big the first time), and the now-redundant scroll-down
+  cue was removed. The final CTA band's padding was reduced so it's
+  noticeably shorter. The contact form's success message is no longer an
+  inline block that replaced the form (it read as stranded in a corner) —
+  it's now a small rounded `.toast` that fades in near the bottom of the
+  screen and disappears on its own after 5s (no close button), and the
+  form resets and stays usable right after submitting.
 - **Why:** Eldar reviewed the live site and found the sessions subtitle
   redundant, the trust strip too generic (wanted real client logos), the
   about section buried too early and text-heavy, the session cards
@@ -105,6 +116,11 @@ that already happened once (see History).
   monitors. This push's Cloudflare deploy failed on an unrelated transient
   `Failed to publish your Function` error (no Functions exist in this
   project) — retried via the Cloudflare API and it succeeded immediately.
+- 2026-07-11 — The marquee-style fix above still wasn't what Eldar wanted
+  once he saw a reference image (a manual card-stack carousel with
+  prev/next arrows, not an auto-scroller) — replaced it entirely with a
+  coverflow-style carousel (one large centered card, others smaller/dimmer
+  on each side, arrows + click-to-jump, still auto-advances).
 
 ## What this is
 
