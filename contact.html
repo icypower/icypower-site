@@ -55,17 +55,14 @@
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
           <div><b>אינסטגרם</b><span>the.icy.power.il@</span></div>
         </a>
-        <a class="cmethod" href="waiver.html">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span>
-          <div><b>הצהרת בריאות</b><span>נרשמתם לסדנה? מלאו את הטופס כאן</span></div>
-        </a>
       </div>
     </div>
 
     <!-- form -->
     <!-- FormSubmit (free, no account). On first submit it emails a one-time
-         activation link to icypowerteam@gmail.com — click it once to start receiving leads. -->
-    <form class="form reveal d1" action="https://formsubmit.co/icypowerteam@gmail.com" method="POST">
+         activation link to icypowerteam@gmail.com — click it once to start receiving leads.
+         Submitted via JS (fetch) so the page never navigates away; see main.js. -->
+    <form class="form reveal d1" id="contactForm" action="https://formsubmit.co/icypowerteam@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="ליד חדש מאתר IcyPower" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
@@ -86,8 +83,15 @@
         <textarea id="msg" name="הודעה" placeholder="כמה אתם, מתי, איפה, וכל מה שבא לכם לספר"></textarea>
       </div>
       <button type="submit" class="btn btn-primary btn-lg">שליחת פרטים</button>
-      <p style="font-size:.85rem;color:var(--ice-faint);margin:0">לתגובה מיידית — עדיף בוואטסאפ 🙂</p>
     </form>
+
+    <div class="form-success" id="formSuccess" hidden>
+      <span class="form-success-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+      <h3>תודה! קיבלנו את הפרטים שלכם</h3>
+      <p>ונחזור אליכם בהקדם.</p>
+    </div>
 
   </div>
 </section>

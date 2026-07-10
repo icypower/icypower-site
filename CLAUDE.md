@@ -24,22 +24,34 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-10
-- **What changed:** Repo created by splitting the marketing site out of
-  `icypower-management` (full git history preserved via `git subtree
-  split`). Shortly after, a separate session mistook this repo for a stray
-  duplicate, archived it, and reconnected the `icypower` Cloudflare Pages
-  project to the old (now-empty) location instead — this nearly broke the
-  live site. Fixed: this repo unarchived, `icypower`'s Cloudflare project
-  reconnected here correctly (root directory blank), confirmed via a real
-  successful deploy that the live site works.
-- **Why:** Keep the public marketing site cleanly separate from the
-  business's internal apps (tracker, waivers), which live in
-  `icypower-management`.
-- **Next goal:** None pending for this repo specifically right now — it's
-  stable. Ongoing work (Cloudflare D1 database, unified back-office) is
-  tracked in `icypower-management`'s `CLAUDE.md`.
-- **Anything the next session needs to know:** This repo is the real,
-  canonical site — see "Important history" below before assuming otherwise.
+- **What changed:** Content/UX pass from Eldar's session: contact form now
+  submits via `fetch` so the page never navigates to FormSubmit's bare
+  confirmation page — instead an inline "תודה!" success card fades in in
+  its place (see `assets/main.js` + `.form-success` in `styles.css`).
+  Removed the "עדיף בוואטסאפ" note and the waiver-form contact button from
+  `contact.html` (waiver link still reachable via the footer). On the
+  homepage: the intro section is now vertically centered against its photo
+  carousel with a decorative accent quote-mark icon (it looked plain after
+  the eyebrow label was removed in an earlier session); the "קצת עלינו"
+  about section got a two-avatar founders row (Eldar/Oron, styled like the
+  testimonials' avatar component) so it's not just a wall of paragraphs;
+  both blue-panel sections (about + gallery) now have a wavy SVG top/bottom
+  edge instead of a straight line.
+- **Why:** Eldar reported the contact form's post-submit page looked
+  broken/off-brand, and that the intro + about sections felt visually
+  "blank." This session's Eldar-side local folder was also freshly synced
+  to match this canonical repo exactly beforehand (see below), after it had
+  drifted (missing this CLAUDE.md/README.md/`_headers`, still had a stale
+  `netlify.toml`) from deploying via the old `wrangler` workflow.
+- **Next goal:** None pending for this repo specifically. Eldar still needs
+  to drop a real vertical clip at `assets/video/about.mp4` (currently shows
+  a photo poster instead) and a hero background video, whenever he has
+  the footage.
+- **Anything the next session needs to know:** Eldar's local clone lives at
+  `C:\Users\eldar\Desktop\claudecode\icypower-site` (a clean, separate git
+  checkout of this repo — NOT a subfolder of `icypower-management`
+  anymore). Deploys only happen via `git push` to `main`, per the rule
+  below — never `wrangler pages deploy`.
 
 ### History
 - 2026-07-10 — Repo created (split from `icypower-management`, history
@@ -47,6 +59,14 @@ that already happened once (see History).
   then fixed. `README.md`/`CLAUDE.md` added (had been left behind by the
   split since they lived at the old repo's root, not inside the
   `icypower-site/` subfolder).
+- 2026-07-10 — Eldar's local folder had drifted (still deploying via old
+  `wrangler` uploads, missing this repo's `CLAUDE.md`/`README.md`/
+  `_headers`) — re-cloned fresh from this repo, no content lost (verified
+  this repo already had his latest edits). Then: contact form fixed to
+  confirm inline instead of navigating to FormSubmit's page; removed two
+  small contact-page elements; polished the intro and about sections
+  (centered intro layout + accent icon, founders avatar row); added wavy
+  top/bottom edges to both blue-panel sections.
 
 ## What this is
 

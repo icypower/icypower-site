@@ -114,4 +114,26 @@
     }, { root: stepsContainer, threshold: 0.6 });
     stepEls.forEach(function (el) { stepIo.observe(el); });
   }
+
+  /* ---- contact form: submit via fetch, no page navigation ---- */
+  var contactForm = document.getElementById('contactForm');
+  var formSuccess = document.getElementById('formSuccess');
+  if (contactForm && formSuccess) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        mode: 'no-cors'
+      }).then(function () {
+        contactForm.hidden = true;
+        formSuccess.hidden = false;
+      }).catch(function () {
+        // fall back to a normal submit if the request itself failed
+        contactForm.submit();
+      });
+    });
+  }
 })();
