@@ -121,6 +121,10 @@ that already happened once (see History).
   prev/next arrows, not an auto-scroller) — replaced it entirely with a
   coverflow-style carousel (one large centered card, others smaller/dimmer
   on each side, arrows + click-to-jump, still auto-advances).
+- 2026-07-11 — (management-repo session) Updated the "Related repo"
+  cross-reference below to note that icypower-management's shared D1
+  database, Cloudflare Access, and daily backup are now live — no
+  marketing-site code changed here.
 
 ## What this is
 
@@ -164,5 +168,10 @@ place anyone is expected to edit.
 ## Related repo
 
 `icypower/icypower-management` holds the business's other internal apps
-(financial tracker, waiver forms) and the long-term architecture
-vision — see its `CLAUDE.md` for the bigger picture.
+(financial tracker, waiver forms). As of 2026-07-11 those apps are backed
+by a shared **Cloudflare D1** database (`icypower-core`), with Cloudflare
+Access login on the tracker and an automated daily backup to Google
+Sheets — the "unified back-office" idea is now partly built and live, not
+just aspirational. This marketing site is intentionally kept separate from
+all of that (static, no backend, no database). See that repo's `CLAUDE.md`
+for the full architecture reference.
