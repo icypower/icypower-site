@@ -24,7 +24,22 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** Moved the "כבר עבדנו עם" trust-strip/logo-carousel
+- **What changed:** The intro section (right under the hero) now fades in
+  immediately on page load instead of waiting for scroll (`main.js`'s
+  scroll-reveal block special-cases `.section.intro .reveal` elements -
+  adds `.in` to them immediately instead of handing them to the shared
+  `IntersectionObserver`). Also confirmed for Eldar: the contact form
+  already posts to FormSubmit.co addressed to `icypowerteam@gmail.com` -
+  no code change needed there, just a reminder that FormSubmit requires
+  clicking a one-time activation link (sent to that inbox on the very
+  first submission ever) before it starts forwarding leads automatically.
+- **Note on this session's tooling:** the existing `icy` preview server
+  config (root `.claude/launch.json`, Perl-based, port 5602) works fine
+  standalone, but the Browser-pane preview tool itself failed to
+  navigate/screenshot against it (same unreliability as earlier this
+  week) - verification fell back to static checks (`node -c` syntax
+  check, grep, live HTTP fetch of the deployed JS) instead.
+- **Earlier the same day:** Moved the "כבר עבדנו עם" trust-strip/logo-carousel
   section to sit right after the About section instead of right before
   it (order is now: ... FAQ → About → Trust strip → final CTA). Pure
   markup reorder in `index.html`, no content/CSS changes.
@@ -114,6 +129,10 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Intro section now fades in on page load instead of on
+  scroll; confirmed the contact form already emails
+  `icypowerteam@gmail.com` via FormSubmit (needs one-time activation
+  click on first-ever submission).
 - 2026-07-12 — Moved the trust-strip logo carousel to after the About
   section instead of before it.
 - 2026-07-12 — Added more hero spark accents; concurrently, a second
