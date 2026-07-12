@@ -24,7 +24,14 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** The intro section (right under the hero) now fades in
+- **What changed:** Contact-form emails now get a unique subject line per
+  submission (sender's name + a timestamp, set in `main.js` right before
+  the `fetch` POST) instead of the same fixed `ליד חדש מאתר IcyPower`
+  text every time - Eldar found Gmail was stacking every lead into one
+  long conversation thread because the subject never changed. Don't
+  "fix" this back to a static subject; the varying subject is what keeps
+  each lead as its own thread.
+- **Earlier the same day:** The intro section (right under the hero) now fades in
   immediately on page load instead of waiting for scroll (`main.js`'s
   scroll-reveal block special-cases `.section.intro .reveal` elements -
   adds `.in` to them immediately instead of handing them to the shared
@@ -129,6 +136,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Contact-form emails now get a unique subject line per
+  submission (name + timestamp) so Gmail stops stacking every lead into
+  one conversation thread.
 - 2026-07-12 — Intro section now fades in on page load instead of on
   scroll; confirmed the contact form already emails
   `icypowerteam@gmail.com` via FormSubmit (needs one-time activation
