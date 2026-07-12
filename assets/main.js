@@ -24,7 +24,16 @@
   }
 
   /* ---- scroll reveal ---- */
-  var reveals = document.querySelectorAll('.reveal');
+  /* the intro section sits right under the hero and should fade in with
+     the page load itself, not wait for the user to scroll to it */
+  var introSection = document.querySelector('.section.intro');
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (introSection) {
+    reveals = reveals.filter(function (el) {
+      if (introSection.contains(el)) { el.classList.add('in'); return false; }
+      return true;
+    });
+  }
   if ('IntersectionObserver' in window && reveals.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
