@@ -23,8 +23,36 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-07-11
-- **What changed:** The "כבר עבדנו עם" logo widget is now a **manual
+- **Date:** 2026-07-12
+- **What changed:** Added more `.spark` twinkling dot accents to the hero
+  background (Eldar said he liked the original 7 and wanted more). While
+  this was in flight, **Eldar had a second Claude Code session open on
+  this same local checkout at the same time**, which independently
+  rewrote all the spark spans (switched `inset-inline-start` to plain
+  `left`, evened out their spacing/sizes) and added a thin divider line
+  above the "כבר עבדנו עם" label plus matching CSS. Both sets of changes
+  were confirmed with Eldar and merged into two commits, then pushed
+  together (`1f3a4c2`, `d0d06f2`) after rebasing onto one more commit
+  that had landed on `main` in the meantime (a docs-only `CLAUDE.md` fix
+  in this repo, no code conflict). Live site now has 20 sparks total,
+  positioned via `left` (not the logical `inset-inline-start` property
+  used before), plus the new divider. Confirmed via the specific
+  Cloudflare deployment URL directly (the `icypower.pages.dev` alias was
+  still serving a cached copy briefly after deploy — that's normal CDN
+  lag, not a broken deploy).
+- **Anything the next session needs to know:** Two Claude Code sessions
+  editing this same local working copy at once is a real, current risk,
+  not just a hypothetical from the History below — it happened again
+  today. If `git status`/`git diff` shows unexpected uncommitted changes
+  you didn't make, don't assume it's stray/broken — ask Eldar whether
+  another session is active before committing, discarding, or stashing
+  anything. Also: the Bash tool's shell here does **not** reliably persist
+  `cd` across tool calls within a session (it silently resets to the
+  parent folder `C:\Users\eldar\Desktop\claudecode` between calls at least
+  once this session) — always `cd` into `icypower-site` explicitly,
+  chained with `&&`, in the same command as any git operation, and don't
+  trust an earlier `cd` to still be in effect.
+- **Earlier (2026-07-11):** The "כבר עבדנו עם" logo widget is now a **manual
   coverflow carousel** (`.logo-stage`/`.logo-card` in `styles.css`,
   render logic in `main.js`) — one large centered logo card with the
   other 4 stacked smaller/dimmer on either side, round prev/next arrows,
@@ -82,6 +110,10 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Added more hero spark accents; concurrently, a second
+  active Claude Code session on the same local checkout added a
+  trust-strip divider and rebalanced all spark positions/spacing —
+  confirmed with Eldar and merged both into one push.
 - 2026-07-10 — Repo created (split from `icypower-management`, history
   preserved). Briefly archived and Cloudflare misconfigured by mistake,
   then fixed. `README.md`/`CLAUDE.md` added (had been left behind by the
