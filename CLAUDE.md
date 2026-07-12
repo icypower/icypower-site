@@ -24,7 +24,11 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** Added more `.spark` twinkling dot accents to the hero
+- **What changed:** Moved the "כבר עבדנו עם" trust-strip/logo-carousel
+  section to sit right after the About section instead of right before
+  it (order is now: ... FAQ → About → Trust strip → final CTA). Pure
+  markup reorder in `index.html`, no content/CSS changes.
+- **Earlier the same day:** Added more `.spark` twinkling dot accents to the hero
   background (Eldar said he liked the original 7 and wanted more). While
   this was in flight, **Eldar had a second Claude Code session open on
   this same local checkout at the same time**, which independently
@@ -110,6 +114,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Moved the trust-strip logo carousel to after the About
+  section instead of before it.
 - 2026-07-12 — Added more hero spark accents; concurrently, a second
   active Claude Code session on the same local checkout added a
   trust-strip divider and rebalanced all spark positions/spacing —
