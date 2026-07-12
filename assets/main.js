@@ -150,6 +150,15 @@
       e.preventDefault();
       var submitBtn = contactForm.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
+      /* give each submission a unique subject line so Gmail doesn't group
+         every lead into one long conversation thread */
+      var subjectField = contactForm.querySelector('input[name="_subject"]');
+      if (subjectField) {
+        var nameField = contactForm.querySelector('#name');
+        var nameVal = (nameField && nameField.value) ? nameField.value : 'ליד חדש';
+        var stamp = new Date().toLocaleString('he-IL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        subjectField.value = 'ליד חדש מאתר IcyPower - ' + nameVal + ' - ' + stamp;
+      }
       fetch(contactForm.action, {
         method: 'POST',
         body: new FormData(contactForm),
