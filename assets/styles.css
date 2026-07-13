@@ -702,6 +702,10 @@ img{max-width:100%;display:block}
    tablet-portrait get the simplified stacked treatment together. */
 @media(max-width:820px){
   .hero-video-frame{display:none}
+  /* no video counterweight on this side once it's hidden, so center the
+     hero content instead of leaving it pinned to the RTL-start edge */
+  .hero-inner{text-align:center;margin-inline:auto}
+  .hero-actions,.hero-meta{justify-content:center}
   .about-video{display:none}
   .about-us.blue-panel{
     display:flex;align-items:center;
