@@ -88,6 +88,18 @@
     });
   });
 
+  /* ---- hero video: play the 3 clips back-to-back, looping the set ---- */
+  var heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    var heroClips = ['assets/video/hero-1.mp4', 'assets/video/hero-2.mp4', 'assets/video/hero-3.mp4'];
+    var heroClipIndex = 0;
+    heroVideo.addEventListener('ended', function () {
+      heroClipIndex = (heroClipIndex + 1) % heroClips.length;
+      heroVideo.src = heroClips[heroClipIndex];
+      heroVideo.play();
+    });
+  }
+
   /* ---- intro photo carousel ---- */
   var slides = document.querySelectorAll('.carousel-slide');
   var dots = document.querySelectorAll('.carousel-dots .dot');
