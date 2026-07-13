@@ -24,7 +24,18 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** Contact-form emails now get a unique subject line per
+- **What changed:** Added a rounded video frame (`.hero-video-frame`) on
+  the hero's left side (opposite the text) - a `<video id="heroVideo">`
+  that plays three clips back-to-back on loop (`assets/video/hero-1/2/
+  3.mp4`, chained via an `ended` listener in `main.js`), sourced from
+  Eldar's `contents/` folder (his own staging folder outside the repo,
+  not committed - only the copies under `assets/video/` are tracked).
+  Hidden below the existing 820px mobile breakpoint (same one that
+  already hides `.about-video`/`.faq-photo`) to keep mobile light. Heads
+  up: the three clips total ~19MB and there's no ffmpeg on this machine
+  to compress them, so if load feels heavy on mobile, ask Eldar for
+  lighter/shorter exports or compress them before swapping in.
+- **Earlier the same day:** Contact-form emails now get a unique subject line per
   submission (sender's name + a timestamp, set in `main.js` right before
   the `fetch` POST) instead of the same fixed `ליד חדש מאתר IcyPower`
   text every time - Eldar found Gmail was stacking every lead into one
@@ -136,6 +147,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Added a looping 3-clip video area to the hero's left side
+  (~19MB total, uncompressed - no ffmpeg available on this machine).
 - 2026-07-12 — Contact-form emails now get a unique subject line per
   submission (name + timestamp) so Gmail stops stacking every lead into
   one conversation thread.
