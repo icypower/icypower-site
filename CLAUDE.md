@@ -24,7 +24,12 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** Below 820px (where the hero video is already hidden),
+- **What changed:** Widened the hero content horizontally: `.hero-inner`
+  base max-width 640px → 720px (and every large-screen breakpoint bumped
+  proportionally: 680→760, 700→780, 720→800, 760→840), plus the video
+  frame's max width 560px → 620px, so both sides spread out more and
+  leave less empty gradient gap between them on wide screens.
+- **Earlier the same day:** Below 820px (where the hero video is already hidden),
   the hero's heading/lead/buttons/meta row are now centered instead of
   staying pinned to the RTL-start (right) edge - Eldar saw the mobile
   hero looked lopsided with nothing on the video's side to balance it.
@@ -158,6 +163,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Widened the hero horizontally (text column and video
+  frame both grown, at base and all large-screen breakpoints).
 - 2026-07-12 — Centered the hero content on mobile/tablet (below 820px,
   where the video frame is hidden) instead of leaving it pinned right.
 - 2026-07-12 — Made the hero taller and enlarged/recentered the video
