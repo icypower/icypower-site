@@ -24,7 +24,14 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-07-12
-- **What changed:** Added a rounded video frame (`.hero-video-frame`) on
+- **What changed:** Hero made taller (bottom padding 36px → 90px) and the
+  video frame enlarged/moved closer to center (240-480px wide → 280-560px,
+  6% from the left → 13%). Eldar's request was ambiguous ("lower the
+  border... make it bigger horizontally") - interpreted as "make the
+  section taller" since that's the literal reading of "lower the border";
+  he didn't answer a clarifying question either way, so check with him if
+  this isn't what he meant.
+- **Earlier the same day:** Added a rounded video frame (`.hero-video-frame`) on
   the hero's left side (opposite the text) - a `<video id="heroVideo">`
   that plays three clips back-to-back on loop (`assets/video/hero-1/2/
   3.mp4`, chained via an `ended` listener in `main.js`), sourced from
@@ -147,6 +154,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-12 — Made the hero taller and enlarged/recentered the video
+  frame (request was ambiguous, unconfirmed - see Latest status).
 - 2026-07-12 — Added a looping 3-clip video area to the hero's left side
   (~19MB total, uncompressed - no ffmpeg available on this machine).
 - 2026-07-12 — Contact-form emails now get a unique subject line per
