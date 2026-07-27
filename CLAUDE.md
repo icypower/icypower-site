@@ -23,7 +23,24 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-07-12
+- **Date:** 2026-07-27
+- **New: this site now has one backend endpoint.** Added
+  `functions/go.js` — a Cloudflare Pages Function serving
+  `icypower.pages.dev/go`, used for a printed QR code on the roll-up
+  banner. It 302-redirects to whatever URL is stored in the shared D1
+  database's `settings.qr_target_url` (database: `icypower-core`, shared
+  with `icypower-management`'s tracker/waiver apps — see that repo's
+  `CLAUDE.md` for the full schema), falling back to the Instagram profile
+  if unset/unreachable. **This is the one deliberate exception** to this
+  site being pure static HTML/CSS/JS with no backend/database (see "What
+  this is" below) — everything else about the site is unchanged.
+  Oron/Eldar change the destination from the tracker app's Settings screen
+  (More → "QR code redirect (banner)"), not from anything in this repo.
+  **Manual step still needed:** this project (`icypower` in Cloudflare
+  Pages) needs a `DB` binding added (Settings → Bindings → D1 database →
+  `icypower-core`) or `/go` will just keep falling back to Instagram
+  instead of reading the real setting.
+- **Earlier (2026-07-12):**
 - **What changed:** Widened the hero content horizontally: `.hero-inner`
   base max-width 640px → 720px (and every large-screen breakpoint bumped
   proportionally: 680→760, 700→780, 720→800, 760→840), plus the video
@@ -163,6 +180,12 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-07-27 — Added `functions/go.js`, a single Cloudflare Pages Function
+  serving `/go` as a database-backed redirect for a printed QR code on the
+  roll-up banner (destination stored in the shared D1 database, editable
+  from the tracker app, not from this repo). First-ever backend/database
+  dependency in this otherwise fully static site — needs a `DB` binding
+  added to the `icypower` Cloudflare project (manual step, pending).
 - 2026-07-12 — Widened the hero horizontally (text column and video
   frame both grown, at base and all large-screen breakpoints).
 - 2026-07-12 — Centered the hero content on mobile/tablet (below 820px,
@@ -233,7 +256,12 @@ that already happened once (see History).
 The public marketing website for **ICYPOWERR**, a small wellness business
 (guided ice-bath / cold-exposure / breathwork sessions) run by Oron and
 Eldar in Tel Aviv. Plain static HTML/CSS/JS, no build step, no backend,
-no database.
+no database — with **one deliberate exception**: `functions/go.js`, a
+single Cloudflare Pages Function serving `/go` (a redirect used by a
+printed QR code), which reads its target URL from the same shared D1
+database `icypower-management`'s apps use. See "Latest status" above and
+that repo's `CLAUDE.md` for the full explanation. Nothing else about this
+site talks to a database or has any backend logic.
 
 ## Deployment
 
