@@ -16,7 +16,7 @@ export async function onRequestGet(context) {
     const row = await env.DB.prepare(
       "SELECT value FROM settings WHERE key = 'qr_target_url'"
     ).first();
-    if (row && row.value) target = row.value;
+    if (row && row.value && row.value.trim()) target = row.value.trim();
   } catch (e) {
     // DB unreachable/misconfigured - fall back rather than error out on a
     // scanned QR code.
