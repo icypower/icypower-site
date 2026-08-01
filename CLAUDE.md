@@ -23,7 +23,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-07-27
+- **Date:** 2026-08-02
+- **What changed:** Rewrote the intro section (right under the hero) -
+  removed the decorative quote-mark icon and the old single quote line +
+  4-item bullet list, replaced with a plain `<h2>` headline and three
+  paragraphs of new copy Eldar provided directly. Cleaned up the now-dead
+  `.intro-quote-mark`/`.intro-points`/`.intro .accent` CSS. Also picked up
+  and rebased on top of the `/go` QR redirect work (below) that landed on
+  the remote from a separate session while this one was in progress -
+  confirmed no file overlap before rebasing.
+- **Earlier (2026-07-27):**
 - **New: this site now has one backend endpoint.** Added
   `functions/go.js` — a Cloudflare Pages Function serving
   `icypower.pages.dev/go`, used for a printed QR code on the roll-up
@@ -180,6 +189,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Rewrote the intro section: new headline + 3 paragraphs of
+  Eldar's copy, removed the quote-mark icon and old bullet list.
 - 2026-07-27 — Added `functions/go.js`, a single Cloudflare Pages Function
   serving `/go` as a database-backed redirect for a printed QR code on the
   roll-up banner (destination stored in the shared D1 database, editable
