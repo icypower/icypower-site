@@ -116,16 +116,27 @@
 
     function heroCrossfade() {
       heroIndex = (heroIndex + 1) % heroClips.length;
-      heroNext.currentTime = 0;
-      heroNext.play();
-      heroNext.classList.add('is-active');
-      heroCurrent.classList.remove('is-active');
-      var justHidden = heroCurrent;
-      heroCurrent = heroNext;
-      heroNext = justHidden;
+      var incoming = heroNext;
+      var outgoing = heroCurrent;
+      // don't touch currentTime here - load() already reset it to 0 when
+      // this clip was queued earlier; forcing another seek right at the
+      // crossfade moment caused a brief decode stall (the flash). Only
+      // reveal it once play() confirms playback has actually started.
+      var playPromise = incoming.play();
+      function reveal() {
+        incoming.classList.add('is-active');
+        outgoing.classList.remove('is-active');
+      }
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(reveal).catch(reveal);
+      } else {
+        reveal();
+      }
+      heroCurrent = incoming;
+      heroNext = outgoing;
       // wait for the outgoing clip's fade-out to fully finish before reusing
       // it as the preload buffer - reloading it mid-fade wiped its visible
-      // frame and caused a flash partway through the transition
+      // frame and caused a separate flash partway through the transition
       setTimeout(heroQueueNext, heroFadeMs);
     }
 
