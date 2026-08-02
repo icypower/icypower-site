@@ -24,7 +24,17 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Eldar didn't like the simplified hero's layout, so
+- **What changed:** Fixed the hero CTA not being truly centered - it was
+  visually shifted right. Root cause: `.hero-actions` was absolutely
+  positioned (`left:50%;transform:translateX(-50%)`) relative to
+  `.hero-inner`, a padded, `max-width`-constrained box nested inside the
+  full-bleed `.hero` section, not relative to the section itself. Moved
+  `.hero-actions` in `index.html` to be a **direct child of `.hero`**
+  (sibling of `.hero-inner`, not nested inside it) so its centering math
+  is unambiguous - no CSS change was needed, `.hero .hero-actions`
+  matched either way. **If the CTA is ever moved back inside
+  `.hero-inner`, expect this same off-center issue to return.**
+- **Earlier the same day:** Eldar didn't like the simplified hero's layout, so
   reworked its structure (content unchanged, this is purely CSS/JS):
   1. `.hero` is now exactly `100vh`/`100dvh` tall (was content-sized).
   2. Content is horizontally centered (was pinned to the RTL-start/right
@@ -340,6 +350,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Fixed hero CTA off-center: moved `.hero-actions` to be a
+  direct child of `.hero` instead of nested in `.hero-inner`, so it
+  centers against the full section, not a padded/constrained sub-box.
 - 2026-08-02 — Made hero exactly 100vh, centered its content (was
   pinned right), pinned the CTA near the bottom absolutely, and
   removed the video crossfade transition for instant hard cuts.
