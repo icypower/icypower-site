@@ -207,26 +207,25 @@ img{max-width:100%;display:block}
 
 /* ---------- intro / what is ---------- */
 .intro-heading{text-align:center;margin-bottom:clamp(28px,4vw,48px)}
-.intro-heading::before{
-  content:"";display:block;width:56px;height:4px;border-radius:2px;
-  background:var(--accent);margin:0 auto 20px;
-}
 .intro h2{
   max-width:900px;margin:0 auto;
-  font-size:clamp(1.4rem,4.5vw,1.9rem);white-space:normal;
+  font-size:clamp(1.5rem,4.8vw,2.1rem);white-space:normal;
+}
+.intro-heading::after{
+  content:"";display:block;width:56px;height:4px;border-radius:2px;
+  background:var(--accent);margin:20px auto 0;
 }
 @media(min-width:960px){
   /* enough room at this width (and up) to hold the full headline on one
      line; below it, let it wrap naturally at the larger mobile size
      instead of shrinking the text too much to read comfortably */
-  .intro h2{white-space:nowrap;max-width:none;font-size:clamp(1.4rem,2.3vw,1.75rem)}
+  .intro h2{white-space:nowrap;max-width:none;font-size:clamp(1.45rem,2.4vw,1.85rem)}
 }
 .intro p{
   font-size:clamp(1.05rem,1.3vw,1.25rem);color:var(--ink-dim);
-  max-width:560px;line-height:1.75;padding-top:16px;margin-bottom:0;
-  border-top:1px solid var(--line);
+  max-width:560px;line-height:1.75;margin:0;
 }
-.intro p:first-of-type{border-top:none;padding-top:0}
+.intro p + p{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
 .intro .accent{color:var(--accent);font-weight:700}
 
 /* ---------- cards / generic surface ---------- */
