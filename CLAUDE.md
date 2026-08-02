@@ -24,7 +24,16 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Rewrote the intro section (right under the hero) -
+- **What changed:** Tightened the intro section's copy further (same 3
+  `<p>` structure as the previous entry below, just different wording).
+  Opening paragraph now leads with a differentiation/belief statement
+  ("ב-IcyPower אנחנו מאמינים ש...") instead of a generic feature
+  description, and the "hundreds of businesses" credibility paragraph was
+  dropped entirely (not replaced) - the logo carousel further down the
+  page already covers that with real client names, so it wasn't worth a
+  full paragraph here. The third paragraph (session flow + take-home
+  value) was kept unchanged. No CSS/layout changes.
+- **Earlier the same day:** Rewrote the intro section (right under the hero) -
   removed the decorative quote-mark icon and the old single quote line +
   4-item bullet list, replaced with a plain `<h2>` headline and three
   paragraphs of new copy Eldar provided directly. Cleaned up the now-dead
@@ -189,6 +198,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Tightened the intro section's copy again: stronger
+  differentiation opener, dropped the "hundreds of businesses" paragraph
+  (logo carousel covers that better).
 - 2026-08-02 — Rewrote the intro section: new headline + 3 paragraphs of
   Eldar's copy, removed the quote-mark icon and old bullet list.
 - 2026-07-27 — Added `functions/go.js`, a single Cloudflare Pages Function
