@@ -202,9 +202,18 @@ img{max-width:100%;display:block}
 .hero-meta svg{width:18px;height:18px;color:var(--accent-on-dark)}
 
 /* ---------- intro / what is ---------- */
-.intro h2{max-width:720px;margin-bottom:18px}
-.intro p{font-size:clamp(1rem,1.6vw,1.15rem);color:var(--ink-dim);max-width:720px;line-height:1.75;margin-bottom:14px}
-.intro p:last-child{margin-bottom:0}
+.intro-text::before{
+  content:"";display:block;width:56px;height:4px;border-radius:2px;
+  background:var(--accent);margin:0 auto 20px;
+}
+.intro h2{max-width:720px;margin:0 auto 18px;text-align:center}
+.intro p{
+  font-size:clamp(.95rem,1.1vw,1.05rem);color:var(--ink-dim);
+  max-width:560px;line-height:1.75;padding-top:16px;margin-bottom:0;
+  border-top:1px solid var(--line);
+}
+.intro p:first-of-type{border-top:none;padding-top:0}
+.intro .accent{color:var(--accent);font-weight:700}
 
 /* ---------- cards / generic surface ---------- */
 .surface{
@@ -559,17 +568,22 @@ img{max-width:100%;display:block}
   aspect-ratio:4/3;border:1px solid var(--line);
   background:#E7DECF;
 }
+.intro-carousel::after{
+  content:"";position:absolute;inset-inline:0;bottom:0;height:70px;
+  background:linear-gradient(to top, rgba(10,22,32,.45), transparent);
+  pointer-events:none;z-index:3;
+}
 .carousel-slide{
   position:absolute;inset:0;background-size:cover;background-position:center;
   opacity:0;transition:opacity 1.2s ease;
 }
 .carousel-slide.active{opacity:1}
 .carousel-dots{
-  position:absolute;bottom:14px;inset-inline-start:50%;transform:translateX(50%);
-  display:flex;gap:8px;z-index:4;
+  position:absolute;bottom:16px;inset-inline-start:50%;transform:translateX(50%);
+  display:flex;gap:10px;z-index:4;
 }
 .carousel-dots .dot{
-  width:8px;height:8px;border-radius:50%;
+  width:9px;height:9px;border-radius:50%;
   background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);
   transition:background .3s,transform .3s;cursor:pointer;
 }
