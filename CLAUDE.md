@@ -24,7 +24,26 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Cleaned up the hero foreground. Eldar noticed the nav
+- **What changed:** Radically simplified the hero to just a headline +
+  one CTA - removed the lead paragraph and the meta row (3 icon+phrase
+  items) entirely, no replacement, and dropped the secondary "sessions"
+  ghost button (WhatsApp is now the only CTA). New headline: "תדליקו את
+  הכוח / שבתוככם" (ignite the power within you), replacing "קור שמדליק
+  / אנרגיה". **Why:** Eldar shared 3 reference hero sections he liked
+  (theicebathclubs.com, zivmanor.co.il, penguinproductions.co.il) and
+  specifically praised theicebathclubs.com's headline+CTA-only
+  minimalism for giving the brand's "power sentence" full focus. Agreed
+  this works for IcyPower too even though it's mostly B2B (where a
+  quick context/trust anchor usually matters more than for B2C) because
+  the intro section right below the hero already opens with "...לעסקים
+  ולקבוצות פרטיות" - so that context isn't lost, just one scroll away.
+  Also confirmed explicitly: IcyPower's brand voice is energized/alive/
+  laughing/connected/up-for-a-challenge, **not** zen/calm/gentle
+  wellness - keep that in mind for any future hero or headline copy. If
+  a future session is asked to "add back" a subtitle or stats row here,
+  check with Eldar first - this was a deliberate, discussed choice, not
+  an oversight.
+- **Earlier the same day:** Cleaned up the hero foreground. Eldar noticed the nav
   already shows "IcyPower" (logo + wordmark) right above the hero, which
   then repeated "ICYPOWER" again as a big text wordmark (`.hero-brand`)
   directly under it - redundant/cluttered. Removed that wordmark and
@@ -297,6 +316,10 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Simplified hero to headline + single CTA (removed lead
+  paragraph and meta row entirely, dropped 2nd button); new headline
+  "תדליקו את הכוח שבתוככם", built around an energized/alive brand voice
+  after reviewing 3 reference sites Eldar liked.
 - 2026-08-02 — Removed the redundant "IcyPower" text wordmark from the
   hero (nav already shows it), replaced with the logo icon; enlarged/
   emboldened the lead paragraph and meta row.
