@@ -88,16 +88,49 @@
     });
   });
 
-  /* ---- hero video: play the 3 clips back-to-back, looping the set ---- */
-  var heroVideo = document.getElementById('heroVideo');
-  if (heroVideo) {
-    var heroClips = ['assets/video/hero-1.mp4', 'assets/video/hero-2.mp4', 'assets/video/hero-3.mp4'];
-    var heroClipIndex = 0;
-    heroVideo.addEventListener('ended', function () {
-      heroClipIndex = (heroClipIndex + 1) % heroClips.length;
-      heroVideo.src = heroClips[heroClipIndex];
-      heroVideo.play();
-    });
+  /* ---- hero video: crossfade through the clips with no blank gap ----
+     Two stacked <video> elements swap which one is "active" (opacity 1).
+     The next clip is preloaded into the hidden element while the visible
+     one is still playing, so by the time we crossfade the new clip is
+     already loaded and playing underneath - no flash of black/blank. */
+  var heroVidA = document.getElementById('heroVideoA');
+  var heroVidB = document.getElementById('heroVideoB');
+  if (heroVidA && heroVidB) {
+    var heroClips = [
+      'assets/video/hero-1.mp4',
+      'assets/video/hero-2.mp4',
+      'assets/video/hero-3.mp4',
+      'assets/video/hero-4.mp4',
+      'assets/video/hero-5.mp4'
+    ];
+    var heroIndex = 0;
+    var heroCurrent = heroVidA;
+    var heroNext = heroVidB;
+
+    function heroQueueNext() {
+      var nextIndex = (heroIndex + 1) % heroClips.length;
+      heroNext.src = heroClips[nextIndex];
+      heroNext.load();
+    }
+
+    function heroCrossfade() {
+      heroIndex = (heroIndex + 1) % heroClips.length;
+      heroNext.currentTime = 0;
+      heroNext.play();
+      heroNext.classList.add('is-active');
+      heroCurrent.classList.remove('is-active');
+      var swap = heroCurrent;
+      heroCurrent = heroNext;
+      heroNext = swap;
+      heroQueueNext();
+    }
+
+    heroVidA.addEventListener('ended', heroCrossfade);
+    heroVidB.addEventListener('ended', heroCrossfade);
+
+    heroCurrent.src = heroClips[0];
+    heroCurrent.play();
+    heroQueueNext();
   }
 
   /* ---- intro photo carousel ---- */
