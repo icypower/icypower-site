@@ -167,22 +167,16 @@ img{max-width:100%;display:block}
 }
 .hero h1{font-size:clamp(1.5rem,3.6vw,2.5rem);margin-bottom:12px;color:var(--on-dark);letter-spacing:-.01em}
 
-/* hero entrance cascade — the brand assembles first, then the rest reveal after it */
+/* hero entrance cascade — the brand assembles first, then the CTA follows */
 .hero h1.reveal{transition-delay:.5s}
-.hero .lead.reveal{transition-delay:.65s}
-.hero .hero-actions.reveal{transition-delay:.8s}
-.hero .hero-meta.reveal{transition-delay:.95s}
+.hero .hero-actions.reveal{transition-delay:.65s}
 @keyframes brandPop{
   0%{opacity:0;transform:translateY(16px) scale(.84);letter-spacing:.5em;filter:blur(5px)}
   55%{opacity:1;filter:blur(0)}
   100%{opacity:1;transform:translateY(0) scale(1);letter-spacing:.04em;filter:blur(0)}
 }
 .hero h1 .warm{color:var(--accent-on-dark)}
-.hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:500;color:var(--on-dark-dim);max-width:560px;margin-bottom:20px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px}
-.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:20px;color:var(--on-dark-faint);font-size:.95rem;font-weight:600}
-.hero-meta span{display:inline-flex;align-items:center;gap:8px}
-.hero-meta svg{width:18px;height:18px;color:var(--accent-on-dark)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
 
 /* ---------- intro / what is ---------- */
 .intro-heading{text-align:center;margin-bottom:clamp(28px,4vw,48px)}
@@ -694,7 +688,7 @@ img{max-width:100%;display:block}
   /* the hero video is now a full-bleed background at every width, so this
      is just a mobile-friendly centered treatment for the text over it */
   .hero-inner{text-align:center;margin-inline:auto}
-  .hero-actions,.hero-meta{justify-content:center}
+  .hero-actions{justify-content:center}
   .about-video{display:none}
   .about-us.blue-panel{
     display:flex;align-items:center;
