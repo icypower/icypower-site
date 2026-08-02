@@ -24,7 +24,24 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Fixed the hero CTA not being truly centered - it was
+- **What changed:** Fixed the CTA "disappearing" after the previous fix
+  moved it out of `.hero-inner`. Real cause: it was never gone - it was
+  rendering **behind the opaque video**. `.hero-video-frame` (z-index:1)
+  and `.hero-inner` (z-index:2) are positioned with explicit z-index
+  values; `.hero-actions`, once moved to be `.hero`'s direct child, had
+  none (`z-index:auto`) - and per CSS stacking rules, z-index:auto
+  positioned elements paint *behind* any sibling with an explicit
+  positive z-index, regardless of DOM order. Added `z-index:2` to fix
+  it. **Any future positioned element added as a direct child of
+  `.hero` needs an explicit z-index ≥2 or it'll have this same
+  invisible-behind-the-video bug.** Also: enlarged the headline further
+  (max ~3.1rem → ~3.8rem) and moved it up (was vertically centered via
+  `justify-content:center`; now starts ~22% down the section instead
+  via `justify-content:flex-start;padding-block:22vh 0`), and removed
+  the small logo icon above it entirely per request - cleaned up the
+  now-fully-dead `.hero-logo`/`brandPop` CSS (that keyframe was already
+  an orphan from an even earlier wordmark-icon swap).
+- **Earlier the same day:** Fixed the hero CTA not being truly centered - it was
   visually shifted right. Root cause: `.hero-actions` was absolutely
   positioned (`left:50%;transform:translateX(-50%)`) relative to
   `.hero-inner`, a padded, `max-width`-constrained box nested inside the
@@ -350,6 +367,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Fixed CTA rendering invisibly behind the video (missing
+  z-index after the previous move); enlarged/repositioned headline
+  upward; removed the logo icon above it.
 - 2026-08-02 — Fixed hero CTA off-center: moved `.hero-actions` to be a
   direct child of `.hero` instead of nested in `.hero-inner`, so it
   centers against the full section, not a padded/constrained sub-box.
