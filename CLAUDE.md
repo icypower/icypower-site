@@ -24,7 +24,20 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Hero video area overhauled:
+- **What changed:** Fixed a real bug in the hero video crossfade (below):
+  `heroQueueNext()` was reloading the outgoing `<video>`'s `src`
+  immediately on crossfade, while that element was still visibly
+  fading out over its 0.9s opacity transition - reloading wipes a
+  video element's current frame, so this caused a visible flash
+  partway through every transition. Fixed by delaying the reload via
+  `setTimeout(heroQueueNext, heroFadeMs)` until after the fade-out
+  fully completes (`heroFadeMs` = 900, must stay in sync with the CSS
+  transition duration on `.hero-video-frame video`). Also reordered the
+  clip sequence (hero-2.mp4 moved from 2nd to 4th) and removed the bold
+  weight from the "הכוח שבקור" accent-highlighted phrase only (the
+  other one, "עם אנרגיה, צחוק, חיבור והמון חיים", stays bold) via a new
+  `.accent-regular{font-weight:400}` modifier class.
+- **Earlier the same day:** Hero video area overhauled:
   1. Replaced the 3 hero clips with 5 new ones from Eldar
      (`assets/video/hero-1.mp4` through `hero-5.mp4`).
   2. Rebuilt the crossfade logic in `main.js` to use **two stacked
@@ -249,6 +262,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Fixed a flash mid-crossfade in the hero video (was
+  reloading the outgoing clip's src before its fade-out finished);
+  reordered the clip sequence; unbolded one of the two accent phrases.
 - 2026-08-02 — Replaced hero videos with 5 new clips + rebuilt as a
   true crossfade (2 stacked `<video>`s). First deploy failed silently
   (Cloudflare's 25MB/file limit, hero-5.mp4 was 26.9MB) - installed
