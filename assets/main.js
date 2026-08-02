@@ -98,14 +98,15 @@
   if (heroVidA && heroVidB) {
     var heroClips = [
       'assets/video/hero-1.mp4',
-      'assets/video/hero-2.mp4',
       'assets/video/hero-3.mp4',
       'assets/video/hero-4.mp4',
+      'assets/video/hero-2.mp4',
       'assets/video/hero-5.mp4'
     ];
     var heroIndex = 0;
     var heroCurrent = heroVidA;
     var heroNext = heroVidB;
+    var heroFadeMs = 900; // must match .hero-video-frame video's transition duration in styles.css
 
     function heroQueueNext() {
       var nextIndex = (heroIndex + 1) % heroClips.length;
@@ -119,10 +120,13 @@
       heroNext.play();
       heroNext.classList.add('is-active');
       heroCurrent.classList.remove('is-active');
-      var swap = heroCurrent;
+      var justHidden = heroCurrent;
       heroCurrent = heroNext;
-      heroNext = swap;
-      heroQueueNext();
+      heroNext = justHidden;
+      // wait for the outgoing clip's fade-out to fully finish before reusing
+      // it as the preload buffer - reloading it mid-fade wiped its visible
+      // frame and caused a flash partway through the transition
+      setTimeout(heroQueueNext, heroFadeMs);
     }
 
     heroVidA.addEventListener('ended', heroCrossfade);
