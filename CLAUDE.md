@@ -24,7 +24,21 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Fixed a real bug in the hero video crossfade (below):
+- **What changed:** Fixed a *second* cause of the hero video crossfade
+  flash - Eldar reported it still happened after the first fix (below).
+  `heroCrossfade()` was calling `heroNext.currentTime = 0` right at the
+  crossfade moment, forcing a fresh seek exactly as the fade-in started
+  - redundant (`.load()` already resets `currentTime` to 0 when the clip
+  was queued, seconds earlier) and the seek itself caused a brief decode
+  stall. Removed that line, and the incoming clip's opacity fade-in now
+  only fires after its `play()` promise resolves (confirming playback
+  actually started) instead of assuming it started instantly. **If a
+  flash is ever reported again on this feature, look for a third
+  possible cause rather than assuming these two fixes were wrong** - the
+  Browser preview tool couldn't render in this session to visually
+  confirm either fix, so both were verified by logic/code inspection
+  only, not by watching it play.
+- **Earlier the same day:** Fixed a real bug in the hero video crossfade (below):
   `heroQueueNext()` was reloading the outgoing `<video>`'s `src`
   immediately on crossfade, while that element was still visibly
   fading out over its 0.9s opacity transition - reloading wipes a
@@ -262,6 +276,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Fixed a second crossfade flash cause: a redundant
+  currentTime=0 seek right at the crossfade moment; incoming clip now
+  only fades in after play() confirms it actually started.
 - 2026-08-02 — Fixed a flash mid-crossfade in the hero video (was
   reloading the outgoing clip's src before its fade-out finished);
   reordered the clip sequence; unbolded one of the two accent phrases.
