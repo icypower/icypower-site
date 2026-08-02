@@ -24,7 +24,18 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Fixed a *second* cause of the hero video crossfade
+- **What changed:** The hero video (5-clip crossfade, see History below)
+  is now the **full-bleed background of the entire hero section**, at
+  every screen size including mobile - not a small rounded window on the
+  left anymore. Removed the twinkling spark accents entirely (dead code:
+  `.hero-sparks`/`.spark`/`sparkTwinkle` - gone from `index.html` and
+  `styles.css`, don't re-add them, the video replaced that role).
+  `.hero-bg` is now just a plain dark gradient fallback behind the video
+  (visible only before the first frame paints, or if video fails). Added
+  `.hero-video-frame::after`, a dark scrim gradient on top of the video,
+  so hero text stays readable over moving footage. Confirmed with Eldar
+  that video-on-mobile-too was wanted (not gradient-only on mobile).
+- **Earlier the same day:** Fixed a *second* cause of the hero video crossfade
   flash - Eldar reported it still happened after the first fix (below).
   `heroCrossfade()` was calling `heroNext.currentTime = 0` right at the
   crossfade moment, forcing a fresh seek exactly as the fade-in started
@@ -276,6 +287,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Hero video is now the full-bleed background (all screen
+  sizes) instead of a side window; removed the spark accents entirely;
+  added a dark scrim over the video for text legibility.
 - 2026-08-02 — Fixed a second crossfade flash cause: a redundant
   currentTime=0 seek right at the crossfade moment; incoming clip now
   only fades in after play() confirms it actually started.
