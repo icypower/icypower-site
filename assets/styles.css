@@ -158,29 +158,22 @@ img{max-width:100%;display:block}
 }
 .hero-inner{
   position:relative;z-index:2;width:100%;max-width:720px;margin-inline:auto;
-  padding-block:140px 120px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding-block:22vh 0;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   text-align:center;
 }
-.hero-logo{
-  width:clamp(44px,5vw,60px);height:clamp(44px,5vw,60px);
-  margin-bottom:16px;
-  animation:brandPop 1s var(--ease) both;
+.hero h1{
+  font-size:clamp(2.2rem,5.4vw,3.8rem);margin-bottom:12px;
+  color:var(--on-dark);letter-spacing:-.01em;
 }
-.hero h1{font-size:clamp(1.8rem,4.4vw,3.1rem);margin-bottom:12px;color:var(--on-dark);letter-spacing:-.01em}
 
-/* hero entrance cascade — the brand assembles first, then the CTA follows */
+/* hero entrance cascade — the headline reveals first, then the CTA follows */
 .hero h1.reveal{transition-delay:.5s}
 .hero .hero-actions.reveal{transition-delay:.65s}
-@keyframes brandPop{
-  0%{opacity:0;transform:translateY(16px) scale(.84);letter-spacing:.5em;filter:blur(5px)}
-  55%{opacity:1;filter:blur(0)}
-  100%{opacity:1;transform:translateY(0) scale(1);letter-spacing:.04em;filter:blur(0)}
-}
 .hero h1 .warm{color:var(--accent-on-dark)}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
 .hero .hero-actions{
-  position:absolute;left:50%;bottom:clamp(40px,7vh,80px);
+  position:absolute;z-index:2;left:50%;bottom:clamp(40px,7vh,80px);
   transform:translateX(-50%);
 }
 
@@ -479,7 +472,6 @@ img{max-width:100%;display:block}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
   .float-wa::after{animation:none}
-  .hero-logo{animation:none}
 }
 
 /* ---------- hero: video bg support ---------- */
