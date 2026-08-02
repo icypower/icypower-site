@@ -88,11 +88,12 @@
     });
   });
 
-  /* ---- hero video: crossfade through the clips with no blank gap ----
-     Two stacked <video> elements swap which one is "active" (opacity 1).
-     The next clip is preloaded into the hidden element while the visible
-     one is still playing, so by the time we crossfade the new clip is
-     already loaded and playing underneath - no flash of black/blank. */
+  /* ---- hero video: instant hard-cut switching between clips ----
+     Two stacked <video> elements swap which one is "active" (opacity 1,
+     no transition - an instant cut, not a fade). The next clip is
+     preloaded into the hidden element while the visible one is still
+     playing, so by the time we switch, the new clip is already loaded
+     and playing underneath - no flash of black/blank. */
   var heroVidA = document.getElementById('heroVideoA');
   var heroVidB = document.getElementById('heroVideoB');
   if (heroVidA && heroVidB) {
@@ -106,7 +107,6 @@
     var heroIndex = 0;
     var heroCurrent = heroVidA;
     var heroNext = heroVidB;
-    var heroFadeMs = 900; // must match .hero-video-frame video's transition duration in styles.css
 
     function heroQueueNext() {
       var nextIndex = (heroIndex + 1) % heroClips.length;
@@ -114,14 +114,14 @@
       heroNext.load();
     }
 
-    function heroCrossfade() {
+    function heroSwitch() {
       heroIndex = (heroIndex + 1) % heroClips.length;
       var incoming = heroNext;
       var outgoing = heroCurrent;
       // don't touch currentTime here - load() already reset it to 0 when
       // this clip was queued earlier; forcing another seek right at the
-      // crossfade moment caused a brief decode stall (the flash). Only
-      // reveal it once play() confirms playback has actually started.
+      // switch moment caused a brief decode stall. Only reveal it once
+      // play() confirms playback has actually started.
       var playPromise = incoming.play();
       function reveal() {
         incoming.classList.add('is-active');
@@ -134,14 +134,14 @@
       }
       heroCurrent = incoming;
       heroNext = outgoing;
-      // wait for the outgoing clip's fade-out to fully finish before reusing
-      // it as the preload buffer - reloading it mid-fade wiped its visible
-      // frame and caused a separate flash partway through the transition
-      setTimeout(heroQueueNext, heroFadeMs);
+      // the switch is instant (no fade), so the outgoing clip is already
+      // invisible immediately - safe to reuse it as the preload buffer
+      // right away instead of waiting for a transition to finish
+      heroQueueNext();
     }
 
-    heroVidA.addEventListener('ended', heroCrossfade);
-    heroVidB.addEventListener('ended', heroCrossfade);
+    heroVidA.addEventListener('ended', heroSwitch);
+    heroVidB.addEventListener('ended', heroSwitch);
 
     heroCurrent.src = heroClips[0];
     heroCurrent.play();
