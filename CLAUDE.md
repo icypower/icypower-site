@@ -24,7 +24,36 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Restructured the intro section's layout -
+- **What changed:** Hero video area overhauled:
+  1. Replaced the 3 hero clips with 5 new ones from Eldar
+     (`assets/video/hero-1.mp4` through `hero-5.mp4`).
+  2. Rebuilt the crossfade logic in `main.js` to use **two stacked
+     `<video>` elements** (`#heroVideoA`/`#heroVideoB`) instead of one -
+     the next clip preloads into the hidden element while the current
+     one plays, then a CSS opacity transition (`.hero-video-frame
+     video{opacity:0;transition:opacity .9s} .is-active{opacity:1}`)
+     crossfades between them. Fixes the blank/black flash that happened
+     before when swapping a single `<video>`'s `src` on `ended`.
+  3. **This broke the deploy the first time**: `hero-5.mp4` was 26.9MB,
+     over Cloudflare Pages' hard **25MB per-file limit** - the build
+     failed silently from Eldar's POV (nothing looked different because
+     the previous successful deploy was still live). Diagnosed via the
+     Cloudflare deployment logs API
+     (`/deployments/{id}/history/logs`), not guesswork.
+  4. **Installed `ffmpeg`** (`winget install Gyan.FFmpeg` - the standard
+     trusted Windows build, confirmed via `winget show` before
+     installing) since none was available on this machine, and
+     re-encoded all 5 clips: downscaled 1920x1080→960px wide (the
+     display frame maxes out around 620px, so 1080p was pure waste),
+     stripped audio (videos are muted anyway), CRF 26. **Total dropped
+     from ~67MB to ~6.3MB** with no visible quality loss at display
+     size. Redeployed successfully after this.
+  - Intro section presentation also polished further this session (see
+    entries below): headline moved above the two-column layout,
+    centered, single line on desktop; accent line moved from above the
+    headline to below it as an underline; headline text enlarged;
+    divider lines between paragraphs given breathing room on both sides.
+- **Earlier the same day:** Restructured the intro section's layout -
   `.intro-heading` (the `<h2>` + accent bar) moved out of `.intro-text`
   to sit full-width, centered, above the two-column `.intro-split`
   (carousel + paragraphs) instead of inside the text column. On desktop/
@@ -220,6 +249,13 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Replaced hero videos with 5 new clips + rebuilt as a
+  true crossfade (2 stacked `<video>`s). First deploy failed silently
+  (Cloudflare's 25MB/file limit, hero-5.mp4 was 26.9MB) - installed
+  ffmpeg and re-encoded all 5 (1080p→960px, audio stripped) from ~67MB
+  total down to ~6.3MB, then redeployed successfully. Also moved the
+  intro's accent line below the headline as an underline, enlarged the
+  headline, and spaced out the paragraph dividers.
 - 2026-08-02 — Moved intro headline above the two-column layout
   (full-width, centered, single line at 960px+); columns now top-align
   instead of vertically centering; enlarged paragraph text.
