@@ -24,7 +24,18 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Tightened the intro section's copy further (same 3
+- **What changed:** Polished the intro section's *presentation* only (no
+  wording changed) - centered the `<h2>` with a small accent-color bar
+  above it, narrowed/shrunk the body paragraphs (720px→560px,
+  ~1.1rem→~1rem) for a clearer size hierarchy under the headline, added a
+  thin divider line between paragraphs, wrapped two short phrases in
+  `<span class="accent">` for scannability, and polished the photo
+  carousel's dots (bigger + a bottom gradient scrim for legibility over
+  any photo). Design reasoning: kept the carousel (adds life, just needed
+  better dot contrast); deliberately did NOT convert to bullet points -
+  the copy is flowing narrative prose, not parallel facts, so bullets
+  would break the storytelling.
+- **Earlier the same day:** Tightened the intro section's copy further (same 3
   `<p>` structure as the previous entry below, just different wording).
   Opening paragraph now leads with a differentiation/belief statement
   ("ב-IcyPower אנחנו מאמינים ש...") instead of a generic feature
@@ -198,6 +209,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Polished intro section presentation (no copy changes):
+  centered headline + accent bar, narrower/smaller body text, paragraph
+  dividers, 2 accent-color phrase highlights, better carousel dots.
 - 2026-08-02 — Tightened the intro section's copy again: stronger
   differentiation opener, dropped the "hundreds of businesses" paragraph
   (logo carousel covers that better).
