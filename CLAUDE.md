@@ -24,7 +24,18 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Polished the intro section's *presentation* only (no
+- **What changed:** Restructured the intro section's layout -
+  `.intro-heading` (the `<h2>` + accent bar) moved out of `.intro-text`
+  to sit full-width, centered, above the two-column `.intro-split`
+  (carousel + paragraphs) instead of inside the text column. On desktop/
+  tablet (960px+) the headline forces `white-space:nowrap` at a smaller,
+  fitted font-size so it stays on one line; below 960px it wraps
+  naturally at a larger size instead of shrinking too small to read.
+  `.intro-split` changed from `align-items:center` to `align-items:start`
+  so the text column's top now lines up with the carousel's top edge
+  instead of both being vertically centered as a pair. Paragraph font
+  size was also enlarged (~1rem → ~1.15rem clamp).
+- **Earlier the same day:** Polished the intro section's *presentation* only (no
   wording changed) - centered the `<h2>` with a small accent-color bar
   above it, narrowed/shrunk the body paragraphs (720px→560px,
   ~1.1rem→~1rem) for a clearer size hierarchy under the headline, added a
@@ -209,6 +220,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Moved intro headline above the two-column layout
+  (full-width, centered, single line at 960px+); columns now top-align
+  instead of vertically centering; enlarged paragraph text.
 - 2026-08-02 — Polished intro section presentation (no copy changes):
   centered headline + accent bar, narrower/smaller body text, paragraph
   dividers, 2 accent-color phrase highlights, better carousel dots.
