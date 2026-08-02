@@ -24,7 +24,17 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** The hero video (5-clip crossfade, see History below)
+- **What changed:** Cleaned up the hero foreground. Eldar noticed the nav
+  already shows "IcyPower" (logo + wordmark) right above the hero, which
+  then repeated "ICYPOWER" again as a big text wordmark (`.hero-brand`)
+  directly under it - redundant/cluttered. Removed that wordmark and
+  replaced it with the actual `assets/img/logo-mark.svg` icon
+  (`.hero-logo`) above the "קור שמדליק אנרגיה" heading instead. Also
+  enlarged and gave more weight to the lead paragraph/meta row for
+  visibility, and tightened the h1's letter-spacing slightly - confirmed
+  with Eldar to stay on Heebo throughout rather than introduce a second
+  typeface just for the hero.
+- **Earlier the same day:** The hero video (5-clip crossfade, see History below)
   is now the **full-bleed background of the entire hero section**, at
   every screen size including mobile - not a small rounded window on the
   left anymore. Removed the twinkling spark accents entirely (dead code:
@@ -287,6 +297,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Removed the redundant "IcyPower" text wordmark from the
+  hero (nav already shows it), replaced with the logo icon; enlarged/
+  emboldened the lead paragraph and meta row.
 - 2026-08-02 — Hero video is now the full-bleed background (all screen
   sizes) instead of a side window; removed the spark accents entirely;
   added a dark scrim over the video for text legibility.
