@@ -24,7 +24,31 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Radically simplified the hero to just a headline +
+- **What changed:** Eldar didn't like the simplified hero's layout, so
+  reworked its structure (content unchanged, this is purely CSS/JS):
+  1. `.hero` is now exactly `100vh`/`100dvh` tall (was content-sized).
+  2. Content is horizontally centered (was pinned to the RTL-start/right
+     edge via `margin-inline-start:0` - removed that, `.hero-inner` now
+     uses `margin-inline:auto` + `text-align:center`), and the headline
+     is enlarged slightly (`2.5rem` max → `3.1rem` max).
+  3. The CTA (`.hero .hero-actions`) is pulled out of normal flow with
+     `position:absolute;bottom:clamp(40px,7vh,80px)` so it sits near the
+     section's bottom edge independent of headline height, instead of
+     sitting right below it. **Note:** `.hero-actions` is a shared class
+     also used in the CTA band further down the page - the absolute
+     positioning is scoped to `.hero .hero-actions` specifically, don't
+     move it to the bare `.hero-actions` selector or it'll break that
+     other section.
+  4. Removed several now-redundant mobile-only centering overrides in
+     the 820px media query (centering is the default at every width now).
+  5. **Separately, removed the crossfade transition entirely** - clips
+     now hard-cut instantly between each other instead of fading (Eldar
+     wanted no transition/delay at all). The double-buffer preload
+     mechanism (next clip loads in the hidden `<video>` while the
+     current one plays) stays - it still prevents any load-stutter on
+     the cut, just no more opacity fade. `heroCrossfade()` was renamed
+     `heroSwitch()` in `main.js` for clarity now that it's not a fade.
+- **Earlier the same day:** Radically simplified the hero to just a headline +
   one CTA - removed the lead paragraph and the meta row (3 icon+phrase
   items) entirely, no replacement, and dropped the secondary "sessions"
   ghost button (WhatsApp is now the only CTA). New headline: "תדליקו את
@@ -316,6 +340,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Made hero exactly 100vh, centered its content (was
+  pinned right), pinned the CTA near the bottom absolutely, and
+  removed the video crossfade transition for instant hard cuts.
 - 2026-08-02 — Simplified hero to headline + single CTA (removed lead
   paragraph and meta row entirely, dropped 2nd button); new headline
   "תדליקו את הכוח שבתוככם", built around an energized/alive brand voice
