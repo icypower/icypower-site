@@ -160,14 +160,12 @@ img{max-width:100%;display:block}
   position:relative;z-index:2;padding-block:112px 90px;max-width:720px;
   margin-inline-start:0; /* pin to the RTL-start (right) edge instead of centering */
 }
-.hero-brand{
-  display:inline-block;font-weight:900;line-height:1;
-  font-size:clamp(1.75rem,5vw,3rem);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--accent-on-dark);
-  margin-bottom:10px;
+.hero-logo{
+  display:block;width:clamp(44px,5vw,60px);height:clamp(44px,5vw,60px);
+  margin-bottom:16px;
   animation:brandPop 1s var(--ease) both;
 }
-.hero h1{font-size:clamp(1.5rem,3.6vw,2.5rem);margin-bottom:12px;color:var(--on-dark)}
+.hero h1{font-size:clamp(1.5rem,3.6vw,2.5rem);margin-bottom:12px;color:var(--on-dark);letter-spacing:-.01em}
 
 /* hero entrance cascade — the brand assembles first, then the rest reveal after it */
 .hero h1.reveal{transition-delay:.5s}
@@ -180,9 +178,9 @@ img{max-width:100%;display:block}
   100%{opacity:1;transform:translateY(0) scale(1);letter-spacing:.04em;filter:blur(0)}
 }
 .hero h1 .warm{color:var(--accent-on-dark)}
-.hero .lead{font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--on-dark-dim);max-width:520px;margin-bottom:20px}
+.hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:500;color:var(--on-dark-dim);max-width:560px;margin-bottom:20px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
-.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:20px;color:var(--on-dark-faint);font-size:.95rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:20px;color:var(--on-dark-faint);font-size:.95rem;font-weight:600}
 .hero-meta span{display:inline-flex;align-items:center;gap:8px}
 .hero-meta svg{width:18px;height:18px;color:var(--accent-on-dark)}
 
@@ -480,9 +478,8 @@ img{max-width:100%;display:block}
 .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
-  .hero-bg::before{animation:none}
   .float-wa::after{animation:none}
-  .hero-brand{animation:none}
+  .hero-logo{animation:none}
 }
 
 /* ---------- hero: video bg support ---------- */
