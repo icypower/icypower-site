@@ -173,8 +173,12 @@ img{max-width:100%;display:block}
 .hero h1 .warm{color:var(--accent-on-dark)}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
 .hero .hero-actions{
-  position:absolute;z-index:2;left:50%;bottom:clamp(40px,7vh,80px);
-  transform:translateX(-50%);
+  /* transform-free centering - this element also carries .reveal, whose
+     .reveal.in rule sets transform:none on reveal, which would silently
+     clobber a translateX-based centering transform the moment it fires */
+  position:absolute;z-index:2;inset-inline:0;bottom:clamp(40px,7vh,80px);
+  width:fit-content;margin-inline:auto;
+  justify-content:center;
 }
 
 /* ---------- intro / what is ---------- */
