@@ -24,7 +24,20 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Two more updates:
+- **What changed:** Swapped `private-groups.html`'s "media" photo for
+  a real one (`contents/session pages/pic2.jpg` → new file
+  `assets/img/ph-land-6.jpg`, ~1MB → 204KB after ffmpeg compression).
+  **Important:** that page previously shared `ph-land-4.jpg` with
+  `events.html` - did **not** overwrite that file (which would have
+  silently changed events.html's photo too), instead added the new
+  photo under its own filename and repointed only
+  private-groups.html's reference. **Any time an image file is shared
+  across multiple pages, check `grep -rln '<filename>' *.html` first**
+  before deciding whether to overwrite in place (fine if only one page
+  uses it) or add a new file + repoint one reference (required if
+  shared) - this is the second time this exact situation has come up
+  this session (see the intro-1.jpg/card-events.jpg swap entry above).
+- **Earlier:** Two more updates:
   1. Replaced `assets/img/ph-land-3.jpg` (frozen-lake stock photo used
      on `business.html`'s "חוויה אחת, המון אחרי" section) with Eldar's
      real group session photo (`contents/session pages/pic 1.jpg`,
@@ -491,6 +504,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Swapped private-groups.html's media photo for a real
+  one via a new file (ph-land-6.jpg), avoiding overwriting the
+  ph-land-4.jpg it used to share with events.html.
 - 2026-08-03 — Swapped business.html's frozen-lake stock photo for a
   real group photo; removed the tag-label bubbles from gallery photos
   (grid + homepage strip).
