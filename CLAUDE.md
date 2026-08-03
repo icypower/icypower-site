@@ -24,7 +24,13 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced the intro section's carousel photos
+- **What changed:** Updated 4 session card descriptions on the homepage
+  (`index.html`, `.sessions-grid`): "חברות וצוותים" (companies/teams),
+  "סדנת זוגות" (couples), "אירועים ומסיבות" (added `/ות` to "רווקים",
+  now gender-inclusive), and "משהו אחר במחשבה?" (custom - "כמות חריגה"
+  → "כמות גדולה", added "מותאמת אישית"). Copy-only, no layout/CSS
+  changes.
+- **Earlier:** Replaced the intro section's carousel photos
   (`assets/img/intro-1.jpg` through `intro-7.jpg`) with 7 new ones from
   Eldar (sourced from `contents/section 2/`, his own staging folder,
   not committed). Originals were 1536x2048 at 1-1.7MB each (~8.3MB
@@ -396,6 +402,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Updated 4 session card descriptions (companies, couples,
+  events, custom) with new copy Eldar provided.
 - 2026-08-03 — Replaced intro carousel's 4 photos with 7 new ones,
   resized/compressed with ffmpeg (~8.3MB → ~2.1MB); decided against
   making this section video instead of photos (hero already covers that).
