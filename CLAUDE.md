@@ -24,7 +24,22 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-02
-- **What changed:** Fixed the CTA "disappearing" after the previous fix
+- **What changed:** Fixed the CTA centering **for real** this time -
+  the earlier "fixed" version (`left:50%;transform:translateX(-50%)`)
+  looked right in the code but was still visibly off-center in
+  practice (button's left edge landed at 50%, not its middle). Root
+  cause: `.hero-actions` also carries `.reveal` for its entrance
+  animation, and `.reveal.in{transform:none}` (equal specificity,
+  later in the file) was clobbering the centering `transform` the
+  moment the button revealed itself - `transform` doesn't merge across
+  rules, only one wins. Switched to a transform-free centering
+  technique (`inset-inline:0;width:fit-content;margin-inline:auto`)
+  that can't collide with `.reveal`. **Lesson for future sessions:**
+  any element with the `.reveal` class needs positioning/layout done
+  without relying on `transform` for anything other than the reveal
+  animation itself, or use `.reveal.in` combined with the other
+  selector to guarantee it wins the cascade.
+- **Earlier the same day:** Fixed the CTA "disappearing" after the previous fix
   moved it out of `.hero-inner`. Real cause: it was never gone - it was
   rendering **behind the opaque video**. `.hero-video-frame` (z-index:1)
   and `.hero-inner` (z-index:2) are positioned with explicit z-index
@@ -367,6 +382,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-02 — Fixed CTA centering for real: `.reveal.in{transform:none}`
+  was clobbering the translateX-based centering; switched to a
+  transform-free technique instead.
 - 2026-08-02 — Fixed CTA rendering invisibly behind the video (missing
   z-index after the previous move); enlarged/repositioned headline
   upward; removed the logo icon above it.
