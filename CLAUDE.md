@@ -24,7 +24,23 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced `hero-gallery.jpg` (gallery.html's hero
+- **What changed:** Replaced the About section's (`index.html`,
+  `.about-video`) video placeholder with a real horizontal photo.
+  `.about-vid` was always a `<video>` pointing at
+  `assets/video/about.mp4`, which **never actually existed** - it only
+  ever showed its `poster` image (`hero-about.jpg`). Converted the
+  element to a plain `<img>` and swapped in Eldar's group photo
+  (`contents/general photos/us photo.jpg` → new file
+  `assets/img/about-us.jpg`, since `hero-about.jpg` is shared with
+  `about.html`'s unrelated page-hero banner - didn't touch that).
+  Changed the aspect ratio from portrait 9/16 to landscape 4/3 per
+  request, and **removed the desktop-only height-driven sizing rules**
+  (`@media(min-width:821px)`/`1400px` blocks) that were tuned
+  specifically for a tall portrait video - they'd have forced the new
+  landscape photo absurdly wide otherwise. **If asked to touch this
+  element again, remember it's a plain `<img>` now, not a video** - the
+  `assets/video/about.mp4` placeholder path is gone entirely.
+- **Earlier:** Replaced `hero-gallery.jpg` (gallery.html's hero
   background, used only there) with Eldar's real photo
   (`contents/session pages/pic7.jpg`), and added a 14th gallery tile
   (`assets/img/g14.jpg`, from `contents/gellery/IMG_9160.jpg`).
@@ -522,6 +538,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — About section's video placeholder (never had a real
+  video) replaced with a real horizontal photo; converted <video> to
+  <img>, portrait 9/16 → landscape 4/3.
 - 2026-08-03 — Replaced gallery.html's hero background photo; added a
   14th gallery tile (g14.jpg).
 - 2026-08-03 — Swapped window photos on open-session/couples/events
