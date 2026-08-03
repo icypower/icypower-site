@@ -24,7 +24,24 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Each session sub-page's hero background now uses
+- **What changed:** Two small updates:
+  1. Sessions section homepage heading: "חוויה אחת, מותאמת לכל קבוצה"
+     → "מה מעניין אתכם?" (`index.html`).
+  2. Swapped `assets/img/intro-1.jpg` (beach/bucket-hat party photo)
+     with `assets/img/card-events.jpg` (soldiers/military photo) -
+     Eldar wanted them in each other's spot (the military one into the
+     homepage intro carousel, the beach party one onto the אירועים
+     ומסיבות card + `events.html`'s hero). **Swapped the actual file
+     bytes, not the HTML references** - both filenames are used in
+     multiple places (`intro-1.jpg` in the carousel;
+     `card-events.jpg` on the homepage card AND `events.html`'s hero
+     background), so swapping file contents was simpler and safer than
+     chasing every reference. If asked to swap other images like this
+     again, this file-content-swap approach is the right pattern -
+     confirm by re-reading the resulting files with the Read tool
+     (visual check) before publishing, since a byte-swap gives no
+     other structural signal that it worked correctly.
+- **Earlier:** Each session sub-page's hero background now uses
   the same photo as its homepage card instead of the old generic stock
   photos - `business.html` (card-biz.jpg, was hero-business.jpg),
   `private-groups.html` (card-groups.jpg), `open-session.html`
@@ -444,6 +461,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Updated sessions heading to "מה מעניין אתכם?"; swapped
+  intro-1.jpg and card-events.jpg's file contents per Eldar's request.
 - 2026-08-03 — Session sub-page heroes now use their homepage card's
   photo instead of generic stock images; removed business.html's
   duplicate "how it works" section (only page that had one).
