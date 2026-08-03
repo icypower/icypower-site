@@ -24,7 +24,22 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Updated `business.html` copy (companies/teams page):
+- **What changed:** Each session sub-page's hero background now uses
+  the same photo as its homepage card instead of the old generic stock
+  photos - `business.html` (card-biz.jpg, was hero-business.jpg),
+  `private-groups.html` (card-groups.jpg), `open-session.html`
+  (card-open.jpg), `couples.html` (card-couples.jpg), `events.html`
+  (card-events.jpg), `contact.html` (card-custom.jpg - this is the
+  "משהו אחר במחשבה" card's target; contact.html also serves as the
+  general contact page though, worth knowing if that ever feels
+  mismatched). Also removed `business.html`'s duplicate "איך זה עובד"
+  section (repeated homepage content) - checked every other session
+  sub-page for the same pattern and confirmed none had it, only
+  business.html did. The nav's "איך זה עובד" **link** stays everywhere
+  (it's just a menu item to `index.html#how`, not a section) -
+  `index.html`'s own how-it-works section was explicitly left alone
+  per instruction.
+- **Earlier:** Updated `business.html` copy (companies/teams page):
   hero headline ("גיבוש שלא ישכחו" → "חוויה שהם לא ישכחו") and lead
   line, the "חוויה אחת, המון אחרי" section's intro paragraph, and all 4
   feature-list bullets (kept existing icons, just swapped text). Same
@@ -429,6 +444,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Session sub-page heroes now use their homepage card's
+  photo instead of generic stock images; removed business.html's
+  duplicate "how it works" section (only page that had one).
 - 2026-08-03 — Updated business.html copy: hero headline/lead, intro
   paragraph, and all 4 feature-list bullets.
 - 2026-08-03 — Updated homepage steps-section heading.
