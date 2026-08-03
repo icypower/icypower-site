@@ -24,7 +24,23 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Two small updates:
+- **What changed:** Replaced all gallery stock photos with real ones -
+  Eldar provided 17 candidate photos in `contents/gellery/`; visually
+  reviewed every one (using the Read tool's image support) and excluded
+  4 that were exact duplicates of photos already used in the homepage
+  intro carousel (`sec2 pic 1/5/6/7.jpg`), keeping the remaining 13
+  unique ones. Resized to 900px wide + ffmpeg compression (~12MB →
+  ~2.6MB, ~78% smaller). `gallery.html`'s grid grew from 12 tiles to 13
+  (`assets/img/g01.jpg` through `g13.jpg` - g13 is new, g01-g12 had
+  their file contents replaced in place) with tags matched to each
+  photo's real content (נשימה/קבוצה/צחוקים/הדרכה/איזון/אמבטיה/חיבור).
+  **Note:** the homepage's own gallery preview strip
+  (`index.html`, `.gallery-grid.home`) reuses g09/g01/g05/g03 by
+  filename, so it picked up new photos automatically too - fixed 2 of
+  its tags there since the old ones (קבוצה/אנרגיה) no longer matched.
+  `gallery.html`'s own hero background (`hero-gallery.jpg`) was left
+  untouched - only the photo grid was in scope for this request.
+- **Earlier:** Two small updates:
   1. Sessions section homepage heading: "חוויה אחת, מותאמת לכל קבוצה"
      → "מה מעניין אתכם?" (`index.html`).
   2. Swapped `assets/img/intro-1.jpg` (beach/bucket-hat party photo)
@@ -461,6 +477,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Replaced all 12 gallery stock photos with 13 real ones
+  from Eldar (g01-g13.jpg, ~78% smaller after compression); homepage
+  gallery strip picked up 4 of them automatically via shared filenames.
 - 2026-08-03 — Updated sessions heading to "מה מעניין אתכם?"; swapped
   intro-1.jpg and card-events.jpg's file contents per Eldar's request.
 - 2026-08-03 — Session sub-page heroes now use their homepage card's
