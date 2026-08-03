@@ -24,7 +24,11 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced the About section's (`index.html`,
+- **What changed:** Replaced `hero-groups.jpg` (the FAQ section's
+  `.faq-photo`, used only there) in place with Eldar's real photo
+  (`contents/general photos/asked questions photo.jpg`), resized/
+  cropped to 4:3 with ffmpeg.
+- **Earlier:** Replaced the About section's (`index.html`,
   `.about-video`) video placeholder with a real horizontal photo.
   `.about-vid` was always a `<video>` pointing at
   `assets/video/about.mp4`, which **never actually existed** - it only
@@ -538,6 +542,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Replaced the FAQ section's photo (hero-groups.jpg) with
+  a real one.
 - 2026-08-03 — About section's video placeholder (never had a real
   video) replaced with a real horizontal photo; converted <video> to
   <img>, portrait 9/16 → landscape 4/3.
