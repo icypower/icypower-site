@@ -24,7 +24,13 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Updated the homepage "how it works" steps section
+- **What changed:** Updated `business.html` copy (companies/teams page):
+  hero headline ("גיבוש שלא ישכחו" → "חוויה שהם לא ישכחו") and lead
+  line, the "חוויה אחת, המון אחרי" section's intro paragraph, and all 4
+  feature-list bullets (kept existing icons, just swapped text). Same
+  pattern as the private-groups.html update earlier this session.
+  Copy-only.
+- **Earlier:** Updated the homepage "how it works" steps section
   heading: "שלושה שלבים. שינוי אחד אמיתי." → "שלושה שלבים. חוויה אחת
   בלתי נשכחת." (`index.html`). Copy-only.
 - **Earlier:** Updated `private-groups.html` copy: hero headline
@@ -423,6 +429,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Updated business.html copy: hero headline/lead, intro
+  paragraph, and all 4 feature-list bullets.
 - 2026-08-03 — Updated homepage steps-section heading.
 - 2026-08-03 — Updated private-groups.html copy: hero headline/lead,
   intro paragraph, and all 4 feature-list bullets.
