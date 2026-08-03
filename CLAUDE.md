@@ -24,7 +24,12 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Swapped `private-groups.html`'s "media" photo for
+- **What changed:** Added 2 more client logos to the homepage's logo
+  coverflow carousel (`assets/img/logos/hachalutz.png`, `vamos.jpg` -
+  from `contents/logos/`, Eldar's staging folder) - now 7 logos total.
+  No JS changes needed, `main.js`'s carousel logic already reads
+  `.logo-card` count dynamically.
+- **Earlier:** Swapped `private-groups.html`'s "media" photo for
   a real one (`contents/session pages/pic2.jpg` → new file
   `assets/img/ph-land-6.jpg`, ~1MB → 204KB after ffmpeg compression).
   **Important:** that page previously shared `ph-land-4.jpg` with
@@ -504,6 +509,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Added 2 client logos (החלוץ, Vamos) to the logo
+  carousel - now 7 total.
 - 2026-08-03 — Swapped private-groups.html's media photo for a real
   one via a new file (ph-land-6.jpg), avoiding overwriting the
   ph-land-4.jpg it used to share with events.html.
