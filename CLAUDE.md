@@ -24,7 +24,10 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Updated `private-groups.html` copy: hero headline
+- **What changed:** Updated the homepage "how it works" steps section
+  heading: "שלושה שלבים. שינוי אחד אמיתי." → "שלושה שלבים. חוויה אחת
+  בלתי נשכחת." (`index.html`). Copy-only.
+- **Earlier:** Updated `private-groups.html` copy: hero headline
   ("הקבוצה שלכם, חוויה אחרת" → "נשבור שגרה עם החבר'ה?") and lead line,
   the "אתגר שמצחיק ומחבר" section's intro paragraph, and all 4 feature-
   list bullet points (kept the existing icons, just swapped text -
@@ -420,6 +423,7 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Updated homepage steps-section heading.
 - 2026-08-03 — Updated private-groups.html copy: hero headline/lead,
   intro paragraph, and all 4 feature-list bullets.
 - 2026-08-03 — Replaced all 6 session card photos with new ones from
