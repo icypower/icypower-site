@@ -24,7 +24,21 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced all gallery stock photos with real ones -
+- **What changed:** Two more updates:
+  1. Replaced `assets/img/ph-land-3.jpg` (frozen-lake stock photo used
+     on `business.html`'s "חוויה אחת, המון אחרי" section) with Eldar's
+     real group session photo (`contents/session pages/pic 1.jpg`,
+     resized/compressed with ffmpeg, 450KB → 115KB). **Note the
+     `contents/session pages/` folder** - a new staging location
+     alongside `gellery`/`section 2`/`section 3`/`hero section`, not
+     committed, just for reference if asked to find more files there.
+  2. Removed the small category tag labels/bubbles (e.g. "נשימה"/"קרח")
+     that were overlaid on gallery photos - both on `gallery.html`'s
+     grid (13 of them) and `index.html`'s homepage gallery preview
+     strip (4 of them). The `.tag` CSS rule in `styles.css` was left in
+     place (harmless, just unused now) rather than deleted, in case a
+     future request wants a similar label pattern elsewhere.
+- **Earlier:** Replaced all gallery stock photos with real ones -
   Eldar provided 17 candidate photos in `contents/gellery/`; visually
   reviewed every one (using the Read tool's image support) and excluded
   4 that were exact duplicates of photos already used in the homepage
@@ -477,6 +491,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Swapped business.html's frozen-lake stock photo for a
+  real group photo; removed the tag-label bubbles from gallery photos
+  (grid + homepage strip).
 - 2026-08-03 — Replaced all 12 gallery stock photos with 13 real ones
   from Eldar (g01-g13.jpg, ~78% smaller after compression); homepage
   gallery strip picked up 4 of them automatically via shared filenames.
