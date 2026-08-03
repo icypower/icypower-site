@@ -23,8 +23,22 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-08-02
-- **What changed:** Fixed the CTA centering **for real** this time -
+- **Date:** 2026-08-03
+- **What changed:** Replaced the intro section's carousel photos
+  (`assets/img/intro-1.jpg` through `intro-7.jpg`) with 7 new ones from
+  Eldar (sourced from `contents/section 2/`, his own staging folder,
+  not committed). Originals were 1536x2048 at 1-1.7MB each (~8.3MB
+  total) - resized to 1000px wide + re-compressed with ffmpeg (now
+  installed on this machine, see the hero-video entry below) down to
+  ~2.1MB total, no visible quality loss. Went from 4 slides to 7 - the
+  carousel's JS (`main.js`, reads `.carousel-slide`/`.carousel-dots
+  .dot` counts dynamically) and dot markup needed no logic changes,
+  just matching HTML added. Discussed with Eldar whether this section
+  should become a video window (like the hero) instead of photos -
+  decided against it: the hero already carries the video/motion
+  moment, and a second autoplaying video right under it would compete
+  with the reading content next to it rather than add anything new.
+- **Earlier:** Fixed the CTA centering **for real** this time -
   the earlier "fixed" version (`left:50%;transform:translateX(-50%)`)
   looked right in the code but was still visibly off-center in
   practice (button's left edge landed at 50%, not its middle). Root
@@ -382,6 +396,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Replaced intro carousel's 4 photos with 7 new ones,
+  resized/compressed with ffmpeg (~8.3MB → ~2.1MB); decided against
+  making this section video instead of photos (hero already covers that).
 - 2026-08-02 — Fixed CTA centering for real: `.reveal.in{transform:none}`
   was clobbering the translateX-based centering; switched to a
   transform-free technique instead.
