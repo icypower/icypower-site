@@ -24,7 +24,13 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced all 6 session card photos
+- **What changed:** Updated `private-groups.html` copy: hero headline
+  ("הקבוצה שלכם, חוויה אחרת" → "נשבור שגרה עם החבר'ה?") and lead line,
+  the "אתגר שמצחיק ומחבר" section's intro paragraph, and all 4 feature-
+  list bullet points (kept the existing icons, just swapped text -
+  3rd bullet, "אנחנו מגיעים אליכם...", was left unchanged since Eldar's
+  new wording matched the old one exactly). Copy-only, no layout/CSS.
+- **Earlier:** Replaced all 6 session card photos
   (`assets/img/card-biz/couples/custom/events/groups/open.jpg`) with
   new ones from Eldar (`contents/section 3/`, staging folder, not
   committed) - each source file was literally named after its card's
@@ -414,6 +420,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Updated private-groups.html copy: hero headline/lead,
+  intro paragraph, and all 4 feature-list bullets.
 - 2026-08-03 — Replaced all 6 session card photos with new ones from
   Eldar (matched by filename = card heading), resized/compressed with
   ffmpeg (~9.7MB → ~1.0MB).
