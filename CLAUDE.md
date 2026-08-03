@@ -24,7 +24,11 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Swapped the "window" photo on 3 more session pages
+- **What changed:** Replaced `hero-gallery.jpg` (gallery.html's hero
+  background, used only there) with Eldar's real photo
+  (`contents/session pages/pic7.jpg`), and added a 14th gallery tile
+  (`assets/img/g14.jpg`, from `contents/gellery/IMG_9160.jpg`).
+- **Earlier:** Swapped the "window" photo on 3 more session pages
   with real ones from `contents/session pages/` (pic3/4/5), overwriting
   in place since each was confirmed used on only one page:
   `ph-land-2.jpg` (open-session.html), `ph-land.jpg` (couples.html),
@@ -518,6 +522,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Replaced gallery.html's hero background photo; added a
+  14th gallery tile (g14.jpg).
 - 2026-08-03 — Swapped window photos on open-session/couples/events
   pages; left contact.html alone per Eldar (no matching section there).
 - 2026-08-03 — Added 2 client logos (החלוץ, Vamos) to the logo
