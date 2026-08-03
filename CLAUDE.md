@@ -24,7 +24,19 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Updated 4 session card descriptions on the homepage
+- **What changed:** Replaced all 6 session card photos
+  (`assets/img/card-biz/couples/custom/events/groups/open.jpg`) with
+  new ones from Eldar (`contents/section 3/`, staging folder, not
+  committed) - each source file was literally named after its card's
+  Hebrew heading (e.g. `חברות וצוותים.jpg`), so the mapping was
+  unambiguous, no clarification needed. Originals were 1.3-2.4MB each
+  at 1536-2048px (~9.7MB total) for a card photo that displays at only
+  ~220px tall/~450px max width - resized to 800px wide + ffmpeg
+  compression, down to ~1.0MB total (~89% smaller). One was a PNG with
+  an alpha channel (`משהו אחר במחשבה.png`) - converted straight to JPG
+  since it's used as a plain photo background, not expected to need
+  transparency.
+- **Earlier:** Updated 4 session card descriptions on the homepage
   (`index.html`, `.sessions-grid`): "חברות וצוותים" (companies/teams),
   "סדנת זוגות" (couples), "אירועים ומסיבות" (added `/ות` to "רווקים",
   now gender-inclusive), and "משהו אחר במחשבה?" (custom - "כמות חריגה"
@@ -402,6 +414,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Replaced all 6 session card photos with new ones from
+  Eldar (matched by filename = card heading), resized/compressed with
+  ffmpeg (~9.7MB → ~1.0MB).
 - 2026-08-03 — Updated 4 session card descriptions (companies, couples,
   events, custom) with new copy Eldar provided.
 - 2026-08-03 — Replaced intro carousel's 4 photos with 7 new ones,
