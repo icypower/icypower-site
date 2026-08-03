@@ -24,7 +24,16 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Added 2 more client logos to the homepage's logo
+- **What changed:** Swapped the "window" photo on 3 more session pages
+  with real ones from `contents/session pages/` (pic3/4/5), overwriting
+  in place since each was confirmed used on only one page:
+  `ph-land-2.jpg` (open-session.html), `ph-land.jpg` (couples.html),
+  `ph-land-4.jpg` (events.html - now safe to overwrite in place since
+  private-groups.html moved to its own `ph-land-6.jpg` earlier).
+  **Eldar explicitly said to leave `contact.html`/pic6 alone** - that
+  page has no matching window/media section (just a hero + the contact
+  form), so there was nothing to swap there; don't add one unless asked.
+- **Earlier:** Added 2 more client logos to the homepage's logo
   coverflow carousel (`assets/img/logos/hachalutz.png`, `vamos.jpg` -
   from `contents/logos/`, Eldar's staging folder) - now 7 logos total.
   No JS changes needed, `main.js`'s carousel logic already reads
@@ -509,6 +518,8 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Swapped window photos on open-session/couples/events
+  pages; left contact.html alone per Eldar (no matching section there).
 - 2026-08-03 — Added 2 client logos (החלוץ, Vamos) to the logo
   carousel - now 7 total.
 - 2026-08-03 — Swapped private-groups.html's media photo for a real
