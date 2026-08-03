@@ -520,7 +520,7 @@ img{max-width:100%;display:block}
 .about-founder span{display:block;font-size:.82rem;color:var(--on-dark-faint)}
 .about-video{display:flex;justify-content:center}
 .about-vid{
-  width:min(280px,78%);aspect-ratio:9/16;object-fit:cover;
+  width:100%;max-width:560px;aspect-ratio:4/3;object-fit:cover;
   border-radius:22px;border:1px solid var(--on-dark-line-strong);
   background:#0f2537;box-shadow:0 24px 60px -24px rgba(0,0,0,.55);
 }
@@ -537,17 +537,8 @@ img{max-width:100%;display:block}
   .about-split{grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px)}
   .about-text{gap:12px}
   .about-text p{font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.55}
-  .about-vid{
-    width:auto;max-width:100%;
-    height:min(calc(100vh - var(--nav-h) - 96px),540px);
-    height:min(calc(100dvh - var(--nav-h) - 96px),540px);
-  }
   /* gallery images stay compact so the whole panel fits one screen */
   .blue-panel .gallery-grid.home .gtile{aspect-ratio:3/4;max-height:calc(100dvh - var(--nav-h) - 220px)}
-}
-/* large screens: allow a touch more height without going oversized */
-@media(min-width:1400px){
-  .about-vid{height:min(calc(100dvh - var(--nav-h) - 120px),580px)}
 }
 
 /* ---------- intro photo carousel ---------- */
