@@ -24,7 +24,23 @@ that already happened once (see History).
 
 ### Latest status
 - **Date:** 2026-08-03
-- **What changed:** Replaced `hero-groups.jpg` (the FAQ section's
+- **What changed:** Eldar reported some sections rendering with a
+  black background instead of white. **Verified this was never a real
+  site bug** - checked the actual live deployed CSS directly and
+  confirmed `--sand:#FFFFFF`/`--card:#B4D0EA` (both correctly light,
+  nothing dark). The symptom (some plain-background sections inverted
+  to black, photos and the intentionally-dark hero unaffected) matches
+  the exact signature of a browser's forced/auto dark-mode feature
+  (Chrome's "Auto Dark Mode for Web Contents," or an extension like
+  Dark Reader) - not our code. Added `<meta name="color-scheme"
+  content="light">` to all 10 pages + `color-scheme:light` in
+  `styles.css`'s `:root`, which opts out of Chrome's *native* forced
+  dark rendering (a third-party extension like Dark Reader would still
+  override this regardless - that's outside what any site's code can
+  control). **If this is ever reported again, don't assume the CSS
+  broke** - check the live deployed CSS values first (`curl` the
+  actual `--sand`/`--card` variables) before touching any code.
+- **Earlier:** Replaced `hero-groups.jpg` (the FAQ section's
   `.faq-photo`, used only there) in place with Eldar's real photo
   (`contents/general photos/asked questions photo.jpg`), resized/
   cropped to 4:3 with ffmpeg.
@@ -542,6 +558,9 @@ that already happened once (see History).
   before assuming the CSS/HTML is wrong.
 
 ### History
+- 2026-08-03 — Diagnosed "black sections" report as browser forced
+  dark-mode, not a real bug (confirmed live CSS was always correct);
+  added color-scheme:light to opt out of Chrome's native version.
 - 2026-08-03 — Replaced the FAQ section's photo (hero-groups.jpg) with
   a real one.
 - 2026-08-03 — About section's video placeholder (never had a real
