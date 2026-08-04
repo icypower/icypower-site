@@ -333,8 +333,8 @@ img{max-width:100%;display:block}
 }
 
 /* ---------- WhatsApp screenshot coverflow ---------- */
-.wa-reviews-section{padding-block:clamp(1.5rem,3vw,2.5rem)}
-.wa-coverflow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:28px}
+.wa-reviews-section{padding-block-start:clamp(2.5rem,5vw,4rem);padding-block-end:clamp(1rem,2vw,1.5rem)}
+.wa-coverflow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px}
 .wa-stage{
   position:relative;flex:none;
   width:min(900px,88vw);height:660px;
