@@ -333,10 +333,7 @@ img{max-width:100%;display:block}
 }
 
 /* ---------- WhatsApp screenshot coverflow ---------- */
-.wa-reviews-section{background:#000;padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(1.5rem,3vw,2.5rem)}
-.wa-reviews-section .eyebrow{color:var(--accent-on-dark)}
-.wa-reviews-section .eyebrow::before{background:var(--accent-on-dark)}
-.wa-reviews-section h2{color:#fff}
+.wa-reviews-section{padding-top:clamp(3rem,6vw,5rem);padding-bottom:0.25rem}
 .wa-reviews-section .section-head.center{margin-bottom:10px}
 .wa-coverflow{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:0}
 .wa-stage{
