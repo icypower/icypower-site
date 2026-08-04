@@ -2,6 +2,13 @@
 
 Read automatically at the start of every Claude Code session in this repo.
 
+## ⚠️ HARD RULE — Cloudflare AI: DO NOT USE
+
+**Never enable, configure, call, or touch any Cloudflare AI / AI Agent feature**
+(Workers AI, AI Gateway, AI Agents SDK, or any `ai.run()`/AI binding in wrangler.toml).
+Eldar explicitly banned this — hitting the usage limit could take the live site down.
+This rule has no exceptions. If any request seems to require Cloudflare AI, stop and ask the user for an alternative approach.
+
 ## 🔄 Session Handoff Log — read this section first, every time
 
 Both Oron and Eldar work on this repo, in separate Claude Code sessions,
