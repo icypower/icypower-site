@@ -332,54 +332,17 @@ img{max-width:100%;display:block}
   .logo-nav svg{width:16px;height:16px}
 }
 
-/* ---------- WhatsApp review cards ---------- */
+/* ---------- WhatsApp screenshot reviews ---------- */
 .wa-reviews-section{background:var(--dark);padding-block:72px}
 .wa-reviews-section .eyebrow{color:var(--accent-on-dark)}
 .wa-reviews-section .eyebrow::before{background:var(--accent-on-dark)}
 .wa-reviews-section h2{color:#fff}
-.wa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
-.wa-card{
-  background:#111b21;border-radius:16px;overflow:hidden;
-  box-shadow:0 12px 40px -10px rgba(0,0,0,.55);
-  display:flex;flex-direction:column;
+.wa-screenshots-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px;
+  align-items:start;
 }
-.wa-header{
-  background:#202c33;display:flex;align-items:center;gap:12px;
-  padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.07);
-  position:relative;
-}
-.wa-avatar{
-  width:42px;height:42px;border-radius:50%;
-  background:var(--accent);color:#fff;
-  display:grid;place-items:center;
-  font-weight:800;font-size:1.1rem;flex-shrink:0;
-}
-.wa-contact-info{display:flex;flex-direction:column;gap:2px;flex:1;direction:rtl;text-align:right}
-.wa-name{color:#e9edef;font-weight:700;font-size:.98rem}
-.wa-type{color:#8696a0;font-size:.8rem}
-.wa-logo{width:22px;height:22px;flex-shrink:0;opacity:.85}
-.wa-body{padding:16px 14px;display:flex;flex-direction:column;gap:10px;flex:1;background:#0b141a}
-.wa-bubble{
-  max-width:85%;padding:10px 14px;border-radius:12px;
-  font-size:.95rem;line-height:1.55;direction:rtl;text-align:right;
-  position:relative;
-}
-.wa-bubble.incoming{
-  background:#202c33;color:#e9edef;
-  border-radius:0 12px 12px 12px;align-self:flex-start;
-}
-.wa-bubble.incoming::before{
-  content:"";position:absolute;top:0;right:-8px;
-  border:8px solid transparent;border-top-color:#202c33;border-right:0;
-}
-.wa-bubble.outgoing{
-  background:#005c4b;color:#e9edef;
-  border-radius:12px 0 12px 12px;align-self:flex-end;
-}
-.wa-bubble.outgoing::before{
-  content:"";position:absolute;top:0;left:-8px;
-  border:8px solid transparent;border-top-color:#005c4b;border-left:0;
-}
+.wa-shot{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px -10px rgba(0,0,0,.7)}
+.wa-shot img{width:100%;height:auto;display:block}
 
 /* legacy quote selectors kept for safety */
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -678,7 +641,7 @@ img{max-width:100%;display:block}
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .sessions-grid,.testimonials{grid-template-columns:repeat(2,1fr)}
-  .wa-grid{grid-template-columns:1fr}
+  .wa-screenshots-grid{grid-template-columns:repeat(2,1fr)}
   .gallery-grid,.gallery-grid.home{grid-template-columns:repeat(2,1fr)}
   .split,.contact-grid,.footer-grid{grid-template-columns:1fr;gap:28px}
   .split .media{order:-1}
