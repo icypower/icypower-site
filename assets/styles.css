@@ -7,6 +7,7 @@
    ===================================================================== */
 
 :root{
+  color-scheme:light; /* stop browsers' forced/auto dark mode from inverting this light-only design */
   /* light sandstone surfaces */
   --sand:#FFFFFF;        /* page background */
   --card:#B4D0EA;        /* raised card / surface — medium soft blue */
