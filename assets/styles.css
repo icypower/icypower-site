@@ -333,12 +333,12 @@ img{max-width:100%;display:block}
 }
 
 /* ---------- WhatsApp screenshot coverflow ---------- */
-.wa-reviews-section{padding-top:clamp(3rem,6vw,5rem);padding-bottom:0.25rem}
-.wa-reviews-section .section-head.center{margin-bottom:10px}
+.wa-reviews-section{padding-top:clamp(1.25rem,2.5vw,2rem);padding-bottom:clamp(1rem,2vw,1.5rem)}
+.wa-reviews-section .section-head.center{margin-bottom:8px}
 .wa-coverflow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0}
 .wa-stage{
   position:relative;flex:none;
-  width:min(740px,88vw);height:520px;
+  width:min(740px,88vw);height:430px;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
 }
@@ -365,7 +365,7 @@ img{max-width:100%;display:block}
 .wa-nav:hover{background:#fff;transform:scale(1.08)}
 .wa-nav svg{width:16px;height:16px}
 @media(max-width:680px){
-  .wa-stage{width:min(340px,94vw);height:360px}
+  .wa-stage{width:min(340px,94vw);height:290px}
   .wa-shot-card{width:170px}
   .wa-shot-card.pos-1{transform:translateX(-115px) scale(.76)}
   .wa-shot-card.pos--1{transform:translateX(115px) scale(.76)}
