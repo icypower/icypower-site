@@ -1,4 +1,4 @@
-/* IcyPower - shared site behaviour (vanilla, light) */
+/* Icy Power - shared site behaviour (vanilla, light) */
 (function () {
   'use strict';
 
@@ -65,7 +65,7 @@
   }
 
   /* ---- whatsapp: attach a friendly prefilled message to every wa.me link ---- */
-  var waMsg = encodeURIComponent('היי IcyPower! אשמח לשמוע פרטים על חוויית אמבט הקרח והנשימות!');
+  var waMsg = encodeURIComponent('היי Icy Power! אשמח לשמוע פרטים על חוויית אמבט הקרח והנשימות!');
   document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
     if (a.href.indexOf('text=') === -1) {
       a.href += (a.href.indexOf('?') === -1 ? '?' : '&') + 'text=' + waMsg;
@@ -217,7 +217,7 @@
         var nameField = contactForm.querySelector('#name');
         var nameVal = (nameField && nameField.value) ? nameField.value : 'ליד חדש';
         var stamp = new Date().toLocaleString('he-IL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        subjectField.value = 'ליד חדש מאתר IcyPower - ' + nameVal + ' - ' + stamp;
+        subjectField.value = 'ליד חדש מאתר Icy Power - ' + nameVal + ' - ' + stamp;
       }
       fetch(contactForm.action, {
         method: 'POST',
