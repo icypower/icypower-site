@@ -333,45 +333,48 @@ img{max-width:100%;display:block}
 }
 
 /* ---------- WhatsApp screenshot coverflow ---------- */
-.wa-reviews-section{padding-top:clamp(4.5rem,9vw,7rem);padding-bottom:clamp(1rem,2vw,1.5rem)}
-.wa-reviews-section .section-head.center{margin-bottom:6px}
-.wa-coverflow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0}
+.wa-reviews-section{background:#000;padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(1.5rem,3vw,2.5rem)}
+.wa-reviews-section .eyebrow{color:var(--accent-on-dark)}
+.wa-reviews-section .eyebrow::before{background:var(--accent-on-dark)}
+.wa-reviews-section h2{color:#fff}
+.wa-reviews-section .section-head.center{margin-bottom:10px}
+.wa-coverflow{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:0}
 .wa-stage{
   position:relative;flex:none;
-  width:min(900px,88vw);height:660px;
+  width:min(620px,80vw);height:420px;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
 }
 .wa-shot-card{
-  position:absolute;flex:none;width:300px;
-  border-radius:20px;overflow:hidden;
-  box-shadow:0 20px 50px -10px rgba(0,0,0,.3);
+  position:absolute;flex:none;width:190px;
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 16px 40px -8px rgba(0,0,0,.9);
   transition:transform .55s var(--ease),opacity .55s var(--ease);
   cursor:pointer;
 }
 .wa-shot-card img{width:100%;height:auto;display:block}
 .wa-shot-card.pos-0{transform:translateX(0) scale(1);z-index:5;opacity:1;pointer-events:none}
-.wa-shot-card.pos-1{transform:translateX(-320px) scale(.72);z-index:4;opacity:.65}
-.wa-shot-card.pos--1{transform:translateX(320px) scale(.72);z-index:4;opacity:.65}
-.wa-shot-card.pos-2{transform:translateX(-540px) scale(.5);z-index:3;opacity:.3}
-.wa-shot-card.pos--2{transform:translateX(540px) scale(.5);z-index:3;opacity:.3}
+.wa-shot-card.pos-1{transform:translateX(-200px) scale(.72);z-index:4;opacity:.6}
+.wa-shot-card.pos--1{transform:translateX(200px) scale(.72);z-index:4;opacity:.6}
+.wa-shot-card.pos-2{transform:translateX(-340px) scale(.5);z-index:3;opacity:.28}
+.wa-shot-card.pos--2{transform:translateX(340px) scale(.5);z-index:3;opacity:.28}
 .wa-nav{
-  flex:none;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line-strong);
+  flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);
   display:grid;place-items:center;
-  background:var(--card);color:var(--accent);
+  background:rgba(255,255,255,.1);color:#fff;
   cursor:pointer;transition:background .2s,transform .2s;
 }
-.wa-nav:hover{background:var(--card-hover);transform:scale(1.06)}
-.wa-nav svg{width:18px;height:18px}
+.wa-nav:hover{background:rgba(255,255,255,.22);transform:scale(1.08)}
+.wa-nav svg{width:15px;height:15px}
 @media(max-width:680px){
-  .wa-stage{width:min(360px,94vw);height:440px}
-  .wa-shot-card{width:200px}
-  .wa-shot-card.pos-1{transform:translateX(-210px) scale(.7)}
-  .wa-shot-card.pos--1{transform:translateX(210px) scale(.7)}
-  .wa-shot-card.pos-2{transform:translateX(-360px) scale(.46)}
-  .wa-shot-card.pos--2{transform:translateX(360px) scale(.46)}
-  .wa-nav{width:34px;height:34px}
-  .wa-nav svg{width:15px;height:15px}
+  .wa-stage{width:min(300px,92vw);height:300px}
+  .wa-shot-card{width:140px}
+  .wa-shot-card.pos-1{transform:translateX(-150px) scale(.7)}
+  .wa-shot-card.pos--1{transform:translateX(150px) scale(.7)}
+  .wa-shot-card.pos-2{transform:translateX(-250px) scale(.46)}
+  .wa-shot-card.pos--2{transform:translateX(250px) scale(.46)}
+  .wa-nav{width:28px;height:28px}
+  .wa-nav svg{width:13px;height:13px}
 }
 
 /* legacy quote selectors kept for safety */
