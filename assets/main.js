@@ -201,6 +201,40 @@
     });
   }
 
+  /* ---- WhatsApp screenshot coverflow ---- */
+  var waStage = document.getElementById('waStage');
+  var waShotCards = waStage ? Array.prototype.slice.call(waStage.querySelectorAll('.wa-shot-card')) : [];
+  if (waStage && waShotCards.length) {
+    var waActive = 0;
+    var waCount = waShotCards.length;
+    function renderWa() {
+      waShotCards.forEach(function (card, i) {
+        var offset = i - waActive;
+        if (offset > waCount / 2) offset -= waCount;
+        if (offset < -waCount / 2) offset += waCount;
+        card.className = 'wa-shot-card pos-' + offset;
+      });
+    }
+    var waTimer;
+    function goWa(delta) {
+      waActive = (waActive + delta + waCount) % waCount;
+      renderWa();
+    }
+    function resetWaTimer() {
+      clearInterval(waTimer);
+      waTimer = setInterval(function () { goWa(1); }, 3800);
+    }
+    renderWa();
+    resetWaTimer();
+    var waPrev = document.querySelector('.wa-nav.prev');
+    var waNext = document.querySelector('.wa-nav.next');
+    if (waPrev) waPrev.addEventListener('click', function () { goWa(-1); resetWaTimer(); });
+    if (waNext) waNext.addEventListener('click', function () { goWa(1); resetWaTimer(); });
+    waShotCards.forEach(function (card, i) {
+      card.addEventListener('click', function () { if (i !== waActive) { waActive = i; renderWa(); resetWaTimer(); } });
+    });
+  }
+
   /* ---- contact form: submit via fetch, no page navigation ---- */
   var contactForm = document.getElementById('contactForm');
   var formToast = document.getElementById('formToast');
