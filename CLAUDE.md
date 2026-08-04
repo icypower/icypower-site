@@ -2,6 +2,15 @@
 
 Read automatically at the start of every Claude Code session in this repo.
 
+## ⚠️ HARD RULE — Always deploy end-to-end, never ask the user to push or deploy
+
+**Never ask Eldar or Oron to run git commands, push branches, merge PRs, or deploy anything.**
+Always handle the full cycle yourself: edit → commit → push branch → open PR → merge to main.
+The user gives orders; Claude does everything else. No exceptions.
+The only legitimate blocker is when a physical file (image, video) needs to be added to the repo
+and genuinely does not exist anywhere Claude can access — in that case, explain the specific file
+needed and where to place it, but nothing else. Never ask them to push or deploy.
+
 ## ⚠️ HARD RULE — Cloudflare AI: DO NOT USE
 
 **Never enable, configure, call, or touch any Cloudflare AI / AI Agent feature**
