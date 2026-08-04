@@ -215,23 +215,17 @@
         card.className = 'wa-shot-card pos-' + offset;
       });
     }
-    var waTimer;
     function goWa(delta) {
       waActive = (waActive + delta + waCount) % waCount;
       renderWa();
     }
-    function resetWaTimer() {
-      clearInterval(waTimer);
-      waTimer = setInterval(function () { goWa(1); }, 3800);
-    }
     renderWa();
-    resetWaTimer();
     var waPrev = document.querySelector('.wa-nav.prev');
     var waNext = document.querySelector('.wa-nav.next');
-    if (waPrev) waPrev.addEventListener('click', function () { goWa(-1); resetWaTimer(); });
-    if (waNext) waNext.addEventListener('click', function () { goWa(1); resetWaTimer(); });
+    if (waPrev) waPrev.addEventListener('click', function () { goWa(-1); });
+    if (waNext) waNext.addEventListener('click', function () { goWa(1); });
     waShotCards.forEach(function (card, i) {
-      card.addEventListener('click', function () { if (i !== waActive) { waActive = i; renderWa(); resetWaTimer(); } });
+      card.addEventListener('click', function () { if (i !== waActive) { waActive = i; renderWa(); } });
     });
   }
 
