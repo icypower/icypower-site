@@ -23,7 +23,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-08-03
+- **Date:** 2026-08-04
+- **What changed:** Large copy update across all 5 session pages + global "IcyPower" → "Icy Power" rename (50 occurrences across all HTML, main.js, styles.css). Session page changes: index.html — 3 card descriptions updated (private groups, open session, events/parties). business.html — bullet 1 icon changed to wand, location bullet split into two (location + team size), new wellness bullet added. private-groups.html — eyebrow, H2, paragraph, bullets, hero + CTA WA pre-fill updated. open-session.html — H1, hero para, eyebrow, H2, paragraph, full bullet overhaul (umbrella/smoothie/yoga bullets), hero + CTA WA pre-fill. couples.html — lead para, eyebrow, H2, "זה לצד זה" → "זה לצד זו", new speech-bubbles bullet, hero + CTA WA pre-fill. events.html — eyebrow, hero para, CTA buttons, H2, paragraph, all 4 bullets + ice-cube icon on bullet 2. Committed and pushed to main — deploy auto-triggered.
+- **Next goal:** Nothing pending. Awaiting Eldar/Oron for next requests.
+- **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
+
+### History (previous)
+- 2026-08-04 — Global "IcyPower" → "Icy Power" rename + large copy update across all 5 session pages. Deployed.
+- **Date (previous):** 2026-08-03
 - **What changed:** Eldar reported some sections rendering with a
   black background instead of white. **Verified this was never a real
   site bug** - checked the actual live deployed CSS directly and
