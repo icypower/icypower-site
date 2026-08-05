@@ -99,10 +99,17 @@
   if (heroVidA && heroVidB) {
     var heroClips = [
       'assets/video/hero-1.mp4',
+      'assets/video/hero-6.mp4',
       'assets/video/hero-3.mp4',
+      'assets/video/hero-7.mp4',
       'assets/video/hero-4.mp4',
+      'assets/video/hero-8.mp4',
       'assets/video/hero-2.mp4',
-      'assets/video/hero-5.mp4'
+      'assets/video/hero-9.mp4',
+      'assets/video/hero-5.mp4',
+      'assets/video/hero-10.mp4',
+      'assets/video/hero-11.mp4',
+      'assets/video/hero-12.mp4'
     ];
     var heroIndex = 0;
     var heroCurrent = heroVidA;
