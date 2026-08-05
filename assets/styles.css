@@ -124,8 +124,7 @@ img{max-width:100%;display:block}
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;height:72px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem;letter-spacing:-.01em;color:var(--on-dark)}
-.brand .flake{width:26px;height:26px;color:var(--accent)}
-.brand b{color:var(--on-dark)}
+.brand .flake{width:26px;height:26px;object-fit:contain}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{font-weight:700;font-size:1.12rem;color:var(--on-dark-dim);transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--on-dark)}
