@@ -456,7 +456,8 @@ img{max-width:100%;display:block}
 .cmethod{display:flex;align-items:center;gap:16px;padding:20px 22px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--card);transition:border-color .2s,transform .2s}
 .cmethod:hover{border-color:var(--line-strong);transform:translateY(-2px)}
 .cmethod .ic{flex:none;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
-.cmethod.wa .ic{background:rgba(37,211,102,.16);color:var(--wa)}
+.cmethod.wa{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.35)}
+.cmethod.wa .ic{background:rgba(37,211,102,.28);color:var(--wa)}
 .cmethod .ic svg{width:26px;height:26px}
 .cmethod b{display:block;font-size:1.08rem;color:var(--ink)}
 .cmethod span{color:var(--ink-faint);font-size:.94rem}
