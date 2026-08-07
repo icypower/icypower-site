@@ -39,12 +39,59 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-08-04
-- **What changed:** Large copy update across all 5 session pages + global "IcyPower" → "Icy Power" rename (50 occurrences across all HTML, main.js, styles.css). Session page changes: index.html — 3 card descriptions updated (private groups, open session, events/parties). business.html — bullet 1 icon changed to wand, location bullet split into two (location + team size), new wellness bullet added. private-groups.html — eyebrow, H2, paragraph, bullets, hero + CTA WA pre-fill updated. open-session.html — H1, hero para, eyebrow, H2, paragraph, full bullet overhaul (umbrella/smoothie/yoga bullets), hero + CTA WA pre-fill. couples.html — lead para, eyebrow, H2, "זה לצד זה" → "זה לצד זו", new speech-bubbles bullet, hero + CTA WA pre-fill. events.html — eyebrow, hero para, CTA buttons, H2, paragraph, all 4 bullets + ice-cube icon on bullet 2. Committed and pushed to main — deploy auto-triggered.
+- **Date:** 2026-08-07
+- **What changed:** Oron reported 5 issues from real iPhone/desktop use.
+  Fixed all of them in `assets/main.js` + `assets/styles.css` only (no
+  per-page HTML edits — the new pieces inject themselves into every page at
+  runtime, since main.js already loads on every page):
+  1. **Carousels now support touch swipe on iPhone**, not just the arrow
+     buttons (intro photo carousel, logo coverflow, WhatsApp reviews
+     coverflow) — new generic `addSwipe()` helper wired into all three.
+  2. **Added a site-wide "scroll to top" button** (`.back-to-top`) that
+     fades in after scrolling down ~600px and smooth-scrolls back to the
+     top on click.
+  3. **Added a built-in accessibility widget** (bottom-left toggle button):
+     text size (normal/large/x-large), high contrast, underlined links,
+     reduced motion — persisted per device via `localStorage`
+     (`icypower_a11y` key), applied as classes on `<html>`. This is a
+     lightweight custom widget, not a third-party plugin/service.
+  4. **Fixed a real bug on desktop:** clicking/dragging on a carousel card
+     (logo coverflow, WhatsApp reviews, gallery tiles) looked like it was
+     selecting text/dragging the image, because those cards had no
+     `user-select:none` and images had no drag-prevention. Fixed with CSS
+     (`user-select:none` on the cards, `-webkit-user-drag:none` on their
+     images).
+  5. **Fixed a real bug: the homepage's own gallery preview did nothing on
+     click.** Root cause: `main.js`'s lightbox code only activates if a
+     `.lightbox` element exists on the page, and that markup was only ever
+     written into `gallery.html` — the homepage's `gallery-grid home`
+     section (using the same `.gtile` tiles) had no lightbox at all, so
+     clicks were inert. Fixed by having `main.js` build the lightbox
+     markup itself whenever it finds `.gtile` tiles but no `.lightbox` on
+     the page — works on any current or future page with a gallery grid,
+     no per-page markup needed. Also made tiles keyboard-accessible
+     (`role="button"`, `tabindex`, Enter/Space to open).
+  Verified with Playwright (desktop 1400px + a touch-emulated mobile
+  viewport): homepage gallery tile click opens the lightbox, a11y panel
+  opens and applies the x-large text class, back-to-top button appears on
+  scroll and returns to `scrollY:0`, simulated touch swipe on the logo
+  coverflow advances the active card. `node -c` syntax-checked `main.js`.
+  Per this file's hard rule, went through the full cycle myself — pushed
+  branch `claude/accessibility-carousel-improvements-4w1ccu`, opened PR
+  #39, merged to `main` (deploy auto-triggered).
 - **Next goal:** Nothing pending. Awaiting Eldar/Oron for next requests.
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-08-07 — Fixed 5 issues Oron reported from real iPhone/desktop use:
+  touch swipe on all 3 carousels, a site-wide back-to-top button, a
+  built-in accessibility widget (text size/contrast/underline/reduced
+  motion), a real desktop bug where carousel cards looked like they were
+  being text-selected on click/drag, and a real bug where the homepage's
+  own gallery preview didn't open on click (no lightbox markup on that
+  page — now injected automatically). All changes self-contained in
+  `assets/main.js`/`assets/styles.css`, no per-page HTML edits. PR #39,
+  merged to `main`.
 - 2026-08-04 — Global "IcyPower" → "Icy Power" rename + large copy update across all 5 session pages. Deployed.
 - **Date (previous):** 2026-08-03
 - **What changed:** Eldar reported some sections rendering with a
