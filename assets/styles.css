@@ -391,6 +391,11 @@ img{max-width:100%;display:block}
 /* ---------- gallery ---------- */
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .gallery-grid.home{grid-template-columns:repeat(4,1fr)}
+/* carousels/gallery: no native text-selection or image-drag ghost on click-drag */
+.logo-carousel,.wa-coverflow,.intro-carousel,.gallery-grid,.logo-stage,.wa-stage{touch-action:pan-y}
+.logo-card,.wa-shot-card,.gtile,.carousel-slide{user-select:none;-webkit-user-select:none}
+.logo-card img,.wa-shot-card img,.gtile img{-webkit-user-drag:none;user-drag:none}
+
 .gtile{
   position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;cursor:pointer;
   border:1px solid var(--line);background:#E7DECF;
@@ -501,6 +506,60 @@ img{max-width:100%;display:block}
 .float-wa svg{width:32px;height:32px}
 .float-wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:pulse 2.4s ease-out infinite}
 @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+
+/* ---------- back to top ---------- */
+.back-to-top{
+  position:fixed;inset-block-end:96px;inset-inline-end:22px;z-index:79;
+  width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--on-dark);
+  border:1px solid var(--on-dark-line-strong);
+  display:grid;place-items:center;box-shadow:0 10px 26px -10px rgba(20,40,60,.5);
+  cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity .25s var(--ease),transform .25s var(--ease),background .2s;
+}
+.back-to-top.show{opacity:1;transform:none;pointer-events:auto}
+.back-to-top:hover{background:var(--accent)}
+.back-to-top svg{width:22px;height:22px}
+@media (max-width:640px){.back-to-top{inset-block-end:86px;width:44px;height:44px}}
+
+/* ---------- accessibility widget ---------- */
+.a11y-toggle{
+  position:fixed;inset-block-end:22px;inset-inline-start:22px;z-index:80;
+  width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;
+  border:none;display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 12px 30px -8px var(--accent-glow);transition:transform .2s var(--ease);
+}
+.a11y-toggle:hover{transform:scale(1.08)}
+.a11y-toggle svg{width:26px;height:26px}
+.a11y-panel{
+  position:fixed;inset-block-end:82px;inset-inline-start:22px;z-index:81;
+  width:min(300px,calc(100vw - 44px));
+  background:var(--sand);color:var(--ink);border-radius:16px;
+  border:1px solid var(--line-strong);
+  box-shadow:0 20px 50px -14px rgba(20,40,60,.35);
+  padding:18px;display:none;flex-direction:column;gap:12px;
+}
+.a11y-panel.open{display:flex}
+.a11y-panel h3{font-size:1.05rem}
+.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.a11y-row span{font-size:.95rem;font-weight:600}
+.a11y-row .a11y-btns{display:flex;gap:6px}
+.a11y-panel button.a11y-opt{
+  font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;
+  border:1.5px solid var(--line-strong);background:transparent;color:var(--ink);
+  border-radius:8px;padding:6px 12px;transition:.15s;
+}
+.a11y-panel button.a11y-opt:hover{border-color:var(--accent);color:var(--accent)}
+.a11y-panel button.a11y-opt.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.a11y-panel .a11y-reset{align-self:stretch;text-align:center;margin-top:4px;font-size:.88rem;color:var(--ink-faint);background:none;border:none;cursor:pointer;text-decoration:underline}
+
+/* states the a11y widget toggles on <html> */
+html.a11y-contrast{filter:contrast(1.15)}
+html.a11y-contrast body{background:#fff;color:#000}
+html.a11y-contrast .hero,html.a11y-contrast .page-hero,html.a11y-contrast .footer,html.a11y-contrast .cta-band{background:#000}
+html.a11y-underline a{text-decoration:underline !important}
+html.a11y-text-lg body{font-size:1.25rem}
+html.a11y-text-xl body{font-size:1.45rem}
+html.a11y-motion-off *,html.a11y-motion-off *::before,html.a11y-motion-off *::after{animation:none !important;transition:none !important}
 
 /* ---------- footer ---------- */
 .footer{border-block-start:none;padding-block:54px 30px;margin-top:0;background:var(--dark)}

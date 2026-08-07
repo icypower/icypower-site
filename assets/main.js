@@ -46,15 +46,33 @@
   }
 
   /* ---- gallery lightbox ---- */
+  /* the lightbox markup only lived on gallery.html, so clicking a tile in
+     the homepage's own gallery preview ("the first gallery") did nothing -
+     build the same markup here if a page has .gtile tiles but no lightbox
+     of its own, so every gallery grid on the site can enlarge its photos */
   var lb = document.querySelector('.lightbox');
+  if (!lb && document.querySelector('.gtile')) {
+    lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.id = 'lightbox';
+    lb.innerHTML = '<button class="lb-close" aria-label="סגור"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><div class="lb-img"></div>';
+    document.body.appendChild(lb);
+  }
   if (lb) {
     var lbImg = lb.querySelector('.lb-img');
     document.querySelectorAll('.gtile').forEach(function (tile) {
-      tile.addEventListener('click', function () {
+      tile.setAttribute('role', 'button');
+      tile.setAttribute('tabindex', '0');
+      tile.setAttribute('aria-label', 'הגדלת תמונה');
+      function openTile() {
         var ph = tile.querySelector('.ph');
         if (ph && lbImg) { lbImg.style.backgroundImage = ph.style.backgroundImage; }
         lb.classList.add('open');
         document.body.style.overflow = 'hidden';
+      }
+      tile.addEventListener('click', openTile);
+      tile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTile(); }
       });
     });
     function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
@@ -62,6 +80,26 @@
       if (e.target === lb || e.target.closest('.lb-close')) close();
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  /* ---- swipe: lets touch users drag between carousel slides, not just tap the arrows ---- */
+  function addSwipe(el, onLeft, onRight) {
+    if (!el) return;
+    var startX = 0, startY = 0, tracking = false;
+    el.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    el.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var dx = e.changedTouches[0].clientX - startX;
+      var dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return; /* mostly-vertical drags stay a page scroll */
+      if (dx < 0) { onLeft(); } else { onRight(); }
+    }, { passive: true });
   }
 
   /* ---- whatsapp: attach a friendly prefilled message to every wa.me link ---- */
@@ -181,9 +219,15 @@
     }
     showSlide(0);
     var timer = setInterval(function () { showSlide(cur + 1); }, 2000);
+    function restartTimer() { clearInterval(timer); timer = setInterval(function () { showSlide(cur + 1); }, 2000); }
     dots.forEach(function (d, i) {
-      d.addEventListener('click', function () { clearInterval(timer); showSlide(i); timer = setInterval(function () { showSlide(cur + 1); }, 2000); });
+      d.addEventListener('click', function () { showSlide(i); restartTimer(); });
     });
+    var introCarousel = document.querySelector('.intro-carousel');
+    addSwipe(introCarousel,
+      function () { showSlide(cur + 1); restartTimer(); },
+      function () { showSlide(cur - 1); restartTimer(); }
+    );
   }
 
   /* ---- logo coverflow carousel: center card largest, arrows + click-to-jump ---- */
@@ -218,6 +262,7 @@
     logoCards.forEach(function (card, i) {
       card.addEventListener('click', function () { logoActive = i; renderLogos(); resetLogoTimer(); });
     });
+    addSwipe(logoStage, function () { goLogo(1); resetLogoTimer(); }, function () { goLogo(-1); resetLogoTimer(); });
   }
 
   /* ---- WhatsApp screenshot coverflow ---- */
@@ -246,7 +291,125 @@
     waShotCards.forEach(function (card, i) {
       card.addEventListener('click', function () { if (i !== waActive) { waActive = i; renderWa(); } });
     });
+    addSwipe(waStage, function () { goWa(1); }, function () { goWa(-1); });
   }
+
+  /* ---- back to top ---- */
+  /* injected once here (rather than pasted into every page) so it shows up
+     site-wide from a single change */
+  var backTop = document.createElement('button');
+  backTop.className = 'back-to-top';
+  backTop.type = 'button';
+  backTop.setAttribute('aria-label', 'חזרה לראש העמוד');
+  backTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+  document.body.appendChild(backTop);
+  backTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  window.addEventListener('scroll', function () {
+    backTop.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+
+  /* ---- accessibility widget ----
+     A small self-contained toolbar (bigger text, high contrast, underlined
+     links, reduced motion) - injected site-wide the same way as the
+     back-to-top button. Preferences persist per-device via localStorage and
+     are re-applied as classes on <html> so the CSS in styles.css can react. */
+  (function a11yWidget() {
+    var STORAGE_KEY = 'icypower_a11y';
+    var TEXT_CLASSES = ['a11y-text-lg', 'a11y-text-xl'];
+
+    function readPrefs() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch (e) { return {}; }
+    }
+    function savePrefs(p) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {}
+    }
+    function applyPrefs(p) {
+      var root = document.documentElement;
+      TEXT_CLASSES.forEach(function (c) { root.classList.remove(c); });
+      if (p.textSize === 'lg') root.classList.add('a11y-text-lg');
+      if (p.textSize === 'xl') root.classList.add('a11y-text-xl');
+      root.classList.toggle('a11y-contrast', !!p.contrast);
+      root.classList.toggle('a11y-underline', !!p.underline);
+      root.classList.toggle('a11y-motion-off', !!p.motionOff);
+    }
+
+    var prefs = readPrefs();
+    applyPrefs(prefs);
+
+    var toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'a11y-toggle';
+    toggle.setAttribute('aria-label', 'תפריט נגישות');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M19 8c-3 1-4.5 1-7 1s-4-0-7-1"/><path d="M12 9v5"/><path d="m8 21 2-7"/><path d="m16 21-2-7"/><path d="M9 12H5"/><path d="M19 12h-4"/></svg>';
+
+    var panel = document.createElement('div');
+    panel.className = 'a11y-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'הגדרות נגישות');
+    panel.innerHTML =
+      '<h3>נגישות</h3>' +
+      '<div class="a11y-row"><span>גודל טקסט</span><div class="a11y-btns">' +
+        '<button type="button" class="a11y-opt" data-text="normal">רגיל</button>' +
+        '<button type="button" class="a11y-opt" data-text="lg">גדול</button>' +
+        '<button type="button" class="a11y-opt" data-text="xl">גדול מאוד</button>' +
+      '</div></div>' +
+      '<div class="a11y-row"><span>ניגודיות גבוהה</span><button type="button" class="a11y-opt" data-toggle="contrast">הפעל/כבה</button></div>' +
+      '<div class="a11y-row"><span>קו תחתון לקישורים</span><button type="button" class="a11y-opt" data-toggle="underline">הפעל/כבה</button></div>' +
+      '<div class="a11y-row"><span>עצירת אנימציות</span><button type="button" class="a11y-opt" data-toggle="motionOff">הפעל/כבה</button></div>' +
+      '<button type="button" class="a11y-reset">איפוס הגדרות</button>';
+
+    document.body.appendChild(toggle);
+    document.body.appendChild(panel);
+
+    function syncButtons() {
+      panel.querySelectorAll('[data-text]').forEach(function (b) {
+        b.classList.toggle('active', (prefs.textSize || 'normal') === b.getAttribute('data-text'));
+      });
+      panel.querySelectorAll('[data-toggle]').forEach(function (b) {
+        b.classList.toggle('active', !!prefs[b.getAttribute('data-toggle')]);
+      });
+    }
+    syncButtons();
+
+    toggle.addEventListener('click', function () {
+      var open = panel.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    panel.querySelectorAll('[data-text]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        prefs.textSize = b.getAttribute('data-text');
+        applyPrefs(prefs); savePrefs(prefs); syncButtons();
+      });
+    });
+    panel.querySelectorAll('[data-toggle]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var key = b.getAttribute('data-toggle');
+        prefs[key] = !prefs[key];
+        applyPrefs(prefs); savePrefs(prefs); syncButtons();
+      });
+    });
+    panel.querySelector('.a11y-reset').addEventListener('click', function () {
+      prefs = {};
+      applyPrefs(prefs); savePrefs(prefs); syncButtons();
+    });
+  })();
 
   /* ---- contact form: submit via fetch, no page navigation ---- */
   var contactForm = document.getElementById('contactForm');
