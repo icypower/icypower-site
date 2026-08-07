@@ -507,6 +507,14 @@ img{max-width:100%;display:block}
 .float-wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:pulse 2.4s ease-out infinite}
 @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
 
+/* ---------- skip to content ---------- */
+.skip-link{
+  position:fixed;inset-block-start:-60px;inset-inline-start:12px;z-index:200;
+  background:var(--accent);color:#fff;font-weight:700;
+  padding:12px 18px;border-radius:10px;transition:inset-block-start .2s var(--ease);
+}
+.skip-link:focus{inset-block-start:12px}
+
 /* ---------- back to top ---------- */
 .back-to-top{
   position:fixed;inset-block-end:96px;inset-inline-end:22px;z-index:79;
@@ -557,8 +565,12 @@ html.a11y-contrast{filter:contrast(1.15)}
 html.a11y-contrast body{background:#fff;color:#000}
 html.a11y-contrast .hero,html.a11y-contrast .page-hero,html.a11y-contrast .footer,html.a11y-contrast .cta-band{background:#000}
 html.a11y-underline a{text-decoration:underline !important}
-html.a11y-text-lg body{font-size:1.25rem}
-html.a11y-text-xl body{font-size:1.45rem}
+/* most of the site's type is sized in rem (headings, buttons, eyebrows...),
+   which is relative to the ROOT element's font-size, not body's - scaling
+   body alone (the old bug) left almost all text unchanged. Scaling the
+   root font-size instead correctly cascades to every rem-sized element. */
+html.a11y-text-lg{font-size:112.5%}
+html.a11y-text-xl{font-size:125%}
 html.a11y-motion-off *,html.a11y-motion-off *::before,html.a11y-motion-off *::after{animation:none !important;transition:none !important}
 
 /* ---------- footer ---------- */

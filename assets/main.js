@@ -2,6 +2,21 @@
 (function () {
   'use strict';
 
+  /* ---- skip to content (accessibility: lets keyboard/screen-reader users
+     bypass the header nav instead of tabbing through it every page load) ---- */
+  (function skipLink() {
+    var nav = document.querySelector('header.nav');
+    var target = nav ? nav.nextElementSibling : document.body.firstElementChild;
+    if (!target) return;
+    if (!target.hasAttribute('id')) target.id = 'main-content';
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    var link = document.createElement('a');
+    link.className = 'skip-link';
+    link.href = '#' + target.id;
+    link.textContent = 'דלג לתוכן הראשי';
+    document.body.insertBefore(link, document.body.firstChild);
+  })();
+
   /* ---- nav: solidify on scroll ---- */
   var nav = document.querySelector('.nav');
   function onScroll() {
@@ -92,14 +107,20 @@
       startY = e.touches[0].clientY;
       tracking = true;
     }, { passive: true });
+    /* touchend must be non-passive: after a recognized swipe we preventDefault
+       it so iOS doesn't also fire its usual "ghost" click on whichever card
+       ended up under the finger once the coverflow re-positioned - without
+       this, a swipe advanced the carousel and was then immediately followed
+       by a second, wrong jump from that synthetic click. */
     el.addEventListener('touchend', function (e) {
       if (!tracking) return;
       tracking = false;
       var dx = e.changedTouches[0].clientX - startX;
       var dy = e.changedTouches[0].clientY - startY;
       if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return; /* mostly-vertical drags stay a page scroll */
+      e.preventDefault();
       if (dx < 0) { onLeft(); } else { onRight(); }
-    }, { passive: true });
+    }, { passive: false });
   }
 
   /* ---- whatsapp: attach a friendly prefilled message to every wa.me link ---- */
