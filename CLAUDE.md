@@ -39,6 +39,54 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-08-07 (follow-up, same day)
+- **What changed:** Oron reported the text-size a11y control didn't actually
+  do anything on desktop, plus a new bug on the WhatsApp reviews carousel
+  on iPhone. Both fixed, plus two small copy/order requests:
+  1. **Text-size a11y control now actually works.** Root cause: it was
+     scaling `body`'s font-size, but almost all of the site's type
+     (headings, buttons, eyebrows, etc.) is set in `rem`, which is relative
+     to the *root* `<html>` element, not `body` — so nearly all text was
+     silently unaffected by the "large"/"x-large" buttons. Now scales the
+     root font-size instead; verified with Playwright that a heading's
+     *computed* font-size actually changes, on both a desktop and a
+     phone-sized viewport.
+  2. **WA reviews carousel on iPhone: swiping caused a second, wrong jump
+     right after releasing.** Root cause: my swipe fix from earlier today
+     correctly advanced the card, but iOS then fires a synthetic "click" on
+     whatever card ended up under the finger once the coverflow
+     re-positioned — which the existing card-click-to-jump handler acted
+     on, causing a second jump right after the swipe. Fixed by calling
+     `preventDefault()` on `touchend` once a real swipe is recognized,
+     which suppresses that ghost click.
+  3. **Added a skip-to-content link** (injected site-wide via `main.js`,
+     same self-injecting pattern as the back-to-top button/a11y widget) —
+     a standard accessibility requirement for keyboard/screen-reader users
+     to bypass the header nav.
+  4. **"About us" section**: swapped founder order to אורון then אלדר
+     (card order, avatar order, and the intro paragraph text/image alt),
+     and removed the redundant "מייסד ומדריך" caption under each name, per
+     Oron's request.
+  All in `assets/main.js`/`assets/styles.css`/`index.html`. Verified with
+  Playwright, `node -c` syntax check. Pushed branch
+  `claude/a11y-swipe-fixes-4w1ccu`, PR #41, merged to `main`.
+- **Also flagged to Oron (not yet actioned):** he asked whether the site's
+  accessibility setup meets Israeli law. Israeli accessibility law (the
+  Equal Rights for Persons with Disabilities regulations, based on the
+  IS 5568 standard / WCAG 2.1 AA) requires more than just an accessibility
+  widget — specifically a dated, published **accessibility statement**
+  naming a real **accessibility coordinator** (רכז נגישות) with real
+  contact details, plus reasonable-effort conformance to WCAG 2.1 AA
+  itself (contrast, keyboard access, alt text, etc. — not just the widget).
+  A session cannot fabricate that statement or a coordinator's identity —
+  needs real input from Oron/Eldar (who the coordinator is + their phone/
+  email, and whether they want a professional accessibility audit) before
+  a real statement page can be written and published. Flagged directly to
+  Oron in chat; worth following up if a future session touches this again
+  and it's still outstanding.
+- **Previous entry same day, below.**
+
+### Latest status (previous, same day)
 - **Date:** 2026-08-07
 - **What changed:** Oron reported 5 issues from real iPhone/desktop use.
   Fixed all of them in `assets/main.js` + `assets/styles.css` only (no
@@ -83,6 +131,15 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-08-07 (follow-up) — Fixed the a11y widget's text-size control (was
+  scaling `body`, not the root, so `rem`-sized text never actually
+  changed), fixed a second-jump bug on the WA reviews carousel on iPhone
+  after a swipe (iOS ghost-click on the repositioned card), added a
+  skip-to-content link, and swapped the "About us" founder order/removed
+  a redundant caption per Oron's request. PR #41, merged. Also flagged to
+  Oron that Israeli accessibility law needs a real accessibility statement
+  + named coordinator with real contact info, which a session can't
+  fabricate — still outstanding, needs his input.
 - 2026-08-07 — Fixed 5 issues Oron reported from real iPhone/desktop use:
   touch swipe on all 3 carousels, a site-wide back-to-top button, a
   built-in accessibility widget (text size/contrast/underline/reduced
