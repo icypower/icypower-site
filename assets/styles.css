@@ -703,7 +703,7 @@ img{max-width:100%;display:block}
   .session-card .more{font-size:.8rem}
   .gallery-grid,.gallery-grid.home{grid-template-columns:1fr 1fr}
   .gtile.wide{grid-column:span 2}
-  .hero-inner{position:absolute;inset-inline:0;bottom:140px;padding-block:0}
+  .hero-inner{position:absolute;inset-inline:0;top:30%;padding-block:0}
   .hero-actions .btn{flex:1}
 
   /* more breathing room between differently-colored sections on mobile */
