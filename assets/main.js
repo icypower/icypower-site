@@ -153,6 +153,18 @@
     heroCurrent.src = heroClips[0];
     heroCurrent.play();
     heroQueueNext();
+
+    // Mobile browsers (iOS Safari, Chrome Android) pause videos when the app
+    // is backgrounded. Resume the active clip when the user returns.
+    function heroResume() {
+      if (!document.hidden && heroCurrent.paused) {
+        heroCurrent.play();
+      }
+    }
+    document.addEventListener('visibilitychange', heroResume);
+    // pageshow fires on back-forward cache restore (bfcache) — visibilitychange
+    // alone doesn't always fire in that case on iOS Safari.
+    window.addEventListener('pageshow', heroResume);
   }
 
   /* ---- intro photo carousel ---- */
