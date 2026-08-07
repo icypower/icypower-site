@@ -734,7 +734,7 @@ img{max-width:100%;display:block}
        wherever it lands within the taller centered panel */
     background-image:
       linear-gradient(180deg, rgba(10,22,32,.62), rgba(10,22,32,.7)),
-      url('img/hero-about.jpg');
+      url('img/about-us.jpg');
     background-size:cover;background-position:center;
   }
   .about-us.blue-panel .container{width:100%}
