@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>הצעת מחיר - אירוע וולנס חגיגי | Icy Power</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap');
+  :root{
+    --bg1:#fff1e6;
+    --bg2:#ffe0ec;
+    --card:#ffffff;
+    --ink:#2a1f3d;
+    --sub:#6b5b7a;
+    --purple:#6c3ab8;
+    --purple-dark:#4a2585;
+    --pink:#ff5da2;
+    --orange:#ff8a3d;
+    --gold:#ffb703;
+    --teal:#00c2a8;
+    --line:#f0e0ea;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(900px 500px at 8% -8%, #ffd6e8 0%, transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, #d9ecff 0%, transparent 55%),
+      radial-gradient(700px 500px at 50% 110%, #fff2c9 0%, transparent 55%),
+      linear-gradient(160deg, var(--bg1), var(--bg2));
+    color:var(--ink);
+    font-family:'Heebo','Segoe UI',Arial,sans-serif;
+    line-height:1.55;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* confetti background bits */
+  .confetti{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .confetti span{
+    position:absolute;top:-40px;font-size:22px;opacity:.55;
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform:translateY(115vh) rotate(360deg); }
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 16px 60px;position:relative;z-index:1;}
+
+  /* HERO */
+  .hero{
+    text-align:center;margin-bottom:32px;
+    position:relative;overflow:hidden;border-radius:26px;
+    padding:56px 20px 36px;
+    min-height:340px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    box-shadow:0 16px 40px rgba(108,58,184,.22);
+    isolation:isolate;
+  }
+  .hero-video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center;z-index:-2;
+    background:#1b1230;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      linear-gradient(180deg, rgba(74,37,133,.55), rgba(42,31,61,.72) 60%, rgba(42,31,61,.85)),
+      linear-gradient(120deg, rgba(255,93,162,.25), rgba(255,183,3,.15));
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.08em;
+    color:#fff;text-transform:uppercase;font-weight:800;margin-bottom:18px;
+    padding:8px 20px;border-radius:999px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    box-shadow:0 8px 22px rgba(108,58,184,.35);
+  }
+  h1{
+    font-family:'Frank Ruhl Libre', serif;
+    font-size:clamp(26px,7vw,54px);
+    margin:0 0 14px;
+    font-weight:900;
+    color:#fff;
+    line-height:1.2;
+    text-shadow:0 4px 24px rgba(0,0,0,.4);
+  }
+  .hero p{
+    font-size:clamp(14.5px,3.6vw,18px);color:#fff;opacity:.94;max-width:520px;margin:0 auto;font-weight:500;
+    text-shadow:0 2px 12px rgba(0,0,0,.35);
+  }
+  .hero .loc{
+    margin-top:18px;font-size:14px;color:var(--purple-dark);font-weight:700;
+    display:inline-flex;align-items:center;gap:8px;text-align:right;
+    background:#fff;border:1px solid var(--line);padding:9px 16px;border-radius:999px;
+    box-shadow:0 4px 16px rgba(0,0,0,.2);
+    max-width:100%;
+  }
+  .hero .loc span{opacity:.6;font-weight:500;}
+
+  /* INCLUDES STRIP */
+  .includes{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:12px;margin:28px 0 34px;
+  }
+  @media (min-width:600px){
+    .includes{grid-template-columns:repeat(3,1fr);}
+  }
+  .inc-item{
+    background:var(--card);border-radius:16px;
+    padding:18px 10px;text-align:center;
+    box-shadow:0 6px 16px rgba(108,58,184,.08);
+    border-bottom:4px solid var(--accent, var(--purple));
+  }
+  .inc-item:nth-child(1){--accent:var(--pink);}
+  .inc-item:nth-child(2){--accent:var(--purple);}
+  .inc-item:nth-child(3){--accent:var(--teal);}
+  .inc-item:nth-child(4){--accent:#3ba7ff;}
+  .inc-item:nth-child(5){--accent:var(--orange);}
+  .inc-item:nth-child(6){--accent:var(--gold);}
+  .inc-item .ic{font-size:26px;display:block;margin-bottom:8px;}
+  .inc-item .tt{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;}
+
+  /* TRACK */
+  .tracks{
+    display:flex;justify-content:center;
+  }
+
+  .track{
+    background:var(--card);border-radius:26px;
+    padding:36px 32px 30px;position:relative;overflow:hidden;
+    box-shadow:0 14px 40px rgba(108,58,184,.14);
+    display:flex;flex-direction:column;
+    border:3px solid var(--pink);
+    background:linear-gradient(180deg,#fffaf5,#ffffff 30%);
+    max-width:480px;width:100%;
+    text-align:center;
+  }
+  .badge{
+    position:absolute;top:0;left:0;
+    background:linear-gradient(90deg,var(--gold),var(--orange));
+    color:#3a1c00;font-size:12.5px;font-weight:800;
+    padding:8px 20px;border-radius:0 0 16px 0;letter-spacing:.03em;
+  }
+  .track h2{
+    font-family:'Frank Ruhl Libre', serif;
+    font-size:28px;margin:10px 0 4px;color:var(--purple-dark);
+    font-weight:900;
+  }
+  .track .desc{font-size:14.5px;color:var(--sub);margin-bottom:18px;font-weight:500;}
+  .price{
+    display:flex;align-items:baseline;justify-content:center;gap:6px;margin:6px 0 22px;
+  }
+  .price .num{
+    font-size:44px;font-weight:900;font-family:'Frank Ruhl Libre',serif;
+    background:linear-gradient(90deg,var(--purple-dark),var(--pink));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .price .cur{font-size:22px;font-weight:800;color:var(--purple-dark);}
+  .price .per{font-size:14px;color:var(--sub);margin-inline-start:4px;font-weight:600;}
+
+  ul.feat{list-style:none;margin:0 0 8px;padding:0;flex:1;}
+  ul.feat li{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:11px 0;border-bottom:1px dashed var(--line);
+    font-size:15px;font-weight:500;
+    font-family:'Heebo','Segoe UI',Arial,sans-serif;
+  }
+  ul.feat li:last-child{border-bottom:none;}
+  ul.feat .ic{
+    flex:0 0 auto;width:36px;height:36px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:#fff;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+  }
+  ul.feat li:nth-child(1) .ic{background:linear-gradient(135deg,#ff8a3d,#ffb703);}
+  ul.feat li:nth-child(2) .ic{background:linear-gradient(135deg,#00c2a8,#4fe0c8);}
+  ul.feat li:nth-child(3) .ic{background:linear-gradient(135deg,#3ba7ff,#7fc8ff);}
+  ul.feat li:nth-child(4) .ic{background:linear-gradient(135deg,#6c3ab8,#a06be0);}
+  ul.feat li:nth-child(5) .ic{background:linear-gradient(135deg,#ff5da2,#ff8fc0);}
+
+  .cta{
+    margin-top:22px;text-align:center;color:#fff;
+    padding:14px 20px;border-radius:16px;font-weight:800;font-size:15.5px;
+    background:linear-gradient(90deg,var(--pink),var(--orange));
+    box-shadow:0 8px 20px rgba(255,93,162,.35);
+  }
+
+  /* ADD-ONS */
+  .addons-title{
+    margin:36px 0 16px;font-size:16px;font-weight:800;color:var(--purple-dark);
+    text-align:center;
+  }
+  .addons{
+    display:grid;grid-template-columns:1fr;gap:16px;
+  }
+  @media (min-width:640px){
+    .addons{grid-template-columns:1fr 1fr;}
+  }
+  .addon{
+    background:linear-gradient(120deg,#fff7d6,#ffe6f2 60%,#e8f7ff);
+    border:2px dashed var(--gold);
+    border-radius:22px;padding:22px 24px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    justify-content:space-between;
+    box-shadow:0 10px 26px rgba(255,183,3,.15);
+  }
+  .addon .txt{display:flex;align-items:center;gap:16px;}
+  .addon .ic{font-size:32px;}
+  .addon h3{margin:0 0 4px;font-size:16px;color:var(--purple-dark);font-weight:800;}
+  .addon p{margin:0;font-size:13.5px;color:var(--sub);font-weight:500;}
+  .addon .price2{
+    font-size:22px;font-weight:900;white-space:nowrap;font-family:'Frank Ruhl Libre',serif;
+    background:linear-gradient(90deg,var(--orange),var(--pink));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* FOOTER */
+  footer{
+    text-align:center;margin-top:58px;padding-top:30px;border-top:2px dotted #e6cfe0;
+    color:var(--sub);font-size:13.5px;
+  }
+  footer .brand{
+    font-weight:900;font-size:17px;margin-bottom:6px;
+    background:linear-gradient(90deg,var(--purple-dark),var(--pink));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  footer .note{margin-top:10px;font-size:12.5px;opacity:.7;}
+</style>
+</head>
+<body>
+
+<div class="confetti" aria-hidden="true">
+  <span style="left:4%;animation-duration:11s;animation-delay:-2s;">🎈</span>
+  <span style="left:14%;animation-duration:9s;animation-delay:-6s;">✨</span>
+  <span style="left:24%;animation-duration:13s;animation-delay:-1s;">🎉</span>
+  <span style="left:34%;animation-duration:10s;animation-delay:-8s;">🎊</span>
+  <span style="left:46%;animation-duration:12s;animation-delay:-4s;">✨</span>
+  <span style="left:58%;animation-duration:9.5s;animation-delay:-9s;">🎈</span>
+  <span style="left:68%;animation-duration:14s;animation-delay:-3s;">🎉</span>
+  <span style="left:78%;animation-duration:11s;animation-delay:-7s;">🎊</span>
+  <span style="left:88%;animation-duration:10.5s;animation-delay:-5s;">✨</span>
+  <span style="left:95%;animation-duration:13s;animation-delay:-10s;">🎈</span>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <video id="heroVideo" class="hero-video" autoplay muted playsinline preload="auto"></video>
+    <span class="eyebrow">🎉 הצעת מחיר פרטית · אירוע קבוצתי חגיגי</span>
+    <h1>אירוע לקבוצת פלוס המדהימה!</h1>
+    <p>יום שלם של תנועה, נשימה, קור וחום, וכיף אחד גדול - מותאם במיוחד עבורכם, בוילה מהממת.</p>
+    <div class="loc">📍 מתחם "תאילנד הקטנה", סביון <span>· אירוח פרטי לקבוצה</span></div>
+  </div>
+
+  <div class="includes">
+    <div class="inc-item"><span class="ic">🏡</span><span class="tt">אירוח ב"תאילנד הקטנה" בסביון</span></div>
+    <div class="inc-item"><span class="ic">🌬️</span><span class="tt">סדנת נשימות עוצמתית</span></div>
+    <div class="inc-item"><span class="ic">🧊</span><span class="tt">טבילה מודרכת באמבטיית קרח</span></div>
+    <div class="inc-item"><span class="ic">🎶</span><span class="tt">סשן סאונד הילינג</span></div>
+    <div class="inc-item"><span class="ic">🥤</span><span class="tt">שייקים ופירות</span></div>
+    <div class="inc-item"><span class="ic">🎁</span><span class="tt">ועוד הפתעות!</span></div>
+  </div>
+
+  <div class="tracks">
+
+    <div class="track">
+      <span class="badge">⭐ החוויה המלאה</span>
+      <h2>יום וולנס לקבוצה</h2>
+      <div class="desc">קור, נשימה וריפוי - כל מה שצריך ליום בלתי נשכח</div>
+      <div class="price"><span class="num">275</span><span class="cur">₪</span><span class="per">לאדם</span></div>
+      <ul class="feat">
+        <li><span class="ic">🏡</span> אירוח ב"תאילנד הקטנה" בסביון</li>
+        <li><span class="ic">🌬️</span> סדנת נשימות עוצמתית</li>
+        <li><span class="ic">🧊</span> טבילה מודרכת באמבטיית קרח</li>
+        <li><span class="ic">🎶</span> סשן סאונד הילינג</li>
+        <li><span class="ic">🥤</span> שייקים, פירות ועוד הפתעות</li>
+      </ul>
+      <div class="cta">🎉 החוויה המלאה - לריפוי גוף ונפש 🎉</div>
+    </div>
+
+  </div>
+
+  <div class="addons-title">✨ תוספות אופציונליות ✨</div>
+  <div class="addons">
+    <div class="addon">
+      <div class="txt">
+        <span class="ic">🥪🍷</span>
+        <div>
+          <h3>כריכי בריאות ויין ללא הגבלה</h3>
+          <p>שדרגו את האירוע עם תוספת קולינרית - לכל האורחים</p>
+        </div>
+      </div>
+      <div class="price2">70 ₪ לאדם</div>
+    </div>
+    <div class="addon">
+      <div class="txt">
+        <span class="ic">🧘</span>
+        <div>
+          <h3>שיעור יוגה / פילאטיס</h3>
+          <p>תוספת תנועה מרגיעה לפני החוויה</p>
+        </div>
+      </div>
+      <div class="price2">25 ₪ לאדם</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="brand">Icy Power</div>
+    <div>סדנאות טבילה בקרח, נשימה וחיבור לגוף · סביון והסביבה</div>
+    <div class="note">הצעת מחיר זו פרטית ומיועדת לקבוצה בלבד</div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var sources = [
+      "../assets/img/hero%20vid%2011.mp4",
+      "../assets/img/hero%20vid%2022.mp4",
+      "../assets/img/hero%20vid%2033.mp4",
+      "../assets/img/hero%20vid%2044.mp4",
+      "../assets/img/hero%20vid%2055.mp4",
+      "../assets/img/hero%20vid%2066.mp4",
+      "../assets/img/hero%20vid%2077.mp4"
+    ];
+    var i = 0;
+    var v = document.getElementById('heroVideo');
+    function playNext(){
+      v.src = sources[i % sources.length];
+      i++;
+      v.play().catch(function(){});
+    }
+    v.addEventListener('ended', playNext);
+    playNext();
+  })();
+</script>
+</body>
+</html>
