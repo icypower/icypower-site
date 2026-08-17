@@ -39,6 +39,25 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-08-17
+- **What changed:** Oron asked to change the homepage hero headline and to
+  see font options for a nicer look. Changed the `<h1>` in `index.html`
+  from "תדליקו את הכוח שבתוככם" to "מוכנים לחוויית וולנס קפואה?" (kept the
+  same two-line structure with the `.warm` accent span on the second line).
+  Pushed directly to `main` (small, low-risk copy-only change, same
+  convention as similar past edits in this file's history).
+  **Font change is not yet done** — built and sent Oron a visual comparison
+  artifact of 4 candidate Hebrew fonts (Rubik, Assistant, Suez One, Frank
+  Ruhl Libre) shown against the new headline text on the real hero dark
+  background, alongside the current Heebo for reference, so he can pick one
+  without guessing from font names. The site currently loads only Heebo
+  (`<link>` in `index.html`'s `<head>`, `font-family` set once globally in
+  `assets/styles.css` line ~55) — once Oron picks, swapping it is a two-line
+  change (the Google Fonts `<link>` URL + the `font-family` value), same
+  everywhere since there's only one root font-family declaration. Whichever
+  is picked, applies site-wide (not just the hero headline) since that's how
+  the current Heebo is wired — flag to Oron if he actually only wants it on
+  the hero heading rather than the whole site.
 - **Date:** 2026-08-07 (follow-up, same day)
 - **What changed:** Oron reported the text-size a11y control didn't actually
   do anything on desktop, plus a new bug on the WhatsApp reviews carousel
@@ -131,6 +150,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-08-17 — Changed homepage hero headline to "מוכנים לחוויית וולנס
+  קפואה?" (was "תדליקו את הכוח שבתוככם"), pushed straight to `main`. Built
+  a 4-font comparison artifact (Rubik/Assistant/Suez One/Frank Ruhl Libre
+  vs. current Heebo) for Oron to pick from — font swap itself not yet done,
+  waiting on his choice.
 - 2026-08-07 (follow-up) — Fixed the a11y widget's text-size control (was
   scaling `body`, not the root, so `rem`-sized text never actually
   changed), fixed a second-jump bug on the WA reviews carousel on iPhone
