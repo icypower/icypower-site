@@ -11,6 +11,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .btn-retreat{
+    position:relative;
+    background:linear-gradient(90deg,#3a1c6e,#1c2e6e 55%,#12173f);
+    color:#fff !important;border:1px solid rgba(167,139,250,.5);
+    box-shadow:0 0 0 1px rgba(124,58,237,.25), 0 10px 30px -8px rgba(88,28,235,.65), 0 0 26px -4px rgba(139,92,246,.55);
+    transition:transform .25s, box-shadow .25s;
+    overflow:hidden;
+  }
+  .btn-retreat::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.28) 45%, transparent 65%);
+    transform:translateX(-120%);
+    animation:retreatShine 3.2s ease-in-out infinite;
+  }
+  @keyframes retreatShine{
+    0%,55%{transform:translateX(-120%);}
+    100%{transform:translateX(120%);}
+  }
+  .btn-retreat:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 0 1px rgba(167,139,250,.45), 0 16px 36px -8px rgba(88,28,235,.75), 0 0 34px -2px rgba(167,139,250,.7);
+  }
+</style>
 </head>
 <body>
 
@@ -34,7 +58,7 @@
     <p>מסיבת יומולדת? רווקים/ות? חוויה לחברים/משפחה?? הפכו את המפגש הבא לחוויה שכולם ידברו עליה.</p>
     <div class="hero-actions" style="margin-top:28px">
       <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%9C%D7%92%D7%91%D7%99%20%D7%90%D7%99%D7%A8%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99!" class="btn btn-wa btn-lg" target="_blank" rel="noopener">לתיאום חוויה לקבוצה</a>
-      <a href="evening-retreat.html" class="btn btn-ghost btn-lg">ריטריט ערב בסביון לקבוצות</a>
+      <a href="evening-retreat.html" class="btn btn-retreat btn-lg">✨ ריטריט ערב בסביון לקבוצות</a>
       <a href="gallery.html" class="btn btn-ghost btn-lg">לראות איך זה נראה</a>
     </div>
   </div>
