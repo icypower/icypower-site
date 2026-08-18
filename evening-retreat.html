@@ -123,15 +123,6 @@
     stroke-dasharray:2 10;stroke-linecap:round;
     opacity:.65;
   }
-  @media (max-width:760px){
-    .ret-snake{display:none;}
-    .ret-path{position:relative;}
-    .ret-path::before{
-      content:"";position:absolute;top:6px;bottom:6px;right:22px;
-      width:0;border-right:2px dashed var(--ret-line);
-    }
-  }
-
   .ret-step{
     position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;
     align-items:center;gap:32px;margin-bottom:64px;
@@ -153,7 +144,8 @@
     .ret-step:nth-child(even) .num-dot{transform:translateX(-36px);}
   }
   @media (max-width:760px){
-    .ret-step:nth-child(odd) .num-dot,.ret-step:nth-child(even) .num-dot{transform:none;}
+    .ret-step:nth-child(odd) .num-dot{transform:translateX(16px);}
+    .ret-step:nth-child(even) .num-dot{transform:translateX(-16px);}
   }
   .ret-step .txt{
     background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -312,11 +304,11 @@
     </div>
 
     <div class="ret-track-toggle" role="tablist" aria-label="בחירת פלואו">
-      <button type="button" class="ret-track-btn is-active" data-track-btn="gold">פלואו הריפוי המלא <span>350 ₪</span></button>
-      <button type="button" class="ret-track-btn" data-track-btn="silver">פלואו האש והקרח <span>250 ₪</span></button>
+      <button type="button" class="ret-track-btn is-active" data-track-btn="gold">פלואו הסאונד <span>350 ₪</span></button>
+      <button type="button" class="ret-track-btn" data-track-btn="silver">פלואו הנשימה <span>250 ₪</span></button>
     </div>
 
-    <!-- פלואו הריפוי המלא - כולל סאונד הילינג -->
+    <!-- פלואו הסאונד - כולל סאונד הילינג -->
     <div class="ret-path" data-track-panel="gold">
       <svg class="ret-snake" aria-hidden="true"><path /></svg>
 
@@ -376,7 +368,7 @@
 
     </div>
 
-    <!-- פלואו האש והקרח - ללא סאונד הילינג -->
+    <!-- פלואו הנשימה - ללא סאונד הילינג -->
     <div class="ret-path is-hidden" data-track-panel="silver">
       <svg class="ret-snake" aria-hidden="true"><path /></svg>
 
@@ -431,7 +423,7 @@
   <section class="ret-pricing">
     <div class="ret-price-card" data-price-panel="gold">
       <span class="eyebrow2">מחיר לאדם</span>
-      <h2>פלואו הריפוי המלא</h2>
+      <h2>פלואו הסאונד</h2>
       <div class="ret-price-num"><sup>₪</sup>350</div>
       <div class="ret-price-per">לאדם · כולל את כל שלבי המסע, כולל סאונד הילינג</div>
 
@@ -445,14 +437,14 @@
       </div>
 
       <div class="hero-actions">
-        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%A8%D7%99%D7%A4%D7%95%D7%99%20%D7%94%D7%9E%D7%9C%D7%90%20-%20%D7%94%D7%A8%D7%99%D7%98%D7%A8%D7%99%D7%98%20%D7%A2%D7%A8%D7%91%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-primary btn-lg" target="_blank" rel="noopener">לתיאום הריטריט לקבוצה</a>
+        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%A1%D7%90%D7%95%D7%A0%D7%93%20-%20%D7%94%D7%A8%D7%99%D7%98%D7%A8%D7%99%D7%98%20%D7%A2%D7%A8%D7%91%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-primary btn-lg" target="_blank" rel="noopener">לתיאום הריטריט לקבוצה</a>
         <a href="tel:+972548787766" class="btn btn-ghost btn-lg">חייגו 054-878-7766</a>
       </div>
     </div>
 
     <div class="ret-price-card is-hidden" data-price-panel="silver">
       <span class="eyebrow2">מחיר לאדם</span>
-      <h2>פלואו האש והקרח</h2>
+      <h2>פלואו הנשימה</h2>
       <div class="ret-price-num"><sup>₪</sup>250</div>
       <div class="ret-price-per">לאדם · כל שלבי המסע, ללא סשן סאונד הילינג</div>
 
@@ -466,7 +458,7 @@
       </div>
 
       <div class="hero-actions">
-        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%90%D7%A9%20%D7%95%D7%94%D7%A7%D7%A8%D7%97%20-%20%D7%94%D7%A8%D7%99%D7%98%D7%A8%D7%99%D7%98%20%D7%A2%D7%A8%D7%91%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-primary btn-lg" target="_blank" rel="noopener">לתיאום הריטריט לקבוצה</a>
+        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%A0%D7%A9%D7%99%D7%9E%D7%94%20-%20%D7%94%D7%A8%D7%99%D7%98%D7%A8%D7%99%D7%98%20%D7%A2%D7%A8%D7%91%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-primary btn-lg" target="_blank" rel="noopener">לתיאום הריטריט לקבוצה</a>
         <a href="tel:+972548787766" class="btn btn-ghost btn-lg">חייגו 054-878-7766</a>
       </div>
     </div>
