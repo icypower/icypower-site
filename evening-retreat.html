@@ -35,7 +35,7 @@
   /* ---------- HERO ---------- */
   .ret-hero{
     position:relative;z-index:1;
-    padding:80px 20px 56px;
+    padding:124px 20px 56px;
     text-align:center;
     overflow:hidden;
   }
@@ -107,9 +107,10 @@
   }
 
   @media (max-width:760px){
-    .ret-hero{padding:64px 20px 44px;}
+    .ret-hero{padding:104px 18px 40px;}
     .ret-hero .loc-pill{margin-top:18px;}
     .ret-divider{height:34px;margin:24px auto 0;}
+    .ret-eyebrow{font-size:11px;letter-spacing:.1em;padding:8px 16px;gap:7px;}
   }
 
   /* ---------- JOURNEY / TIMELINE ---------- */
@@ -171,11 +172,15 @@
     backdrop-filter:blur(4px);
   }
   .ret-card .txt h3{
-    font-family:'Frank Ruhl Libre',serif;font-size:16px;font-weight:700;
-    color:var(--ret-gold-soft);margin:0 0 5px;
+    font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:700;
+    color:var(--ret-gold-soft);margin:0 0 6px;
   }
   .ret-card .txt p{
-    margin:0;color:var(--ret-text-dim);font-size:12.5px;line-height:1.55;
+    margin:0;color:var(--ret-text-dim);font-size:14.5px;line-height:1.6;
+  }
+  .ret-card .txt .ret-note{
+    margin:9px 0 0;font-size:12.5px;line-height:1.5;
+    color:var(--ret-gold-soft);opacity:.85;font-weight:500;
   }
   .ret-card .photo{
     border-radius:14px;overflow:hidden;position:relative;
@@ -184,7 +189,9 @@
   }
   .ret-card .photo img{
     width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .5s ease;
   }
+  .ret-card:hover .photo img{transform:scale(1.04);}
 
   @media (max-width:760px){
     .ret-step{gap:10px;margin-bottom:20px;}
@@ -260,16 +267,16 @@
   }
   .ret-track-btn{
     font-family:inherit;cursor:pointer;
-    display:flex;align-items:center;gap:8px;
-    padding:12px 24px;border-radius:999px;
+    display:flex;align-items:center;gap:9px;
+    padding:13px 26px;border-radius:999px;
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.16);
-    color:var(--ret-text-dim);font-weight:700;font-size:14.5px;
+    color:var(--ret-text-dim);font-weight:700;font-size:16px;
     transition:all .25s;
   }
   .ret-track-btn span{
     font-family:'Frank Ruhl Libre',serif;font-weight:900;
-    font-size:13px;color:inherit;opacity:.75;
+    font-size:17px;color:inherit;opacity:.8;
   }
   .ret-track-btn:hover{border-color:rgba(211,167,92,.5);color:var(--ret-text);}
   .ret-track-btn.is-active{
@@ -347,7 +354,7 @@
     </div>
     <span class="ret-eyebrow">ריטריט ערב · לקבוצות</span>
     <h1>ריטריט ערב ייחודי<br>כנסו ל<em>בועת וולנס חלומית</em> לערב אחד</h1>
-    <p class="lead">מסע מודרך של נשימה, קור וחום, וריפוי בסאונד - בוילה מהממת ב"תאילנד הקטנה" שבסביון. ערב אחד, חוויה שנשארת.</p>
+    <p class="lead">מסע מודרך של נשימה, טבילת קרח וריפוי בסאונד - בוילה מהממת ב"תאילנד הקטנה" שבסביון. ערב אחד, חוויה שנשארת.</p>
     <div class="loc-pill">📍 <b>"תאילנד הקטנה"</b>, סביון · ריטריט פרטי לקבוצה</div>
     <div class="ret-divider"></div>
   </section>
@@ -384,6 +391,8 @@
           <div class="txt">
             <h3>מינגלינג עם פירות, שייקים ופינת תה</h3>
             <p>תתמקמו, תתרווחו ותסעדו מעט - בקרוב מתחילים עם הסדנאות.</p>
+            <p class="ret-note">* יש אופציה להוסיף קייטרינג בריאות ויין/שמפניה ללא הגבלה בתוספת תשלום - מפורט בהמשך.</p>
+            <p class="ret-note">* הבריכה לנוי בלבד.</p>
           </div>
           <div class="photo"><img src="assets/img/retreat-villa-spread.jpg" alt="שולחן פירות ושייקים ליד הבריכה" loading="lazy"></div>
         </div>
@@ -456,6 +465,8 @@
           <div class="txt">
             <h3>מינגלינג עם פירות, שייקים ופינת תה</h3>
             <p>תתמקמו, תתרווחו ותסעדו מעט - בקרוב מתחילים עם הסדנאות.</p>
+            <p class="ret-note">* יש אופציה להוסיף קייטרינג בריאות ויין/שמפניה ללא הגבלה בתוספת תשלום - מפורט בהמשך.</p>
+            <p class="ret-note">* הבריכה לנוי בלבד.</p>
           </div>
           <div class="photo"><img src="assets/img/retreat-villa-spread.jpg" alt="שולחן פירות ושייקים ליד הבריכה" loading="lazy"></div>
         </div>
