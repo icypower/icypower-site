@@ -579,19 +579,36 @@
 <script>
   (function(){
     var btns = document.querySelectorAll('[data-track-btn]');
+
+    function selectTrack(track, updateUrl){
+      var match = Array.prototype.some.call(btns, function(b){ return b.getAttribute('data-track-btn') === track; });
+      if(!match){ return; }
+      btns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-track-btn') === track); });
+      document.querySelectorAll('[data-track-panel]').forEach(function(panel){
+        panel.classList.toggle('is-hidden', panel.getAttribute('data-track-panel') !== track);
+      });
+      document.querySelectorAll('[data-price-panel]').forEach(function(panel){
+        panel.classList.toggle('is-hidden', panel.getAttribute('data-price-panel') !== track);
+      });
+      if(updateUrl){
+        var url = new URL(window.location.href);
+        url.searchParams.set('flow', track);
+        window.history.replaceState(null, '', url);
+      }
+      drawSnakes();
+    }
+
     btns.forEach(function(btn){
       btn.addEventListener('click', function(){
-        var track = btn.getAttribute('data-track-btn');
-        btns.forEach(function(b){ b.classList.toggle('is-active', b === btn); });
-        document.querySelectorAll('[data-track-panel]').forEach(function(panel){
-          panel.classList.toggle('is-hidden', panel.getAttribute('data-track-panel') !== track);
-        });
-        document.querySelectorAll('[data-price-panel]').forEach(function(panel){
-          panel.classList.toggle('is-hidden', panel.getAttribute('data-price-panel') !== track);
-        });
-        drawSnakes();
+        selectTrack(btn.getAttribute('data-track-btn'), true);
       });
     });
+
+    var params = new URLSearchParams(window.location.search);
+    var requested = params.get('flow');
+    if(requested === 'gold' || requested === 'silver'){
+      selectTrack(requested, false);
+    }
 
     function drawSnakes(){
       document.querySelectorAll('.ret-path').forEach(function(pathEl){
