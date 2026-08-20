@@ -34,6 +34,29 @@
     transform:translateY(-2px);
     box-shadow:0 0 0 1px rgba(167,139,250,.45), 0 16px 36px -8px rgba(88,28,235,.75), 0 0 34px -2px rgba(167,139,250,.7);
   }
+
+  .btn-wellness-day{
+    position:relative;
+    background:linear-gradient(90deg,#f4b942,#3fb59a 60%,#1C6E9C);
+    color:#06261f !important;border:1px solid rgba(255,255,255,.55);
+    box-shadow:0 10px 30px -10px rgba(63,181,154,.7), 0 0 22px -6px rgba(244,185,66,.6);
+    transition:transform .25s, box-shadow .25s;
+    overflow:hidden;
+  }
+  .btn-wellness-day::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.45) 45%, transparent 65%);
+    transform:translateX(-120%);
+    animation:dayShine 3.6s ease-in-out infinite;
+  }
+  @keyframes dayShine{
+    0%,55%{transform:translateX(-120%);}
+    100%{transform:translateX(120%);}
+  }
+  .btn-wellness-day:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 36px -10px rgba(63,181,154,.85), 0 0 30px -4px rgba(244,185,66,.75);
+  }
 </style>
 </head>
 <body>
@@ -59,6 +82,7 @@
     <div class="hero-actions" style="margin-top:28px">
       <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%9C%D7%92%D7%91%D7%99%20%D7%90%D7%99%D7%A8%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99!" class="btn btn-wa btn-lg" target="_blank" rel="noopener">לתיאום חוויה לקבוצה</a>
       <a href="evening-retreat.html" class="btn btn-retreat btn-lg">✨ ריטריט ערב בסביון לקבוצות</a>
+      <a href="wellness-day.html" class="btn btn-wellness-day btn-lg">☀️ אירוע וולנס ליום שלם</a>
       <a href="gallery.html" class="btn btn-ghost btn-lg">לראות איך זה נראה</a>
     </div>
   </div>
