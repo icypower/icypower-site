@@ -11,6 +11,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .btn-wellness-day{
+    position:relative;
+    background:linear-gradient(90deg,#f4b942,#3fb59a 60%,#1C6E9C);
+    color:#06261f !important;border:1px solid rgba(255,255,255,.55);
+    box-shadow:0 10px 30px -10px rgba(63,181,154,.7), 0 0 22px -6px rgba(244,185,66,.6);
+    transition:transform .25s, box-shadow .25s;
+    overflow:hidden;
+  }
+  .btn-wellness-day::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.45) 45%, transparent 65%);
+    transform:translateX(-120%);
+    animation:dayShine 3.6s ease-in-out infinite;
+  }
+  @keyframes dayShine{
+    0%,55%{transform:translateX(-120%);}
+    100%{transform:translateX(120%);}
+  }
+  .btn-wellness-day:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 36px -10px rgba(63,181,154,.85), 0 0 30px -4px rgba(244,185,66,.75);
+  }
+</style>
 </head>
 <body>
 
@@ -44,6 +68,7 @@
     <p>תשכחו מאירוע חברה רגיל. סדנת Icy Power מוציאה את הצוות מהשגרה, מרעננת אתכם באמת ומחזירה את כולם למשרד טעונים באנרגיה.</p>
     <div class="hero-actions" style="margin-top:28px">
       <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%9C%D7%92%D7%91%D7%99%20%D7%90%D7%99%D7%A8%D7%95%D7%A2%20%D7%97%D7%91%D7%A8%D7%94!" class="btn btn-wa btn-lg" target="_blank" rel="noopener">לתיאום סדנה לצוות</a>
+      <a href="wellness-day.html" class="btn btn-wellness-day btn-lg">☀️ אירוע וולנס ליום שלם</a>
       <a href="contact.html" class="btn btn-ghost btn-lg">לפרטים נוספים</a>
     </div>
   </div>

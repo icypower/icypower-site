@@ -39,6 +39,58 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-08-20
+- **What changed:** Oron asked for a second "premium landing" page alongside
+  `evening-retreat.html` - this time a **daytime wellness event for groups**,
+  at any location in the country, that the customer can *configure themselves*.
+  Built `wellness-day.html` (new page):
+  - **Bright/summery design language**, deliberately the mirror image of the
+    evening retreat's dark navy+gold look: sky gradient, sun glow, mint/blue
+    accents, Heebo (no Frank Ruhl serif here - that's the evening page's
+    signature). Same page skeleton though: nav, hero with eyebrow+pills,
+    content sections, CTA band, footer, floating WhatsApp.
+  - **The core idea: an interactive "day builder."** Add-on cards (photo,
+    title, duration, description, add button) that the customer toggles;
+    every toggle updates a live **"היום שלי"** summary panel - sticky on the
+    side on desktop, in-flow + a floating bottom bar on mobile - which shows
+    the chosen items **sorted into day order** (an `order` field per add-on),
+    the always-included base, the priced total (currently only catering),
+    and a WhatsApp CTA whose message text is **generated from the selection**
+    (items list + blank lines for group size / date / location). Selection
+    persists in `localStorage` (`icypower_wellness_day`).
+  - **Add-ons are data-driven.** A single `ADDONS` array at the top of the
+    inline `<script>`, with a Hebrew comment block explaining every field.
+    **To add a new option later, add one object to that array - nothing
+    else.** Currently: יוגה, פילאטיס, סדנת נשימות, אמבטיות קרח, עמידה על
+    מסמרים, ארומתרפיה, עיסויים, סאונד הילינג, וקייטרינג בריאות (70 ₪ לאדם,
+    the only priced item - the rest render "לפי הרכב היום" and `price:null`;
+    set a number there when real prices exist and the totals math picks it
+    up automatically).
+  - **Missing photos (needs Oron/Eldar):** only 4 add-ons have real photos
+    (נשימות/קרח/סאונד from the retreat set, קייטרינג reusing
+    `retreat-villa-spread.jpg`). יוגה, פילאטיס, עיסויים, מסמרים, ארומתרפיה
+    have `img:null` and fall back to a designed gradient tile with an emoji -
+    looks intentional, not broken. Drop real files into `assets/img/` and set
+    `img:'assets/img/<file>.jpg'` on those entries.
+  - **Entry points:** a glowing `.btn-wellness-day` button ("☀️ אירוע וולנס
+    ליום שלם") added to `business.html`'s hero (that's the "אירועי חברה"
+    placement Oron asked for) and to `private-groups.html`'s hero next to the
+    existing evening-retreat button. Both use the same self-contained
+    `<style>` block pattern the retreat button uses (per-page, not in
+    `styles.css`).
+  - Verified with Playwright at 1400px and 390px: 9 cards render, toggling
+    adds/removes from the summary, totals recompute, the WhatsApp href
+    carries the selection, the mobile bar appears only when something is
+    selected, no horizontal overflow, no JS errors; `node --check` on the
+    inline script.
+- **Next goal:** Nothing pending. Oron said he'll come back periodically to
+  add more add-on options - that's a one-object edit in `ADDONS`.
+- **Anything the next session needs to know:** Still outstanding from
+  earlier: the Israeli-law accessibility statement + named coordinator (see
+  the 2026-08-07 entry), and Oron's font choice from the 4-font comparison
+  (see the 2026-08-17 entry).
+
+### Latest status (previous)
 - **Date:** 2026-08-17
 - **What changed:** Oron asked to change the homepage hero headline and to
   see font options for a nicer look. Changed the `<h1>` in `index.html`
@@ -150,6 +202,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-08-20 — Added `wellness-day.html`: a bright daytime counterpart to the
+  evening retreat page, built around an interactive add-on builder (cards →
+  live "היום שלי" summary → WhatsApp message generated from the selection).
+  Add-ons live in a single data-driven `ADDONS` array so adding an option is a
+  one-object edit. Entry buttons added on `business.html` and
+  `private-groups.html`. 5 of the 9 add-ons still need real photos.
 - 2026-08-17 — Changed homepage hero headline to "מוכנים לחוויית וולנס
   קפואה?" (was "תדליקו את הכוח שבתוככם"), pushed straight to `main`. Built
   a 4-font comparison artifact (Rubik/Assistant/Suez One/Frank Ruhl Libre

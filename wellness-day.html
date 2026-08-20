@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/png" href="assets/img/icy_power_Logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<title>אירוע וולנס ביום לקבוצות · Icy Power</title>
+<meta name="description" content="יום וולנס מלא לקבוצות, צוותים ומשפחות - בכל לוקיישן בארץ. בוחרים תכנים: נשימות, אמבטיות קרח, יוגה, פילאטיס, עיסויים, סאונד הילינג ועוד, ומוסיפים קייטרינג בריאות." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  :root{
+    --day-sky:#eaf6fd;
+    --day-sky2:#f6fbfe;
+    --day-cream:#fffdf7;
+    --day-sun:#f4b942;
+    --day-sun-soft:#ffe6ad;
+    --day-mint:#3fb59a;
+    --day-blue:#1C6E9C;
+    --day-blue-light:#5AB0DE;
+    --day-line:rgba(28,110,156,.16);
+    --day-ink:#123049;
+  }
+
+  .wday{
+    position:relative;
+    background:
+      radial-gradient(760px 420px at 88% -8%, rgba(244,185,66,.20), transparent 62%),
+      radial-gradient(820px 480px at 6% 4%, rgba(90,176,222,.20), transparent 60%),
+      linear-gradient(180deg, var(--day-sky) 0%, var(--day-sky2) 34%, #ffffff 62%);
+  }
+
+  /* ---------- HERO ---------- */
+  .wd-hero{
+    position:relative;overflow:hidden;
+    padding:118px 20px 44px;
+    text-align:center;
+  }
+  .wd-sun{
+    position:absolute;top:-120px;inset-inline-start:-90px;
+    width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(circle, rgba(244,185,66,.42), rgba(244,185,66,0) 68%);
+    pointer-events:none;
+    animation:wdSun 9s ease-in-out infinite;
+  }
+  @keyframes wdSun{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.08);opacity:1}}
+  .wd-blob{
+    position:absolute;border-radius:50%;pointer-events:none;filter:blur(2px);
+    background:radial-gradient(circle, rgba(90,176,222,.30), rgba(90,176,222,0) 70%);
+    animation:wdFloat 12s ease-in-out infinite;
+  }
+  @keyframes wdFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+
+  .wd-eyebrow{
+    position:relative;display:inline-flex;align-items:center;gap:9px;
+    font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+    color:var(--day-blue);
+    padding:9px 20px;border-radius:999px;
+    border:1px solid var(--day-line);
+    background:rgba(255,255,255,.75);
+    box-shadow:0 8px 22px -14px rgba(28,110,156,.6);
+    margin-bottom:22px;
+  }
+  .wd-hero h1{
+    position:relative;
+    font-size:clamp(30px,5.4vw,56px);
+    line-height:1.14;margin:0 0 18px;
+    color:var(--day-ink);
+  }
+  .wd-hero h1 em{
+    font-style:normal;
+    background:linear-gradient(90deg,var(--day-blue-light),var(--day-mint));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .wd-hero p.lead{
+    position:relative;max-width:640px;margin:0 auto;
+    font-size:clamp(15px,2.3vw,19px);color:var(--ink-dim);
+  }
+  .wd-pills{
+    position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    margin-top:26px;
+  }
+  .wd-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 18px;border-radius:999px;
+    background:#fff;border:1px solid var(--day-line);
+    font-size:14px;font-weight:700;color:var(--day-ink);
+    box-shadow:0 10px 24px -18px rgba(18,48,73,.7);
+  }
+  .wd-hero .hero-actions{position:relative;margin-top:28px;justify-content:center}
+  .wd-hero .btn-ghost{color:var(--day-ink);border-color:var(--line-strong)}
+
+  @media (max-width:760px){
+    .wd-hero{padding:98px 18px 34px;}
+    .wd-sun{width:250px;height:250px;top:-90px;inset-inline-start:-70px;}
+  }
+
+  /* ---------- INCLUDED STRIP ---------- */
+  .wd-base{position:relative;padding:8px 20px 46px;max-width:1140px;margin-inline:auto;}
+  .wd-base-inner{
+    background:linear-gradient(180deg,#ffffff,var(--day-cream));
+    border:1px solid var(--day-line);border-radius:22px;
+    padding:26px 24px;
+    box-shadow:0 26px 60px -42px rgba(18,48,73,.65);
+  }
+  .wd-base h2{
+    font-size:clamp(19px,2.6vw,25px);color:var(--day-ink);margin:0 0 4px;text-align:center;
+  }
+  .wd-base .sub{text-align:center;font-size:14.5px;margin:0 auto 20px;max-width:560px;}
+  .wd-base-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;
+  }
+  .wd-base-item{
+    display:flex;gap:11px;align-items:flex-start;
+    background:rgba(90,176,222,.07);
+    border:1px solid var(--day-line);border-radius:14px;padding:13px 15px;
+  }
+  .wd-base-item .ic3{font-size:20px;line-height:1.2}
+  .wd-base-item b{display:block;font-size:14.5px;color:var(--day-ink);margin-bottom:2px}
+  .wd-base-item span.d{font-size:13px;color:var(--ink-dim);line-height:1.5;display:block}
+
+  /* ---------- BUILDER ---------- */
+  .wd-build{position:relative;padding:0 20px 40px;max-width:1140px;margin-inline:auto;}
+  .wd-build-head{text-align:center;margin-bottom:26px;}
+  .wd-build-head .eyebrow3{
+    display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:800;color:var(--day-mint);margin-bottom:10px;
+  }
+  .wd-build-head h2{font-size:clamp(24px,3.6vw,36px);color:var(--day-ink);margin:0 0 8px;}
+  .wd-build-head p{max-width:600px;margin:0 auto;font-size:15px;}
+
+  .wd-layout{display:grid;grid-template-columns:1fr 330px;gap:22px;align-items:start;}
+  @media (max-width:980px){.wd-layout{grid-template-columns:1fr;}}
+
+  .wd-group-title{
+    display:flex;align-items:center;gap:10px;
+    font-size:15px;font-weight:800;color:var(--day-ink);
+    margin:4px 0 14px;
+  }
+  .wd-group-title::after{content:"";flex:1;height:1px;background:var(--day-line);}
+  .wd-group + .wd-group{margin-top:26px;}
+
+  .wd-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+
+  .wd-card{
+    position:relative;display:flex;flex-direction:column;
+    background:#fff;border:1px solid var(--day-line);border-radius:18px;overflow:hidden;
+    box-shadow:0 20px 44px -36px rgba(18,48,73,.75);
+    transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s;
+  }
+  .wd-card:hover{transform:translateY(-3px);box-shadow:0 26px 52px -32px rgba(18,48,73,.7);}
+  .wd-card.is-on{border-color:var(--day-mint);box-shadow:0 0 0 2px rgba(63,181,154,.28),0 22px 46px -32px rgba(18,48,73,.7);}
+
+  .wd-card .pic{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e8f2f8;}
+  .wd-card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .wd-card:hover .pic img{transform:scale(1.05);}
+  .wd-card .pic.ph{
+    display:flex;align-items:center;justify-content:center;font-size:46px;
+    background:linear-gradient(140deg,#dff0fa,#eaf7f2 55%,#fdf3dd);
+  }
+  .wd-card .dur{
+    position:absolute;inset-block-end:9px;inset-inline-start:9px;
+    background:rgba(255,255,255,.92);color:var(--day-ink);
+    font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:999px;
+    box-shadow:0 6px 16px -10px rgba(18,48,73,.9);
+  }
+  .wd-card .body{padding:14px 16px 0;flex:1;}
+  .wd-card h3{font-size:17px;color:var(--day-ink);margin:0 0 6px;}
+  .wd-card p{font-size:13.5px;line-height:1.6;margin:0;}
+  .wd-card .foot{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:13px 16px 15px;
+  }
+  .wd-price{font-size:13.5px;font-weight:800;color:var(--day-blue);white-space:nowrap;}
+  .wd-price small{display:block;font-weight:600;font-size:11px;color:var(--ink-faint);}
+  .wd-toggle{
+    font-family:inherit;cursor:pointer;flex:1;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    padding:10px 14px;border-radius:999px;font-weight:800;font-size:14px;
+    white-space:nowrap;
+    background:rgba(28,110,156,.08);color:var(--day-blue);
+    border:1.5px solid transparent;
+    transition:all .2s var(--ease);
+  }
+  .wd-toggle:hover{background:rgba(28,110,156,.15);}
+  .wd-card.is-on .wd-toggle{
+    background:var(--day-mint);color:#04372d;
+    box-shadow:0 10px 24px -12px rgba(63,181,154,.9);
+  }
+  .wd-card.is-on .wd-toggle:hover{background:#37a48c;}
+
+  /* highlighted catering card */
+  .wd-card.is-feature{background:linear-gradient(180deg,#fff,var(--day-cream));}
+
+  /* ---------- SUMMARY ---------- */
+  .wd-sum-wrap{position:sticky;top:92px;}
+  @media (max-width:980px){.wd-sum-wrap{position:static;}}
+  .wd-sum{
+    background:linear-gradient(180deg,#0f2c42,#123049);
+    color:#eef6fb;border-radius:22px;padding:22px 20px;
+    box-shadow:0 30px 60px -34px rgba(18,48,73,.9);
+    border:1px solid rgba(255,255,255,.09);
+  }
+  .wd-sum h3{
+    font-size:18px;color:#fff;margin:0 0 3px;display:flex;align-items:center;gap:8px;
+  }
+  .wd-sum .sum-sub{font-size:12.5px;color:rgba(238,246,251,.6);margin:0 0 16px;}
+  .wd-sum ol{list-style:none;margin:0;padding:0;}
+  .wd-sum li{
+    display:flex;gap:11px;align-items:flex-start;
+    padding:9px 0;border-block-end:1px dashed rgba(255,255,255,.12);
+    animation:wdIn .3s var(--ease);
+  }
+  @keyframes wdIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .wd-sum li:last-child{border-block-end:none;}
+  .wd-sum li .n{
+    flex:none;width:24px;height:24px;border-radius:50%;
+    background:linear-gradient(145deg,var(--day-blue-light),var(--day-mint));
+    color:#062a20;font-weight:900;font-size:12px;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+  .wd-sum li .n.base{background:rgba(255,255,255,.16);color:#eef6fb;font-size:13px;}
+  .wd-sum li .t{flex:1;font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+  .wd-sum li .t small{display:block;font-weight:500;font-size:11.5px;color:rgba(238,246,251,.55);}
+  .wd-sum li .x{
+    flex:none;cursor:pointer;font-family:inherit;background:none;border:none;
+    color:rgba(238,246,251,.45);font-size:17px;line-height:1;padding:2px 4px;
+    transition:color .2s;
+  }
+  .wd-sum li .x:hover{color:#ff9d9d;}
+  .wd-sum .empty{
+    font-size:13.5px;color:rgba(238,246,251,.6);line-height:1.6;
+    background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.16);
+    border-radius:14px;padding:14px 15px;text-align:center;
+  }
+  .wd-sum .totals{
+    margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);
+    display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+  }
+  .wd-sum .totals .lbl{font-size:12.5px;color:rgba(238,246,251,.6);}
+  .wd-sum .totals .val{font-size:22px;font-weight:900;color:#fff;line-height:1.2;}
+  .wd-sum .totals .val small{display:block;font-size:11.5px;font-weight:500;color:rgba(238,246,251,.55);}
+  .wd-sum .note{font-size:11.5px;color:rgba(238,246,251,.5);margin-top:10px;line-height:1.55;}
+  .wd-sum .btn{width:100%;margin-top:14px;}
+  .wd-sum .btn-clear{
+    display:block;margin:10px auto 0;background:none;border:none;cursor:pointer;
+    font-family:inherit;font-size:12.5px;color:rgba(238,246,251,.5);text-decoration:underline;
+  }
+  .wd-sum .btn-clear:hover{color:#fff;}
+
+  /* mobile floating bar */
+  .wd-bar{
+    position:fixed;inset-inline:12px;inset-block-end:12px;z-index:55;
+    display:none;align-items:center;gap:12px;
+    background:rgba(15,44,66,.96);color:#fff;
+    border-radius:999px;padding:9px 10px 9px 18px;
+    box-shadow:0 18px 40px -14px rgba(0,0,0,.7);
+    backdrop-filter:blur(8px);
+    transform:translateY(140%);transition:transform .3s var(--ease);
+  }
+  .wd-bar.is-show{transform:none;}
+  .wd-bar .cnt{flex:1;font-size:13.5px;font-weight:700;line-height:1.35;}
+  .wd-bar .cnt small{display:block;font-weight:500;font-size:11.5px;color:rgba(238,246,251,.6);}
+  .wd-bar button{
+    font-family:inherit;cursor:pointer;border:none;
+    background:linear-gradient(90deg,var(--day-blue-light),var(--day-mint));
+    color:#062a20;font-weight:800;font-size:13.5px;
+    padding:11px 18px;border-radius:999px;white-space:nowrap;
+  }
+  @media (max-width:980px){.wd-bar{display:flex;}}
+
+  /* ---------- HOW / CTA ---------- */
+  .wd-how{position:relative;padding:14px 20px 50px;max-width:1140px;margin-inline:auto;}
+  .wd-how h2{text-align:center;font-size:clamp(22px,3.2vw,32px);color:var(--day-ink);margin:0 0 24px;}
+  .wd-how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+  .wd-how-card{
+    background:#fff;border:1px solid var(--day-line);border-radius:18px;padding:22px 20px;
+    box-shadow:0 22px 46px -38px rgba(18,48,73,.8);
+  }
+  .wd-how-card .st{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(145deg,var(--day-sun),#e09b26);
+    color:#3d2703;font-weight:900;font-size:15px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+  }
+  .wd-how-card h3{font-size:17px;color:var(--day-ink);margin:0 0 6px;}
+  .wd-how-card p{font-size:14px;margin:0;}
+
+  .wd-cta{position:relative;padding:0 20px 70px;max-width:1140px;margin-inline:auto;}
+  .wd-cta-band{
+    background:linear-gradient(120deg,#0f2c42,#134a63 60%,#146b74);
+    border-radius:26px;padding:40px 30px;text-align:center;color:#fff;
+    box-shadow:0 32px 70px -40px rgba(18,48,73,.9);
+  }
+  .wd-cta-band h2{font-size:clamp(22px,3.2vw,32px);margin:0 0 10px;color:#fff;}
+  .wd-cta-band p{color:rgba(238,246,251,.78);max-width:560px;margin:0 auto 22px;font-size:15px;}
+  .wd-cta-band .hero-actions{justify-content:center;}
+  .wd-cta-band .btn-ghost{color:#fff;border-color:rgba(255,255,255,.35);}
+  .wd-cta-band .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand" aria-label="Icy Power"><img class="flake" src="assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
+    <nav class="nav-links" id="navLinks"><a href="index.html#sessions">הסדנאות</a><a href="index.html#how">איך זה עובד</a><a href="gallery.html">גלריה</a><a href="privacy-policy.html">מדיניות פרטיות</a></nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary nav-contact">צור קשר</a>
+      <button class="nav-toggle" id="navToggle" aria-label="תפריט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="wday">
+
+  <section class="wd-hero">
+    <span class="wd-sun" aria-hidden="true"></span>
+    <span class="wd-blob" aria-hidden="true" style="width:180px;height:180px;top:18%;inset-inline-end:6%;animation-delay:-2s"></span>
+    <span class="wd-blob" aria-hidden="true" style="width:120px;height:120px;top:62%;inset-inline-start:12%;animation-delay:-6s"></span>
+
+    <span class="wd-eyebrow">☀️ אירוע וולנס · יום שלם לקבוצה</span>
+    <h1>יום וולנס שמעצבים<br><em>בדיוק כמו שרציתם</em></h1>
+    <p class="lead">אנחנו מגיעים אליכם - לכל מתחם, גינה, חוף או מקום עבודה בארץ - ומרימים יום שלם של אנרגיה, רוגע וחיבור. אתם בוחרים מה נכנס ליום, אנחנו מביאים את הצוות, הציוד והוייב.</p>
+
+    <div class="wd-pills">
+      <span class="wd-pill">📍 מגיעים לכל לוקיישן בארץ</span>
+      <span class="wd-pill">🧑‍🤝‍🧑 צוותים, קבוצות ומשפחות</span>
+      <span class="wd-pill">🧩 בונים את היום מהתכנים שתבחרו</span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#builder" class="btn btn-primary btn-lg">בואו נבנה את היום שלכם ↓</a>
+      <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%99%D7%95%D7%9D%20%D7%95%D7%95%D7%9C%D7%A0%D7%A1%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">לדבר איתנו בוואטסאפ</a>
+    </div>
+  </section>
+
+  <section class="wd-base">
+    <div class="wd-base-inner">
+      <h2>מה תמיד כלול, בלי קשר למה שתבחרו</h2>
+      <p class="sub">זה הבסיס של כל יום וולנס שלנו. התכנים שתוסיפו למטה נבנים על גביו.</p>
+      <div class="wd-base-grid">
+        <div class="wd-base-item"><span class="ic3">🚚</span><div><b>מגיעים אליכם</b><span class="d">לכל מתחם ולוקיישן בארץ - עם כל הציוד, ההקמה והפירוק עלינו.</span></div></div>
+        <div class="wd-base-item"><span class="ic3">🧑‍🏫</span><div><b>צוות מדריכים מנוסה</b><span class="d">מלווים את הקבוצה לאורך כל היום, בגובה העיניים ובקצב שלכם.</span></div></div>
+        <div class="wd-base-item"><span class="ic3">🗓️</span><div><b>תכנון ולו״ז מותאם</b><span class="d">נבנה איתכם סדר יום שזורם - כולל הפסקות, מעברים וזמני צילום.</span></div></div>
+        <div class="wd-base-item"><span class="ic3">📸</span><div><b>תיעוד של החוויה</b><span class="d">מצלמים לכם את הרגעים הכי טובים ושולחים אחרי האירוע.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wd-build" id="builder">
+    <div class="wd-build-head">
+      <span class="eyebrow3">התאמה אישית</span>
+      <h2>בנו את יום הוולנס שלכם</h2>
+      <p>לחצו על מה שמעניין אתכם - וזה ייכנס מיד ל"יום שלי" שמתעדכן בצד. אפשר לשחק, להוסיף ולהוריד, ולשלוח לנו בסוף בלחיצה אחת.</p>
+    </div>
+
+    <div class="wd-layout">
+      <div>
+        <div class="wd-group">
+          <div class="wd-group-title">🧘 תכנים וסדנאות</div>
+          <div class="wd-cards" data-cards="content"></div>
+        </div>
+        <div class="wd-group">
+          <div class="wd-group-title">🥗 אוכל ושתייה</div>
+          <div class="wd-cards" data-cards="food"></div>
+        </div>
+      </div>
+
+      <div class="wd-sum-wrap">
+        <div class="wd-sum" id="wdSum">
+          <h3>☀️ היום שלי</h3>
+          <p class="sum-sub">כך נראה האירוע שלכם כרגע</p>
+          <div id="wdSumBody"></div>
+          <div class="totals">
+            <div>
+              <div class="lbl">תוספות מתומחרות</div>
+              <div class="val" id="wdTotal">—<small>לאדם</small></div>
+            </div>
+          </div>
+          <p class="note">המחיר הסופי נקבע לפי גודל הקבוצה, הלוקיישן ומשך היום. נשמח לשלוח לכם הצעת מחיר מדויקת תוך זמן קצר.</p>
+          <a href="#" class="btn btn-wa btn-lg" id="wdWa" target="_blank" rel="noopener">שליחת היום שלי בוואטסאפ</a>
+          <button type="button" class="btn-clear" id="wdClear">ניקוי הבחירות</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wd-how">
+    <h2>שלושה צעדים ליום שלכם</h2>
+    <div class="wd-how-grid">
+      <div class="wd-how-card">
+        <div class="st">1</div>
+        <h3>בוחרים מקום ותאריך</h3>
+        <p>מתחם נופש, גינה פרטית, חצר של החברה או חוף - אנחנו מגיעים לכל מקום בארץ. אין לכם לוקיישן? נעזור לכם למצוא.</p>
+      </div>
+      <div class="wd-how-card">
+        <div class="st">2</div>
+        <h3>מרכיבים את התכנים</h3>
+        <p>בוחרים מהרשימה למעלה את מה שמדבר אליכם, ושולחים לנו. נחזור אליכם עם לו״ז מסודר והצעת מחיר.</p>
+      </div>
+      <div class="wd-how-card">
+        <div class="st">3</div>
+        <h3>אנחנו מגיעים ומריצים</h3>
+        <p>ביום עצמו אתם רק מגיעים ונהנים. הצוות שלנו מקים, מדריך, מתעד ומפרק - אתם חוזרים הביתה טעונים.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wd-cta">
+    <div class="wd-cta-band">
+      <h2>נשמח לתכנן איתכם את היום</h2>
+      <p>ספרו לנו כמה אתם, מתי ואיפה - ונחזור אליכם עם הצעה מלאה ליום וולנס שיזכרו הרבה אחרי שהוא נגמר.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%9B%D7%A0%D7%9F%20%D7%99%D7%95%D7%9D%20%D7%95%D7%95%D7%9C%D7%A0%D7%A1%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%94%21" class="btn btn-wa btn-lg" target="_blank" rel="noopener">דברו איתנו בוואטסאפ</a>
+        <a href="tel:+972548787766" class="btn btn-ghost btn-lg">חייגו 054-878-7766</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="wd-bar" id="wdBar">
+  <div class="cnt" id="wdBarCnt">בחרתם 0 תכנים<small>גללו כדי לראות את היום שלכם</small></div>
+  <button type="button" id="wdBarBtn">היום שלי</button>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand"><img class="flake" src="assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
+        <p>סדנאות אמבט קרח ונשימות לקבוצות, חברות ואירועים - קור שמדליק אנרגיה.</p>
+        <div class="social">
+          <a href="https://www.instagram.com/the.icy.power.il/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://wa.me/972548787766" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></a>
+          <a href="mailto:icypowerteam@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        </div>
+      </div>
+      <div><h4>הסדנאות</h4><ul><li><a href="business.html">חברות וצוותים</a></li><li><a href="private-groups.html">קבוצות פרטיות</a></li><li><a href="open-session.html">סדנה פתוחה</a></li><li><a href="couples.html">סדנת זוגות</a></li><li><a href="events.html">אירועים ומסיבות</a></li></ul></div>
+      <div><h4>ניווט</h4><ul><li></li><li><a href="gallery.html">גלריה</a></li><li><a href="contact.html">צור קשר</a></li><li><a href="privacy-policy.html">מדיניות פרטיות</a></li><li><a href="tel:+972548787766">054-878-7766</a></li><li><a href="mailto:icypowerteam@gmail.com">icypowerteam@gmail.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© <span data-year>2026</span> Icy Power · כל הזכויות שמורות</span><span>אמבט קרח · נשימות WHM · ישראל</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/972548787766" class="float-wa" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></a>
+
+<script src="assets/main.js"></script>
+<script>
+/* =====================================================================
+   יום וולנס - רשימת ה-ADD ONS
+   ---------------------------------------------------------------------
+   כדי להוסיף אופציה חדשה: פשוט מוסיפים אובייקט אחד לרשימה שלמטה.
+   שדות:
+     id     - מזהה באנגלית, ייחודי (משמש לשמירת הבחירה בדפדפן)
+     title  - שם התוכן כפי שיוצג
+     desc   - תיאור קצר (2-3 שורות)
+     dur    - משך משוער (או '' אם לא רלוונטי)
+     img    - נתיב לתמונה. אם אין תמונה עדיין - שמים null ומופיע
+              רקע מעוצב עם האייקון במקום.
+     icon   - אימוג'י שמופיע כשאין תמונה
+     price  - מחיר לאדם בשקלים. null = "לפי הרכב היום" (לא נכנס לסכום)
+     group  - 'content' (תכנים וסדנאות) או 'food' (אוכל ושתייה)
+     order  - מיקום בסדר היום (מספר קטן = מוקדם יותר). משפיע רק על
+              הסדר שבו התוכן מופיע ב"היום שלי"
+   ===================================================================== */
+var ADDONS = [
+  {
+    id:'yoga', title:'יוגה', group:'content', order:10, price:null,
+    dur:'כ-60 דק׳', img:null, icon:'🧘‍♀️',
+    desc:'פתיחה רכה ליום - תרגול יוגה מונחה בחוץ, מותאם לכל רמה. גוף שמתעורר, ראש שמתפנה.'
+  },
+  {
+    id:'pilates', title:'פילאטיס', group:'content', order:12, price:null,
+    dur:'כ-50 דק׳', img:null, icon:'🤸',
+    desc:'שיעור פילאטיס מזרן אנרגטי שמחזק את הליבה ומעיר את הגוף - בלי ציוד ובלי ניסיון קודם.'
+  },
+  {
+    id:'breathwork', title:'סדנת נשימות', group:'content', order:20, price:null,
+    dur:'כ-60 דק׳', img:'assets/img/retreat-breathwork.jpg', icon:'🌬️',
+    desc:'החתימה שלנו. מסע מודרך בין מצבי תודעה בעזרת שיטות נשימה עוצמתיות - חוויה שרובם לא מכירים.'
+  },
+  {
+    id:'icebath', title:'אמבטיות קרח', group:'content', order:30, price:null,
+    dur:'כ-60 דק׳', img:'assets/img/retreat-icebath.jpg', icon:'🧊',
+    desc:'תחנת אמבטיות קרח עם הדרכה צמודה - האתגר שכולם מדברים עליו אחר כך, וההרגשה שאחריו.'
+  },
+  {
+    id:'nails', title:'עמידה על מסמרים', group:'content', order:40, price:null,
+    dur:'כ-40 דק׳', img:null, icon:'🪡',
+    desc:'נשמע מטורף, מרגיש מדהים. עמידה מודרכת על לוח מסמרים שמלמדת בדיוק איך להישאר רגועים בתוך אי-נוחות.'
+  },
+  {
+    id:'aroma', title:'ארומתרפיה', group:'content', order:50, price:null,
+    dur:'כ-45 דק׳', img:null, icon:'🌿',
+    desc:'פינת שמנים אתריים עם הסבר והתנסות - כל אחד מרכיב לעצמו תערובת אישית לקחת הביתה.'
+  },
+  {
+    id:'massage', title:'עיסויים', group:'content', order:60, price:null,
+    dur:'לאורך היום', img:null, icon:'💆',
+    desc:'עמדת מעסים מקצועיים שפועלת במקביל לשאר התכנים - כל אחד מגיע לתורו לרגע של פינוק.'
+  },
+  {
+    id:'sound', title:'סאונד הילינג', group:'content', order:70, price:null,
+    dur:'כ-45 דק׳', img:'assets/img/retreat-soundbath.jpg', icon:'🎶',
+    desc:'סגירה מושלמת ליום - קערות טיבטיות, גונגים וצלילים שמכניסים את כל הקבוצה לרוגע עמוק.'
+  },
+  {
+    id:'catering', title:'קייטרינג בריאות', group:'food', order:99, price:70,
+    dur:'לאורך היום', img:'assets/img/retreat-villa-spread.jpg', icon:'🥗',
+    desc:'פירות העונה, ירקות, כריכי בריאות ומיצי בריאות סחוטים - פינה שנשארת פתוחה לאורך כל היום.'
+  }
+];
+
+(function(){
+  var STORAGE_KEY = 'icypower_wellness_day';
+  var WA_NUMBER = '972548787766';
+  var selected = [];
+
+  try{
+    var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if(Array.isArray(saved)){
+      selected = saved.filter(function(id){
+        return ADDONS.some(function(a){ return a.id === id; });
+      });
+    }
+  }catch(e){ selected = []; }
+
+  function byId(id){
+    for(var i=0;i<ADDONS.length;i++){ if(ADDONS[i].id === id){ return ADDONS[i]; } }
+    return null;
+  }
+  function isOn(id){ return selected.indexOf(id) !== -1; }
+
+  /* ---------- render the add-on cards ---------- */
+  function cardHtml(a){
+    var pic = a.img
+      ? '<div class="pic"><img src="' + a.img + '" alt="' + a.title + '" loading="lazy">' +
+        (a.dur ? '<span class="dur">' + a.dur + '</span>' : '') + '</div>'
+      : '<div class="pic ph"><span aria-hidden="true">' + a.icon + '</span>' +
+        (a.dur ? '<span class="dur">' + a.dur + '</span>' : '') + '</div>';
+
+    var price = a.price
+      ? '<div class="wd-price">' + a.price + ' ₪<small>לאדם</small></div>'
+      : '<div class="wd-price" style="color:var(--ink-faint);font-weight:600">לפי הרכב היום</div>';
+
+    return '<article class="wd-card' + (a.price ? ' is-feature' : '') + (isOn(a.id) ? ' is-on' : '') + '" data-addon="' + a.id + '">' +
+      pic +
+      '<div class="body"><h3>' + a.title + '</h3><p>' + a.desc + '</p></div>' +
+      '<div class="foot">' +
+        '<button type="button" class="wd-toggle" data-toggle="' + a.id + '" aria-pressed="' + (isOn(a.id) ? 'true' : 'false') + '">' +
+          '<span class="lbl">' + (isOn(a.id) ? '✓ נוסף ליום' : '+ הוספה ליום') + '</span>' +
+        '</button>' + price +
+      '</div></article>';
+  }
+
+  function renderCards(){
+    ['content','food'].forEach(function(group){
+      var host = document.querySelector('[data-cards="' + group + '"]');
+      if(!host){ return; }
+      host.innerHTML = ADDONS.filter(function(a){ return a.group === group; })
+        .map(cardHtml).join('');
+    });
+  }
+
+  /* ---------- render "היום שלי" ---------- */
+  function chosen(){
+    return ADDONS.filter(function(a){ return isOn(a.id); })
+      .sort(function(x,y){ return x.order - y.order; });
+  }
+
+  function renderSummary(){
+    var list = chosen();
+    var body = document.getElementById('wdSumBody');
+    var html = '<ol>' +
+      '<li><span class="n base">✓</span><span class="t">הבסיס של Icy Power<small>צוות, ציוד, הקמה, לו״ז ותיעוד - תמיד כלול</small></span></li>';
+
+    if(!list.length){
+      body.innerHTML = html + '</ol>' +
+        '<div class="empty" style="margin-top:12px">עוד לא בחרתם תכנים.<br>לחצו על ״+ הוספה ליום״ בכרטיסים כדי לבנות את היום שלכם.</div>';
+    }else{
+      list.forEach(function(a, i){
+        html += '<li><span class="n">' + (i+1) + '</span>' +
+          '<span class="t">' + a.title +
+            '<small>' + (a.dur ? a.dur : '') + (a.price ? ' · ' + a.price + ' ₪ לאדם' : '') + '</small>' +
+          '</span>' +
+          '<button type="button" class="x" data-remove="' + a.id + '" aria-label="הסרת ' + a.title + '">×</button></li>';
+      });
+      body.innerHTML = html + '</ol>';
+    }
+
+    var sum = list.reduce(function(t,a){ return t + (a.price || 0); }, 0);
+    var totalEl = document.getElementById('wdTotal');
+    totalEl.innerHTML = (sum ? sum + ' ₪' : '—') + '<small>' + (sum ? 'לאדם, לתוספות שנבחרו' : 'שאר התכנים מתומחרים לפי היום') + '</small>';
+
+    /* WhatsApp message with the selection */
+    var msg = 'היי! בניתי לעצמי יום וולנס באתר ואשמח להצעת מחיר.\n\n';
+    if(list.length){
+      msg += 'מה שבחרתי:\n';
+      list.forEach(function(a){
+        msg += '• ' + a.title + (a.price ? ' (' + a.price + ' ₪ לאדם)' : '') + '\n';
+      });
+    }else{
+      msg += 'עוד לא בחרתי תכנים ספציפיים - אשמח להמלצה שלכם.\n';
+    }
+    msg += '\nכמות משתתפים: \nתאריך מבוקש: \nלוקיישן: ';
+    document.getElementById('wdWa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+
+    /* mobile bar */
+    var bar = document.getElementById('wdBar');
+    var cnt = document.getElementById('wdBarCnt');
+    cnt.innerHTML = 'בחרתם ' + list.length + ' תכנים' +
+      '<small>' + (sum ? sum + ' ₪ לאדם בתוספות · ' : '') + 'לחצו לצפייה ביום שלכם</small>';
+    bar.classList.toggle('is-show', list.length > 0);
+
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(selected)); }catch(e){}
+  }
+
+  function setCardState(id){
+    var card = document.querySelector('[data-addon="' + id + '"]');
+    if(!card){ return; }
+    var on = isOn(id);
+    card.classList.toggle('is-on', on);
+    var btn = card.querySelector('[data-toggle]');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.querySelector('.lbl').textContent = on ? '✓ נוסף ליום' : '+ הוספה ליום';
+  }
+
+  function toggle(id){
+    if(!byId(id)){ return; }
+    if(isOn(id)){ selected.splice(selected.indexOf(id), 1); }
+    else{ selected.push(id); }
+    setCardState(id);
+    renderSummary();
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-toggle]');
+    if(t){ toggle(t.getAttribute('data-toggle')); return; }
+    var r = e.target.closest('[data-remove]');
+    if(r){ toggle(r.getAttribute('data-remove')); return; }
+  });
+
+  document.getElementById('wdClear').addEventListener('click', function(){
+    var was = selected.slice();
+    selected = [];
+    was.forEach(setCardState);
+    renderSummary();
+  });
+
+  document.getElementById('wdBarBtn').addEventListener('click', function(){
+    var sum = document.getElementById('wdSum');
+    sum.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  renderCards();
+  renderSummary();
+})();
+</script>
+</body>
+</html>
