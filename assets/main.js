@@ -224,6 +224,27 @@
     // pageshow fires on back-forward cache restore (bfcache) — visibilitychange
     // alone doesn't always fire in that case on iOS Safari.
     window.addEventListener('pageshow', heroResume);
+
+    // iOS Low Power Mode (and some strict autoplay settings) block automatic
+    // playback entirely - the video loads its first frame but won't start on
+    // its own. iOS DOES allow play() when it's triggered by a user gesture,
+    // even in Low Power Mode. So on the very first interaction anywhere on the
+    // page (a tap, a scroll, a touch), kick the video into playing. Since
+    // visitors almost always touch/scroll immediately, this makes the hero
+    // video play even in Low Power Mode, right after they engage with the page.
+    function heroKick() {
+      if (heroCurrent.paused) { heroCurrent.play(); }
+    }
+    var kickEvents = ['touchstart', 'click', 'scroll', 'keydown'];
+    function heroKickOnce() {
+      heroKick();
+      kickEvents.forEach(function (ev) {
+        window.removeEventListener(ev, heroKickOnce);
+      });
+    }
+    kickEvents.forEach(function (ev) {
+      window.addEventListener(ev, heroKickOnce, { passive: true });
+    });
   }
 
   /* ---- intro photo carousel ---- */
