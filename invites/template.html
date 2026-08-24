@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/png" href="../assets/img/icy_power_Logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<meta name="robots" content="noindex, nofollow" />
+<title>הוזמנתם לריטריט ערב · Icy Power</title>
+<meta name="description" content="הוזמנתם לריטריט ערב ייחודי - בועת וולנס קסומה וחלומית לערב אחד." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  :root{
+    --ret-bg:#0e1420;
+    --ret-bg2:#161022;
+    --ret-gold:#d3a75c;
+    --ret-gold-soft:#f0dfb8;
+    --ret-line:rgba(211,167,92,.28);
+    --ret-text:#f4efe4;
+    --ret-text-dim:rgba(244,239,228,.72);
+  }
+  *{box-sizing:border-box;}
+
+  .retreat{
+    background:
+      radial-gradient(900px 520px at 12% 0%, rgba(90,176,222,.16), transparent 55%),
+      radial-gradient(900px 560px at 90% 10%, rgba(211,167,92,.14), transparent 55%),
+      linear-gradient(180deg, var(--ret-bg2), var(--ret-bg) 40%);
+    color:var(--ret-text);
+    overflow:hidden;
+    min-height:100vh;
+    font-family:'Heebo',system-ui,sans-serif;
+  }
+
+  /* ---------- MINIMAL HEADER ---------- */
+  .invite-header{
+    position:relative;z-index:2;
+    display:flex;justify-content:center;align-items:center;
+    padding:26px 20px 0;
+  }
+  .invite-header a{
+    display:flex;align-items:center;gap:9px;
+    font-weight:900;font-size:1.05rem;color:#fff;text-decoration:none;
+  }
+  .invite-header img{width:26px;height:26px;object-fit:contain;}
+
+  /* ---------- STARS ---------- */
+  .ret-stars-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  .ret-stars-bg span{
+    position:absolute;width:2px;height:2px;border-radius:50%;
+    background:var(--ret-gold-soft);opacity:.35;
+    animation:twinkle 5s ease-in-out infinite;
+  }
+  .ret-stars-bg span:nth-child(3n){width:1.5px;height:1.5px;opacity:.22;}
+  .ret-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+  .ret-stars span{
+    position:absolute;width:3px;height:3px;border-radius:50%;
+    background:var(--ret-gold-soft);opacity:.55;
+    animation:twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.85}}
+
+  /* ---------- HERO ---------- */
+  .ret-hero{
+    position:relative;z-index:1;
+    padding:36px 20px 44px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .ret-hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(600px 300px at 50% -10%, rgba(211,167,92,.22), transparent 60%);
+  }
+  .ret-eyebrow{
+    position:relative;display:inline-flex;align-items:center;gap:10px;
+    font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+    color:var(--ret-gold-soft);
+    padding:9px 22px;border-radius:999px;
+    border:1px solid var(--ret-line);
+    background:rgba(211,167,92,.08);
+    margin-bottom:26px;
+  }
+  .ret-eyebrow::before,.ret-eyebrow::after{content:"✦";color:var(--ret-gold);font-size:11px;}
+  .ret-hero h1{
+    position:relative;
+    font-family:'Frank Ruhl Libre',serif;
+    font-weight:700;
+    font-size:clamp(28px,5.2vw,50px);
+    line-height:1.28;
+    margin:0 0 20px;
+    color:#fff;
+  }
+  .ret-hero h1 em{font-style:normal;color:var(--ret-gold-soft);}
+  .ret-hero p.lead{
+    position:relative;
+    max-width:620px;margin:0 auto;
+    font-size:clamp(15px,2.4vw,19px);
+    color:var(--ret-text-dim);
+  }
+  .ret-hero .host-line{
+    position:relative;margin-top:14px;
+    font-size:14.5px;color:var(--ret-text-dim);
+  }
+  .ret-hero .host-line b{color:var(--ret-gold-soft);font-weight:700;}
+
+  /* ---------- EVENT DETAILS BAND ---------- */
+  .event-band{
+    position:relative;z-index:1;
+    max-width:760px;margin:30px auto 0;padding:0 20px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  }
+  .event-chip{
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+    border-radius:16px;padding:16px 14px;text-align:center;
+    backdrop-filter:blur(6px);
+  }
+  .event-chip .ic{font-size:20px;display:block;margin-bottom:6px;}
+  .event-chip .lbl{font-size:11px;color:var(--ret-text-dim);letter-spacing:.03em;margin-bottom:3px;}
+  .event-chip .val{font-size:14.5px;font-weight:700;color:var(--ret-gold-soft);}
+  @media (max-width:640px){
+    .event-band{grid-template-columns:1fr;gap:10px;}
+    .event-chip{display:flex;align-items:center;gap:12px;text-align:right;padding:12px 16px;}
+    .event-chip .ic{margin-bottom:0;}
+    .event-chip .lbl{margin-bottom:1px;}
+  }
+
+  .ret-divider{
+    position:relative;width:1px;height:44px;margin:34px auto 0;
+    background:linear-gradient(180deg, var(--ret-gold), transparent);
+  }
+  @media (max-width:760px){
+    .ret-divider{height:34px;margin:26px auto 0;}
+  }
+
+  /* ---------- PERSONAL NOTE ---------- */
+  .note-band{
+    position:relative;z-index:1;
+    max-width:640px;margin:0 auto;padding:38px 20px 0;
+    text-align:center;
+  }
+  .note-card{
+    background:linear-gradient(180deg, rgba(211,167,92,.09), rgba(211,167,92,.03));
+    border:1px solid var(--ret-line);
+    border-radius:20px;padding:26px 28px;
+    position:relative;
+  }
+  .note-card::before{
+    content:"“";position:absolute;top:2px;right:20px;
+    font-family:'Frank Ruhl Libre',serif;font-size:52px;color:var(--ret-gold);opacity:.4;
+    line-height:1;
+  }
+  .note-card p{
+    margin:0;font-size:16px;line-height:1.75;color:var(--ret-text);
+    font-weight:400;position:relative;z-index:1;
+  }
+  .note-card .sign{
+    display:block;margin-top:14px;font-size:13.5px;color:var(--ret-gold-soft);font-weight:700;
+  }
+
+  /* ---------- JOURNEY / TIMELINE ---------- */
+  .ret-journey{
+    position:relative;z-index:1;padding:10px 20px 40px;
+    max-width:1080px;margin:0 auto;
+  }
+  .ret-journey-head{text-align:center;margin-bottom:36px;margin-top:20px;}
+  @media (max-width:760px){
+    .ret-journey-head{margin-bottom:24px;}
+  }
+  .ret-journey-head .eyebrow2{
+    display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:700;color:var(--ret-gold-soft);margin-bottom:14px;
+  }
+  .ret-journey-head h2{
+    font-family:'Frank Ruhl Libre',serif;font-weight:700;
+    font-size:clamp(24px,3.6vw,36px);color:#fff;margin:0;
+  }
+
+  .ret-path{position:relative;}
+  .ret-snake{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;overflow:visible;
+  }
+  .ret-snake path{
+    fill:none;stroke:var(--ret-gold);stroke-width:2;
+    stroke-dasharray:2 10;stroke-linecap:round;
+    opacity:.65;
+  }
+  .ret-step{
+    position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;
+    align-items:start;gap:16px;margin-bottom:26px;
+  }
+  .ret-step:last-child{margin-bottom:0;}
+  .ret-step .num-dot{
+    position:relative;z-index:2;margin-top:2px;
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg,var(--ret-gold),#a9793a);
+    color:#241705;font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:15px;
+    box-shadow:0 0 0 5px rgba(211,167,92,.12), 0 8px 20px -8px rgba(211,167,92,.5);
+    grid-column:2;
+    transition:transform .3s;
+  }
+  .ret-step:nth-child(odd) .num-dot{transform:translateX(48px);}
+  .ret-step:nth-child(even) .num-dot{transform:translateX(-48px);}
+  @media (max-width:980px){
+    .ret-step:nth-child(odd) .num-dot{transform:translateX(26px);}
+    .ret-step:nth-child(even) .num-dot{transform:translateX(-26px);}
+  }
+  .ret-card{
+    display:flex;flex-direction:column;gap:8px;
+    max-width:420px;
+  }
+  .ret-step:nth-child(odd) .ret-card{grid-column:3;margin-inline-start:auto;}
+  .ret-step:nth-child(even) .ret-card{grid-column:1;margin-inline-end:auto;}
+
+  .ret-card .txt{
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:16px;padding:14px 18px;
+    backdrop-filter:blur(4px);
+  }
+  .ret-card .txt h3{
+    font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:700;
+    color:var(--ret-gold-soft);margin:0 0 6px;
+  }
+  .ret-card .txt p{
+    margin:0;color:var(--ret-text-dim);font-size:14.5px;line-height:1.6;
+  }
+  .ret-card .txt .ret-note{
+    margin:9px 0 0;font-size:12.5px;line-height:1.5;
+    color:var(--ret-gold-soft);opacity:.85;font-weight:500;
+  }
+  .ret-card .photo{
+    border-radius:14px;overflow:hidden;position:relative;
+    aspect-ratio:16/9;
+    border:1px solid rgba(255,255,255,.14);
+  }
+  .ret-card .photo img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .5s ease;
+  }
+  .ret-card:hover .photo img{transform:scale(1.04);}
+
+  @media (max-width:760px){
+    .ret-step{gap:10px;margin-bottom:20px;}
+    .ret-step .num-dot{
+      width:40px;height:40px;font-size:16px;
+      box-shadow:0 0 0 6px rgba(211,167,92,.16), 0 8px 20px -6px rgba(211,167,92,.6);
+    }
+    .ret-step:nth-child(odd) .num-dot,.ret-step:nth-child(even) .num-dot{transform:none;}
+    .ret-card{gap:6px;max-width:none;}
+
+    .ret-step:nth-child(odd){grid-template-columns:40px 1fr;}
+    .ret-step:nth-child(odd) .num-dot{grid-column:1;}
+    .ret-step:nth-child(odd) .ret-card{grid-column:2;margin-inline-start:0;}
+
+    .ret-step:nth-child(even){grid-template-columns:1fr 40px;}
+    .ret-step:nth-child(even) .num-dot{grid-column:2;}
+    .ret-step:nth-child(even) .ret-card{grid-column:1;margin-inline-end:0;}
+  }
+
+  /* ---------- INCLUDED SUMMARY ---------- */
+  .included-band{
+    position:relative;z-index:1;
+    max-width:720px;margin:10px auto 0;padding:0 20px 10px;
+  }
+  .included-head{text-align:center;margin-bottom:20px;}
+  .included-head .eyebrow2{
+    display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:700;color:var(--ret-gold-soft);margin-bottom:10px;
+  }
+  .included-head h2{
+    font-family:'Frank Ruhl Libre',serif;font-weight:700;
+    font-size:clamp(21px,3vw,28px);color:#fff;margin:0;
+  }
+  .included-list{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  }
+  @media (max-width:600px){.included-list{grid-template-columns:1fr;}}
+  .included-list li{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;padding:12px 16px;
+    font-size:14.5px;color:var(--ret-text);
+  }
+  .included-list li .chk{
+    flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+    background:linear-gradient(145deg,var(--ret-gold),#a9793a);
+    display:flex;align-items:center;justify-content:center;
+    color:#241705;font-weight:900;font-size:12px;
+  }
+
+  /* ---------- RSVP ---------- */
+  .rsvp-band{
+    position:relative;z-index:1;
+    padding:44px 20px 90px;
+    text-align:center;
+  }
+  .rsvp-card{
+    max-width:520px;margin:0 auto;
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid var(--ret-line);
+    border-radius:26px;padding:38px 34px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.55);
+  }
+  .rsvp-card .eyebrow2{
+    display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:700;color:var(--ret-gold-soft);margin-bottom:10px;
+  }
+  .rsvp-card h2{
+    font-family:'Frank Ruhl Libre',serif;font-size:24px;color:#fff;margin:0 0 12px;
+  }
+  .rsvp-card p{
+    margin:0 0 26px;font-size:14.5px;color:var(--ret-text-dim);line-height:1.6;
+  }
+  .rsvp-actions{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+  }
+  .rsvp-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:inherit;font-weight:800;font-size:15px;
+    padding:14px 28px;border-radius:999px;text-decoration:none;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .rsvp-btn.primary{
+    background:linear-gradient(90deg,var(--ret-gold),#b98a48);
+    color:#241705;
+    box-shadow:0 12px 30px -10px rgba(211,167,92,.55);
+  }
+  .rsvp-btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(211,167,92,.65);}
+  .rsvp-btn.ghost{
+    background:transparent;border:1.5px solid rgba(255,255,255,.28);color:#fff;
+  }
+  .rsvp-btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+
+  .invite-footer{
+    position:relative;z-index:1;text-align:center;padding:0 20px 40px;
+    font-size:12.5px;color:var(--ret-text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="retreat">
+
+  <div class="ret-stars-bg" aria-hidden="true">
+      <span style="top:62.7%;left:4.4%;animation-delay:-3.3s;animation-duration:4.2s"></span>
+      <span style="top:72.0%;left:66.3%;animation-delay:-0.5s;animation-duration:3.8s"></span>
+      <span style="top:42.1%;left:4.8%;animation-delay:-3.5s;animation-duration:5.0s"></span>
+      <span style="top:4.5%;left:20.9%;animation-delay:-1.6s;animation-duration:5.1s"></span>
+      <span style="top:22.9%;left:58.0%;animation-delay:-0.9s;animation-duration:3.5s"></span>
+      <span style="top:78.6%;left:68.3%;animation-delay:-3.0s;animation-duration:4.0s"></span>
+      <span style="top:92.9%;left:34.0%;animation-delay:-4.1s;animation-duration:3.8s"></span>
+      <span style="top:82.5%;left:59.4%;animation-delay:-0.9s;animation-duration:5.7s"></span>
+      <span style="top:52.9%;left:94.4%;animation-delay:-2.8s;animation-duration:5.2s"></span>
+      <span style="top:80.8%;left:60.8%;animation-delay:-0.6s;animation-duration:5.2s"></span>
+      <span style="top:68.9%;left:6.4%;animation-delay:-3.5s;animation-duration:4.4s"></span>
+      <span style="top:9.6%;left:24.1%;animation-delay:-4.0s;animation-duration:4.3s"></span>
+      <span style="top:62.4%;left:36.7%;animation-delay:-2.8s;animation-duration:4.1s"></span>
+      <span style="top:27.4%;left:91.0%;animation-delay:-1.6s;animation-duration:5.3s"></span>
+      <span style="top:18.3%;left:71.3%;animation-delay:-3.8s;animation-duration:4.6s"></span>
+      <span style="top:96.0%;left:62.8%;animation-delay:-2.0s;animation-duration:5.6s"></span>
+      <span style="top:82.1%;left:75.7%;animation-delay:-3.5s;animation-duration:3.6s"></span>
+      <span style="top:32.0%;left:27.4%;animation-delay:-3.6s;animation-duration:6.3s"></span>
+      <span style="top:85.3%;left:31.9%;animation-delay:-1.6s;animation-duration:4.7s"></span>
+      <span style="top:88.9%;left:45.6%;animation-delay:-3.3s;animation-duration:4.2s"></span>
+      <span style="top:55.3%;left:27.0%;animation-delay:-1.9s;animation-duration:6.2s"></span>
+      <span style="top:39.9%;left:22.8%;animation-delay:-0.0s;animation-duration:5.0s"></span>
+      <span style="top:10.6%;left:6.5%;animation-delay:-4.0s;animation-duration:5.4s"></span>
+      <span style="top:77.2%;left:42.1%;animation-delay:-4.2s;animation-duration:4.6s"></span>
+      <span style="top:96.6%;left:52.3%;animation-delay:-0.1s;animation-duration:6.1s"></span>
+      <span style="top:3.1%;left:70.5%;animation-delay:-1.4s;animation-duration:5.1s"></span>
+      <span style="top:27.3%;left:62.9%;animation-delay:-4.0s;animation-duration:4.8s"></span>
+      <span style="top:45.1%;left:92.6%;animation-delay:-0.6s;animation-duration:4.3s"></span>
+      <span style="top:49.6%;left:19.0%;animation-delay:-0.4s;animation-duration:6.1s"></span>
+      <span style="top:30.4%;left:62.7%;animation-delay:-1.8s;animation-duration:4.0s"></span>
+      <span style="top:74.4%;left:53.2%;animation-delay:-1.0s;animation-duration:5.1s"></span>
+      <span style="top:2.1%;left:32.8%;animation-delay:-4.4s;animation-duration:6.3s"></span>
+      <span style="top:85.5%;left:81.0%;animation-delay:-3.1s;animation-duration:3.7s"></span>
+      <span style="top:85.4%;left:92.0%;animation-delay:-4.1s;animation-duration:5.0s"></span>
+      <span style="top:8.6%;left:74.3%;animation-delay:-1.1s;animation-duration:3.9s"></span>
+      <span style="top:47.2%;left:54.2%;animation-delay:-3.3s;animation-duration:6.1s"></span>
+  </div>
+
+  <header class="invite-header">
+    <a href="https://icypower.pages.dev/"><img src="../assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
+  </header>
+
+  <section class="ret-hero">
+    <div class="ret-stars" aria-hidden="true">
+      <span style="top:12%;left:8%;animation-delay:-1s"></span>
+      <span style="top:22%;left:22%;animation-delay:-2.5s"></span>
+      <span style="top:8%;left:40%;animation-delay:-.5s"></span>
+      <span style="top:30%;left:62%;animation-delay:-3s"></span>
+      <span style="top:15%;left:78%;animation-delay:-1.8s"></span>
+      <span style="top:35%;left:90%;animation-delay:-2.2s"></span>
+      <span style="top:6%;left:55%;animation-delay:-3.4s"></span>
+      <span style="top:26%;left:12%;animation-delay:-.9s"></span>
+    </div>
+    <span class="ret-eyebrow">הזמנה אישית · [שם האירוע]</span>
+    <h1>הוזמנתם לריטריט ערב ייחודי<br>תתכוננו להיכנס ל<em>בועת וולנס קסומה וחלומית</em> לערב אחד...</h1>
+    <p class="lead">מסע מודרך של נשימה, טבילת קרח וריפוי בסאונד - בוילה מהממת ב"תאילנד הקטנה" שבסביון.</p>
+    <p class="host-line">מארחים: <b>[שם/שמות המארחים]</b></p>
+  </section>
+
+  <div class="event-band">
+    <div class="event-chip"><span class="ic">📅</span><span class="lbl">תאריך</span><span class="val">[יום, תאריך]</span></div>
+    <div class="event-chip"><span class="ic">🕕</span><span class="lbl">שעה</span><span class="val">[שעת התכנסות]</span></div>
+    <div class="event-chip"><span class="ic">📍</span><span class="lbl">מיקום</span><span class="val">"תאילנד הקטנה", סביון</span></div>
+  </div>
+
+  <div class="ret-divider"></div>
+
+  <div class="note-band">
+    <div class="note-card">
+      <p>[כאן ייכתב מסר אישי לאורחים - למשל: "מתרגשים לחגוג איתכם ערב קסום של חיבור, נשימה וריפוי. בואו כמו שאתם, השאירו הכל בחוץ, ותנו לעצמכם לזרום איתנו לערב שלם."]</p>
+      <span class="sign">- [שם החותם]</span>
+    </div>
+  </div>
+
+  <section class="ret-journey">
+    <div class="ret-journey-head">
+      <span class="eyebrow2">המסע שמחכה לכם</span>
+      <h2>איך ייראה הערב, שלב אחר שלב</h2>
+    </div>
+
+    <div class="ret-path">
+      <svg class="ret-snake" aria-hidden="true"><path /></svg>
+
+      <div class="ret-step">
+        <div class="num-dot">1</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>הגעה ל"תאילנד הקטנה" שבסביון</h3>
+            <p>מגיעים למתחם הכי יפה בישראל לחוויית וולנס ייחודית. תשאירו את כל הדאגות מחוץ לשערי הווילה - נכנסים לבועה קסומה לשעות הקרובות.</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-gate.jpg" alt="שער הכניסה לוילה, תאילנד הקטנה" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="ret-step">
+        <div class="num-dot">2</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>מינגלינג עם פירות, שייקים ופינת תה</h3>
+            <p>מתמקמים, מתרווחים וטועמים מעט - בקרוב מתחילים עם הסדנאות.</p>
+            <p class="ret-note">* הבריכה לנוי בלבד.</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-villa-spread.jpg" alt="שולחן פירות ושייקים ליד הבריכה" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="ret-step">
+        <div class="num-dot">3</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>סדנת נשימות עוצמתית</h3>
+            <p>כזו חוויה כנראה שלא חוויתם. מסע מרתק בין מצבי תודעה בעזרת שיטות נשימה מיוחדות.</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-breathwork.jpg" alt="קבוצה שוכבת בסדנת נשימות" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="ret-step">
+        <div class="num-dot">4</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>טבילה מודרכת באמבטיית קרח</h3>
+            <p>לאמיצים והאמיצות מביניכם - בואו לחוות מה זה להרגיש חיים כמו שלא הרגשתם המון זמן.</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-icebath.jpg" alt="טבילה מודרכת באמבטיית קרח" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="ret-step">
+        <div class="num-dot">5</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>סשן סאונד הילינג</h3>
+            <p>עם הצלילים הכי מיוחדים שיש - חוויה על-חושית לא רגילה, ורגיעה מוחלטת שכולנו כמהים אליה.</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-soundbath.jpg" alt="סשן סאונד הילינג עם קערות טיבטיות" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="ret-step">
+        <div class="num-dot">6</div>
+        <div class="ret-card">
+          <div class="txt">
+            <h3>סיכום והביתה</h3>
+            <p>נסכם ביחד איך היה, והמדריכים ישלחו אתכם לדרככם עם שיטות פרקטיות לשימור השלווה הפנימית גם בחיי היומיום. לילה טוב :)</p>
+          </div>
+          <div class="photo"><img src="../assets/img/retreat-closing-circle.jpg" alt="חוג סיום ליד הבריכה, בסוף הריטריט" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="included-band">
+    <div class="included-head">
+      <span class="eyebrow2">מה כלול בערב שלכם</span>
+      <h2>הכל כבר סגור ומוכן</h2>
+    </div>
+    <ul class="included-list">
+      <li><span class="chk">✓</span> אירוח בוילה + כל שלבי המסע</li>
+      <li><span class="chk">✓</span> סשן סאונד הילינג</li>
+      <li><span class="chk">✓</span> [להוסיף פריט לפי מה שנרכש]</li>
+      <li><span class="chk">✓</span> [להוסיף פריט לפי מה שנרכש]</li>
+    </ul>
+  </section>
+
+  <section class="rsvp-band">
+    <div class="rsvp-card">
+      <span class="eyebrow2">מחכים לכם</span>
+      <h2>מאשרים הגעה?</h2>
+      <p>ספרו לנו שאתם בפנים, ואם יש שאלות - אנחנו כאן.</p>
+      <div class="rsvp-actions">
+        <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%90%D7%A9%D7%A8%2F%D7%AA%20%D7%94%D7%92%D7%A2%D7%94%20%D7%9C%D7%A8%D7%99%D7%98%D7%A8%D7%99%D7%98%20%D7%94%D7%A2%D7%A8%D7%91!" class="rsvp-btn primary" target="_blank" rel="noopener">✓ מאשרים הגעה</a>
+        <a href="https://wa.me/972548787766" class="rsvp-btn ghost" target="_blank" rel="noopener">יש לי שאלה</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="invite-footer">
+    Icy Power · הזמנה אישית, לא להעברה כללית
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    function drawSnake(){
+      var pathEl = document.querySelector('.ret-path');
+      if(!pathEl){ return; }
+      var svg = pathEl.querySelector('.ret-snake');
+      var pathShape = svg.querySelector('path');
+      var containerRect = pathEl.getBoundingClientRect();
+      var w = pathEl.offsetWidth;
+      var h = pathEl.offsetHeight;
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.setAttribute('width', w);
+      svg.setAttribute('height', h);
+
+      var dots = pathEl.querySelectorAll('.num-dot');
+      var pts = [];
+      dots.forEach(function(dot){
+        var r = dot.getBoundingClientRect();
+        pts.push({
+          x: (r.left + r.width / 2) - containerRect.left,
+          y: (r.top + r.height / 2) - containerRect.top
+        });
+      });
+      if(pts.length < 2){ pathShape.setAttribute('d', ''); return; }
+
+      var d = 'M' + pts[0].x + ',' + pts[0].y;
+      for(var i = 0; i < pts.length - 1; i++){
+        var p0 = pts[i], p1 = pts[i + 1];
+        var midY = (p0.y + p1.y) / 2;
+        d += ' C' + p0.x + ',' + midY + ' ' + p1.x + ',' + midY + ' ' + p1.x + ',' + p1.y;
+      }
+      pathShape.setAttribute('d', d);
+    }
+
+    window.addEventListener('load', drawSnake);
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(drawSnake, 150);
+    });
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(drawSnake);
+    }
+  })();
+</script>
+</body>
+</html>
