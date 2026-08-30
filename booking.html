@@ -157,7 +157,13 @@
   .bk-summary .amt{font-size:20px;}
   .bk-pay{width:100%;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,var(--bk-energy-1),var(--bk-energy-2));color:#3a1c00;font-weight:800;font-size:16px;padding:15px;border-radius:14px;border:none;cursor:pointer;font-family:inherit;}
   .bk-pay svg{width:18px;height:18px;}
-  .bk-payzone{margin-top:16px;border:1.5px dashed var(--bk-line);border-radius:12px;padding:26px 14px;text-align:center;color:var(--bk-dim);font-size:13px;line-height:1.6;background:#FAFCFE;}
+  .bk-pay.loading{opacity:.65;pointer-events:none;}
+  .bk-payhost{margin-top:14px;}
+  .bk-payhost iframe{width:100%;height:560px;border:none;border-radius:12px;background:#fff;display:block;}
+  .bk-msg{margin-top:14px;border-radius:12px;padding:16px 14px;text-align:center;font-size:13.5px;line-height:1.6;}
+  .bk-msg.info{background:#E8F6FB;color:var(--bk-ocean);}
+  .bk-msg.err{background:#FDECEC;color:#B3261E;}
+  .bk-msg a{font-weight:800;text-decoration:underline;}
   .bk-trust{margin-top:12px;text-align:center;font-size:11.5px;color:var(--bk-faint);display:flex;align-items:center;justify-content:center;gap:6px;}
   .bk-trust svg{width:13px;height:13px;}
 
@@ -303,11 +309,13 @@
       <span class="amt" id="bkAmount">₪0</span>
     </div>
 
-    <!-- Phase 1: placeholder where the Tranzila payment iframe will be embedded -->
-    <div class="bk-payzone" id="bkPayzone">
-      💳 כאן ייפתח חלון הסליקה המאובטח של <b>טרנזילה</b>.<br>
-      (בשלב הזה זו תצוגה בלבד — הסליקה האמיתית תחובר בשלב הבא)
-    </div>
+    <!-- payment: the Tranzila hosted iframe is injected here after the
+         booking is created server-side (card form lives inside Tranzila). -->
+    <button class="bk-pay" id="bkPayBtn" type="button" onclick="bkStartPayment()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      המשך לתשלום מאובטח
+    </button>
+    <div class="bk-payhost" id="bkPayHost"></div>
 
     <div class="bk-trust">
       <svg viewBox="0 0 24 24" fill="none" stroke="#9AA7B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -456,6 +464,7 @@ function openBooking(id){
     `${dowOf(activeSession.date)} ${fmtDM(activeSession.date)} · ${activeSession.start}–${activeSession.end} · ${activeSession.city}`;
   document.getElementById('bkQty').value = '1';
   bkUpdateAmount();
+  bkResetPayUI();
   document.getElementById('bkModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -468,6 +477,61 @@ function bkUpdateAmount(){
   const qty = +document.getElementById('bkQty').value;
   document.getElementById('bkAmount').textContent = '₪' + (activeSession.price * qty);
 }
+
+/* ---------- payment (Tranzila hosted iframe) ---------- */
+const BK_PAY_LABEL = '<svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> המשך לתשלום מאובטח';
+function bkResetPayUI(){
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.remove('loading'); btn.style.display = '';
+  btn.innerHTML = BK_PAY_LABEL;
+  document.getElementById('bkPayHost').innerHTML = '';
+}
+function bkMsg(html, kind){
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.remove('loading'); btn.style.display = '';
+  btn.innerHTML = BK_PAY_LABEL;
+  document.getElementById('bkPayHost').innerHTML = '<div class="bk-msg ' + kind + '">' + html + '</div>';
+}
+async function bkStartPayment(){
+  if (!activeSession) return;
+  const name  = document.getElementById('bkName').value.trim();
+  const phone = document.getElementById('bkPhone').value.trim();
+  const email = document.getElementById('bkEmail').value.trim();
+  const qty   = +document.getElementById('bkQty').value;
+  if (name.length < 2) return bkMsg('נא למלא שם מלא', 'err');
+  if (!/^[+()\-\s0-9]{6,20}$/.test(phone)) return bkMsg('נא למלא מספר טלפון תקין', 'err');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bkMsg('נא למלא כתובת אימייל תקינה', 'err');
+
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.add('loading'); btn.textContent = 'רגע, פותחים תשלום מאובטח…';
+  try{
+    const res = await fetch('/api/bookings', {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ workshopId: activeSession.id, name, phone, email, qty }),
+    });
+    if (res.status === 503){
+      return bkMsg('התשלום המקוון ייפתח כאן ממש בקרוב. בינתיים שריינו מקום בוואטסאפ ונשלים יחד 🙂 <a href="https://wa.me/972548787766" target="_blank" rel="noopener">לוואטסאפ</a>', 'info');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.iframeUrl){
+      const msg = res.status === 409
+        ? 'אזל המקום לסדנה הזו — נסו תאריך אחר מהבורר 🙂'
+        : 'משהו השתבש ביצירת ההזמנה. נסו שוב, או דברו איתנו בוואטסאפ.';
+      return bkMsg(msg, 'err');
+    }
+    btn.style.display = 'none';
+    const host = document.getElementById('bkPayHost');
+    const f = document.createElement('iframe');
+    f.setAttribute('title', 'תשלום מאובטח');
+    f.setAttribute('allow', 'payment');
+    f.src = data.iframeUrl;
+    host.innerHTML = '';
+    host.appendChild(f);
+  }catch(e){
+    bkMsg('בעיית תקשורת. בדקו את החיבור ונסו שוב.', 'err');
+  }
+}
+
 // close on backdrop click
 document.getElementById('bkModal').addEventListener('click', e => { if (e.target.id === 'bkModal') bkCloseModal(); });
 
