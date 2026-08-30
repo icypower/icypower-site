@@ -349,6 +349,9 @@
 const DOW = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
 const TYPE_LABEL = { wellness:'בוקר וולנס', extended:'בוקר וולנס מורחב' };
 
+// escape any value coming from the DB before it goes into innerHTML (XSS guard)
+function esc(v){ return String(v==null?'':v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
 // בונה תאריך יחסי מהיום (offset בימים) בפורמט YYYY-MM-DD
 function dPlus(days){ const d=new Date(); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); }
 
@@ -361,9 +364,10 @@ const SAMPLE_SESSIONS = [
   { id:'s5', date:dPlus(11), type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:5,  city:'הרצליה' },
 ];
 
-let SESSIONS = SAMPLE_SESSIONS;
+let SESSIONS = [];
 let selectedDate = null;
 let activeSession = null;
+let usingSample = false;
 
 function availOf(s){ return Math.max(0, s.capacity - s.booked); }
 function dateState(dateSessions){
@@ -425,17 +429,17 @@ function renderCards(){
             ? 'כל מה שבבוקר הוולנס — ובנוסף מפגש יוגה מלא'
             : 'נשימות Wim Hof · אמבט קרח · בר שייקים ופירות · ועוד הפתעות'}</p>
           <div class="meta">
-            <span>${clock()} ${s.start}–${s.end}</span>
-            <span>${pin()} ${s.city}</span>
+            <span>${clock()} ${esc(s.start)}–${esc(s.end)}</span>
+            <span>${pin()} ${esc(s.city)}</span>
           </div>
           <div class="foot">
-            <div class="price">₪${s.price}<small> / לאדם*</small></div>
-            <button class="bk-book" ${left<=0?'disabled':''} data-id="${s.id}">${left<=0?'מלא':'הזמן/י מקום'}</button>
+            <div class="price">₪${Number(s.price)||0}<small> / לאדם${usingSample?'*':''}</small></div>
+            <button class="bk-book" ${left<=0?'disabled':''} data-id="${esc(s.id)}">${left<=0?'מלא':'הזמן/י מקום'}</button>
           </div>
         </div>
       </div>`;
     });
-    html += `<div class="bk-pricenote">* מחירים זמניים — לעדכון לפי המחירון האמיתי</div>`;
+    if (usingSample) html += `<div class="bk-pricenote">* מחירים זמניים — לעדכון לפי המחירון האמיתי</div>`;
   }
   wrap.innerHTML = html;
   wrap.querySelectorAll('.bk-book:not([disabled])').forEach(b => {
@@ -467,15 +471,50 @@ function bkUpdateAmount(){
 // close on backdrop click
 document.getElementById('bkModal').addEventListener('click', e => { if (e.target.id === 'bkModal') bkCloseModal(); });
 
-/* ---------- init ---------- */
-(function init(){
+/* ---------- data loading + init ----------
+   טוען סדנאות אמיתיות מ-GET /api/sessions (ה-DB המשותף). אם יש דאטה אמיתית —
+   מציג אותה. ב-preview בלבד, כשעדיין אין סדנאות ב-DB, נופל לרשימת דוגמה כדי
+   שהעמוד לא ייראה ריק. באתר החי, ללא סדנאות — מצב-ריק ידידותי (בלי דאטה
+   מזויפת). */
+async function loadSessions(){
+  try{
+    const res = await fetch('/api/sessions', { headers:{ 'Accept':'application/json' } });
+    if (res.ok){
+      const data = await res.json();
+      if (data && Array.isArray(data.sessions)) return data.sessions;
+    }
+  }catch(e){ /* fall through to fallback below */ }
+  return null;
+}
+function isPreview(){
+  const h = location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1' || h === '') return true;      // dev / file://
+  if (h === 'icypower.pages.dev') return false;                             // production
+  if (h.endsWith('.pages.dev')) return true;                               // branch preview alias
+  return false;                                                            // custom (live) domain
+}
+function renderEmpty(){
+  document.getElementById('bkChips').innerHTML = '';
+  document.getElementById('bkNote').textContent = '';
+  document.getElementById('bkCards').innerHTML =
+    '<div class="bk-empty">אין כרגע סדנאות פתוחות להזמנה. השאירו לנו הודעה בוואטסאפ ונעדכן אתכם על המועד הקרוב 🙂</div>';
+}
+async function init(){
+  const real = await loadSessions();
+  if (real && real.length){ SESSIONS = real; usingSample = false; }
+  else if (isPreview()){ SESSIONS = SAMPLE_SESSIONS; usingSample = true; }
+  else { SESSIONS = []; usingSample = false; }
+
+  if (!usingSample) document.getElementById('bkNote').textContent = '';
+
   const dates = uniqueDates();
-  // ברירת מחדל: התאריך הזמין הראשון
+  if (!dates.length){ renderEmpty(); return; }
   const firstOpen = dates.find(d => dateState(d.sessions) !== 'full');
   selectedDate = (firstOpen || dates[0] || {}).date || null;
   renderChips();
   if (selectedDate) renderCards();
-})();
+}
+init();
 </script>
 </body>
 </html>
