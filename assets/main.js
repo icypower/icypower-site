@@ -165,7 +165,6 @@
       'assets/video/hero-3.mp4',
       'assets/video/hero-4.mp4',
       'assets/video/hero-5.mp4',
-      'assets/video/hero-14.mp4',
       'assets/video/hero-10.mp4',
       'assets/video/hero-15.mp4'
     ];
