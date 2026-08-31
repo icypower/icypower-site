@@ -177,36 +177,47 @@
       var nextIndex = (heroIndex + 1) % heroClips.length;
       heroNext.src = heroClips[nextIndex];
       heroNext.load();
+      heroPrerolled = false;
+    }
+
+    // Calling play() only at the exact swap moment leaves a visible gap: the
+    // outgoing clip is already frozen on its last frame (or past 'ended')
+    // while the incoming clip is still starting up its decoder, so nothing
+    // paints for a beat - a flash/freeze right at the cut. Fix: start the
+    // hidden incoming clip playing a little before the outgoing one actually
+    // ends, so by the time we swap the opacity classes it's already
+    // rendering smoothly and the cut is genuinely instant.
+    var heroPrerolled = false;
+    var HERO_PREROLL_SEC = 0.35;
+    function heroHandleTimeUpdate(e) {
+      if (e.target !== heroCurrent || heroPrerolled) return;
+      var d = heroCurrent.duration;
+      if (!d || isNaN(d)) return;
+      if (d - heroCurrent.currentTime <= HERO_PREROLL_SEC) {
+        heroPrerolled = true;
+        var p = heroNext.play();
+        if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+      }
     }
 
     function heroSwitch() {
       heroIndex = (heroIndex + 1) % heroClips.length;
       var incoming = heroNext;
       var outgoing = heroCurrent;
-      // don't touch currentTime here - load() already reset it to 0 when
-      // this clip was queued earlier; forcing another seek right at the
-      // switch moment caused a brief decode stall. Only reveal it once
-      // play() confirms playback has actually started.
-      var playPromise = incoming.play();
-      function reveal() {
-        incoming.classList.add('is-active');
-        outgoing.classList.remove('is-active');
-      }
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise.then(reveal).catch(reveal);
-      } else {
-        reveal();
-      }
+      // incoming was already started (pre-rolled) shortly before this fires,
+      // so it's already rendering - just swap which one is visible, instantly.
+      incoming.classList.add('is-active');
+      outgoing.classList.remove('is-active');
+      outgoing.pause();
       heroCurrent = incoming;
       heroNext = outgoing;
-      // the switch is instant (no fade), so the outgoing clip is already
-      // invisible immediately - safe to reuse it as the preload buffer
-      // right away instead of waiting for a transition to finish
       heroQueueNext();
     }
 
     heroVidA.addEventListener('ended', heroSwitch);
     heroVidB.addEventListener('ended', heroSwitch);
+    heroVidA.addEventListener('timeupdate', heroHandleTimeUpdate);
+    heroVidB.addEventListener('timeupdate', heroHandleTimeUpdate);
 
     heroCurrent.src = heroClips[0];
     heroCurrent.play();
