@@ -168,7 +168,7 @@ img{max-width:100%;display:block}
   text-align:center;
 }
 .hero h1{
-  font-size:clamp(2.5rem,6.2vw,4.3rem);margin-bottom:12px;
+  font-size:clamp(2rem,4.96vw,3.44rem);margin-bottom:12px;
   color:var(--on-dark);letter-spacing:-.01em;
 }
 
