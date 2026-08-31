@@ -42,9 +42,8 @@
   .bk-hero{
     position:relative;overflow:hidden;
     padding:calc(var(--nav-h) + 30px) 20px 30px;
-    background:
-      linear-gradient(160deg, rgba(8,28,48,.88) 0%, rgba(11,60,86,.74) 50%, rgba(14,90,116,.60) 100%),
-      url('assets/img/booking-hero.jpg') center/cover no-repeat;
+    /* mobile: clean ocean gradient (photo added only on desktop, below) */
+    background:linear-gradient(160deg,var(--bk-navy) 0%,var(--bk-ocean) 55%,var(--bk-ocean-2) 100%);
     color:#fff;text-align:center;
   }
   .bk-hero .glow1{position:absolute;top:-50px;inset-inline-start:-40px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,var(--bk-ice) 0%,transparent 70%);opacity:.32;}
@@ -113,6 +112,10 @@
 
   /* ---------- what you get ---------- */
   .bk-get{margin:18px 16px;background:var(--bk-card);border-radius:18px;border:1px solid var(--bk-line);padding:20px 18px;max-width:720px;margin-inline:auto;}
+  .bk-get-wrap{display:flex;flex-direction:column;gap:18px;}
+  .bk-get-media{border-radius:14px;overflow:hidden;}
+  .bk-get-media img{width:100%;height:200px;object-fit:cover;display:block;}
+  .bk-get-content{min-width:0;}
   .bk-get h2{margin:0 0 14px;font-size:19px;font-weight:900;text-align:center;color:var(--bk-ink);}
   .bk-get-toggle{display:flex;gap:6px;background:#EEF4F8;border:1px solid var(--bk-line);border-radius:12px;padding:4px;margin:0 auto 18px;max-width:380px;}
   .bk-get-tab{flex:1;border:none;background:transparent;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--bk-dim);padding:9px 8px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;}
@@ -178,6 +181,18 @@
     .bk-card{flex:1 1 320px;}
     .bk-modal{align-items:center;}
     .bk-sheet{border-radius:20px;}
+    /* desktop only: real photo behind the hero (mobile keeps the gradient) */
+    .bk-hero{
+      background:
+        linear-gradient(160deg, rgba(8,28,48,.88) 0%, rgba(11,60,86,.74) 50%, rgba(14,90,116,.60) 100%),
+        url('assets/img/booking-hero.jpg') center/cover no-repeat;
+    }
+    /* what-you-get: image on the left, content on the right */
+    .bk-get{max-width:980px;}
+    .bk-get-wrap{flex-direction:row;align-items:stretch;gap:28px;}
+    .bk-get-media{flex:0 0 40%;order:2;}
+    .bk-get-media img{height:100%;min-height:470px;}
+    .bk-get-content{flex:1;}
   }
 </style>
 </head>
@@ -188,6 +203,7 @@
     <a href="index.html" class="brand" aria-label="Icy Power"><img class="flake" src="assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
     <nav class="nav-links" id="navLinks"><a href="index.html#sessions">הסדנאות</a><a href="index.html#how">איך זה עובד</a><a href="gallery.html">גלריה</a><a href="privacy-policy.html">מדיניות פרטיות</a></nav>
     <div class="nav-cta">
+      <a href="booking.html" class="btn btn-book nav-book">הזמנת מקום</a>
       <a href="contact.html" class="btn btn-primary nav-contact">צור קשר</a>
       <button class="nav-toggle" id="navToggle" aria-label="תפריט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
     </div>
@@ -226,12 +242,17 @@
 
   <!-- WHAT YOU GET (dynamic per workshop type) -->
   <section class="bk-get">
-    <h2>מה מחכה לכם בסדנה</h2>
-    <div class="bk-get-toggle">
-      <button type="button" class="bk-get-tab active" data-t="wellness" onclick="setWhatYouGet('wellness')">בוקר וולנס</button>
-      <button type="button" class="bk-get-tab" data-t="extended" onclick="setWhatYouGet('extended')">בוקר וולנס מורחב</button>
+    <div class="bk-get-wrap">
+      <div class="bk-get-media"><img src="assets/img/whatyouget-side.jpg" alt="חצר הוילה עם הבריכה ומגשי הפירות בסדנה" loading="lazy"></div>
+      <div class="bk-get-content">
+        <h2>מה מחכה לכם בסדנה</h2>
+        <div class="bk-get-toggle">
+          <button type="button" class="bk-get-tab active" data-t="wellness" onclick="setWhatYouGet('wellness')">בוקר וולנס</button>
+          <button type="button" class="bk-get-tab" data-t="extended" onclick="setWhatYouGet('extended')">בוקר וולנס מורחב</button>
+        </div>
+        <div class="bk-get-grid" id="bkGetGrid"></div>
+      </div>
     </div>
-    <div class="bk-get-grid" id="bkGetGrid"></div>
   </section>
 
   <!-- MEDIA -->

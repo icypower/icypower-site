@@ -103,6 +103,11 @@ img{max-width:100%;display:block}
 .btn-primary:hover{background:var(--accent-600);transform:translateY(-2px);box-shadow:0 16px 34px -12px var(--accent-glow)}
 .btn-wa{background:var(--wa);color:#06351b}
 .btn-wa:hover{background:var(--wa-600);transform:translateY(-2px)}
+/* site-wide "book a session" CTA — the booking page's own warm energy
+   accent (not the brand teal), so it reads as a distinct, urgent action
+   in the nav across every page. */
+.btn-book{background:linear-gradient(135deg,#F5A623,#FF7A3D);color:#3a1c00;box-shadow:0 10px 26px -10px rgba(245,166,35,.5)}
+.btn-book:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(245,166,35,.55)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-strong)}
 .btn-ghost:hover{border-color:var(--ink);background:rgba(20,40,60,.05)}
 /* ghost buttons that sit on dark sections need light text/border */
@@ -752,6 +757,14 @@ html.a11y-motion-off *,html.a11y-motion-off *::before,html.a11y-motion-off *::af
 }
 @media (max-width:680px){
   body{font-size:16px}
+  /* two CTA buttons now share the collapsed mobile bar with the brand —
+     tighten everything so "Icy Power" never wraps to a second line */
+  .container{padding-inline:16px}
+  .nav-inner{gap:8px}
+  .brand span{white-space:nowrap}
+  .brand .flake{width:22px;height:22px}
+  .nav-cta{gap:6px}
+  .nav .nav-cta .nav-book,.nav .nav-cta .nav-contact{padding:9px 12px;font-size:.82rem}
   .nav-links{
     position:fixed;inset-block-start:72px;inset-inline:0;flex-direction:column;gap:0;
     background:rgba(18,40,58,.97);backdrop-filter:blur(14px);
@@ -760,7 +773,7 @@ html.a11y-motion-off *,html.a11y-motion-off *::before,html.a11y-motion-off *::af
   }
   .nav-links.open{max-height:60vh}
   .nav-links a{width:100%;padding:16px 22px;border-block-end:1px solid var(--on-dark-line)}
-  .nav .nav-cta .btn:not(.wa-mini):not(.nav-contact){display:none}
+  .nav .nav-cta .btn:not(.wa-mini):not(.nav-contact):not(.nav-book){display:none}
   .nav-toggle{display:block}
   .testimonials{grid-template-columns:1fr}
   /* Sessions: compact 2-up tiles on mobile only (desktop untouched) */
