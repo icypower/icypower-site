@@ -111,9 +111,12 @@
 
   /* ---------- what you get ---------- */
   .bk-get{margin:18px 16px;background:var(--bk-card);border-radius:18px;border:1px solid var(--bk-line);padding:20px 18px;max-width:720px;margin-inline:auto;}
-  .bk-get h2{margin:0 0 16px;font-size:19px;font-weight:900;text-align:center;color:var(--bk-ink);}
-  .bk-get-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
-  .bk-get-item{display:flex;align-items:center;gap:11px;}
+  .bk-get h2{margin:0 0 14px;font-size:19px;font-weight:900;text-align:center;color:var(--bk-ink);}
+  .bk-get-toggle{display:flex;gap:6px;background:#EEF4F8;border:1px solid var(--bk-line);border-radius:12px;padding:4px;margin:0 auto 18px;max-width:380px;}
+  .bk-get-tab{flex:1;border:none;background:transparent;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--bk-dim);padding:9px 8px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;}
+  .bk-get-tab.active{background:#fff;color:var(--bk-ocean);box-shadow:0 2px 6px rgba(10,37,64,.08);}
+  .bk-get-grid{display:grid;grid-template-columns:1fr;gap:13px;}
+  .bk-get-item{display:flex;align-items:center;gap:12px;}
   .bk-get-item .ic{flex:0 0 auto;width:42px;height:42px;border-radius:12px;background:#E8F6FB;display:flex;align-items:center;justify-content:center;}
   .bk-get-item .ic svg{width:22px;height:22px;}
   .bk-get-item span{font-size:13.5px;font-weight:600;line-height:1.3;color:var(--bk-ink);}
@@ -219,19 +222,14 @@
   <!-- CARDS -->
   <section class="bk-cards wrap" id="bkCards"></section>
 
-  <!-- WHAT YOU GET -->
+  <!-- WHAT YOU GET (dynamic per workshop type) -->
   <section class="bk-get">
     <h2>מה מחכה לכם בסדנה</h2>
-    <div class="bk-get-grid">
-      <div class="bk-get-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-4 3 8 2-4h4"/></svg></span><span>נשימות<br>Wim Hof</span></div>
-      <div class="bk-get-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 5l14 14M19 5 5 19M2 12h20"/></svg></span><span>אמבט<br>קרח</span></div>
-      <div class="bk-get-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12l-1 7a5 5 0 0 1-10 0Z"/><path d="M9 22h6M12 15v7"/></svg></span><span>בר שייקים<br>בריאים</span></div>
-      <div class="bk-get-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 5c0-2 1.5-3 3-3M12 13l3-3"/></svg></span><span>מגשי<br>פירות טריים</span></div>
+    <div class="bk-get-toggle">
+      <button type="button" class="bk-get-tab active" data-t="wellness" onclick="setWhatYouGet('wellness')">בוקר וולנס</button>
+      <button type="button" class="bk-get-tab" data-t="extended" onclick="setWhatYouGet('extended')">בוקר וולנס מורחב</button>
     </div>
-    <div class="bk-get-more">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 .5-4 3.5 1.5 5L12 19l-4.5 3 1.5-5-4-3.5 5-.5z"/></svg>
-      ועוד כמה הפתעות בדרך
-    </div>
+    <div class="bk-get-grid" id="bkGetGrid"></div>
   </section>
 
   <!-- MEDIA -->
@@ -561,7 +559,42 @@ function renderEmpty(){
   document.getElementById('bkCards').innerHTML =
     '<div class="bk-empty">אין כרגע סדנאות פתוחות להזמנה. השאירו לנו הודעה בוואטסאפ ונעדכן אתכם על המועד הקרוב 🙂</div>';
 }
+/* ---------- what you get (per workshop type) ---------- */
+const GET_ICONS = {
+  pin:'<path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  breath:'<path d="M3 12h4l2-4 3 8 2-4h4"/>',
+  ice:'<path d="M12 2v20M5 5l14 14M19 5 5 19M2 12h20"/>',
+  shake:'<path d="M6 2h12l-1 7a5 5 0 0 1-10 0Z"/><path d="M9 22h6M12 15v7"/>',
+  coffee:'<path d="M4 8h13v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 2v2M11 2v2"/>',
+  star:'<path d="M12 3l2 5 5 .5-4 3.5 1.5 5L12 19l-4.5 3 1.5-5-4-3.5 5-.5z"/>',
+  yoga:'<circle cx="12" cy="4.5" r="2"/><path d="M12 6.5v6M12 12.5l-5 3M12 12.5l5 3M7 20h10"/>',
+};
+const WHATYOUGET = [
+  { icon:'pin',    label:'אירוח ב״תאילנד הקטנה״ בסביון' },
+  { icon:'breath', label:'הדרכה מקצועית של סדנת נשימות' },
+  { icon:'ice',    label:'טבילה מודרכת באמבטיית קרח' },
+  { icon:'shake',  label:'שייקים ופירות' },
+  { icon:'coffee', label:'פינת קפה' },
+  { icon:'star',   label:'עוד הפתעות' },
+  { icon:'yoga',   label:'שיעור יוגה', extendedOnly:true },
+];
+function getIcon(name){
+  const stroke = name === 'star' ? '#F5A623' : '#0B4F6C';
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GET_ICONS[name] || ''}</svg>`;
+}
+function renderWhatYouGet(type){
+  document.getElementById('bkGetGrid').innerHTML = WHATYOUGET
+    .filter(i => !i.extendedOnly || type === 'extended')
+    .map(i => `<div class="bk-get-item"><span class="ic">${getIcon(i.icon)}</span><span>${i.label}</span></div>`)
+    .join('');
+}
+function setWhatYouGet(type){
+  document.querySelectorAll('.bk-get-tab').forEach(b => b.classList.toggle('active', b.getAttribute('data-t') === type));
+  renderWhatYouGet(type);
+}
+
 async function init(){
+  setWhatYouGet('wellness');
   const real = await loadSessions();
   if (real && real.length){ SESSIONS = real; usingSample = false; }
   else if (isPreview()){ SESSIONS = SAMPLE_SESSIONS; usingSample = true; }
