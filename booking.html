@@ -149,8 +149,8 @@
   .bk-health{margin-top:14px;background:#E8F6FB;border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--bk-ocean);line-height:1.5;}
 
   /* policy button + modal */
-  .bk-policy-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bk-card);border:1px solid var(--bk-line);border-radius:14px;padding:14px 16px;margin-bottom:10px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--bk-ink);cursor:pointer;text-align:right;}
-  .bk-policy-btn svg{flex:0 0 auto;}
+  .bk-policy-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#EEF4F8;border:1px solid var(--bk-line);border-radius:12px;padding:12px 14px;margin-top:10px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--bk-ocean);cursor:pointer;text-align:center;}
+  .bk-policy-btn svg{flex:0 0 auto;width:17px;height:17px;}
   .bk-policy-modal{position:fixed;inset:0;z-index:220;display:none;align-items:flex-end;justify-content:center;background:rgba(10,37,64,.55);}
   .bk-policy-modal.open{display:flex;}
   .bk-policy-sheet{background:#fff;width:100%;max-width:560px;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;padding:22px 20px calc(22px + env(safe-area-inset-bottom));}
@@ -285,10 +285,14 @@
       <summary>מה צריך להביא?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
       <p>בגד ים ומגבת, לכל השאר אנחנו נדאג</p>
     </details>
-    <button type="button" class="bk-policy-btn" onclick="bkOpenPolicy()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
-      לצפיה במדיניות הביטול שלנו
-    </button>
+    <details>
+      <summary>אפשר לבטל או לשנות תאריך?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <p>שינוי מועד אפשרי ללא עלות בכפוף לזמינות, וביטול עד 7 ימים לפני הסדנה מזכה בהחזר מלא.</p>
+      <button type="button" class="bk-policy-btn" onclick="bkOpenPolicy()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
+        לצפיה במדיניות הביטול המלאה
+      </button>
+    </details>
     <details>
       <summary>איפה זה מתקיים בדיוק?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
       <p>הבוקר יתקיים בוילה ביישוב סביון, מיקום מדוייק ישלח אליכם אחרי ההזמנה</p>
