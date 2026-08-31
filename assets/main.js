@@ -158,7 +158,7 @@
   if (heroVidA && heroVidB) {
     var heroClips = [
       'assets/video/hero-9.mp4',
-      'assets/video/hero-7.mp4',
+      'assets/video/hero-16.mp4',
       'assets/video/hero-13.mp4',
       'assets/video/hero-11.mp4',
       'assets/video/hero-2.mp4',
