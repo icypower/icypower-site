@@ -148,6 +148,19 @@
   .bk-faq p{margin:10px 0 0;font-size:13px;color:var(--bk-dim);line-height:1.5;}
   .bk-health{margin-top:14px;background:#E8F6FB;border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--bk-ocean);line-height:1.5;}
 
+  /* policy button + modal */
+  .bk-policy-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bk-card);border:1px solid var(--bk-line);border-radius:14px;padding:14px 16px;margin-bottom:10px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--bk-ink);cursor:pointer;text-align:right;}
+  .bk-policy-btn svg{flex:0 0 auto;}
+  .bk-policy-modal{position:fixed;inset:0;z-index:220;display:none;align-items:flex-end;justify-content:center;background:rgba(10,37,64,.55);}
+  .bk-policy-modal.open{display:flex;}
+  .bk-policy-sheet{background:#fff;width:100%;max-width:560px;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;padding:22px 20px calc(22px + env(safe-area-inset-bottom));}
+  .bk-policy-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;position:sticky;top:-22px;background:#fff;padding-top:2px;}
+  .bk-policy-head h3{margin:0;font-size:19px;font-weight:900;color:var(--bk-ink);}
+  .bk-policy-body h4{margin:18px 0 6px;font-size:15px;font-weight:800;color:var(--bk-ocean);}
+  .bk-policy-body h4:first-child{margin-top:0;}
+  .bk-policy-body p{margin:0 0 10px;font-size:13.5px;line-height:1.65;color:var(--bk-dim);white-space:pre-line;}
+  @media(min-width:760px){ .bk-policy-modal{align-items:center;} .bk-policy-sheet{border-radius:20px;} }
+
   /* ---------- booking modal ---------- */
   .bk-modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-end;justify-content:center;background:rgba(10,37,64,.55);}
   .bk-modal.open{display:flex;}
@@ -218,7 +231,7 @@
     <span class="glow2" aria-hidden="true"></span>
     <div class="inner">
       <h1>בוקר שמתחיל בקור,<br>נגמר באנרגיה</h1>
-      <p class="lead">בחרו תאריך, בחרו סדנה, ותשמרו מקום — בפחות מדקה. בדיוק כמו שדיברנו.</p>
+      <p class="lead">בחרו תאריך, בחרו סדנה, ותשמרו מקום — בפחות מדקה.</p>
       <button class="bk-cta" type="button" onclick="document.getElementById('bkDates').scrollIntoView({behavior:'smooth'})">
         מצא/י סדנה מתאימה
         <svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -270,15 +283,15 @@
     <h2>שאלות שכדאי לדעת</h2>
     <details open>
       <summary>מה צריך להביא?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <p>בגד ים, מגבת, וכפכפים. את כל השאר אנחנו מביאים — כולל חיוך. 🙂</p>
+      <p>בגד ים ומגבת, לכל השאר אנחנו נדאג</p>
     </details>
-    <details>
-      <summary>אפשר לבטל או לשנות תאריך?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <p>[מדיניות ביטול — למילוי: עד כמה זמן מראש אפשר לבטל/לשנות]</p>
-    </details>
+    <button type="button" class="bk-policy-btn" onclick="bkOpenPolicy()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
+      לצפיה במדיניות הביטול שלנו
+    </button>
     <details>
       <summary>איפה זה מתקיים בדיוק?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <p>[מיקום מדויק — למילוי. קישור Waze יישלח יחד עם אישור ההזמנה]</p>
+      <p>הבוקר יתקיים בוילה ביישוב סביון, מיקום מדוייק ישלח אליכם אחרי ההזמנה</p>
     </details>
     <div class="bk-health">🧊 לאחר ההזמנה יישלח טופס בריאות קצר — כדי שנוודא שהחוויה בטוחה ומתאימה לך.</div>
   </section>
@@ -291,6 +304,34 @@
   </section>
 
 </main>
+
+<!-- CANCELLATION POLICY MODAL -->
+<div class="bk-policy-modal" id="bkPolicyModal" role="dialog" aria-modal="true">
+  <div class="bk-policy-sheet">
+    <div class="bk-policy-head">
+      <h3>מדיניות ביטולים ושינויים</h3>
+      <button class="bk-close" type="button" onclick="bkClosePolicy()" aria-label="סגירה">×</button>
+    </div>
+    <div class="bk-policy-body">
+      <h4>מדיניות שינוי תאריכים</h4>
+      <p>המשתתף רשאי להעביר את הרשמתו לאותו סוג סדנה למועד אחר, ללא תשלום נוסף, בכפוף לכך שהסדנה מתקיימת במועד המבוקש ושקיימים מקומות פנויים. שינוי מועד יתאפשר בהתאם לזמינות הסדנאות והמקומות בפועל.</p>
+
+      <h4>מדיניות ביטול והחזרים</h4>
+      <p>ביטול הרשמה לסדנה עד 7 ימים לפני מועד הסדנה יזכה את המשתתף בהחזר כספי מלא עבור הסכום ששולם.
+
+ביטול הרשמה במהלך 7 הימים שלפני מועד הסדנה לא יזכה את המשתתף בהחזר כספי, למעט במקרים שבהם קיימת למשתתף זכות ביטול או החזר מכוח הדין.
+
+אין במדיניות זו כדי לגרוע מכל זכות ביטול המוקנית למשתתף על פי חוק.</p>
+
+      <h4>סעיף כוח עליון</h4>
+      <p>במקרה שבו קיום הסדנה אינו מתאפשר עקב נסיבות שאינן בשליטתנו הסבירה, לרבות מצב ביטחוני, מלחמה, פעולות איבה, הוראות או מגבלות של רשויות מוסמכות, מזג אוויר קיצוני, אסון טבע, מגפה, שביתה או נסיבות חריגות אחרות המונעות בפועל את קיום הסדנה ("כוח עליון"), נהיה רשאים לדחות את מועד הסדנה או לבטלה.
+
+במקרה של דחיית או ביטול הסדנה עקב כוח עליון, המשתתף יהיה רשאי לבחור בין העברת ההרשמה למועד חלופי מתוך המועדים שיוצעו על ידינו, ללא תשלום נוסף, לבין קבלת החזר כספי מלא עבור הסכום ששולם.
+
+דחייה או ביטול של הסדנה עקב כוח עליון לא ייחשבו כביטול מצד המשתתף, ומדיניות הביטולים הרגילה לא תחול על דחייה או ביטול כאמור, בכפוף לכל זכות המוקנית למשתתף על פי דין.</p>
+    </div>
+  </div>
+</div>
 
 <!-- BOOKING MODAL -->
 <div class="bk-modal" id="bkModal" role="dialog" aria-modal="true">
@@ -474,6 +515,17 @@ function renderCards(){
   });
 }
 
+/* ---------- cancellation policy modal ---------- */
+function bkOpenPolicy(){
+  document.getElementById('bkPolicyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function bkClosePolicy(){
+  document.getElementById('bkPolicyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('bkPolicyModal').addEventListener('click', e => { if (e.target.id === 'bkPolicyModal') bkClosePolicy(); });
+
 /* ---------- booking modal ---------- */
 function openBooking(id){
   activeSession = SESSIONS.find(s => s.id === id);
@@ -580,7 +632,7 @@ function renderEmpty(){
   document.getElementById('bkChips').innerHTML = '';
   document.getElementById('bkNote').textContent = '';
   document.getElementById('bkCards').innerHTML =
-    '<div class="bk-empty">אין כרגע סדנאות פתוחות להזמנה. השאירו לנו הודעה בוואטסאפ ונעדכן אתכם על המועד הקרוב 🙂</div>';
+    '<div class="bk-empty">אין כרגע סדנאות פתוחות להזמנה. השאירו לנו הודעה בוואטסאפ ונעדכן אתכם על המועד הקרוב</div>';
 }
 /* ---------- what you get (per workshop type) ---------- */
 const GET_ICONS = {
