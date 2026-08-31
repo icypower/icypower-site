@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/png" href="assets/img/icy_power_Logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<title>הזמנת מקום לסדנה · Icy Power</title>
+<meta name="description" content="בחרו תאריך, בחרו סדנת בוקר וולנס, ותשמרו מקום בקלות — נשימות Wim Hof, אמבט קרח, בר שייקים ופירות. הזמנה מהירה, מובייל-first." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  /* =====================================================================
+     booking.html — עמוד הזמנות (scoped .bk-*)
+     פלטת "אוקיינוס/קרח" ייעודית לעמוד הזה (כמו שלעמודי הנחיתה האחרים יש
+     פלטה משלהם), על גבי תשתית האתר (nav/footer/Heebo/.container).
+     ===================================================================== */
+  :root{
+    --bk-navy:#0A2540;
+    --bk-ocean:#0B4F6C;
+    --bk-ocean-2:#0E6A86;
+    --bk-ice:#4FB0D9;
+    --bk-ice-2:#7FE0F0;
+    --bk-bg:#EEF4F8;
+    --bk-card:#ffffff;
+    --bk-line:#E2E8EC;
+    --bk-ink:#0A2540;
+    --bk-dim:#5A7184;
+    --bk-faint:#9AA7B2;
+    --bk-energy-1:#F5A623;
+    --bk-energy-2:#FF7A3D;
+    --bk-ok:#2F9E6B;
+    --bk-warn:#E8912F;
+    --bk-full:#9AA7B2;
+  }
+  .bk{background:var(--bk-bg);color:var(--bk-ink);}
+  .bk .wrap{max-width:720px;margin-inline:auto;padding-inline:16px;}
+
+  /* ---------- hero ---------- */
+  .bk-hero{
+    position:relative;overflow:hidden;
+    padding:calc(var(--nav-h) + 30px) 20px 30px;
+    /* mobile: clean ocean gradient (photo added only on desktop, below) */
+    background:linear-gradient(160deg,var(--bk-navy) 0%,var(--bk-ocean) 55%,var(--bk-ocean-2) 100%);
+    color:#fff;text-align:center;
+  }
+  .bk-hero .glow1{position:absolute;top:-50px;inset-inline-start:-40px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,var(--bk-ice) 0%,transparent 70%);opacity:.32;}
+  .bk-hero .glow2{position:absolute;bottom:-60px;inset-inline-end:-30px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,var(--bk-ice-2) 0%,transparent 70%);opacity:.22;}
+  .bk-hero .inner{position:relative;max-width:640px;margin-inline:auto;}
+  .bk-eyebrow{display:inline-block;font-size:13px;font-weight:700;color:#BFE7F5;background:rgba(79,176,217,.18);border:1px solid rgba(127,224,240,.35);padding:6px 14px;border-radius:999px;margin-bottom:16px;}
+  .bk-hero h1{font-size:clamp(28px,6vw,40px);line-height:1.14;margin:0 0 12px;color:#fff;font-weight:900;letter-spacing:-.02em;}
+  .bk-hero p.lead{font-size:clamp(15px,2.4vw,18px);line-height:1.5;color:#CFE3EE;margin:0 auto 22px;max-width:520px;}
+  .bk-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,var(--bk-energy-1),var(--bk-energy-2));color:#3a1c00;font-weight:800;font-size:17px;padding:15px 30px;border-radius:14px;box-shadow:0 10px 24px rgba(245,166,35,.3);border:none;cursor:pointer;transition:transform .15s,box-shadow .2s;}
+  .bk-cta:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(245,166,35,.36);}
+  .bk-cta svg{width:18px;height:18px;}
+
+  /* ---------- date picker ---------- */
+  .bk-dates{padding:24px 0 8px;}
+  .bk-dates-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 12px;}
+  .bk-dates-head h2{margin:0;font-size:21px;font-weight:900;color:var(--bk-ink);}
+  .bk-dates-head .hint{font-size:12px;color:var(--bk-dim);}
+  .bk-chips{display:flex;gap:10px;padding:2px 16px 6px;overflow-x:auto;scrollbar-width:none;}
+  .bk-chips::-webkit-scrollbar{display:none;}
+  .bk-chip{flex:0 0 auto;width:82px;text-align:center;padding:11px 6px;border-radius:14px;background:var(--bk-card);border:1.5px solid var(--bk-line);cursor:pointer;transition:transform .12s,box-shadow .2s,border-color .2s;font-family:inherit;}
+  .bk-chip:hover{border-color:var(--bk-ice);}
+  .bk-chip .dow{font-size:12px;color:var(--bk-dim);font-weight:600;}
+  .bk-chip .dm{font-size:17px;font-weight:800;color:var(--bk-ink);}
+  .bk-chip .st{font-size:10px;margin-top:2px;font-weight:600;}
+  .bk-chip.ok .st{color:var(--bk-ok);}
+  .bk-chip.warn .st{color:var(--bk-warn);}
+  .bk-chip.full{opacity:.55;cursor:not-allowed;}
+  .bk-chip.full .dow,.bk-chip.full .dm{color:var(--bk-faint);}
+  .bk-chip.full .st{color:var(--bk-faint);}
+  .bk-chip.sel{background:var(--bk-ocean);border-color:var(--bk-ocean);box-shadow:0 6px 14px rgba(11,79,108,.28);}
+  .bk-chip.sel .dow{color:#BFE7F5;}
+  .bk-chip.sel .dm{color:#fff;}
+  .bk-chip.sel .st{color:var(--bk-ice-2);}
+  .bk-note{padding:2px 16px 0;font-size:11px;color:var(--bk-faint);}
+
+  /* ---------- workshop cards ---------- */
+  .bk-cards{padding:16px 16px 8px;display:flex;flex-direction:column;gap:14px;}
+  .bk-cards .for-date{font-size:13px;color:var(--bk-dim);font-weight:600;}
+  .bk-cards .for-date b{color:var(--bk-ocean);}
+  .bk-card{background:var(--bk-card);border-radius:18px;border:1px solid var(--bk-line);box-shadow:0 4px 16px rgba(10,37,64,.06);overflow:hidden;position:relative;}
+  .bk-card.featured{border:1.5px solid var(--bk-ice);box-shadow:0 6px 18px rgba(11,79,108,.1);}
+  .bk-card .top{height:92px;position:relative;display:flex;align-items:flex-end;}
+  .bk-card .top.t-wellness{background:linear-gradient(135deg,var(--bk-ocean),var(--bk-ice));}
+  .bk-card .top.t-extended{background:linear-gradient(135deg,var(--bk-ocean-2),var(--bk-ice-2));}
+  .bk-card .avail{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.92);font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;}
+  .bk-card .avail.ok{color:var(--bk-ok);}
+  .bk-card .avail.warn{color:var(--bk-warn);}
+  .bk-card .avail.full{color:var(--bk-full);}
+  .bk-card .imgnote{font-size:11px;color:rgba(255,255,255,.7);padding:8px 12px;}
+  .bk-card .tag-top{position:absolute;top:12px;inset-inline-end:12px;z-index:2;background:var(--bk-navy);color:var(--bk-ice-2);font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;}
+  .bk-card .body{padding:15px 16px 16px;}
+  .bk-card .body h3{margin:0 0 3px;font-size:19px;font-weight:800;color:var(--bk-ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .bk-card .yoga{background:#E8F6FB;color:var(--bk-ocean);font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;}
+  .bk-card .desc{margin:0 0 12px;font-size:13px;color:var(--bk-dim);line-height:1.45;}
+  .bk-card .meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+  .bk-card .meta span{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:#3A4A5A;}
+  .bk-card .meta svg{width:15px;height:15px;}
+  .bk-card .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .bk-card .price{font-size:22px;font-weight:800;color:var(--bk-ink);}
+  .bk-card .price small{font-size:12px;color:var(--bk-faint);font-weight:600;}
+  .bk-book{background:linear-gradient(135deg,var(--bk-energy-1),var(--bk-energy-2));color:#3a1c00;font-weight:800;font-size:15px;padding:12px 20px;border-radius:12px;border:none;cursor:pointer;transition:transform .12s;font-family:inherit;white-space:nowrap;}
+  .bk-book:hover{transform:translateY(-1px);}
+  .bk-book:disabled{background:#E2E8EC;color:var(--bk-faint);cursor:not-allowed;transform:none;}
+  .bk-empty{text-align:center;color:var(--bk-dim);font-size:14px;padding:24px 12px;background:var(--bk-card);border:1px dashed var(--bk-line);border-radius:14px;}
+  .bk-pricenote{font-size:11px;color:var(--bk-faint);text-align:center;}
+
+  /* ---------- what you get ---------- */
+  .bk-get{margin:18px 16px;background:var(--bk-card);border-radius:18px;border:1px solid var(--bk-line);padding:20px 18px;max-width:720px;margin-inline:auto;}
+  .bk-get-wrap{display:flex;flex-direction:column;gap:18px;}
+  .bk-get-media{border-radius:14px;overflow:hidden;}
+  .bk-get-media img{width:100%;height:200px;object-fit:cover;display:block;}
+  .bk-get-content{min-width:0;}
+  .bk-get h2{margin:0 0 14px;font-size:19px;font-weight:900;text-align:center;color:var(--bk-ink);}
+  .bk-get-toggle{display:flex;gap:6px;background:#EEF4F8;border:1px solid var(--bk-line);border-radius:12px;padding:4px;margin:0 auto 18px;max-width:380px;}
+  .bk-get-tab{flex:1;border:none;background:transparent;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--bk-dim);padding:9px 8px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;}
+  .bk-get-tab.active{background:#fff;color:var(--bk-ocean);box-shadow:0 2px 6px rgba(10,37,64,.08);}
+  .bk-get-grid{display:grid;grid-template-columns:1fr;gap:13px;}
+  .bk-get-item{display:flex;align-items:center;gap:12px;}
+  .bk-get-item .ic{flex:0 0 auto;width:42px;height:42px;border-radius:12px;background:#E8F6FB;display:flex;align-items:center;justify-content:center;}
+  .bk-get-item .ic svg{width:22px;height:22px;}
+  .bk-get-item span{font-size:13.5px;font-weight:600;line-height:1.3;color:var(--bk-ink);}
+  .bk-get-more{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #EEF2F5;font-size:13.5px;font-weight:700;color:var(--bk-ocean);}
+  .bk-get-more svg{width:18px;height:18px;}
+
+  /* ---------- media ---------- */
+  .bk-media{margin:4px 16px 18px;max-width:720px;margin-inline:auto;border-radius:18px;overflow:hidden;position:relative;height:200px;background:linear-gradient(135deg,var(--bk-navy),var(--bk-ocean-2));display:flex;align-items:center;justify-content:center;}
+  .bk-media .rad{position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(127,224,240,.25),transparent 60%);}
+  .bk-media .c{position:relative;text-align:center;}
+  .bk-media .play{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+  .bk-media .play svg{width:22px;height:22px;}
+  .bk-media .t1{color:#fff;font-size:14px;font-weight:600;}
+  .bk-media .t2{color:#BFE7F5;font-size:12px;margin-top:3px;}
+
+  /* ---------- faq ---------- */
+  .bk-faq{padding:0 16px 10px;max-width:720px;margin-inline:auto;}
+  .bk-faq h2{margin:0 0 14px;font-size:19px;font-weight:900;color:var(--bk-ink);}
+  .bk-faq details{background:var(--bk-card);border:1px solid var(--bk-line);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+  .bk-faq summary{display:flex;align-items:center;justify-content:space-between;font-size:14.5px;font-weight:700;color:var(--bk-ink);cursor:pointer;list-style:none;}
+  .bk-faq summary::-webkit-details-marker{display:none;}
+  .bk-faq summary svg{width:18px;height:18px;transition:transform .2s;flex:0 0 auto;}
+  .bk-faq details[open] summary svg{transform:rotate(180deg);}
+  .bk-faq p{margin:10px 0 0;font-size:13px;color:var(--bk-dim);line-height:1.5;}
+  .bk-health{margin-top:14px;background:#E8F6FB;border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--bk-ocean);line-height:1.5;}
+
+  /* ---------- booking modal ---------- */
+  .bk-modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-end;justify-content:center;background:rgba(10,37,64,.55);}
+  .bk-modal.open{display:flex;}
+  .bk-sheet{background:#fff;width:100%;max-width:480px;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));animation:bkUp .25s var(--ease,ease);}
+  @keyframes bkUp{from{transform:translateY(30px);opacity:.6}to{transform:translateY(0);opacity:1}}
+  .bk-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px;}
+  .bk-sheet-head h3{margin:0;font-size:19px;font-weight:900;color:var(--bk-ink);}
+  .bk-sheet-head .sub{font-size:13px;color:var(--bk-dim);margin-top:2px;}
+  .bk-close{background:#F1F5F8;border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:20px;color:var(--bk-dim);flex:0 0 auto;line-height:1;}
+  .bk-field{margin-top:14px;}
+  .bk-field label{display:block;font-size:13px;font-weight:700;color:var(--bk-ink);margin-bottom:6px;}
+  .bk-field input,.bk-field select{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--bk-line);border-radius:12px;background:#fff;color:var(--bk-ink);}
+  .bk-field input:focus,.bk-field select:focus{outline:none;border-color:var(--bk-ice);}
+  .bk-summary{margin-top:16px;background:var(--bk-bg);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;font-weight:800;color:var(--bk-ink);}
+  .bk-summary .amt{font-size:20px;}
+  .bk-pay{width:100%;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,var(--bk-energy-1),var(--bk-energy-2));color:#3a1c00;font-weight:800;font-size:16px;padding:15px;border-radius:14px;border:none;cursor:pointer;font-family:inherit;}
+  .bk-pay svg{width:18px;height:18px;}
+  .bk-pay.loading{opacity:.65;pointer-events:none;}
+  .bk-payhost{margin-top:14px;}
+  .bk-payhost iframe{width:100%;height:560px;border:none;border-radius:12px;background:#fff;display:block;}
+  .bk-msg{margin-top:14px;border-radius:12px;padding:16px 14px;text-align:center;font-size:13.5px;line-height:1.6;}
+  .bk-msg.info{background:#E8F6FB;color:var(--bk-ocean);}
+  .bk-msg.err{background:#FDECEC;color:#B3261E;}
+  .bk-msg a{font-weight:800;text-decoration:underline;}
+  .bk-trust{margin-top:12px;text-align:center;font-size:11.5px;color:var(--bk-faint);display:flex;align-items:center;justify-content:center;gap:6px;}
+  .bk-trust svg{width:13px;height:13px;}
+
+  @media(min-width:760px){
+    .bk-cards{flex-direction:row;flex-wrap:wrap;}
+    .bk-cards .for-date{flex-basis:100%;}
+    .bk-card{flex:1 1 320px;}
+    .bk-modal{align-items:center;}
+    .bk-sheet{border-radius:20px;}
+    /* desktop only: real photo behind the hero (mobile keeps the gradient) */
+    .bk-hero{
+      background:
+        linear-gradient(160deg, rgba(8,28,48,.88) 0%, rgba(11,60,86,.74) 50%, rgba(14,90,116,.60) 100%),
+        url('assets/img/booking-hero.jpg') center/cover no-repeat;
+    }
+    /* what-you-get: image on the left, content on the right */
+    .bk-get{max-width:980px;}
+    .bk-get-wrap{flex-direction:row;align-items:stretch;gap:28px;}
+    .bk-get-media{flex:0 0 40%;order:2;}
+    .bk-get-media img{height:100%;min-height:470px;}
+    .bk-get-content{flex:1;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand" aria-label="Icy Power"><img class="flake" src="assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
+    <nav class="nav-links" id="navLinks"><a href="index.html#sessions">הסדנאות</a><a href="index.html#how">איך זה עובד</a><a href="gallery.html">גלריה</a><a href="privacy-policy.html">מדיניות פרטיות</a></nav>
+    <div class="nav-cta">
+      <a href="booking.html" class="btn btn-book nav-book">הזמנת מקום</a>
+      <a href="contact.html" class="btn btn-primary nav-contact">צור קשר</a>
+      <button class="nav-toggle" id="navToggle" aria-label="תפריט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="bk">
+
+  <!-- HERO -->
+  <section class="bk-hero">
+    <span class="glow1" aria-hidden="true"></span>
+    <span class="glow2" aria-hidden="true"></span>
+    <div class="inner">
+      <h1>בוקר שמתחיל בקור,<br>נגמר באנרגיה</h1>
+      <p class="lead">בחרו תאריך, בחרו סדנה, ותשמרו מקום — בפחות מדקה. בדיוק כמו שדיברנו.</p>
+      <button class="bk-cta" type="button" onclick="document.getElementById('bkDates').scrollIntoView({behavior:'smooth'})">
+        מצא/י סדנה מתאימה
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- DATE PICKER -->
+  <section class="bk-dates" id="bkDates">
+    <div class="wrap" style="padding-inline:0;">
+      <div class="bk-dates-head">
+        <h2>מתי בא לך להגיע?</h2>
+      </div>
+      <div class="bk-chips" id="bkChips"></div>
+      <div class="bk-note" id="bkNote">* התאריכים לדוגמה — יתחברו ליומן האמיתי בשלב הבא</div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="bk-cards wrap" id="bkCards"></section>
+
+  <!-- WHAT YOU GET (dynamic per workshop type) -->
+  <section class="bk-get">
+    <div class="bk-get-wrap">
+      <div class="bk-get-media"><img src="assets/img/whatyouget-side.jpg" alt="חצר הוילה עם הבריכה ומגשי הפירות בסדנה" loading="lazy"></div>
+      <div class="bk-get-content">
+        <h2>מה מחכה לכם בסדנה</h2>
+        <div class="bk-get-toggle">
+          <button type="button" class="bk-get-tab active" data-t="wellness" onclick="setWhatYouGet('wellness')">בוקר וולנס</button>
+          <button type="button" class="bk-get-tab" data-t="extended" onclick="setWhatYouGet('extended')">בוקר וולנס מורחב</button>
+        </div>
+        <div class="bk-get-grid" id="bkGetGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section class="bk-media">
+    <div class="rad" aria-hidden="true"></div>
+    <div class="c">
+      <div class="play"><svg viewBox="0 0 24 24" fill="#0A2540"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="t1">וידאו קצר מהחוויה [להעלאה]</div>
+      <div class="t2">רגע אמיתי מהסדנה — קור, נשימה, אנרגיה</div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bk-faq">
+    <h2>שאלות שכדאי לדעת</h2>
+    <details open>
+      <summary>מה צריך להביא?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <p>בגד ים, מגבת, וכפכפים. את כל השאר אנחנו מביאים — כולל חיוך. 🙂</p>
+    </details>
+    <details>
+      <summary>אפשר לבטל או לשנות תאריך?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <p>[מדיניות ביטול — למילוי: עד כמה זמן מראש אפשר לבטל/לשנות]</p>
+    </details>
+    <details>
+      <summary>איפה זה מתקיים בדיוק?<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <p>[מיקום מדויק — למילוי. קישור Waze יישלח יחד עם אישור ההזמנה]</p>
+    </details>
+    <div class="bk-health">🧊 לאחר ההזמנה יישלח טופס בריאות קצר — כדי שנוודא שהחוויה בטוחה ומתאימה לך.</div>
+  </section>
+
+  <!-- CTA BAND (reuse site) -->
+  <section class="cta-band" style="background:var(--bk-navy);color:#fff;padding:26px 20px 30px;text-align:center;">
+    <h2 style="color:#fff;margin:0 0 6px;font-size:20px;">יש שאלה לפני שמזמינים?</h2>
+    <p style="color:#BFD4E0;margin:0 auto 16px;max-width:420px;">אנחנו כאן. שלחו הודעה ונחזור אליכם מהר.</p>
+    <a href="https://wa.me/972548787766?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%A9%D7%90%D7%A0%D7%99%20%D7%9E%D7%96%D7%9E%D7%99%D7%9F%20%D7%9E%D7%A7%D7%95%D7%9D%20%D7%9C%D7%A1%D7%93%D7%A0%D7%94" class="btn btn-wa btn-lg" target="_blank" rel="noopener">דברו איתנו בוואטסאפ</a>
+  </section>
+
+</main>
+
+<!-- BOOKING MODAL -->
+<div class="bk-modal" id="bkModal" role="dialog" aria-modal="true">
+  <div class="bk-sheet" id="bkSheet">
+    <div class="bk-sheet-head">
+      <div>
+        <h3 id="bkModalTitle">הזמנת מקום</h3>
+        <div class="sub" id="bkModalSub"></div>
+      </div>
+      <button class="bk-close" type="button" onclick="bkCloseModal()" aria-label="סגירה">×</button>
+    </div>
+
+    <div class="bk-field">
+      <label for="bkName">שם מלא</label>
+      <input id="bkName" type="text" autocomplete="name" placeholder="השם שלך" />
+    </div>
+    <div class="bk-field">
+      <label for="bkPhone">טלפון</label>
+      <input id="bkPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-0000000" />
+    </div>
+    <div class="bk-field">
+      <label for="bkEmail">אימייל</label>
+      <input id="bkEmail" type="email" inputmode="email" autocomplete="email" placeholder="name@email.com" />
+    </div>
+    <div class="bk-field">
+      <label for="bkQty">כמות משתתפים</label>
+      <select id="bkQty" onchange="bkUpdateAmount()">
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+      </select>
+    </div>
+
+    <div class="bk-summary">
+      <span>לתשלום</span>
+      <span class="amt" id="bkAmount">₪0</span>
+    </div>
+
+    <!-- payment: the Tranzila hosted iframe is injected here after the
+         booking is created server-side (card form lives inside Tranzila). -->
+    <button class="bk-pay" id="bkPayBtn" type="button" onclick="bkStartPayment()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      המשך לתשלום מאובטח
+    </button>
+    <div class="bk-payhost" id="bkPayHost"></div>
+
+    <div class="bk-trust">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9AA7B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      תשלום מאובטח · טופס בריאות קצר יישלח לאחר ההזמנה
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand"><img class="flake" src="assets/img/icy_power_Logo.png" alt="Icy Power" /><span>Icy Power</span></a>
+        <p>סדנאות אמבט קרח ונשימות לקבוצות, חברות ואירועים - קור שמדליק אנרגיה.</p>
+        <div class="social">
+          <a href="https://www.instagram.com/the.icy.power.il/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://wa.me/972548787766" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></a>
+          <a href="mailto:icypowerteam@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        </div>
+      </div>
+      <div><h4>הסדנאות</h4><ul><li><a href="business.html">חברות וצוותים</a></li><li><a href="private-groups.html">קבוצות פרטיות</a></li><li><a href="open-session.html">סדנה פתוחה</a></li><li><a href="couples.html">סדנת זוגות</a></li><li><a href="events.html">אירועים ומסיבות</a></li></ul></div>
+      <div><h4>ניווט</h4><ul><li><a href="booking.html">הזמנת מקום</a></li><li><a href="gallery.html">גלריה</a></li><li><a href="contact.html">צור קשר</a></li><li><a href="privacy-policy.html">מדיניות פרטיות</a></li><li><a href="tel:+972548787766">054-878-7766</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© <span data-year>2026</span> Icy Power · כל הזכויות שמורות</span><span>אמבט קרח · נשימות WHM · ישראל</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/972548787766" class="float-wa" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg></a>
+
+<script src="assets/main.js"></script>
+<script>
+/* =====================================================================
+   booking.html — לוגיקת הבורר + הכרטיסים
+   ---------------------------------------------------------------------
+   Phase 1: הסדנאות מגיעות מרשימת דוגמה (SAMPLE_SESSIONS) שנבנית מהתאריכים
+   הקרובים כדי שהעמוד ייראה מלא וחי. בשלב הבא זה יוחלף בקריאה אמיתית ל-
+   GET /api/sessions מה-DB המשותף — אותו מבנה נתונים בדיוק.
+   ===================================================================== */
+const DOW = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const TYPE_LABEL = { wellness:'בוקר וולנס', extended:'בוקר וולנס מורחב' };
+
+// escape any value coming from the DB before it goes into innerHTML (XSS guard)
+function esc(v){ return String(v==null?'':v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// בונה תאריך יחסי מהיום (offset בימים) בפורמט YYYY-MM-DD
+function dPlus(days){ const d=new Date(); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); }
+
+// רשימת דוגמה — תוחלף ב-GET /api/sessions
+const SAMPLE_SESSIONS = [
+  { id:'s1', date:dPlus(3),  type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:0,  city:'הרצליה' },
+  { id:'s2', date:dPlus(3),  type:'extended', start:'08:00', end:'11:00', price:250, capacity:15, booked:13, city:'הרצליה' },
+  { id:'s3', date:dPlus(4),  type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:2,  city:'הרצליה' },
+  { id:'s4', date:dPlus(10), type:'extended', start:'08:00', end:'11:00', price:250, capacity:15, booked:15, city:'הרצליה' },
+  { id:'s5', date:dPlus(11), type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:5,  city:'הרצליה' },
+];
+
+let SESSIONS = [];
+let selectedDate = null;
+let activeSession = null;
+let usingSample = false;
+
+function availOf(s){ return Math.max(0, s.capacity - s.booked); }
+function dateState(dateSessions){
+  const total = dateSessions.reduce((n,s)=>n+availOf(s),0);
+  if (total <= 0) return 'full';
+  if (total <= 3) return 'warn';
+  return 'ok';
+}
+function fmtDM(iso){ const [y,m,d]=iso.split('-'); return `${+d}.${+m}`; }
+function dowOf(iso){ return DOW[new Date(iso+'T00:00:00').getDay()]; }
+
+function uniqueDates(){
+  const map = {};
+  SESSIONS.forEach(s => { (map[s.date] = map[s.date] || []).push(s); });
+  return Object.keys(map).sort().map(date => ({ date, sessions: map[date] }));
+}
+
+function renderChips(){
+  const wrap = document.getElementById('bkChips');
+  const dates = uniqueDates();
+  wrap.innerHTML = '';
+  dates.forEach(({date, sessions}) => {
+    const st = dateState(sessions);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'bk-chip ' + st + (date===selectedDate ? ' sel' : '');
+    const stLabel = st==='full' ? 'מלא' : st==='warn' ? '● כמעט מלא' : '● זמין';
+    btn.innerHTML = `<div class="dow">${dowOf(date)}</div><div class="dm">${fmtDM(date)}</div><div class="st">${stLabel}</div>`;
+    if (st !== 'full') btn.addEventListener('click', () => { selectedDate = date; renderChips(); renderCards(); });
+    wrap.appendChild(btn);
+  });
+}
+
+function clock(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'; }
+function pin(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>'; }
+
+function renderCards(){
+  const wrap = document.getElementById('bkCards');
+  const dateSessions = SESSIONS.filter(s => s.date === selectedDate);
+  let html = `<div class="for-date">סדנאות זמינות ל<b>${dowOf(selectedDate)} ${fmtDM(selectedDate)}</b></div>`;
+  if (!dateSessions.length){
+    html += `<div class="bk-empty">אין סדנאות בתאריך הזה — נסו תאריך אחר מהבורר למעלה 🙂</div>`;
+  } else {
+    dateSessions.forEach(s => {
+      const left = availOf(s);
+      const st = left<=0 ? 'full' : left<=3 ? 'warn' : 'ok';
+      const availLabel = left<=0 ? 'מלא' : left<=3 ? `● ${left} מקומות אחרונים` : `● פנוי · ${left} מקומות`;
+      const featured = s.type==='extended';
+      html += `
+      <div class="bk-card ${featured?'featured':''}">
+        ${featured?'<span class="tag-top">הכי מבוקש</span>':''}
+        <div class="top t-${s.type}">
+          <span class="avail ${st}">${availLabel}</span>
+          <span class="imgnote">תמונת סדנה [להעלאה]</span>
+        </div>
+        <div class="body">
+          <h3>${TYPE_LABEL[s.type]}${s.type==='extended'?'<span class="yoga">+ יוגה</span>':''}</h3>
+          <p class="desc">${s.type==='extended'
+            ? 'כל מה שבבוקר הוולנס — ובנוסף מפגש יוגה מלא'
+            : 'נשימות Wim Hof · אמבט קרח · בר שייקים ופירות · ועוד הפתעות'}</p>
+          <div class="meta">
+            <span>${clock()} ${esc(s.start)}–${esc(s.end)}</span>
+            <span>${pin()} ${esc(s.city)}</span>
+          </div>
+          <div class="foot">
+            <div class="price">₪${Number(s.price)||0}<small> / לאדם${usingSample?'*':''}</small></div>
+            <button class="bk-book" ${left<=0?'disabled':''} data-id="${esc(s.id)}">${left<=0?'מלא':'הזמן/י מקום'}</button>
+          </div>
+        </div>
+      </div>`;
+    });
+    if (usingSample) html += `<div class="bk-pricenote">* מחירים זמניים — לעדכון לפי המחירון האמיתי</div>`;
+  }
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.bk-book:not([disabled])').forEach(b => {
+    b.addEventListener('click', () => openBooking(b.getAttribute('data-id')));
+  });
+}
+
+/* ---------- booking modal ---------- */
+function openBooking(id){
+  activeSession = SESSIONS.find(s => s.id === id);
+  if (!activeSession) return;
+  document.getElementById('bkModalTitle').textContent = TYPE_LABEL[activeSession.type];
+  document.getElementById('bkModalSub').textContent =
+    `${dowOf(activeSession.date)} ${fmtDM(activeSession.date)} · ${activeSession.start}–${activeSession.end} · ${activeSession.city}`;
+  document.getElementById('bkQty').value = '1';
+  bkUpdateAmount();
+  bkResetPayUI();
+  document.getElementById('bkModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function bkCloseModal(){
+  document.getElementById('bkModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function bkUpdateAmount(){
+  if (!activeSession) return;
+  const qty = +document.getElementById('bkQty').value;
+  document.getElementById('bkAmount').textContent = '₪' + (activeSession.price * qty);
+}
+
+/* ---------- payment (Tranzila hosted iframe) ---------- */
+const BK_PAY_LABEL = '<svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> המשך לתשלום מאובטח';
+function bkResetPayUI(){
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.remove('loading'); btn.style.display = '';
+  btn.innerHTML = BK_PAY_LABEL;
+  document.getElementById('bkPayHost').innerHTML = '';
+}
+function bkMsg(html, kind){
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.remove('loading'); btn.style.display = '';
+  btn.innerHTML = BK_PAY_LABEL;
+  document.getElementById('bkPayHost').innerHTML = '<div class="bk-msg ' + kind + '">' + html + '</div>';
+}
+async function bkStartPayment(){
+  if (!activeSession) return;
+  const name  = document.getElementById('bkName').value.trim();
+  const phone = document.getElementById('bkPhone').value.trim();
+  const email = document.getElementById('bkEmail').value.trim();
+  const qty   = +document.getElementById('bkQty').value;
+  if (name.length < 2) return bkMsg('נא למלא שם מלא', 'err');
+  if (!/^[+()\-\s0-9]{6,20}$/.test(phone)) return bkMsg('נא למלא מספר טלפון תקין', 'err');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bkMsg('נא למלא כתובת אימייל תקינה', 'err');
+
+  const btn = document.getElementById('bkPayBtn');
+  btn.classList.add('loading'); btn.textContent = 'רגע, פותחים תשלום מאובטח…';
+  try{
+    const res = await fetch('/api/bookings', {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ workshopId: activeSession.id, name, phone, email, qty }),
+    });
+    if (res.status === 503){
+      return bkMsg('התשלום המקוון ייפתח כאן ממש בקרוב. בינתיים שריינו מקום בוואטסאפ ונשלים יחד 🙂 <a href="https://wa.me/972548787766" target="_blank" rel="noopener">לוואטסאפ</a>', 'info');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.iframeUrl){
+      const msg = res.status === 409
+        ? 'אזל המקום לסדנה הזו — נסו תאריך אחר מהבורר 🙂'
+        : 'משהו השתבש ביצירת ההזמנה. נסו שוב, או דברו איתנו בוואטסאפ.';
+      return bkMsg(msg, 'err');
+    }
+    btn.style.display = 'none';
+    const host = document.getElementById('bkPayHost');
+    const f = document.createElement('iframe');
+    f.setAttribute('title', 'תשלום מאובטח');
+    f.setAttribute('allow', 'payment');
+    f.src = data.iframeUrl;
+    host.innerHTML = '';
+    host.appendChild(f);
+  }catch(e){
+    bkMsg('בעיית תקשורת. בדקו את החיבור ונסו שוב.', 'err');
+  }
+}
+
+// close on backdrop click
+document.getElementById('bkModal').addEventListener('click', e => { if (e.target.id === 'bkModal') bkCloseModal(); });
+
+/* ---------- data loading + init ----------
+   טוען סדנאות אמיתיות מ-GET /api/sessions (ה-DB המשותף). אם יש דאטה אמיתית —
+   מציג אותה. ב-preview בלבד, כשעדיין אין סדנאות ב-DB, נופל לרשימת דוגמה כדי
+   שהעמוד לא ייראה ריק. באתר החי, ללא סדנאות — מצב-ריק ידידותי (בלי דאטה
+   מזויפת). */
+async function loadSessions(){
+  try{
+    const res = await fetch('/api/sessions', { headers:{ 'Accept':'application/json' } });
+    if (res.ok){
+      const data = await res.json();
+      if (data && Array.isArray(data.sessions)) return data.sessions;
+    }
+  }catch(e){ /* fall through to fallback below */ }
+  return null;
+}
+function isPreview(){
+  const h = location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1' || h === '') return true;      // dev / file://
+  if (h === 'icypower.pages.dev') return false;                             // production
+  if (h.endsWith('.pages.dev')) return true;                               // branch preview alias
+  return false;                                                            // custom (live) domain
+}
+function renderEmpty(){
+  document.getElementById('bkChips').innerHTML = '';
+  document.getElementById('bkNote').textContent = '';
+  document.getElementById('bkCards').innerHTML =
+    '<div class="bk-empty">אין כרגע סדנאות פתוחות להזמנה. השאירו לנו הודעה בוואטסאפ ונעדכן אתכם על המועד הקרוב 🙂</div>';
+}
+/* ---------- what you get (per workshop type) ---------- */
+const GET_ICONS = {
+  pin:'<path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  breath:'<path d="M3 12h4l2-4 3 8 2-4h4"/>',
+  ice:'<path d="M12 2v20M5 5l14 14M19 5 5 19M2 12h20"/>',
+  shake:'<path d="M6 2h12l-1 7a5 5 0 0 1-10 0Z"/><path d="M9 22h6M12 15v7"/>',
+  coffee:'<path d="M4 8h13v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 2v2M11 2v2"/>',
+  star:'<path d="M12 3l2 5 5 .5-4 3.5 1.5 5L12 19l-4.5 3 1.5-5-4-3.5 5-.5z"/>',
+  yoga:'<circle cx="12" cy="4.5" r="2"/><path d="M12 6.5v6M12 12.5l-5 3M12 12.5l5 3M7 20h10"/>',
+};
+const WHATYOUGET = [
+  { icon:'pin',    label:'אירוח ב״תאילנד הקטנה״ בסביון' },
+  { icon:'breath', label:'הדרכה מקצועית של סדנת נשימות' },
+  { icon:'ice',    label:'טבילה מודרכת באמבטיית קרח' },
+  { icon:'shake',  label:'שייקים ופירות' },
+  { icon:'coffee', label:'פינת קפה' },
+  { icon:'star',   label:'עוד הפתעות' },
+  { icon:'yoga',   label:'שיעור יוגה', extendedOnly:true },
+];
+function getIcon(name){
+  const stroke = name === 'star' ? '#F5A623' : '#0B4F6C';
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GET_ICONS[name] || ''}</svg>`;
+}
+function renderWhatYouGet(type){
+  document.getElementById('bkGetGrid').innerHTML = WHATYOUGET
+    .filter(i => !i.extendedOnly || type === 'extended')
+    .map(i => `<div class="bk-get-item"><span class="ic">${getIcon(i.icon)}</span><span>${i.label}</span></div>`)
+    .join('');
+}
+function setWhatYouGet(type){
+  document.querySelectorAll('.bk-get-tab').forEach(b => b.classList.toggle('active', b.getAttribute('data-t') === type));
+  renderWhatYouGet(type);
+}
+
+async function init(){
+  setWhatYouGet('wellness');
+  const real = await loadSessions();
+  if (real && real.length){ SESSIONS = real; usingSample = false; }
+  else if (isPreview()){ SESSIONS = SAMPLE_SESSIONS; usingSample = true; }
+  else { SESSIONS = []; usingSample = false; }
+
+  if (!usingSample) document.getElementById('bkNote').textContent = '';
+
+  const dates = uniqueDates();
+  if (!dates.length){ renderEmpty(); return; }
+  const firstOpen = dates.find(d => dateState(d.sessions) !== 'full');
+  selectedDate = (firstOpen || dates[0] || {}).date || null;
+  renderChips();
+  if (selectedDate) renderCards();
+}
+init();
+</script>
+</body>
+</html>
