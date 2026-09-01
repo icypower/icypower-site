@@ -324,7 +324,7 @@
     <span class="wd-blob" aria-hidden="true" style="width:120px;height:120px;top:62%;inset-inline-start:12%;animation-delay:-6s"></span>
 
     <span class="wd-eyebrow">☀️ אירוע וולנס · יום שלם לקבוצה</span>
-    <h1>יום וולנס שמעצבים<br><em>בדיוק כמו שרציתם</em></h1>
+    <h1>אירוע וולנס תפור אישית בשבילכם</h1>
     <p class="lead">אנחנו מגיעים אליכם - לכל מתחם, גינה, חוף או מקום עבודה בארץ - ומרימים יום שלם של אנרגיה, רוגע וחיבור. אתם בוחרים מה נכנס ליום, אנחנו מביאים את הצוות, הציוד והוייב.</p>
 
     <div class="wd-pills">
@@ -354,7 +354,6 @@
 
   <section class="wd-build" id="builder">
     <div class="wd-build-head">
-      <span class="eyebrow3">התאמה אישית</span>
       <h2>בנו את יום הוולנס שלכם</h2>
       <p>לחצו על מה שמעניין אתכם - וזה ייכנס מיד ל"יום שלי" שמתעדכן בצד. אפשר לשחק, להוסיף ולהוריד, ולשלוח לנו בסוף בלחיצה אחת.</p>
     </div>
@@ -374,7 +373,6 @@
       <div class="wd-sum-wrap">
         <div class="wd-sum" id="wdSum">
           <h3>☀️ היום שלי</h3>
-          <p class="sum-sub">כך נראה האירוע שלכם כרגע</p>
           <div id="wdSumBody"></div>
           <div class="totals">
             <div>
@@ -491,17 +489,12 @@ var ADDONS = [
     desc:'תחנת אמבטיות קרח עם הדרכה צמודה - האתגר שכולם מדברים עליו אחר כך, וההרגשה שאחריו.'
   },
   {
-    id:'nails', title:'עמידה על מסמרים', group:'content', order:40, price:null,
-    dur:'כ-40 דק׳', img:null, icon:'🪡',
-    desc:'נשמע מטורף, מרגיש מדהים. עמידה מודרכת על לוח מסמרים שמלמדת בדיוק איך להישאר רגועים בתוך אי-נוחות.'
-  },
-  {
     id:'aroma', title:'ארומתרפיה', group:'content', order:50, price:null,
     dur:'כ-45 דק׳', img:null, icon:'🌿',
     desc:'פינת שמנים אתריים עם הסבר והתנסות - כל אחד מרכיב לעצמו תערובת אישית לקחת הביתה.'
   },
   {
-    id:'massage', title:'עיסויים', group:'content', order:60, price:null,
+    id:'massage', title:'מסאג׳ים', group:'content', order:60, price:null,
     dur:'לאורך היום', img:null, icon:'💆',
     desc:'עמדת מעסים מקצועיים שפועלת במקביל לשאר התכנים - כל אחד מגיע לתורו לרגע של פינוק.'
   },
@@ -511,9 +504,14 @@ var ADDONS = [
     desc:'סגירה מושלמת ליום - קערות טיבטיות, גונגים וצלילים שמכניסים את כל הקבוצה לרוגע עמוק.'
   },
   {
-    id:'catering', title:'קייטרינג בריאות', group:'food', order:99, price:70,
+    id:'catering', title:'קייטרינג בריאות', group:'food', order:99, price:null,
     dur:'לאורך היום', img:'assets/img/retreat-villa-spread.jpg', icon:'🥗',
     desc:'פירות העונה, ירקות, כריכי בריאות ומיצי בריאות סחוטים - פינה שנשארת פתוחה לאורך כל היום.'
+  },
+  {
+    id:'wine', title:'חבילת יינות', group:'food', order:100, price:null,
+    dur:'לאורך היום', img:null, icon:'🍷',
+    desc:'מבחר יינות איכותיים לאורך היום - נגיעה חגיגית שמשלימה את החוויה.'
   }
 ];
 
@@ -554,7 +552,7 @@ var ADDONS = [
       '<div class="body"><h3>' + a.title + '</h3><p>' + a.desc + '</p></div>' +
       '<div class="foot">' +
         '<button type="button" class="wd-toggle" data-toggle="' + a.id + '" aria-pressed="' + (isOn(a.id) ? 'true' : 'false') + '">' +
-          '<span class="lbl">' + (isOn(a.id) ? '✓ נוסף ליום' : '+ הוספה ליום') + '</span>' +
+          '<span class="lbl">' + (isOn(a.id) ? '✓ נוסף ליום' : 'הוספה ליום') + '</span>' +
         '</button>' + price +
       '</div></article>';
   }
@@ -582,7 +580,7 @@ var ADDONS = [
 
     if(!list.length){
       body.innerHTML = html + '</ol>' +
-        '<div class="empty" style="margin-top:12px">עוד לא בחרתם תכנים.<br>לחצו על ״+ הוספה ליום״ בכרטיסים כדי לבנות את היום שלכם.</div>';
+        '<div class="empty" style="margin-top:12px">עוד לא בחרתם תכנים.<br>לחצו על ״הוספה ליום״ בכרטיסים כדי לבנות את היום שלכם.</div>';
     }else{
       list.forEach(function(a, i){
         html += '<li><span class="n">' + (i+1) + '</span>' +
@@ -628,7 +626,7 @@ var ADDONS = [
     card.classList.toggle('is-on', on);
     var btn = card.querySelector('[data-toggle]');
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    btn.querySelector('.lbl').textContent = on ? '✓ נוסף ליום' : '+ הוספה ליום';
+    btn.querySelector('.lbl').textContent = on ? '✓ נוסף ליום' : 'הוספה ליום';
   }
 
   function toggle(id){
