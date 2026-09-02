@@ -67,16 +67,9 @@
   .bk-chip:hover{border-color:var(--bk-ice);}
   .bk-chip .dow{font-size:12px;color:var(--bk-dim);font-weight:600;}
   .bk-chip .dm{font-size:17px;font-weight:800;color:var(--bk-ink);}
-  .bk-chip .st{font-size:10px;margin-top:2px;font-weight:600;}
-  .bk-chip.ok .st{color:var(--bk-ok);}
-  .bk-chip.warn .st{color:var(--bk-warn);}
-  .bk-chip.full{opacity:.55;cursor:not-allowed;}
-  .bk-chip.full .dow,.bk-chip.full .dm{color:var(--bk-faint);}
-  .bk-chip.full .st{color:var(--bk-faint);}
   .bk-chip.sel{background:var(--bk-ocean);border-color:var(--bk-ocean);box-shadow:0 6px 14px rgba(11,79,108,.28);}
   .bk-chip.sel .dow{color:#BFE7F5;}
   .bk-chip.sel .dm{color:#fff;}
-  .bk-chip.sel .st{color:var(--bk-ice-2);}
   .bk-note{padding:2px 16px 0;font-size:11px;color:var(--bk-faint);}
 
   /* ---------- workshop cards ---------- */
@@ -88,10 +81,6 @@
   .bk-card .top{height:92px;position:relative;display:flex;align-items:flex-end;}
   .bk-card .top.t-wellness{background:linear-gradient(135deg,var(--bk-ocean),var(--bk-ice));}
   .bk-card .top.t-extended{background:linear-gradient(135deg,var(--bk-ocean-2),var(--bk-ice-2));}
-  .bk-card .avail{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.92);font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;}
-  .bk-card .avail.ok{color:var(--bk-ok);}
-  .bk-card .avail.warn{color:var(--bk-warn);}
-  .bk-card .avail.full{color:var(--bk-full);}
   .bk-card .imgnote{font-size:11px;color:rgba(255,255,255,.7);padding:8px 12px;}
   .bk-card .tag-top{position:absolute;top:12px;inset-inline-end:12px;z-index:2;background:var(--bk-navy);color:var(--bk-ice-2);font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;}
   .bk-card .body{padding:15px 16px 16px;}
@@ -441,11 +430,10 @@ function dPlus(days){ const d=new Date(); d.setDate(d.getDate()+days); return d.
 
 // רשימת דוגמה — תוחלף ב-GET /api/sessions
 const SAMPLE_SESSIONS = [
-  { id:'s1', date:dPlus(3),  type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:0,  city:'הרצליה' },
-  { id:'s2', date:dPlus(3),  type:'extended', start:'08:00', end:'11:00', price:250, capacity:15, booked:13, city:'הרצליה' },
-  { id:'s3', date:dPlus(4),  type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:2,  city:'הרצליה' },
-  { id:'s4', date:dPlus(10), type:'extended', start:'08:00', end:'11:00', price:250, capacity:15, booked:15, city:'הרצליה' },
-  { id:'s5', date:dPlus(11), type:'wellness', start:'08:00', end:'10:00', price:180, capacity:15, booked:5,  city:'הרצליה' },
+  { id:'s1', date:dPlus(3),  type:'wellness', start:'08:00', end:'10:00', price:180, city:'סביון' },
+  { id:'s2', date:dPlus(3),  type:'extended', start:'08:00', end:'11:00', price:250, city:'סביון' },
+  { id:'s3', date:dPlus(10), type:'wellness', start:'08:00', end:'10:00', price:180, city:'סביון' },
+  { id:'s4', date:dPlus(10), type:'extended', start:'08:00', end:'11:00', price:250, city:'סביון' },
 ];
 
 let SESSIONS = [];
@@ -453,13 +441,6 @@ let selectedDate = null;
 let activeSession = null;
 let usingSample = false;
 
-function availOf(s){ return Math.max(0, s.capacity - s.booked); }
-function dateState(dateSessions){
-  const total = dateSessions.reduce((n,s)=>n+availOf(s),0);
-  if (total <= 0) return 'full';
-  if (total <= 3) return 'warn';
-  return 'ok';
-}
 function fmtDM(iso){ const [y,m,d]=iso.split('-'); return `${+d}.${+m}`; }
 function dowOf(iso){ return DOW[new Date(iso+'T00:00:00').getDay()]; }
 
@@ -473,14 +454,12 @@ function renderChips(){
   const wrap = document.getElementById('bkChips');
   const dates = uniqueDates();
   wrap.innerHTML = '';
-  dates.forEach(({date, sessions}) => {
-    const st = dateState(sessions);
+  dates.forEach(({date}) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'bk-chip ' + st + (date===selectedDate ? ' sel' : '');
-    const stLabel = st==='full' ? 'מלא' : st==='warn' ? '● כמעט מלא' : '● זמין';
-    btn.innerHTML = `<div class="dow">${dowOf(date)}</div><div class="dm">${fmtDM(date)}</div><div class="st">${stLabel}</div>`;
-    if (st !== 'full') btn.addEventListener('click', () => { selectedDate = date; renderChips(); renderCards(); });
+    btn.className = 'bk-chip' + (date===selectedDate ? ' sel' : '');
+    btn.innerHTML = `<div class="dow">${dowOf(date)}</div><div class="dm">${fmtDM(date)}</div>`;
+    btn.addEventListener('click', () => { selectedDate = date; renderChips(); renderCards(); });
     wrap.appendChild(btn);
   });
 }
@@ -496,15 +475,11 @@ function renderCards(){
     html += `<div class="bk-empty">אין סדנאות בתאריך הזה — נסו תאריך אחר מהבורר למעלה 🙂</div>`;
   } else {
     dateSessions.forEach(s => {
-      const left = availOf(s);
-      const st = left<=0 ? 'full' : left<=3 ? 'warn' : 'ok';
-      const availLabel = left<=0 ? 'מלא' : left<=3 ? `● ${left} מקומות אחרונים` : `● פנוי · ${left} מקומות`;
       const featured = s.type==='extended';
       html += `
       <div class="bk-card ${featured?'featured':''}">
         ${featured?'<span class="tag-top">הכי מבוקש</span>':''}
         <div class="top t-${s.type}">
-          <span class="avail ${st}">${availLabel}</span>
           <span class="imgnote">תמונת סדנה [להעלאה]</span>
         </div>
         <div class="body">
@@ -518,7 +493,7 @@ function renderCards(){
           </div>
           <div class="foot">
             <div class="price">₪${Number(s.price)||0}<small> / לאדם${usingSample?'*':''}</small></div>
-            <button class="bk-book" ${left<=0?'disabled':''} data-id="${esc(s.id)}">${left<=0?'מלא':'הזמן/י מקום'}</button>
+            <button class="bk-book" data-id="${esc(s.id)}">הזמן/י מקום</button>
           </div>
         </div>
       </div>`;
@@ -526,7 +501,7 @@ function renderCards(){
     if (usingSample) html += `<div class="bk-pricenote">* מחירים זמניים — לעדכון לפי המחירון האמיתי</div>`;
   }
   wrap.innerHTML = html;
-  wrap.querySelectorAll('.bk-book:not([disabled])').forEach(b => {
+  wrap.querySelectorAll('.bk-book').forEach(b => {
     b.addEventListener('click', () => openBooking(b.getAttribute('data-id')));
   });
 }
@@ -711,8 +686,7 @@ async function init(){
 
   const dates = uniqueDates();
   if (!dates.length){ renderEmpty(); return; }
-  const firstOpen = dates.find(d => dateState(d.sessions) !== 'full');
-  selectedDate = (firstOpen || dates[0] || {}).date || null;
+  selectedDate = dates[0].date;
   renderChips();
   if (selectedDate) renderCards();
 }
