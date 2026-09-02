@@ -129,7 +129,12 @@
   .bk-get-more svg{width:18px;height:18px;}
 
   /* ---------- media ---------- */
-  .bk-media{margin:4px 16px 18px;max-width:720px;margin-inline:auto;border-radius:18px;overflow:hidden;position:relative;height:200px;background:linear-gradient(135deg,var(--bk-navy),var(--bk-ocean-2));display:flex;align-items:center;justify-content:center;}
+  .bk-media{margin:4px 16px 18px;max-width:720px;margin-inline:auto;border-radius:18px;overflow:hidden;position:relative;height:200px;background:linear-gradient(135deg,var(--bk-navy),var(--bk-ocean-2));display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .bk-video-modal{position:fixed;inset:0;z-index:230;display:none;align-items:center;justify-content:center;background:rgba(6,16,26,.88);padding:20px;}
+  .bk-video-modal.open{display:flex;}
+  .bk-video-inner{position:relative;width:100%;max-width:720px;}
+  .bk-video-inner video{width:100%;max-height:80vh;border-radius:14px;display:block;background:#000;}
+  .bk-video-close{position:absolute;top:-42px;left:0;background:rgba(255,255,255,.15);color:#fff;border:none;width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer;line-height:1;}
   .bk-media .rad{position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(127,224,240,.25),transparent 60%);}
   .bk-media .c{position:relative;text-align:center;}
   .bk-media .play{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
@@ -269,11 +274,11 @@
   </section>
 
   <!-- MEDIA -->
-  <section class="bk-media">
+  <section class="bk-media" role="button" tabindex="0" onclick="bkOpenVideo()" onkeydown="if(event.key==='Enter'||event.key===' ')bkOpenVideo()">
     <div class="rad" aria-hidden="true"></div>
     <div class="c">
       <div class="play"><svg viewBox="0 0 24 24" fill="#0A2540"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="t1">וידאו קצר מהחוויה [להעלאה]</div>
+      <div class="t1">וידאו קצר מהחוויה</div>
       <div class="t2">רגע אמיתי מהסדנה — קור, נשימה, אנרגיה</div>
     </div>
   </section>
@@ -307,6 +312,14 @@
   </section>
 
 </main>
+
+<!-- VIDEO PREVIEW MODAL -->
+<div class="bk-video-modal" id="bkVideoModal" role="dialog" aria-modal="true">
+  <div class="bk-video-inner">
+    <button class="bk-video-close" type="button" onclick="bkCloseVideo()" aria-label="סגירה">×</button>
+    <video id="bkVideoEl" src="assets/video/session preview.MP4" controls playsinline></video>
+  </div>
+</div>
 
 <!-- CANCELLATION POLICY MODAL -->
 <div class="bk-policy-modal" id="bkPolicyModal" role="dialog" aria-modal="true">
@@ -517,6 +530,22 @@ function renderCards(){
     b.addEventListener('click', () => openBooking(b.getAttribute('data-id')));
   });
 }
+
+/* ---------- video preview modal ---------- */
+function bkOpenVideo(){
+  document.getElementById('bkVideoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  var v = document.getElementById('bkVideoEl');
+  v.currentTime = 0;
+  v.play().catch(function(){});
+}
+function bkCloseVideo(){
+  var v = document.getElementById('bkVideoEl');
+  v.pause();
+  document.getElementById('bkVideoModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('bkVideoModal').addEventListener('click', function(e){ if (e.target.id === 'bkVideoModal') bkCloseVideo(); });
 
 /* ---------- cancellation policy modal ---------- */
 function bkOpenPolicy(){
