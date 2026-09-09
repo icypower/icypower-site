@@ -373,6 +373,7 @@
       <span>לתשלום</span>
       <span class="amt" id="bkAmount">₪0</span>
     </div>
+    <div class="bk-pricenote" id="bkAmountNote" style="margin:-6px 0 4px;"></div>
 
     <!-- payment: the Tranzila hosted iframe is injected here after the
          booking is created server-side (card form lives inside Tranzila). -->
@@ -430,10 +431,10 @@ function dPlus(days){ const d=new Date(); d.setDate(d.getDate()+days); return d.
 
 // רשימת דוגמה — תוחלף ב-GET /api/sessions
 const SAMPLE_SESSIONS = [
-  { id:'s1', date:dPlus(3),  type:'wellness', start:'08:00', end:'10:00', price:180, city:'סביון' },
-  { id:'s2', date:dPlus(3),  type:'extended', start:'08:00', end:'11:00', price:250, city:'סביון' },
-  { id:'s3', date:dPlus(10), type:'wellness', start:'08:00', end:'10:00', price:180, city:'סביון' },
-  { id:'s4', date:dPlus(10), type:'extended', start:'08:00', end:'11:00', price:250, city:'סביון' },
+  { id:'s1', date:dPlus(3),  type:'wellness', start:'08:00', end:'10:00', price:250, priceCouple:450, city:'סביון' },
+  { id:'s2', date:dPlus(3),  type:'extended', start:'08:00', end:'11:00', price:350, priceCouple:630, city:'סביון' },
+  { id:'s3', date:dPlus(10), type:'wellness', start:'08:00', end:'10:00', price:250, priceCouple:450, city:'סביון' },
+  { id:'s4', date:dPlus(10), type:'extended', start:'08:00', end:'11:00', price:350, priceCouple:630, city:'סביון' },
 ];
 
 let SESSIONS = [];
@@ -550,10 +551,32 @@ function bkCloseModal(){
   document.getElementById('bkModal').classList.remove('open');
   document.body.style.overflow = '';
 }
+// Couple-ticket pricing: use as many couple tickets as possible (a couple
+// ticket is cheaper per person), plus one single for the odd person out —
+// so an even number of people is entirely couple tickets. Must mirror
+// ticketAmount() in functions/api/_lib.js; the server is authoritative.
+function bkCalcAmount(session, qty){
+  const single = Number(session.price) || 0;
+  const couple = Number(session.priceCouple) || 0;
+  const n = Math.max(1, qty | 0);
+  if (couple <= 0) return single * n;
+  return Math.floor(n / 2) * couple + (n % 2) * single;
+}
 function bkUpdateAmount(){
   if (!activeSession) return;
   const qty = +document.getElementById('bkQty').value;
-  document.getElementById('bkAmount').textContent = '₪' + (activeSession.price * qty);
+  const amount = bkCalcAmount(activeSession, qty);
+  document.getElementById('bkAmount').textContent = '₪' + amount;
+  const note = document.getElementById('bkAmountNote');
+  const couple = Number(activeSession.priceCouple) || 0;
+  if (note){
+    const pairs = Math.floor(qty / 2);
+    note.textContent = (couple > 0 && pairs > 0)
+      ? (qty % 2 === 0
+          ? `כולל כרטיס זוגי במחיר מוזל (₪${couple} לזוג)`
+          : `כולל ${pairs} כרטיס/ים זוגי/ים מוזלים (₪${couple} לזוג) + כרטיס יחיד`)
+      : '';
+  }
 }
 
 /* ---------- payment (Tranzila hosted iframe) ---------- */

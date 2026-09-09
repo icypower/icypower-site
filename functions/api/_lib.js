@@ -47,3 +47,26 @@ export function isPhone(v) {
   // Israeli / international-ish: digits, spaces, dashes, parens, leading +; 6-20 chars.
   return typeof v === 'string' && /^[+()\-\s0-9]{6,20}$/.test(v);
 }
+
+// --- Ticket pricing -------------------------------------------------------
+// The per-person ("single") price is read PER WORKSHOP from Notion
+// (מחיר - בוקר וולנס / מחיר - בוקר וולנס מורחב). The couple-ticket price is a
+// fixed business rule, the same for every open workshop, so it lives here as
+// a constant keyed by ticket type. If per-workshop couple pricing is ever
+// needed, add two more Notion number columns and read them the same way.
+export const COUPLE_PRICE = { wellness: 450, extended: 630 };
+
+// Amount for `qty` people of one ticket type: use as many couple tickets as
+// possible (a couple ticket is cheaper per person), plus one single ticket
+// for the odd person out. So an even qty is entirely couple tickets — exactly
+// the rule Eldar asked for. Falls back to single×qty if no couple price.
+export function ticketAmount(type, single, qty) {
+  const s = Number(single);
+  const couple = COUPLE_PRICE[type];
+  const n = Math.max(1, parseInt(qty, 10) || 1);
+  if (!Number.isFinite(s) || s <= 0) return NaN;
+  if (!Number.isFinite(couple) || couple <= 0) return s * n; // no couple rate
+  const pairs = Math.floor(n / 2);
+  const singles = n % 2;
+  return pairs * couple + singles * s;
+}

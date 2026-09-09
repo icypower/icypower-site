@@ -17,7 +17,7 @@
 // Preview): NOTION_TOKEN — an internal Notion integration token, with the
 // Workshops database shared to it (read access is enough for this endpoint).
 
-import { json, errorJson, todayISO } from './_lib.js';
+import { json, errorJson, todayISO, COUPLE_PRICE } from './_lib.js';
 
 const WORKSHOPS_DATA_SOURCE_ID = 'e92c767d-975d-47d9-901f-7c1c3a436f8b';
 const NOTION_VERSION = '2025-09-03';
@@ -98,7 +98,8 @@ export async function onRequestGet(context) {
           type: t.type,
           start: isDatetime ? hhmm(startISO) : '',
           end: isDatetime ? hhmm(endISO) : '',
-          price: Number(priceVal),
+          price: Number(priceVal),        // per-person (single) price
+          priceCouple: COUPLE_PRICE[t.type] || null, // per couple-ticket (2 people)
           city: 'סביון',
         });
       }
