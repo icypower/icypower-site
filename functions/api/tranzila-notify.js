@@ -111,6 +111,27 @@ export async function onRequest(context) {
     return ok('amount mismatch recorded');
   }
 
+  // 3b) Overbook safety net (rare late-payment edge): a pending booking
+  //     reserves its seat for a limited hold (see bookings.js). If this
+  //     approved payment's notify arrives after that hold expired AND the
+  //     freed seat was meanwhile resold, confirming would exceed capacity.
+  //     We NEVER block a customer who has already paid — we confirm and flag
+  //     the overbook for staff to resolve (refund/rebook). This is the
+  //     documented recovery for the one edge the reservation model can't stop.
+  const CAP = 20;
+  const seat = await env.DB.prepare(
+    `SELECT COALESCE(SUM(num_participants),0) AS taken FROM bookings
+       WHERE workshop_id = ? AND status='confirmed' AND id <> ?`
+  ).bind(booking.workshop_id, bookingId).first();
+  if ((Number(seat && seat.taken) || 0) + Number(booking.num_participants) > CAP) {
+    await logEvent(env, 'booking.overbooked', bookingId, {
+      workshop_id: booking.workshop_id,
+      confirmed_taken: Number(seat && seat.taken) || 0,
+      this_booking: Number(booking.num_participants),
+      capacity: CAP,
+    });
+  }
+
   // 4) Confirm the booking.
   await env.DB.prepare(
     `UPDATE bookings SET status='confirmed', tranzila_txid=?, tranzila_raw=?, confirmed_at=? WHERE id=?`

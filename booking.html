@@ -440,6 +440,12 @@ const SAMPLE_SESSIONS = [
 let SESSIONS = [];
 let selectedDate = null;
 let activeSession = null;
+let activeIdemKey = null;   // idempotency key for the current booking attempt
+let bkSubmitting = false;   // re-entry lock (UX; the server is the real guard)
+function bkNewIdemKey(){
+  try { if (crypto && crypto.randomUUID) return crypto.randomUUID(); } catch(e){}
+  return 'bk_' + Date.now() + '_' + Math.random().toString(16).slice(2);
+}
 let usingSample = false;
 
 function fmtDM(iso){ const [y,m,d]=iso.split('-'); return `${+d}.${+m}`; }
@@ -542,6 +548,7 @@ function openBooking(id){
   document.getElementById('bkModalSub').textContent =
     `${dowOf(activeSession.date)} ${fmtDM(activeSession.date)} · ${activeSession.start}–${activeSession.end} · ${activeSession.city}`;
   document.getElementById('bkQty').value = '1';
+  activeIdemKey = bkNewIdemKey();   // one key per attempt (kept across retries/double-clicks in this modal)
   bkUpdateAmount();
   bkResetPayUI();
   document.getElementById('bkModal').classList.add('open');
@@ -583,12 +590,16 @@ function bkUpdateAmount(){
 const BK_PAY_LABEL = '<svg viewBox="0 0 24 24" fill="none" stroke="#3a1c00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> המשך לתשלום מאובטח';
 function bkResetPayUI(){
   const btn = document.getElementById('bkPayBtn');
+  bkSubmitting = false;
+  btn.disabled = false;
   btn.classList.remove('loading'); btn.style.display = '';
   btn.innerHTML = BK_PAY_LABEL;
   document.getElementById('bkPayHost').innerHTML = '';
 }
 function bkMsg(html, kind){
   const btn = document.getElementById('bkPayBtn');
+  bkSubmitting = false;
+  btn.disabled = false;
   btn.classList.remove('loading'); btn.style.display = '';
   btn.innerHTML = BK_PAY_LABEL;
   document.getElementById('bkPayHost').innerHTML = '<div class="bk-msg ' + kind + '">' + html + '</div>';
@@ -603,12 +614,15 @@ async function bkStartPayment(){
   if (!/^[+()\-\s0-9]{6,20}$/.test(phone)) return bkMsg('נא למלא מספר טלפון תקין', 'err');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bkMsg('נא למלא כתובת אימייל תקינה', 'err');
 
+  if (bkSubmitting) return;          // re-entry lock: ignore a second click while in flight
+  bkSubmitting = true;
   const btn = document.getElementById('bkPayBtn');
+  btn.disabled = true;
   btn.classList.add('loading'); btn.textContent = 'רגע, פותחים תשלום מאובטח…';
   try{
     const res = await fetch('/api/bookings', {
       method:'POST', headers:{ 'Content-Type':'application/json' },
-      body: JSON.stringify({ workshopId: activeSession.id, name, phone, email, qty }),
+      body: JSON.stringify({ workshopId: activeSession.id, name, phone, email, qty, idempotencyKey: activeIdemKey }),
     });
     if (res.status === 503){
       return bkMsg('התשלום המקוון ייפתח כאן ממש בקרוב. בינתיים שריינו מקום בוואטסאפ ונשלים יחד 🙂 <a href="https://wa.me/972548787766" target="_blank" rel="noopener">לוואטסאפ</a>', 'info');

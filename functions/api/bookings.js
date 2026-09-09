@@ -14,15 +14,28 @@
 //    non-sensitive response, and only via the server-to-server notify.
 //  - The amount is computed HERE from the workshop's Notion price × the
 //    couple-ticket rule — never taken from the client.
-//  - Capacity is enforced server-side (available = capacity − confirmed).
 //  - The booking is created as `pending`; it only becomes `confirmed` from
 //    the verified Tranzila notify (see tranzila-notify.js).
-//  - The notify URL carries a server-only secret token so a forged callback
-//    is rejected.
+//
+// TWO PRE-TRANZILA SAFETY GUARANTEES (see db/migrations/0005 + the audit):
+//  1. IDEMPOTENCY (no duplicate payment sessions): the client sends an
+//     `idempotencyKey` that is unique per booking *attempt*. A repeat request
+//     with the same key returns the SAME booking + SAME iframe instead of
+//     creating a second one (double-click, refresh, retry-after-timeout,
+//     repeated POST, two concurrent identical requests). A UNIQUE index on the
+//     key makes the concurrent case race-safe: one INSERT wins, the loser is
+//     served the winner's booking.
+//  2. CAPACITY as an atomic reservation (no overbooking / no "pay then find
+//     no seat"): a pending booking RESERVES its seats for HOLD_MINUTES. The
+//     seat count is enforced inside a single `INSERT ... SELECT ... WHERE
+//     (count + qty <= capacity)` statement — SQLite serialises writes, so two
+//     concurrent buyers cannot both reserve the last seats. Abandoned pendings
+//     simply age out of the count after HOLD_MINUTES (no cleanup job needed);
+//     confirmed bookings count forever.
 //
 // Config (Cloudflare project env/secrets on `icypower`, Production+Preview):
-//  - NOTION_TOKEN             (required; reads the workshop from Notion — same secret sessions.js uses)
-//  - TRANZILA_TERMINAL        (required to enable payments; the terminal/supplier name)
+//  - NOTION_TOKEN             (required; reads the workshop from Notion)
+//  - TRANZILA_TERMINAL        (required to enable payments; terminal/supplier name)
 //  - TRANZILA_NOTIFY_SECRET   (required; shared token echoed on the notify URL)
 //  - TRANZILA_TRANMODE        (optional; defaults to 'AK' = authorize+capture)
 // Until TRANZILA_TERMINAL + TRANZILA_NOTIFY_SECRET are set, this endpoint
@@ -33,7 +46,8 @@ import {
 } from './_lib.js';
 
 const MAX_QTY = 10;
-const CAPACITY = 20; // fixed per open workshop; enforced silently, never shown
+const CAPACITY = 20;      // fixed per open workshop; enforced silently, never shown
+const HOLD_MINUTES = 15;  // how long a pending booking reserves its seats
 const CITY = 'סביון';
 const NOTION_VERSION = '2025-09-03';
 
@@ -74,6 +88,55 @@ async function fetchNotionWorkshop(env, pageId) {
   };
 }
 
+// Build the Tranzila hosted-iframe URL. Same output for the first request and
+// for any idempotent replay of the same booking, so a retry can't diverge.
+function buildIframeUrl(env, origin, { amount, email, phone, pdesc, bookingId }) {
+  const params = new URLSearchParams({
+    sum: String(amount),
+    currency: '1',            // 1 = ILS
+    cred_type: '1',           // regular charge
+    tranmode: env.TRANZILA_TRANMODE || 'AK',
+    email,
+    phone,
+    pdesc,
+    booking_id: bookingId,    // custom passthrough — returned to us on notify
+    success_url_address: `${origin}/booking-success.html?b=${bookingId}`,
+    fail_url_address: `${origin}/booking.html?pay=fail`,
+    notify_url_address: `${origin}/api/tranzila-notify?token=${encodeURIComponent(env.TRANZILA_NOTIFY_SECRET)}`,
+  });
+  return `https://direct.tranzila.com/${encodeURIComponent(env.TRANZILA_TERMINAL)}/iframenew.php?${params.toString()}`;
+}
+
+// Look up a booking by its idempotency key (+ enough to rebuild its iframe).
+async function findByIdempotencyKey(env, key) {
+  if (!key) return null;
+  return env.DB.prepare(
+    `SELECT b.id, b.amount, b.status, b.email, b.phone,
+            w.name AS wname, w.date AS wdate
+       FROM bookings b LEFT JOIN workshops w ON w.id = b.workshop_id
+      WHERE b.idempotency_key = ?`
+  ).bind(key).first();
+}
+
+// Serve an already-created booking (idempotent replay).
+function replay(env, origin, existing) {
+  if (existing.status === 'pending') {
+    const iframeUrl = buildIframeUrl(env, origin, {
+      amount: existing.amount,
+      email: existing.email,
+      phone: existing.phone,
+      pdesc: `${existing.wname || 'סדנה'} (${existing.wdate || ''})`,
+      bookingId: existing.id,
+    });
+    return json({ bookingId: existing.id, amount: existing.amount, iframeUrl, idempotent: true }, 200);
+  }
+  if (existing.status === 'confirmed') {
+    return json({ error: 'already_confirmed', bookingId: existing.id }, 409);
+  }
+  // 'failed' (only possible once payments are live): a new attempt needs a new key.
+  return json({ error: 'previous_attempt_failed', bookingId: existing.id }, 409);
+}
+
 export async function onRequestPost(context) {
   const { env, request } = context;
 
@@ -101,6 +164,10 @@ export async function onRequestPost(context) {
   const phone = cleanStr(body.phone, 30);
   const email = cleanStr(body.email, 254);
   let qty = parseInt(body.qty, 10);
+  // Idempotency key: unique per booking attempt. If a (well-behaved) client
+  // omits it we generate one, which degrades gracefully to "no cross-request
+  // dedupe for this one request" while capacity safety still holds.
+  const idemKey = cleanStr(body.idempotencyKey, 80) || `srv_${newId()}`;
 
   if (!sessionId) return errorJson('workshopId required');
   if (name.length < 2) return errorJson('name required');
@@ -108,6 +175,13 @@ export async function onRequestPost(context) {
   if (!isEmail(email)) return errorJson('valid email required');
   if (!Number.isInteger(qty) || qty < 1) qty = 1;
   if (qty > MAX_QTY) return errorJson('too many participants');
+
+  const origin = new URL(request.url).origin;
+
+  // --- P1-A idempotency fast path: a repeat of an already-created attempt
+  // returns the same booking + iframe, never a second payment session. ---
+  const prior = await findByIdempotencyKey(env, idemKey);
+  if (prior) return replay(env, origin, prior);
 
   // Split `<pageId>:<type>` (a Notion id never contains a colon).
   const sep = sessionId.lastIndexOf(':');
@@ -132,12 +206,18 @@ export async function onRequestPost(context) {
   const amount = ticketAmount(type, single, qty);
   if (!Number.isFinite(amount) || amount <= 0) return errorJson('pricing error', 500);
 
-  // Keep a D1 workshops row for this session id, refreshed from Notion. This
-  // satisfies the bookings→workshops foreign key and lets tranzila-notify.js
-  // read the workshop details for the confirmation/automation without another
-  // Notion call. It is a cache written on demand — not a background sync.
+  const id = newId();
   const ts = nowISO();
-  await env.DB.prepare(
+  const holdCutoff = new Date(Date.now() - HOLD_MINUTES * 60 * 1000).toISOString();
+
+  // Two statements in ONE atomic batch (a D1 transaction):
+  //  (1) upsert the D1 workshops cache row from Notion — the bookings FK
+  //      target + the fields tranzila-notify reads. Written on demand, not a
+  //      background sync.
+  //  (2) INSERT the pending booking ONLY IF seats remain. The seat count is
+  //      confirmed bookings + still-held pendings; the whole check+insert is
+  //      one statement, so concurrent buyers can't both take the last seats.
+  const upsert = env.DB.prepare(
     `INSERT INTO workshops
        (id, name, date, folder_url, created_at, type, start_time, end_time,
         price, capacity, location, city, subtitle, bookable)
@@ -146,43 +226,38 @@ export async function onRequestPost(context) {
        name=excluded.name, date=excluded.date, type=excluded.type,
        price=excluded.price, capacity=excluded.capacity, city=excluded.city,
        bookable=1`
-  ).bind(sessionId, w.name, w.date, ts, type, Math.round(Number(single)), CAPACITY, CITY).run();
+  ).bind(sessionId, w.name, w.date, ts, type, Math.round(Number(single)), CAPACITY, CITY);
 
-  // Server-side capacity check (available = capacity − confirmed).
-  const cnt = await env.DB.prepare(
-    `SELECT COALESCE(SUM(num_participants),0) AS taken
-       FROM bookings WHERE workshop_id = ? AND status = 'confirmed'`
-  ).bind(sessionId).first();
-  const taken = Number(cnt && cnt.taken) || 0;
-  const available = Math.max(0, CAPACITY - taken);
-  if (available <= 0) return errorJson('workshop is full', 409);
-  if (qty > available) return errorJson('not enough places left', 409);
-
-  const id = newId();
-  await env.DB.prepare(
+  const reserve = env.DB.prepare(
     `INSERT INTO bookings
-       (id, workshop_id, name, phone, email, num_participants, amount, status, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)`
-  ).bind(id, sessionId, name, phone, email, qty, amount, ts).run();
+       (id, workshop_id, name, phone, email, num_participants, amount, status, created_at, idempotency_key)
+     SELECT ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?
+      WHERE (
+        SELECT COALESCE(SUM(num_participants), 0) FROM bookings
+         WHERE workshop_id = ?
+           AND ( status = 'confirmed'
+              OR (status = 'pending' AND created_at > ?) )
+      ) + ? <= ?`
+  ).bind(id, sessionId, name, phone, email, qty, amount, ts, idemKey,
+         sessionId, holdCutoff, qty, CAPACITY);
 
-  // Build the Tranzila hosted-iframe URL server-side. The card form lives
-  // inside Tranzila; we only pass amount + return URLs + our booking id
-  // (echoed back on notify as a passthrough field).
-  const origin = new URL(request.url).origin;
-  const params = new URLSearchParams({
-    sum: String(amount),
-    currency: '1',            // 1 = ILS
-    cred_type: '1',           // regular charge
-    tranmode: env.TRANZILA_TRANMODE || 'AK',
-    email,
-    phone,
-    pdesc: `${w.name} (${w.date})`,
-    booking_id: id,           // custom passthrough — returned to us on notify
-    success_url_address: `${origin}/booking-success.html?b=${id}`,
-    fail_url_address: `${origin}/booking.html?pay=fail`,
-    notify_url_address: `${origin}/api/tranzila-notify?token=${encodeURIComponent(env.TRANZILA_NOTIFY_SECRET)}`,
+  let reserved = false;
+  try {
+    const results = await env.DB.batch([upsert, reserve]);
+    reserved = Number(results[1] && results[1].meta && results[1].meta.changes) > 0;
+  } catch (e) {
+    // Race: another request with the same idempotency key won the INSERT
+    // between our fast-path SELECT and here. Serve that winner's booking.
+    const raced = await findByIdempotencyKey(env, idemKey);
+    if (raced) return replay(env, origin, raced);
+    return errorJson('booking failed', 500);
+  }
+
+  // No row inserted => the capacity WHERE was false => sold out for this qty.
+  if (!reserved) return errorJson('workshop is full', 409);
+
+  const iframeUrl = buildIframeUrl(env, origin, {
+    amount, email, phone, pdesc: `${w.name} (${w.date})`, bookingId: id,
   });
-  const iframeUrl = `https://direct.tranzila.com/${encodeURIComponent(env.TRANZILA_TERMINAL)}/iframenew.php?${params.toString()}`;
-
   return json({ bookingId: id, amount, iframeUrl }, 201);
 }
