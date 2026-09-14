@@ -35,15 +35,21 @@
 //
 // Config (Cloudflare project env/secrets on `icypower`, Production+Preview):
 //  - NOTION_TOKEN             (required; reads the workshop from Notion)
-//  - TRANZILA_TERMINAL        (required to enable payments; terminal/supplier name)
+//  - TRANZILA_TERMINAL        (required; terminal/supplier name)
 //  - TRANZILA_NOTIFY_SECRET   (required; shared token echoed on the notify URL)
-//  - TRANZILA_TRANMODE        (optional; defaults to 'AK' = authorize+capture)
-// Until TRANZILA_TERMINAL + TRANZILA_NOTIFY_SECRET are set, this endpoint
-// returns 503 payment_not_configured and creates nothing.
+//  - TRANZILA_API_APP_KEY     (required; public API key — signs the handshake)
+//  - TRANZILA_API_SECRET      (required, secret; HMAC key for the handshake)
+//  - TRANZILA_TRANMODE        (optional; defaults to 'VK' = J5 authorize + create token)
+// Flow: we create a J5 AUTHORIZATION (hold), not a charge. The money is only
+// captured later by FORCE from the verified notify (see tranzila-notify.js),
+// or released by REVERSAL if the seat is gone. Handshake V2 is mandatory on
+// our terminal (THTK), so we obtain a thtk server-side before opening the iframe.
+// Until the four TRANZILA_* values are set, this endpoint returns 503 and creates nothing.
 
 import {
   json, errorJson, nowISO, newId, cleanStr, isEmail, isPhone, todayISO, ticketAmount,
 } from './_lib.js';
+import { createHandshake } from './_tranzila.js';
 
 const MAX_QTY = 10;
 const CAPACITY = 20;      // fixed per open workshop; enforced silently, never shown
@@ -90,16 +96,20 @@ async function fetchNotionWorkshop(env, pageId) {
 
 // Build the Tranzila hosted-iframe URL. Same output for the first request and
 // for any idempotent replay of the same booking, so a retry can't diverge.
-function buildIframeUrl(env, origin, { amount, email, phone, pdesc, bookingId }) {
+// `tranmode=VK` = J5 verification (authorize/hold) + create a card token; the
+// token is what lets us FORCE (capture) or REVERSAL (release) later without the
+// PAN. `thtk` is the mandatory handshake token that locks the amount server-side.
+function buildIframeUrl(env, origin, { amount, email, phone, pdesc, bookingId, thtk }) {
   const params = new URLSearchParams({
     sum: String(amount),
     currency: '1',            // 1 = ILS
-    cred_type: '1',           // regular charge
-    tranmode: env.TRANZILA_TRANMODE || 'AK',
+    cred_type: '1',           // regular
+    tranmode: env.TRANZILA_TRANMODE || 'VK',
+    thtk,                     // handshake token — mandatory on our terminal
     email,
     phone,
     pdesc,
-    booking_id: bookingId,    // custom passthrough — returned to us on notify
+    booking_id: bookingId,    // also configured as an Additional Field so it returns on notify
     success_url_address: `${origin}/booking-success.html?b=${bookingId}`,
     fail_url_address: `${origin}/booking.html?pay=fail`,
     notify_url_address: `${origin}/api/tranzila-notify?token=${encodeURIComponent(env.TRANZILA_NOTIFY_SECRET)}`,
@@ -107,11 +117,27 @@ function buildIframeUrl(env, origin, { amount, email, phone, pdesc, bookingId })
   return `https://direct.tranzila.com/${encodeURIComponent(env.TRANZILA_TERMINAL)}/iframenew.php?${params.toString()}`;
 }
 
+// Ensure a pending booking has a handshake token, then hand back its iframe.
+// Reuses a stored thtk (idempotent replay / retry) instead of opening a second
+// handshake; creates+stores one only if missing (e.g. a crash mid-create).
+async function serveIframe(env, origin, b) {
+  let thtk = b.handshake_token;
+  if (!thtk) {
+    thtk = await createHandshake(env, { sum: Number(b.amount), requestParams: { booking_id: b.id } });
+    await env.DB.prepare('UPDATE bookings SET handshake_token=? WHERE id=?').bind(thtk, b.id).run();
+  }
+  const iframeUrl = buildIframeUrl(env, origin, {
+    amount: b.amount, email: b.email, phone: b.phone,
+    pdesc: `${b.wname || 'סדנה'} (${b.wdate || ''})`, bookingId: b.id, thtk,
+  });
+  return { iframeUrl, thtk };
+}
+
 // Look up a booking by its idempotency key (+ enough to rebuild its iframe).
 async function findByIdempotencyKey(env, key) {
   if (!key) return null;
   return env.DB.prepare(
-    `SELECT b.id, b.amount, b.status, b.email, b.phone,
+    `SELECT b.id, b.amount, b.status, b.email, b.phone, b.handshake_token,
             w.name AS wname, w.date AS wdate
        FROM bookings b LEFT JOIN workshops w ON w.id = b.workshop_id
       WHERE b.idempotency_key = ?`
@@ -119,29 +145,26 @@ async function findByIdempotencyKey(env, key) {
 }
 
 // Serve an already-created booking (idempotent replay).
-function replay(env, origin, existing) {
-  if (existing.status === 'pending') {
-    const iframeUrl = buildIframeUrl(env, origin, {
-      amount: existing.amount,
-      email: existing.email,
-      phone: existing.phone,
-      pdesc: `${existing.wname || 'סדנה'} (${existing.wdate || ''})`,
-      bookingId: existing.id,
-    });
+async function replay(env, origin, existing) {
+  // Still awaiting the J5 result -> re-serve the SAME iframe (same thtk).
+  if (existing.status === 'pending' || existing.status === 'authorized') {
+    const { iframeUrl } = await serveIframe(env, origin, existing);
     return json({ bookingId: existing.id, amount: existing.amount, iframeUrl, idempotent: true }, 200);
   }
   if (existing.status === 'confirmed') {
     return json({ error: 'already_confirmed', bookingId: existing.id }, 409);
   }
-  // 'failed' (only possible once payments are live): a new attempt needs a new key.
-  return json({ error: 'previous_attempt_failed', bookingId: existing.id }, 409);
+  // failed / voided / expired / refunded: a new attempt needs a fresh key.
+  return json({ error: 'previous_attempt_closed', status: existing.status, bookingId: existing.id }, 409);
 }
 
 export async function onRequestPost(context) {
   const { env, request } = context;
 
-  // Payments must be configured before we take any booking.
-  if (!env.TRANZILA_TERMINAL || !env.TRANZILA_NOTIFY_SECRET) {
+  // Payments must be fully configured before we take any booking (handshake
+  // needs the API key + secret; capture/void later need them too).
+  if (!env.TRANZILA_TERMINAL || !env.TRANZILA_NOTIFY_SECRET
+      || !env.TRANZILA_API_APP_KEY || !env.TRANZILA_API_SECRET) {
     return json({ error: 'payment_not_configured' }, 503);
   }
   // We read the workshop from Notion — same secret the booking page uses.
@@ -236,7 +259,7 @@ export async function onRequestPost(context) {
         SELECT COALESCE(SUM(num_participants), 0) FROM bookings
          WHERE workshop_id = ?
            AND ( status = 'confirmed'
-              OR (status = 'pending' AND created_at > ?) )
+              OR (status IN ('pending','authorized') AND created_at > ?) )
       ) + ? <= ?`
   ).bind(id, sessionId, name, phone, email, qty, amount, ts, idemKey,
          sessionId, holdCutoff, qty, CAPACITY);
@@ -256,8 +279,17 @@ export async function onRequestPost(context) {
   // No row inserted => the capacity WHERE was false => sold out for this qty.
   if (!reserved) return errorJson('workshop is full', 409);
 
-  const iframeUrl = buildIframeUrl(env, origin, {
-    amount, email, phone, pdesc: `${w.name} (${w.date})`, bookingId: id,
-  });
-  return json({ bookingId: id, amount, iframeUrl }, 201);
+  // Seat held. Now get the handshake token (locks the amount server-side) and
+  // build the iframe. If the handshake fails, release the seat we just held so
+  // it isn't stuck for 15 minutes, and surface the error.
+  const booking = {
+    id, amount, email, phone, wname: w.name, wdate: w.date, handshake_token: null,
+  };
+  try {
+    const { iframeUrl } = await serveIframe(env, origin, booking);
+    return json({ bookingId: id, amount, iframeUrl }, 201);
+  } catch (e) {
+    await env.DB.prepare("DELETE FROM bookings WHERE id=? AND status='pending'").bind(id).run();
+    return json({ error: 'payment_init_failed' }, 502);
+  }
 }

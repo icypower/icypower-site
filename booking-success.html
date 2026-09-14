@@ -31,12 +31,12 @@
 <body>
 <main class="bks">
   <div class="bks-card">
-    <div class="bks-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-    <h1>שמרנו לך מקום! 🎉</h1>
-    <p>התשלום התקבל וההזמנה שלך אושרה.</p>
-    <p>אישור וקבלה נשלחים אליך למייל ברגעים אלה.</p>
+    <div class="bks-check" id="bksIcon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h1 id="bksTitle">רגע, מאשרים…</h1>
+    <p id="bksMsg1">בודקים את פרטי התשלום מול חברת הסליקה.</p>
+    <p id="bksMsg2"></p>
 
-    <div class="bks-next">
+    <div class="bks-next" id="bksNext" hidden>
       <h2>מה עכשיו?</h2>
       <ul style="margin:0;padding:0;">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>שמרו את התאריך ביומן — נתראה בבוקר מלא אנרגיה.</li>
@@ -47,9 +47,60 @@
 
     <div class="bks-actions">
       <a href="https://wa.me/972548787766" class="btn btn-wa btn-lg" target="_blank" rel="noopener">יש שאלה? דברו איתנו בוואטסאפ</a>
-      <a href="index.html" class="btn btn-ghost">חזרה לאתר</a>
+      <a href="booking.html" class="btn btn-ghost" id="bksBack">חזרה לאתר</a>
     </div>
   </div>
 </main>
+<script>
+  // The J5 approval redirects here, but capture/release is decided server-side
+  // afterwards — so read the REAL status instead of assuming success.
+  (function () {
+    var id = new URLSearchParams(location.search).get('b') || '';
+    var iconOk = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    var iconInfo = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>';
+    function set(icon, bg, title, m1, m2, showNext, back) {
+      var i = document.getElementById('bksIcon');
+      i.innerHTML = icon; if (bg) i.style.background = bg;
+      document.getElementById('bksTitle').textContent = title;
+      document.getElementById('bksMsg1').textContent = m1;
+      document.getElementById('bksMsg2').textContent = m2 || '';
+      document.getElementById('bksNext').hidden = !showNext;
+      if (back) document.getElementById('bksBack').textContent = back;
+    }
+    var tries = 0;
+    function poll() {
+      tries++;
+      fetch('/api/booking-status?b=' + encodeURIComponent(id))
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var s = d && d.status;
+          if (s === 'confirmed') {
+            set(iconOk, 'linear-gradient(135deg,#2F9E6B,#37c07f)', 'שמרנו לך מקום! 🎉',
+                'התשלום התקבל וההזמנה שלך אושרה.', 'אישור וקבלה נשלחים אליך למייל ברגעים אלה.', true);
+          } else if (s === 'voided') {
+            set(iconInfo, 'linear-gradient(135deg,#C98A00,#E0A800)', 'המקום התמלא — לא חויבת',
+                'בזמן האישור המקום האחרון נתפס, ולכן ביטלנו את החיוב — לא ירד ממך כסף.',
+                'בחרו תאריך אחר בעמוד ההזמנות, ואנחנו כאן בוואטסאפ לכל שאלה.', false, 'לבחירת תאריך אחר');
+          } else if (s === 'failed') {
+            set(iconInfo, 'linear-gradient(135deg,#C0392B,#E05545)', 'התשלום לא הושלם',
+                'החיוב לא אושר. לא ירד ממך כסף.', 'נסו שוב בעמוד ההזמנות, או דברו איתנו בוואטסאפ.', false, 'חזרה להזמנות');
+          } else if ((s === 'pending' || s === 'authorized' || s === 'capturing' || s === 'voiding') && tries < 8) {
+            setTimeout(poll, 1500);
+          } else {
+            // still not settled, or unknown -> reassure without a false promise.
+            set(iconInfo, 'linear-gradient(135deg,#0B4F6C,#0E6A86)', 'קיבלנו את הבקשה',
+                'אנחנו מסיימים לאמת את התשלום. אם יש חיוב, אישור יישלח למייל.',
+                'לכל שאלה אנחנו בוואטסאפ.', false);
+          }
+        })
+        .catch(function () {
+          if (tries < 8) setTimeout(poll, 1500);
+        });
+    }
+    if (!id) {
+      set(iconOk, 'linear-gradient(135deg,#2F9E6B,#37c07f)', 'תודה!', 'אם יש חיוב, אישור יישלח למייל.', '', true);
+    } else { poll(); }
+  })();
+</script>
 </body>
 </html>
