@@ -96,15 +96,13 @@ export async function createHandshake(env, { sum, requestParams }) {
 // `card_number` = token-from-verification, so we send the token there. If the
 // first live test shows a dedicated token field is required instead, change
 // only this mapping.
-function txnBody(env, txnType, { referenceTxnId, authorizationNumber, token, expMonth, expYear, sum }) {
-  // The v1 transaction API validates types strictly: expiry must be sent as
-  // INTEGERS (e.g. 6 and 2032), not strings ("06"/"32"). Normalize a 2-digit
-  // year to 4 digits to match the documented request format.
+function txnBody(env, txnType, { referenceTxnId, authorizationNumber, token, expMonth, expYear, amount, itemName }) {
+  // The v1 transaction API validates types strictly: expiry must be INTEGERS
+  // (6, 2032), not strings; reference_txn_id must be an integer|null. The
+  // authorization_number stays a STRING (it can carry a leading zero).
   const mm = parseInt(String(expMonth), 10);
   let yy = parseInt(String(expYear), 10);
   if (Number.isFinite(yy) && yy < 100) yy += 2000;
-  // reference_txn_id must be an INTEGER (or null); authorization_number stays a
-  // STRING (it can carry a leading zero that an integer would drop).
   const refInt = parseInt(String(referenceTxnId), 10);
   const body = {
     terminal_name: env.TRANZILA_TERMINAL,
@@ -115,20 +113,42 @@ function txnBody(env, txnType, { referenceTxnId, authorizationNumber, token, exp
     expire_month: mm,
     expire_year: yy,
   };
-  if (sum != null) body.sum = sum; // only credit/partial needs an explicit amount
+  // The AMOUNT is carried by `items` (unit_price × units_number) in this API.
+  // Omitting it makes Tranzila force 0.00 with status 418 — so always send it
+  // for force/reversal/credit.
+  if (amount != null) {
+    body.items = [{ name: itemName || 'IcyPower booking', type: 'I', unit_price: Number(amount), units_number: 1 }];
+  }
   return body;
 }
 
-async function txnCall(env, txnType, args) {
-  const headers = await authHeaders(env);
-  const { httpStatus, data } = await postJson(TXN_URL, headers, txnBody(env, txnType, args));
-  const ok = httpStatus === 200 && data && Number(data.error_code) === 0;
-  return { ok, httpStatus, data };
+// A transaction only really succeeded if the processor approved it (000).
+function procApproved(data) {
+  return !!(data && data.transaction_result
+    && String(data.transaction_result.processor_response_code) === '000');
+}
+function capturedAmount(data) {
+  const a = data && data.transaction_result && data.transaction_result.amount;
+  const n = Number(a);
+  return Number.isFinite(n) ? n : null;
 }
 
-export function forceCapture(env, args) { return txnCall(env, 'force', args); }
-export function reversal(env, args) { return txnCall(env, 'reversal', args); }
-export function credit(env, args) { return txnCall(env, 'credit', args); } // refund
+// verifyAmount (when given): the call is only ok if the processor-reported
+// amount matches — so a 0.00 force (the status-418 bug) can never pass as success.
+async function txnCall(env, txnType, args, verifyAmount) {
+  const headers = await authHeaders(env);
+  const { httpStatus, data } = await postJson(TXN_URL, headers, txnBody(env, txnType, args));
+  let ok = httpStatus === 200 && data && Number(data.error_code) === 0 && procApproved(data);
+  const captured = capturedAmount(data);
+  if (ok && verifyAmount != null) {
+    ok = captured != null && Math.round(captured) === Math.round(Number(verifyAmount));
+  }
+  return { ok, httpStatus, data, captured };
+}
+
+export function forceCapture(env, args) { return txnCall(env, 'force', args, args.amount); }
+export function reversal(env, args) { return txnCall(env, 'reversal', args); } // releases the hold; amount not asserted
+export function credit(env, args) { return txnCall(env, 'credit', args, args.amount); } // refund
 
 // --- Reports: fetch a transaction we identified by booking_id. --------------
 // Used to (a) recover authorization_number / token / expiry if the Notify

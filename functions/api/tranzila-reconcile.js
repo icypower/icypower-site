@@ -40,11 +40,13 @@ async function logEvent(env, type, entityId, payload) {
 // Given a booking known to hold a valid J5 with stored/known inputs, capture or void it.
 async function settle(env, b, inputs) {
   const ts = nowISO();
+  // The amount (via items) is required or Tranzila forces 0.00 / status 418.
+  const args = { ...inputs, amount: Number(b.amount), itemName: 'IcyPower booking' };
   const taken = await confirmedSeats(env, b.workshop_id, b.id);
   const seatOk = taken + Number(b.num_participants) <= CAP;
   if (seatOk) {
     if (!(await claim(env, b.id, 'authorized', 'capturing'))) return 'busy';
-    const res = await forceCapture(env, inputs).catch((e) => ({ ok: false, error: String(e) }));
+    const res = await forceCapture(env, args).catch((e) => ({ ok: false, error: String(e) }));
     if (!res || !res.ok) {
       await claim(env, b.id, 'capturing', 'authorized');
       await logEvent(env, 'booking.force_failed', b.id, { via: 'reconcile', detail: (res && res.data) || res });
@@ -54,7 +56,7 @@ async function settle(env, b, inputs) {
     return 'confirmed';
   }
   if (!(await claim(env, b.id, 'authorized', 'voiding'))) return 'busy';
-  const rev = await reversal(env, inputs).catch((e) => ({ ok: false, error: String(e) }));
+  const rev = await reversal(env, args).catch((e) => ({ ok: false, error: String(e) }));
   if (!rev || !rev.ok) {
     await claim(env, b.id, 'voiding', 'authorized');
     await logEvent(env, 'booking.reversal_failed', b.id, { via: 'reconcile', detail: (rev && rev.data) || rev });

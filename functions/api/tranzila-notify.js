@@ -181,6 +181,7 @@ export async function onRequest(context) {
     const res = await forceCapture(env, {
       referenceTxnId: inputs.referenceTxnId, authorizationNumber: inputs.authorizationNumber,
       token: inputs.token, expMonth: inputs.expMonth, expYear: inputs.expYear,
+      amount: Number(booking.amount), itemName: booking.workshop_name,
     }).catch((e) => ({ ok: false, error: String(e) }));
     if (!res || !res.ok) {
       await claim(env, bookingId, 'capturing', 'authorized'); // revert for reconcile/retry
@@ -189,7 +190,7 @@ export async function onRequest(context) {
     }
     await env.DB.prepare("UPDATE bookings SET status='confirmed', confirmed_at=? WHERE id=? AND status='capturing'")
       .bind(ts, bookingId).run();
-    await logEvent(env, 'booking.confirmed', bookingId, { amount: Number(booking.amount) });
+    await logEvent(env, 'booking.confirmed', bookingId, { amount: Number(booking.amount), captured: res.captured });
     await fireMake(env, booking, inputs.referenceTxnId, ts);
     return ok('confirmed');
   }
@@ -199,6 +200,7 @@ export async function onRequest(context) {
   const rev = await reversal(env, {
     referenceTxnId: inputs.referenceTxnId, authorizationNumber: inputs.authorizationNumber,
     token: inputs.token, expMonth: inputs.expMonth, expYear: inputs.expYear,
+    amount: Number(booking.amount), itemName: booking.workshop_name,
   }).catch((e) => ({ ok: false, error: String(e) }));
   if (!rev || !rev.ok) {
     await claim(env, bookingId, 'voiding', 'authorized');
