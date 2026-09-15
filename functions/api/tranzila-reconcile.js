@@ -29,6 +29,13 @@ async function claim(env, id, from, to) {
   const r = await env.DB.prepare('UPDATE bookings SET status=? WHERE id=? AND status=?').bind(to, id, from).run();
   return Number(r && r.meta && r.meta.changes) > 0;
 }
+async function logEvent(env, type, entityId, payload) {
+  try {
+    await env.DB.prepare(
+      'INSERT INTO events (event_type, entity_type, entity_id, payload, created_at) VALUES (?, ?, ?, ?, ?)'
+    ).bind(type, 'booking', entityId, JSON.stringify(payload || {}), nowISO()).run();
+  } catch { /* best-effort */ }
+}
 
 // Given a booking known to hold a valid J5 with stored/known inputs, capture or void it.
 async function settle(env, b, inputs) {
@@ -38,13 +45,21 @@ async function settle(env, b, inputs) {
   if (seatOk) {
     if (!(await claim(env, b.id, 'authorized', 'capturing'))) return 'busy';
     const res = await forceCapture(env, inputs).catch((e) => ({ ok: false, error: String(e) }));
-    if (!res || !res.ok) { await claim(env, b.id, 'capturing', 'authorized'); return 'force_failed'; }
+    if (!res || !res.ok) {
+      await claim(env, b.id, 'capturing', 'authorized');
+      await logEvent(env, 'booking.force_failed', b.id, { via: 'reconcile', detail: (res && res.data) || res });
+      return 'force_failed';
+    }
     await env.DB.prepare("UPDATE bookings SET status='confirmed', confirmed_at=? WHERE id=? AND status='capturing'").bind(ts, b.id).run();
     return 'confirmed';
   }
   if (!(await claim(env, b.id, 'authorized', 'voiding'))) return 'busy';
   const rev = await reversal(env, inputs).catch((e) => ({ ok: false, error: String(e) }));
-  if (!rev || !rev.ok) { await claim(env, b.id, 'voiding', 'authorized'); return 'reversal_failed'; }
+  if (!rev || !rev.ok) {
+    await claim(env, b.id, 'voiding', 'authorized');
+    await logEvent(env, 'booking.reversal_failed', b.id, { via: 'reconcile', detail: (rev && rev.data) || rev });
+    return 'reversal_failed';
+  }
   await env.DB.prepare("UPDATE bookings SET status='voided', voided_at=? WHERE id=? AND status='voiding'").bind(ts, b.id).run();
   return 'voided';
 }
