@@ -103,11 +103,14 @@ function txnBody(env, txnType, { referenceTxnId, authorizationNumber, token, exp
   const mm = parseInt(String(expMonth), 10);
   let yy = parseInt(String(expYear), 10);
   if (Number.isFinite(yy) && yy < 100) yy += 2000;
+  // reference_txn_id must be an INTEGER (or null); authorization_number stays a
+  // STRING (it can carry a leading zero that an integer would drop).
+  const refInt = parseInt(String(referenceTxnId), 10);
   const body = {
     terminal_name: env.TRANZILA_TERMINAL,
     txn_type: txnType,
-    reference_txn_id: referenceTxnId,
-    authorization_number: authorizationNumber,
+    reference_txn_id: Number.isFinite(refInt) ? refInt : null,
+    authorization_number: String(authorizationNumber),
     card_number: token,           // token, NOT a PAN (accepted by Tranzila for force/reversal)
     expire_month: mm,
     expire_year: yy,
