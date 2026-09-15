@@ -146,10 +146,15 @@ async function findByIdempotencyKey(env, key) {
 
 // Serve an already-created booking (idempotent replay).
 async function replay(env, origin, existing) {
-  // Still awaiting the J5 result -> re-serve the SAME iframe (same thtk).
-  if (existing.status === 'pending' || existing.status === 'authorized') {
+  // Only a booking still awaiting its J5 result may re-open the SAME iframe
+  // (same thtk). Once it is `authorized`, the card was already charged-hold —
+  // re-serving the iframe could trigger a SECOND authorization, so we don't.
+  if (existing.status === 'pending') {
     const { iframeUrl } = await serveIframe(env, origin, existing);
     return json({ bookingId: existing.id, amount: existing.amount, iframeUrl, idempotent: true }, 200);
+  }
+  if (existing.status === 'authorized' || existing.status === 'capturing') {
+    return json({ error: 'already_processing', status: existing.status, bookingId: existing.id }, 409);
   }
   if (existing.status === 'confirmed') {
     return json({ error: 'already_confirmed', bookingId: existing.id }, 409);
@@ -258,7 +263,7 @@ export async function onRequestPost(context) {
       WHERE (
         SELECT COALESCE(SUM(num_participants), 0) FROM bookings
          WHERE workshop_id = ?
-           AND ( status = 'confirmed'
+           AND ( status IN ('confirmed','capturing')
               OR (status IN ('pending','authorized') AND created_at > ?) )
       ) + ? <= ?`
   ).bind(id, sessionId, name, phone, email, qty, amount, ts, idemKey,
@@ -289,8 +294,8 @@ export async function onRequestPost(context) {
     const { iframeUrl } = await serveIframe(env, origin, booking);
     return json({ bookingId: id, amount, iframeUrl }, 201);
   } catch (e) {
-    // Temporary diagnostic: record why the handshake failed so we can read it
-    // from the events table during integration testing.
+    // Record why the handshake failed (config/terminal/Tranzila error) into the
+    // events table so a broken payment init is diagnosable without card data.
     try {
       await env.DB.prepare(
         'INSERT INTO events (event_type, entity_type, entity_id, payload, created_at) VALUES (?, ?, ?, ?, ?)'

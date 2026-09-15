@@ -21,7 +21,7 @@
 //   - Always returns 200 once the token is valid, so Tranzila's own retry loop
 //     doesn't hammer us; unresolved cases are left for the reconcile job.
 
-import { nowISO } from './_lib.js';
+import { nowISO, packExpiry } from './_lib.js';
 import { forceCapture, reversal, getTransactionByBookingId } from './_tranzila.js';
 
 const CAP = 20;
@@ -69,7 +69,9 @@ function safeSubset(p) {
 async function collectForceInputs(env, p, bookingId) {
   let token = p.TranzilaTK || p.token || '';
   let referenceTxnId = String(p.transaction_id || p.index || '');
-  let authorizationNumber = String(p.authorization_number || p.auth_number || p.authnr || '');
+  // Tranzila's DirectNG notify carries the authorization number in
+  // `ConfirmationCode` (verified live), so use it before falling back to Reports.
+  let authorizationNumber = String(p.authorization_number || p.auth_number || p.authnr || p.ConfirmationCode || '');
   let expMonth = String(p.expmonth || p.exp_month || p.expire_month || '');
   let expYear = String(p.expyear || p.exp_year || p.expire_year || '');
 
@@ -87,20 +89,31 @@ async function collectForceInputs(env, p, bookingId) {
   return { token, referenceTxnId, authorizationNumber, expMonth, expYear };
 }
 
-// Seats consumed by *confirmed* bookings other than this one.
-async function confirmedSeats(env, workshopId, exceptId) {
-  const row = await env.DB.prepare(
-    `SELECT COALESCE(SUM(num_participants),0) AS taken FROM bookings
-       WHERE workshop_id=? AND status='confirmed' AND id<>?`
-  ).bind(workshopId, exceptId).first();
-  return Number(row && row.taken) || 0;
-}
-
 // Atomic claim: flip status only if it is still `from`. changes===1 => we own it.
 async function claim(env, id, from, to) {
   const r = await env.DB.prepare('UPDATE bookings SET status=? WHERE id=? AND status=?')
     .bind(to, id, from).run();
   return Number(r && r.meta && r.meta.changes) > 0;
+}
+
+// Atomic capacity-checked capture claim: move authorized -> capturing ONLY IF
+// the seat still fits, counting confirmed AND in-flight captures (capturing) of
+// OTHER bookings. D1 serialises writes, so two concurrent last-seat captures
+// can never both win — one claims, the other gets 0 rows and is voided. This is
+// what prevents an overbook + double charge.
+async function claimCaptureWithCapacity(env, id, workshopId, qty, cap) {
+  const r = await env.DB.prepare(
+    `UPDATE bookings SET status='capturing'
+      WHERE id=? AND status='authorized'
+        AND ( SELECT COALESCE(SUM(num_participants),0) FROM bookings
+               WHERE workshop_id=? AND status IN ('confirmed','capturing') AND id<>? ) + ? <= ?`
+  ).bind(id, workshopId, id, qty, cap).run();
+  return Number(r && r.meta && r.meta.changes) > 0;
+}
+
+async function currentStatus(env, id) {
+  const row = await env.DB.prepare('SELECT status FROM bookings WHERE id=?').bind(id).first();
+  return row && row.status;
 }
 
 export async function onRequest(context) {
@@ -142,9 +155,12 @@ export async function onRequest(context) {
   // --- Amount check: the held sum must equal what we computed. ---
   const charged = Math.round(parseFloat(p.sum));
   if (Number.isFinite(charged) && charged !== Number(booking.amount)) {
-    // A wrong amount was authorized — release it and fail. (Best-effort reversal.)
+    // A wrong amount was authorized — release it and fail. (Best-effort reversal;
+    // include the amount via items so the reversal isn't rejected/zeroed.)
     const inputs = await collectForceInputs(env, p, bookingId).catch(() => null);
-    if (inputs) await reversal(env, inputs).catch(() => {});
+    if (inputs) {
+      await reversal(env, { ...inputs, amount: Number(booking.amount), itemName: booking.workshop_name }).catch(() => {});
+    }
     await env.DB.prepare("UPDATE bookings SET status='failed', tranzila_raw=? WHERE id=? AND status IN ('pending','authorized')")
       .bind(raw, bookingId).run();
     await logEvent(env, 'booking.amount_mismatch', bookingId, { expected: Number(booking.amount), charged });
@@ -169,20 +185,18 @@ export async function onRequest(context) {
             card_expiry=?, tranzila_txid=?, tranzila_raw=?, authorized_at=COALESCE(authorized_at,?)
       WHERE id=? AND status IN ('pending','authorized')`
   ).bind(inputs.token, inputs.authorizationNumber, inputs.referenceTxnId,
-         `${inputs.expMonth}${inputs.expYear}`, inputs.referenceTxnId, raw, ts, bookingId).run();
+         packExpiry(inputs.expMonth, inputs.expYear), inputs.referenceTxnId, raw, ts, bookingId).run();
 
-  // --- Decide capture vs release, re-checking the seat on confirmed bookings. ---
-  const taken = await confirmedSeats(env, booking.workshop_id, bookingId);
-  const seatOk = taken + Number(booking.num_participants) <= CAP;
+  const forceArgs = {
+    referenceTxnId: inputs.referenceTxnId, authorizationNumber: inputs.authorizationNumber,
+    token: inputs.token, expMonth: inputs.expMonth, expYear: inputs.expYear,
+    amount: Number(booking.amount), itemName: booking.workshop_name,
+  };
 
-  if (seatOk) {
-    // Claim the capture (mutex). Only the winner calls FORCE.
-    if (!(await claim(env, bookingId, 'authorized', 'capturing'))) return ok('capture already in progress/done');
-    const res = await forceCapture(env, {
-      referenceTxnId: inputs.referenceTxnId, authorizationNumber: inputs.authorizationNumber,
-      token: inputs.token, expMonth: inputs.expMonth, expYear: inputs.expYear,
-      amount: Number(booking.amount), itemName: booking.workshop_name,
-    }).catch((e) => ({ ok: false, error: String(e) }));
+  // --- Decide capture vs release. The capacity check + the capture claim happen
+  //     in ONE atomic UPDATE, so a last-seat race can't double-capture. ---
+  if (await claimCaptureWithCapacity(env, bookingId, booking.workshop_id, Number(booking.num_participants), CAP)) {
+    const res = await forceCapture(env, forceArgs).catch((e) => ({ ok: false, error: String(e) }));
     if (!res || !res.ok) {
       await claim(env, bookingId, 'capturing', 'authorized'); // revert for reconcile/retry
       await logEvent(env, 'booking.force_failed', bookingId, { detail: (res && res.data) || res });
@@ -195,13 +209,13 @@ export async function onRequest(context) {
     return ok('confirmed');
   }
 
+  // Didn't claim: either another notify is already handling it, or there is no
+  // seat. Only if it is still `authorized` (i.e. genuinely no room) do we void.
+  if ((await currentStatus(env, bookingId)) !== 'authorized') return ok('capture already in progress/done');
+
   // Seat gone (late payment after hold expired + resold) -> release, don't charge.
   if (!(await claim(env, bookingId, 'authorized', 'voiding'))) return ok('void already in progress/done');
-  const rev = await reversal(env, {
-    referenceTxnId: inputs.referenceTxnId, authorizationNumber: inputs.authorizationNumber,
-    token: inputs.token, expMonth: inputs.expMonth, expYear: inputs.expYear,
-    amount: Number(booking.amount), itemName: booking.workshop_name,
-  }).catch((e) => ({ ok: false, error: String(e) }));
+  const rev = await reversal(env, forceArgs).catch((e) => ({ ok: false, error: String(e) }));
   if (!rev || !rev.ok) {
     await claim(env, bookingId, 'voiding', 'authorized');
     await logEvent(env, 'booking.reversal_failed', bookingId, { detail: (rev && rev.data) || rev });

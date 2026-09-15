@@ -70,3 +70,14 @@ export function ticketAmount(type, single, qty) {
   const singles = n % 2;
   return pairs * couple + singles * s;
 }
+
+// Normalize a card expiry to a fixed 4-char MMYY string, so it can be stored in
+// one column and sliced back apart unambiguously later. Handles month "6"/"06"
+// and year "32"/"2032" alike. Returns '' if the inputs aren't usable.
+export function packExpiry(month, year) {
+  const m = parseInt(String(month), 10);
+  let y = parseInt(String(year), 10);
+  if (!Number.isFinite(m) || m < 1 || m > 12 || !Number.isFinite(y)) return '';
+  if (y >= 100) y %= 100; // 2032 -> 32
+  return String(m).padStart(2, '0') + String(y).padStart(2, '0');
+}

@@ -9,7 +9,7 @@
 //       - a J5 exists  -> gather fields, then capture (seat ok) or reversal.
 //       - none, expired -> mark `expired`.
 
-import { nowISO } from './_lib.js';
+import { nowISO, packExpiry } from './_lib.js';
 import { forceCapture, reversal, getTransactionByBookingId } from './_tranzila.js';
 
 const CAP = 20;
@@ -18,16 +18,23 @@ const HOLD_MINUTES = 15;
 function deny() { return new Response('forbidden', { status: 403 }); }
 function json(o) { return new Response(JSON.stringify(o), { headers: { 'Content-Type': 'application/json' } }); }
 
-async function confirmedSeats(env, workshopId, exceptId) {
-  const r = await env.DB.prepare(
-    `SELECT COALESCE(SUM(num_participants),0) AS taken FROM bookings
-       WHERE workshop_id=? AND status='confirmed' AND id<>?`
-  ).bind(workshopId, exceptId).first();
-  return Number(r && r.taken) || 0;
-}
 async function claim(env, id, from, to) {
   const r = await env.DB.prepare('UPDATE bookings SET status=? WHERE id=? AND status=?').bind(to, id, from).run();
   return Number(r && r.meta && r.meta.changes) > 0;
+}
+// Atomic capacity-checked capture claim (same race-free guard as the notify path).
+async function claimCaptureWithCapacity(env, id, workshopId, qty, cap) {
+  const r = await env.DB.prepare(
+    `UPDATE bookings SET status='capturing'
+      WHERE id=? AND status='authorized'
+        AND ( SELECT COALESCE(SUM(num_participants),0) FROM bookings
+               WHERE workshop_id=? AND status IN ('confirmed','capturing') AND id<>? ) + ? <= ?`
+  ).bind(id, workshopId, id, qty, cap).run();
+  return Number(r && r.meta && r.meta.changes) > 0;
+}
+async function currentStatus(env, id) {
+  const row = await env.DB.prepare('SELECT status FROM bookings WHERE id=?').bind(id).first();
+  return row && row.status;
 }
 async function logEvent(env, type, entityId, payload) {
   try {
@@ -42,10 +49,7 @@ async function settle(env, b, inputs) {
   const ts = nowISO();
   // The amount (via items) is required or Tranzila forces 0.00 / status 418.
   const args = { ...inputs, amount: Number(b.amount), itemName: 'IcyPower booking' };
-  const taken = await confirmedSeats(env, b.workshop_id, b.id);
-  const seatOk = taken + Number(b.num_participants) <= CAP;
-  if (seatOk) {
-    if (!(await claim(env, b.id, 'authorized', 'capturing'))) return 'busy';
+  if (await claimCaptureWithCapacity(env, b.id, b.workshop_id, Number(b.num_participants), CAP)) {
     const res = await forceCapture(env, args).catch((e) => ({ ok: false, error: String(e) }));
     if (!res || !res.ok) {
       await claim(env, b.id, 'capturing', 'authorized');
@@ -55,6 +59,7 @@ async function settle(env, b, inputs) {
     await env.DB.prepare("UPDATE bookings SET status='confirmed', confirmed_at=? WHERE id=? AND status='capturing'").bind(ts, b.id).run();
     return 'confirmed';
   }
+  if ((await currentStatus(env, b.id)) !== 'authorized') return 'busy';
   if (!(await claim(env, b.id, 'authorized', 'voiding'))) return 'busy';
   const rev = await reversal(env, args).catch((e) => ({ ok: false, error: String(e) }));
   if (!rev || !rev.ok) {
@@ -121,7 +126,7 @@ export async function onRequest(context) {
             tranzila_reference_txn_id=?, card_expiry=?, authorized_at=COALESCE(authorized_at,?)
           WHERE id=? AND status='pending'`
       ).bind(inputs.token, inputs.authorizationNumber, inputs.referenceTxnId,
-             `${inputs.expMonth}${inputs.expYear}`, ts, b.id).run();
+             packExpiry(inputs.expMonth, inputs.expYear), ts, b.id).run();
       const fresh = await env.DB.prepare('SELECT * FROM bookings WHERE id=?').bind(b.id).first();
       out.pending_checked.push({ id: b.id, result: await settle(env, fresh, inputs) });
     } else {
