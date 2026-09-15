@@ -289,6 +289,14 @@ export async function onRequestPost(context) {
     const { iframeUrl } = await serveIframe(env, origin, booking);
     return json({ bookingId: id, amount, iframeUrl }, 201);
   } catch (e) {
+    // Temporary diagnostic: record why the handshake failed so we can read it
+    // from the events table during integration testing.
+    try {
+      await env.DB.prepare(
+        'INSERT INTO events (event_type, entity_type, entity_id, payload, created_at) VALUES (?, ?, ?, ?, ?)'
+      ).bind('booking.handshake_error', 'booking', id,
+             JSON.stringify({ message: String(e && e.message), detail: (e && e.detail) || null }), nowISO()).run();
+    } catch { /* ignore */ }
     await env.DB.prepare("DELETE FROM bookings WHERE id=? AND status='pending'").bind(id).run();
     return json({ error: 'payment_init_failed' }, 502);
   }

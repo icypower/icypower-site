@@ -81,7 +81,9 @@ export async function createHandshake(env, { sum, requestParams }) {
   if (httpStatus !== 200 || (data && data.error_code != null && Number(data.error_code) !== 0) || !thtk) {
     const msg = (data && (data.message || data.error)) || `handshake_failed_${httpStatus}`;
     const err = new Error('handshake_failed');
-    err.detail = { httpStatus, msg, error_code: data && data.error_code };
+    // Diagnostic snippet (no secrets in a handshake response) to surface the
+    // real Tranzila error while we validate the integration.
+    err.detail = { httpStatus, msg, error_code: data && data.error_code, raw: JSON.stringify(data).slice(0, 400) };
     throw err;
   }
   return thtk;
