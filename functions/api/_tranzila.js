@@ -97,14 +97,20 @@ export async function createHandshake(env, { sum, requestParams }) {
 // first live test shows a dedicated token field is required instead, change
 // only this mapping.
 function txnBody(env, txnType, { referenceTxnId, authorizationNumber, token, expMonth, expYear, sum }) {
+  // The v1 transaction API validates types strictly: expiry must be sent as
+  // INTEGERS (e.g. 6 and 2032), not strings ("06"/"32"). Normalize a 2-digit
+  // year to 4 digits to match the documented request format.
+  const mm = parseInt(String(expMonth), 10);
+  let yy = parseInt(String(expYear), 10);
+  if (Number.isFinite(yy) && yy < 100) yy += 2000;
   const body = {
     terminal_name: env.TRANZILA_TERMINAL,
     txn_type: txnType,
     reference_txn_id: referenceTxnId,
     authorization_number: authorizationNumber,
-    card_number: token,           // token, NOT a PAN (see note above)
-    expire_month: expMonth,
-    expire_year: expYear,
+    card_number: token,           // token, NOT a PAN (accepted by Tranzila for force/reversal)
+    expire_month: mm,
+    expire_year: yy,
   };
   if (sum != null) body.sum = sum; // only credit/partial needs an explicit amount
   return body;
