@@ -32,9 +32,9 @@
 <main class="bks">
   <div class="bks-card">
     <div class="bks-check" id="bksIcon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-    <h1 id="bksTitle">רגע, מאשרים…</h1>
-    <p id="bksMsg1">בודקים את פרטי התשלום מול חברת הסליקה.</p>
-    <p id="bksMsg2"></p>
+    <h1 id="bksTitle">ההזמנה התקבלה 🎉</h1>
+    <p id="bksMsg1">אנחנו מאמתים את התשלום מול חברת הסליקה — זה לוקח כמה שניות.</p>
+    <p id="bksMsg2">ברגע שההזמנה תיסגר, יישלח אליך אישור למייל.</p>
 
     <div class="bks-next" id="bksNext" hidden>
       <h2>מה עכשיו?</h2>
@@ -55,6 +55,13 @@
   // The J5 approval redirects here, but capture/release is decided server-side
   // afterwards — so read the REAL status instead of assuming success.
   (function () {
+    // Tranzila redirects the PAYMENT IFRAME to this page. If we detect we're
+    // inside a frame, break out so the confirmation fills the whole window
+    // (otherwise it renders cramped inside the ~560px payment box). Same-origin,
+    // so this always succeeds on our own domain; guarded either way.
+    if (window.top !== window.self) {
+      try { window.top.location.replace(location.href); return; } catch (e) { /* fall through */ }
+    }
     var id = new URLSearchParams(location.search).get('b') || '';
     var iconOk = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
     var iconInfo = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>';

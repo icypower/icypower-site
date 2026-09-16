@@ -223,7 +223,7 @@ export async function onRequest(context) {
   }
   await env.DB.prepare("UPDATE bookings SET status='voided', voided_at=? WHERE id=? AND status='voiding'")
     .bind(ts, bookingId).run();
-  await logEvent(env, 'booking.voided_no_seat', bookingId, { confirmed_taken: taken, capacity: CAP });
+  await logEvent(env, 'booking.voided_no_seat', bookingId, { reason: 'seat_gone', capacity: CAP });
   await fireMake(env, booking, inputs.referenceTxnId, ts, 'booking_seat_lost');
   return ok('voided (seat unavailable, not charged)');
 }
