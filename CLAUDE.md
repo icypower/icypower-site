@@ -39,6 +39,43 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 10, same day)
+- **What changed:** Eldar noticed on mobile that the `#wellness-events`
+  carousel (round 8) only ever peeked the *next* tile on one side - the
+  active tile sat flush against the viewport's left edge, so there was
+  never a peek of the *previous* tile too. Asked to "make this into a
+  carousel" on mobile - confirmed via AskUserQuestion he meant a
+  standard centered-active-tile carousel (equal peek of both
+  neighbors), not an RTL-direction swipe change.
+  - **New responsive-aware JS in the same carousel block** (the one
+    from round 8, `assets/main.js`): tracks a `window.matchMedia('(max-width:680px)')`
+    query and branches - **desktop (≥681px)** keeps the exact
+    round-8 behavior (multi-visible windowed scroll, 3 tiles flush
+    against the viewport edges, arrows step by one tile-width).
+    **Mobile (≤680px)** is new: an `activeIndex` state advances/retreats
+    one tile per arrow-click/swipe, and the offset is recomputed each
+    time to **center that tile** in the viewport
+    (`tile.offsetLeft + tile.offsetWidth/2 - viewport.clientWidth/2`,
+    clamped to `[0, maxOffset()]` same as before) - naturally reveals
+    equal peeks of the previous/next tile on both sides, clamping
+    gracefully at the first/last tile (no peek on the side that doesn't
+    exist).
+  - **CSS**: mobile tile width reduced from 78% to 72% (`styles.css`'s
+    existing `@media(max-width:680px){ .we-track .gtile{...} }` block)
+    to leave room for peeks on both sides instead of just one.
+  - **If this carousel is touched again**: the mode split lives entirely
+    in JS (`mq.matches`), not in separate CSS classes - don't assume
+    mobile/desktop are structurally different beyond that one flex-basis
+    rule, the centering math is what actually changes the visual result.
+  Verified with Playwright at 390px: after navigating, the active tile's
+  left/right peek widths are ~equal (~37-38px each), arrows correctly
+  disable at both the first and last tile. Confirmed desktop (1280px)
+  is unaffected - still exactly 3 tiles fully visible. Visual screenshot
+  check on mobile. PR #79, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 9, same day)
 - **What changed:** Eldar asked to remove the "איך זה עובד" section
   (3-step timeline: נשימה → קרח → אנרגיה, `id="how"`, directly below
@@ -726,6 +763,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 10) — Fixed the `#wellness-events` carousel on
+  mobile so the active tile is centered with equal peeks of the
+  previous/next tile on both sides (was flush-left, only ever peeking
+  the next tile). New responsive JS split (`matchMedia`) - desktop keeps
+  the round-8 windowed-scroll behavior unchanged. PR #79, merged.
 - 2026-09-23 (round 9) — Removed the "איך זה עובד" 3-step timeline
   section from the homepage (below `#sessions`), archived to
   `archive/how-it-works-section.html` per this session's established
