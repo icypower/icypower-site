@@ -39,6 +39,65 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 12, same day)
+- **What changed:** Round 10's mobile carousel centering fix turned out
+  to only actually work for the *middle* tiles (2-4) - Eldar sent a
+  fresh screenshot showing the very first tile (what's visible on page
+  load) still flush against one edge with zero peek on the other side.
+  Two real bugs found, both in `assets/main.js`'s wellness-events
+  carousel block:
+  1. **`.we-track` wasn't a positioned element** (no `position` set),
+     so `tile.offsetLeft` - which measures against the nearest
+     *positioned* ancestor, not just the direct parent - was being
+     measured against some element further up the tree instead of the
+     track itself, throwing every centering calculation off by a
+     constant, silently-wrong offset. **Fixed with `position:relative`
+     on `.gallery-grid.we-track`** (styles.css) so it correctly becomes
+     the `offsetParent` for its `.gtile` children. **This is a general
+     trap for any future carousel/positioning math on this site that
+     uses `offsetLeft`/`offsetTop`**: always confirm the element you're
+     measuring "relative to" actually IS positioned, or the browser
+     silently measures against something else entirely with no error.
+  2. **`track.scrollWidth` doesn't reliably include trailing/end
+     padding** once content already overflows past it, when the element
+     itself isn't the scroll container (`.we-viewport` is, via
+     `overflow:hidden` - `.we-track` itself has `overflow:visible`).
+     This under-counted `maxOffset()` by about one peek-width, so the
+     *last* tile's centered position got clamped short, flush against
+     the right edge. **Fixed by adding `maxOffsetMobile()`**, computed
+     directly from the last tile's own `offsetLeft`/`offsetWidth` (same
+     formula as the normal per-tile centering math) instead of relying
+     on `scrollWidth` at all, for the mobile centering path only
+     (desktop's existing `maxOffset()`/`scrollWidth` usage is untouched
+     and still correct for that path).
+  - **Also switched mobile tile-width/track-padding from CSS
+    percentages to exact px, computed in JS** (`layoutMobile()`, runs
+    inside `apply()` before the centering math each time) - percentage
+    track-padding and percentage tile flex-basis compound against each
+    other unpredictably (the tile's `%` resolves against the track's
+    own content box, which the padding itself shrinks), which is what
+    made my first attempt at this same fix still come out asymmetric
+    before I found the two bugs above. **If this carousel's sizing is
+    touched again, keep the px-based JS approach** - don't revert to
+    CSS-percentage tile widths on mobile, it re-introduces this
+    compounding problem.
+  Verified all 5 slides individually with Playwright (not just a
+  "closest to center" heuristic, which can mask a real asymmetry if
+  another tile coincidentally measures closer) - every one now shows
+  ~37-38px peek on both sides, including the first (on load) and last.
+  Confirmed desktop unaffected (still exactly 3 tiles fully visible).
+  Visual screenshot confirms the fix matches what Eldar was pointing at.
+  No new horizontal overflow. PR #83, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If a future report about
+  this carousel (or a similar one built the same way) says "still
+  looks off" after a fix that tested fine in isolation, **verify by
+  index, not by a visual "closest tile" heuristic** - this round's
+  first debugging pass used exactly that shortcut in a test script and
+  it can pick the wrong tile as "active" when peeks are already uneven,
+  masking the real bug instead of catching it.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 11, same day)
 - **What changed:** Eldar wants `wellness-day.html` (the interactive
   "day builder" page from 2026-08-20) **not accessible right now** -
@@ -798,6 +857,17 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 12) — Fixed the `#wellness-events` mobile carousel
+  for real: round 10's centering only worked for middle tiles, not the
+  first/last. Two bugs: `.we-track` wasn't positioned so
+  `tile.offsetLeft` measured against the wrong ancestor
+  (`position:relative` fix), and `track.scrollWidth` under-counts
+  trailing padding on a non-scroll-container element (new
+  `maxOffsetMobile()`, computed from the last tile's own geometry
+  instead). Also moved mobile tile-width/track-padding from CSS % to
+  exact px computed in JS (percentages were compounding against each
+  other). All 5 slides now verified individually symmetric. PR #83,
+  merged.
 - 2026-09-23 (round 11) — Removed all 7 links to `wellness-day.html`
   site-wide (2 hero buttons + 5 carousel tile-CTAs) per Eldar's request
   to make that page inaccessible for now - the page itself is untouched
