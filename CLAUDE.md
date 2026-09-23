@@ -39,6 +39,56 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 5, same day)
+- **What changed:** Eldar asked to swap two homepage session-card photos:
+  "חברות וצוותים" (companies/teams) → an ice-bath scene, "סדנה פתוחה"
+  (open session) → a group photo. He referenced them as "sessions pic 3"
+  and "sessions pic 4" - those files didn't exist anywhere accessible to
+  this cloud session at first (genuinely missing, not a search failure -
+  checked the whole repo and filesystem), so per this repo's hard-rule
+  exception, asked Eldar to attach them directly in chat. **While waiting,
+  Eldar separately pushed the real files straight to `main`** (`assets/img/
+  sessions pic 1-4.JPG`, a direct "Add files via upload" commit, not
+  through this session) - used those authoritative repo files instead of
+  the chat attachments once they landed.
+  - **Confirmed which file is which**: `assets/img/sessions pic 3.JPG` is
+    the ice-bath scene (two guys at an outdoor ice tub), `sessions pic
+    4.JPG` is the group photo (women looking at cards indoors) - mapped
+    pic 3 → חברות וצוותים, pic 4 → סדנה פתוחה exactly as asked.
+  - Resized/compressed both to ~800px wide with Python/Pillow (no ffmpeg
+    available in this session's environment - installed Pillow via pip
+    instead; same target size/quality this repo's other card photos use)
+    and saved as new files: `assets/img/card-biz-2.jpg`,
+    `assets/img/card-open-2.jpg`.
+  - **Did not overwrite `card-biz.jpg`/`card-open.jpg` in place** -
+    confirmed via grep that both filenames are shared: `card-biz.jpg` is
+    also `business.html`'s hero background, `card-open.jpg` is also
+    `open-session.html`'s hero background (this exact "check for shared
+    filenames before overwriting" pattern is documented repeatedly
+    earlier in this file's History - kept following it). Only
+    `index.html`'s two `.sessions-grid` card references were repointed to
+    the new `-2.jpg` filenames; `business.html`/`open-session.html`'s own
+    hero photos are untouched.
+  - Note for future reference: `assets/img/sessions pic 1.JPG` and
+    `sessions pic 2.JPG` also landed in that same direct-push commit but
+    weren't asked for or used yet - they're sitting in the repo unused,
+    available if a future request calls for them (unknown content, not
+    reviewed this round).
+  Verified with a Playwright screenshot of `#sessions` at 1280px - both
+  cards show the correct new photos; grep-confirmed `business.html`/
+  `open-session.html` still reference the original filenames. PR #69,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change. Mid-turn, the
+  user also referenced a different reference-site section (photos with a
+  short caption + light CTA overlaid on each image) and said "do this" -
+  that request was explicitly deferred ("finish your previous task
+  first") and had not yet been scoped/planned as of this entry; check
+  chat for whether it was picked up in a later round.
+- **Anything the next session needs to know:** `assets/img/sessions pic
+  1.JPG` and `2.JPG` exist in the repo, uploaded but unused/unreviewed -
+  don't assume they're already wired into anything.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 4, same day)
 - **What changed:** Eldar showed a reference wellness-business homepage
   (screenshot of "פינגווין הפקות וולנס") and liked its section format
@@ -490,6 +540,13 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 5) — Swapped the "חברות וצוותים" and "סדנה פתוחה"
+  homepage card photos for two new ones Eldar provided (ice-bath scene,
+  group photo) - saved as `card-biz-2.jpg`/`card-open-2.jpg` since the
+  original filenames are shared with `business.html`/`open-session.html`
+  hero backgrounds. Eldar's referenced files weren't accessible from this
+  cloud session at first and were pushed directly to `main` by him outside
+  this session while waiting on a chat upload. PR #69, merged.
 - 2026-09-23 (round 4) — Added a new `#wellness-events` section directly
   below the hero, matching a reference wellness site's format (squiggle
   divider → headline → paragraph → phone CTA → squiggle → 3-photo row),
