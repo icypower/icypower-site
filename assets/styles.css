@@ -90,6 +90,10 @@ img{max-width:100%;display:block}
 .section-head.center{margin-inline:auto;text-align:center}
 .section-head p{margin-top:14px;font-size:1.08rem}
 
+/* ---------- decorative squiggle divider (wellness-events section) ---------- */
+.squiggle{display:flex;justify-content:center;margin-block:14px;color:var(--accent);opacity:.55}
+.squiggle svg{width:96px;height:16px}
+
 /* ---------- buttons ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
