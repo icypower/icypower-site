@@ -39,6 +39,84 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 8, same day)
+- **What changed:** Two requests: (1) add 2 more photos to
+  `#wellness-events`'s photo row with left/right arrows to reveal the
+  ones that don't fit ("5 pictures, buttons that when pressed the
+  pictures that are too much on the side will come to the screen"), and
+  (2) the caption text was still pinned to the bottom of each tile after
+  last round's spacing fix - Eldar hard-refreshed and confirmed it
+  wasn't a caching issue, it genuinely needed to move.
+  - **The 2 new source photos were pushed directly to `main` by Eldar**
+    (`assets/img/Gemini_Generated_Image_s7bb11s7bb11s7bb.jpg` - a
+    sound-bath/gong session, `assets/img/IMG_2100.PNG` - an ice-bath
+    photo with ~261px black letterbox bars top/bottom, confirmed by a
+    pixel-brightness scan) - same pattern as round 5. Resized/compressed
+    with Python/Pillow to `assets/img/we-soundbath.jpg`/
+    `we-icebath.jpg` (~800px wide). **No manual crop needed for the
+    letterbox bars** - the tile's 4/5 aspect ratio is wide enough
+    relative to the photo's own narrow aspect that `background-size:cover`
+    crops ~21% off the top/bottom automatically, more than enough to
+    remove the ~9%-each black bars without cutting into the subject.
+  - **Final photo order (confirmed with Eldar)**: sound bath → breathwork
+    → group circle → aromatherapy → ice bath.
+  - **New `.we-carousel`/`.we-viewport`/`.we-track` structure**
+    (`index.html`/`assets/styles.css`) wraps the 5 `.gtile`s - a
+    genuine multi-visible sliding carousel (3 tiles visible on desktop,
+    ~1.2 on mobile with a "peek" of the next one), **not** the site's
+    existing single-focus coverflow pattern (`.logo-stage`/`.wa-stage`,
+    which show one card at a time with others scaled/dimmed on the
+    sides - a different visual model, not reused here). Arrow buttons
+    reuse the existing `.logo-nav` circular button class + the same
+    chevron SVGs already used by the logo carousel (`index.html:319-333`)
+    - no new button visual style needed. New `.logo-nav:disabled{opacity:.35}`
+    rule added since this carousel (unlike the looping coverflows) has
+    real start/end bounds and disables the arrows there.
+  - **Important technical choice**: `.we-track` (the sliding element)
+    is given an explicit `direction:ltr`, overriding the page's global
+    RTL, so the carousel's slide offset is driven by **plain JS
+    `translateX()` px math** instead of native `overflow-x:auto` +
+    `scrollLeft`. This sidesteps a real cross-browser landmine: under
+    `direction:rtl`, `scrollLeft`'s sign convention differs between
+    Chrome/Firefox/Safari, making arrow-button-driven native scroll
+    unreliable on an RTL page. Since `direction:ltr` also flips how
+    child text renders, `.tile-caption` (the Hebrew caption inside each
+    tile) explicitly sets `direction:rtl` back, scoped to just that
+    element - **if this carousel's structure is ever touched again,
+    keep that `.we-track{direction:ltr}` / `.tile-caption{direction:rtl}`
+    pairing intact**, removing either half without the other will
+    visibly break something (RTL scroll bugs or reversed Hebrew text).
+  - New JS block in `assets/main.js` (right after the WhatsApp coverflow
+    block) - reuses the file's existing `addSwipe()` helper for touch,
+    computes `stepSize()` from the actual rendered tile width + gap (not
+    a hardcoded px value, so it stays correct across breakpoints/photo
+    additions), clamps `offset` between 0 and `maxOffset()`, and
+    disables each arrow at its respective bound.
+  - **Caption fix**: `.gtile .tile-caption` changed from
+    `inset-block-end:14px` (pinned to bottom) to `top:50%;transform:
+    translateY(-50%)` (vertically centered). Also added a translucent
+    dark panel background behind the caption text
+    (`background:rgba(12,26,43,.38);border-radius:14px;padding:14px 12px`)
+    since legibility can no longer rely on `.gtile::after`'s
+    bottom-biased scrim now that the text floats over arbitrary
+    mid-photo content.
+  Verified with Playwright at 390×900/1280×900: `prev` disabled/`next`
+  enabled initially, clicking `next` repeatedly reveals the ice-bath tile
+  and disables `next` at the end, caption's bounding-box vertical
+  midpoint matches its tile's midpoint (confirms centering, not just
+  that the CSS rule exists), no new horizontal overflow. Visual
+  screenshot check at both widths. `node -c` on `main.js`. PR #75,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** This site now has its
+  **first genuine multi-visible sliding carousel** (as opposed to the
+  existing single-focus coverflow pattern) - if a future request wants
+  a similar "show N at once, arrows reveal more" carousel elsewhere,
+  `.we-carousel`/`.we-viewport`/`.we-track` is the pattern to reuse
+  (and generalize/rename if it's no longer wellness-events-specific),
+  not the coverflow classes.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 7, same day)
 - **What changed:** Eldar shared reference screenshots and asked to
   "move their writing to the center" and add more space around the CTA
@@ -613,6 +691,15 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 8) — Turned the `#wellness-events` photo row into a
+  genuine 5-photo sliding carousel (added sound-bath + ice-bath photos,
+  final order sound bath → breathwork → group circle → aromatherapy →
+  ice bath), with left/right `.logo-nav`-style arrows revealing hidden
+  tiles. Track forces `direction:ltr` for predictable transform math
+  (avoids cross-browser `scrollLeft`-under-RTL bugs); captions restore
+  `direction:rtl`. Also fixed the caption position - was still pinned to
+  each tile's bottom, now vertically centered with a translucent
+  backdrop panel for legibility. PR #75, merged.
 - 2026-09-23 (round 7) — Added more spacing around the `#wellness-events`
   phone CTA (14px → 28px margin each side) via a new scoped
   `.wellness-events-cta` class. Confirmed with Playwright first that
