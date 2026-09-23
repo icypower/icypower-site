@@ -414,11 +414,30 @@ img{max-width:100%;display:block}
 .gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,26,43,.05),rgba(12,26,43,.45))}
 .gtile:hover .ph{transform:scale(1.07)}
 .gtile .tag{position:absolute;z-index:2;inset-block-end:12px;inset-inline-start:12px;font-size:.8rem;font-weight:700;color:#fff;background:rgba(12,26,43,.55);padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
-.gtile .tile-caption{position:absolute;z-index:2;inset-inline:14px;inset-block-end:14px;text-align:center;color:#fff}
+.gtile .tile-caption{
+  position:absolute;z-index:2;inset-inline:14px;top:50%;transform:translateY(-50%);
+  text-align:center;color:#fff;direction:rtl;
+  background:rgba(12,26,43,.38);border-radius:14px;padding:14px 12px;
+}
 .gtile .tile-caption h3{font-size:1.05rem;margin-bottom:4px;color:#fff}
 .gtile .tile-caption p{font-size:.85rem;color:rgba(255,255,255,.85);margin-bottom:10px}
 .gtile .tile-cta{display:inline-flex;align-items:center;padding:7px 16px;border-radius:999px;font-size:.82rem;font-weight:600;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(2px);transition:background .2s var(--ease)}
 .gtile .tile-cta:hover{background:rgba(255,255,255,.24)}
+
+/* ---------- wellness-events 5-photo arrow carousel ---------- */
+/* .we-track forces direction:ltr so the carousel's transform math is
+   plain, predictable px arithmetic - avoids relying on native scrollLeft,
+   whose sign convention under direction:rtl differs across browsers.
+   .tile-caption above restores direction:rtl explicitly so the Hebrew
+   captions inside each tile still render correctly. */
+.we-carousel{display:flex;align-items:center;gap:10px}
+.we-viewport{flex:1;overflow:hidden}
+.gallery-grid.we-track{display:flex;gap:12px;direction:ltr;transition:transform .35s var(--ease)}
+.we-track .gtile{flex:0 0 calc((100% - 24px)/3)}
+@media(max-width:680px){
+  .we-track .gtile{flex:0 0 78%}
+}
+.logo-nav:disabled{opacity:.35;cursor:default;pointer-events:none}
 .gtile.tall{aspect-ratio:4/6}
 .gtile.wide{grid-column:span 2;aspect-ratio:auto}
 
