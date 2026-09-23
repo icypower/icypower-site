@@ -39,6 +39,41 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 11, same day)
+- **What changed:** Eldar wants `wellness-day.html` (the interactive
+  "day builder" page from 2026-08-20) **not accessible right now** -
+  removed every link to it site-wide, without touching the page itself.
+  - **7 links removed**: the "☀️ אירוע וולנס ליום שלם" hero buttons on
+    `business.html` and `private-groups.html` (`class="btn
+    btn-wellness-day btn-lg"`), and all 5 `.tile-cta` buttons in the
+    homepage's `#wellness-events` photo carousel (rounds 6/8) - each
+    tile now shows just its title + one-line caption, no button.
+  - **`wellness-day.html` itself was NOT deleted or archived** - it's
+    still a real, complete page in the repo, just unreachable through
+    normal site navigation now (no nav link, no button, no card
+    anywhere points to it). If Eldar wants it back later, the fix is
+    just re-adding these same 7 links - no content was lost. This is a
+    different situation from the round-3/round-9 "archive and remove a
+    section" pattern (which removes markup but keeps a reference copy
+    in `archive/`) - here the *destination page* stays fully live and
+    unchanged, only the *paths to it* were cut.
+  - **`.btn-wellness-day`'s per-page `<style>` block** (in
+    `business.html`/`private-groups.html`, the glowing-button CSS) was
+    **left in place**, now unused - harmless, matches this repo's
+    "don't delete CSS for removed markup" convention. If those buttons
+    are restored later, the styling is already there.
+  Verified via `grep -rn "wellness-day.html" *.html` (zero results) and
+  a visual screenshot check on all 3 touched pages - clean layout, no
+  gaps where buttons/CTAs used to be. PR #81, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `wellness-day.html` is a
+  **live, complete, orphaned page** right now - reachable only by typing
+  its URL directly, not linked from anywhere on the site. Don't assume
+  it's broken or half-built if you land on it; it's intentionally
+  unlinked per Eldar's request, not abandoned. Re-check with Eldar
+  before deleting it outright or before re-adding links to it.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 10, same day)
 - **What changed:** Eldar noticed on mobile that the `#wellness-events`
   carousel (round 8) only ever peeked the *next* tile on one side - the
@@ -763,6 +798,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 11) — Removed all 7 links to `wellness-day.html`
+  site-wide (2 hero buttons + 5 carousel tile-CTAs) per Eldar's request
+  to make that page inaccessible for now - the page itself is untouched
+  and still live, just unlinked/orphaned. PR #81, merged.
 - 2026-09-23 (round 10) — Fixed the `#wellness-events` carousel on
   mobile so the active tile is centered with equal peeks of the
   previous/next tile on both sides (was flush-left, only ever peeking
