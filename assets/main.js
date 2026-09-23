@@ -364,6 +364,24 @@
       return Math.max(0, track.scrollWidth - viewport.clientWidth);
     }
 
+    /* track.scrollWidth (used by maxOffset above, fine for desktop) is
+       unreliable for the mobile centering math: track isn't itself a
+       scroll container (overflow:visible - .we-viewport is the one with
+       overflow:hidden), and in that case browsers don't reliably include
+       the trailing/end padding in scrollWidth once content already
+       overflows past it. That under-counted the last tile's max scroll
+       position by about one peek-width, clamping it flush against the
+       right edge instead of centered. Computing the max directly from
+       the last tile's own geometry (same formula as the normal centering
+       math, just for the last tile) sidesteps scrollWidth entirely. */
+    function maxOffsetMobile() {
+      var tiles = track.querySelectorAll('.gtile');
+      if (!tiles.length) return 0;
+      var last = tiles[tiles.length - 1];
+      var centered = last.offsetLeft + last.offsetWidth / 2 - viewport.clientWidth / 2;
+      return Math.max(0, centered);
+    }
+
     function stepSize() {
       var tile = track.querySelector('.gtile');
       if (!tile) return viewport.clientWidth;
@@ -371,17 +389,43 @@
       return tile.getBoundingClientRect().width + gap;
     }
 
+    /* On mobile, tile width and track padding are set here as exact px
+       (not left to CSS percentages) so the peek is provably symmetric
+       on every slide including the first/last - a track padding-inline
+       percentage and a tile flex-basis percentage would otherwise
+       compound against each other (the tile's % resolves against the
+       track's own content box, which the padding itself shrinks),
+       which is what made the first/last-slide peeks come out uneven. */
+    function layoutMobile() {
+      var tiles = track.querySelectorAll('.gtile');
+      if (!tiles.length) return;
+      var vw = viewport.clientWidth;
+      var peek = vw * 0.14;
+      var tileWidth = vw - peek * 2;
+      track.style.paddingLeft = peek + 'px';
+      track.style.paddingRight = peek + 'px';
+      tiles.forEach(function (t) { t.style.flexBasis = tileWidth + 'px'; });
+    }
+
+    function clearMobileLayout() {
+      track.style.paddingLeft = '';
+      track.style.paddingRight = '';
+      track.querySelectorAll('.gtile').forEach(function (t) { t.style.flexBasis = ''; });
+    }
+
     function apply() {
       var tiles = track.querySelectorAll('.gtile');
       if (mq.matches) {
+        layoutMobile();
         activeIndex = Math.max(0, Math.min(activeIndex, tiles.length - 1));
         var tile = tiles[activeIndex];
         var centeredOffset = tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2;
-        centeredOffset = Math.max(0, Math.min(centeredOffset, maxOffset()));
+        centeredOffset = Math.max(0, Math.min(centeredOffset, maxOffsetMobile()));
         track.style.transform = 'translateX(' + (-centeredOffset) + 'px)';
         prevBtn.disabled = activeIndex <= 0;
         nextBtn.disabled = activeIndex >= tiles.length - 1;
       } else {
+        clearMobileLayout();
         offset = Math.max(0, Math.min(offset, maxOffset()));
         track.style.transform = 'translateX(' + (-offset) + 'px)';
         prevBtn.disabled = offset <= 0;

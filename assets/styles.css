@@ -432,12 +432,19 @@ img{max-width:100%;display:block}
    captions inside each tile still render correctly. */
 .we-carousel{display:flex;align-items:center;gap:10px}
 .we-viewport{flex:1;overflow:hidden}
-.gallery-grid.we-track{display:flex;gap:12px;direction:ltr;transition:transform .35s var(--ease)}
+.gallery-grid.we-track{position:relative;display:flex;gap:12px;direction:ltr;transition:transform .35s var(--ease)}
 .we-track .gtile{flex:0 0 calc((100% - 24px)/3)}
 @media(max-width:680px){
   /* mobile: one centered tile per view, with equal peeks of the
-     previous/next tile on both sides - see the centering logic in
-     main.js's wellness-events carousel block */
+     previous/next tile on both sides. Tile width and track padding are
+     computed and applied as inline styles by main.js's wellness-events
+     carousel block (not pure CSS percentages) - a percentage-based
+     track padding and a percentage-based tile flex-basis compound
+     against each other unpredictably (the tile's % resolves against the
+     track's own content box, which the padding itself shrinks), so
+     precise px math in JS is what actually keeps the peeks symmetric,
+     including on the very first/last tile. This rule is just a
+     fallback/base value before JS runs. */
   .we-track .gtile{flex:0 0 72%}
 }
 .logo-nav:disabled{opacity:.35;cursor:default;pointer-events:none}
