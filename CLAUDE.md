@@ -39,6 +39,45 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 6, same day)
+- **What changed:** Eldar pointed at the same reference wellness site
+  from round 4 and asked for one more piece of its format: each of the
+  3 photos in `#wellness-events`'s photo row (breathwork/closing-circle/
+  aromatherapy) should have a title, a short caption, and a light
+  (not-bold) CTA overlaid on the photo itself.
+  - **New `.tile-caption`/`.tile-cta` CSS** (styles.css, right after the
+    existing `.gtile` rules ~line 416) - `.tile-caption` is a centered
+    title+caption+button block pinned to the bottom of each `.gtile`,
+    reusing the scrim that already existed there (`.gtile::after`,
+    unchanged). `.tile-cta` is deliberately **not** `.btn`/`.btn-primary`
+    - Eldar explicitly wants it "not very bold," so it's a translucent
+    white pill (`background:rgba(255,255,255,.14)`, blurred border) -
+    **if asked to add another photo-overlay CTA elsewhere on the site,
+    reuse `.tile-cta` for that lightweight look, not `.btn`.**
+  - Added matching markup to all 3 `.gtile`s in `index.html`: titles
+    (נשימות / ביחד כקבוצה / ארומתרפיה), one-line captions, and CTAs
+    ("מתחילים לנשום" / "מצטרפים אלינו" / "מגלים עוד") all linking to
+    `wellness-day.html` (same bridge destination the section already
+    uses elsewhere).
+  - **This copy is placeholder, tied to the current placeholder
+    photos** - Eldar said he'll send new photos soon to replace
+    breathwork/closing-circle/aromatherapy. **When those arrive, this is
+    a quick follow-up**: swap the 3 image files and update the
+    title/caption/CTA text to match the new photos' content - no
+    structural change needed, the `.tile-caption` markup pattern stays
+    the same.
+  Verified with Playwright at 390×844 and 1280×900 (all 3 tiles render
+  title/caption/CTA, CTA hrefs correct, no new horizontal overflow) plus
+  a visual screenshot check at both widths. PR #71, squash-merged to
+  `main`.
+- **Next goal:** Waiting on Eldar to send the 3 replacement photos for
+  this row - when they arrive, swap `assets/img/retreat-breathwork.jpg`/
+  `retreat-closing-circle.jpg`/`retreat-aromatherapy2.jpg` references in
+  `index.html`'s `#wellness-events` `.gallery-grid` and update the 3
+  `.tile-caption` title/p/CTA text to match.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 5, same day)
 - **What changed:** Eldar asked to swap two homepage session-card photos:
   "חברות וצוותים" (companies/teams) → an ice-bath scene, "סדנה פתוחה"
@@ -540,6 +579,13 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 6) — Added title+caption+light-CTA overlays to the 3
+  photo tiles in `#wellness-events`'s photo row, matching more of the
+  round-4 reference site's format. New `.tile-caption`/`.tile-cta` CSS
+  (translucent pill, not `.btn` - deliberately not bold). Placeholder
+  copy tied to the current placeholder photos - Eldar is sending
+  replacement photos soon, swap + copy update will follow. PR #71,
+  merged.
 - 2026-09-23 (round 5) — Swapped the "חברות וצוותים" and "סדנה פתוחה"
   homepage card photos for two new ones Eldar provided (ice-bath scene,
   group photo) - saved as `card-biz-2.jpg`/`card-open-2.jpg` since the
