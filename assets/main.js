@@ -336,6 +336,44 @@
     addSwipe(waStage, function () { goWa(1); }, function () { goWa(-1); });
   }
 
+  /* ---- wellness-events photo carousel: multi-visible sliding window,
+     driven by plain translateX px math (not native scrollLeft, whose
+     sign convention differs across browsers under direction:rtl - see
+     assets/styles.css's .we-track comment for the full reasoning) ---- */
+  (function () {
+    var viewport = document.querySelector('.we-viewport');
+    var track = document.querySelector('.we-track');
+    var prevBtn = document.querySelector('.we-carousel .logo-nav.prev');
+    var nextBtn = document.querySelector('.we-carousel .logo-nav.next');
+    if (!viewport || !track || !prevBtn || !nextBtn) return;
+
+    var offset = 0;
+
+    function maxOffset() {
+      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    function stepSize() {
+      var tile = track.querySelector('.gtile');
+      if (!tile) return viewport.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).gap || '0');
+      return tile.getBoundingClientRect().width + gap;
+    }
+
+    function apply() {
+      offset = Math.max(0, Math.min(offset, maxOffset()));
+      track.style.transform = 'translateX(' + (-offset) + 'px)';
+      prevBtn.disabled = offset <= 0;
+      nextBtn.disabled = offset >= maxOffset() - 1;
+    }
+
+    prevBtn.addEventListener('click', function () { offset -= stepSize(); apply(); });
+    nextBtn.addEventListener('click', function () { offset += stepSize(); apply(); });
+    addSwipe(viewport, function () { offset += stepSize(); apply(); }, function () { offset -= stepSize(); apply(); });
+    window.addEventListener('resize', apply);
+    apply();
+  })();
+
   /* ---- back to top ---- */
   /* injected once here (rather than pasted into every page) so it shows up
      site-wide from a single change */
