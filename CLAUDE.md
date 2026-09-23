@@ -39,6 +39,88 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 2, same day)
+- **What changed:** Oron/Eldar reviewed the activity-preview section from
+  round 1 (below) live and asked for a visual revision, which is what's
+  actually live now - **the round-1 entry directly below describes an
+  intermediate state that no longer matches the site** (dark blue-panel,
+  horizontal-scroll chip row, 6 activities, different copy). Read this
+  entry for what's actually on the page today.
+  - **Light section now, not dark.** Dropped `blue-panel` off
+    `#activities-preview` entirely (now just `section activity-preview`)
+    and removed its two `.wave-divider` elements (they only ever blended a
+    dark panel into the white sections around it - pointless once this
+    section is white too). Every `.ap-*` CSS rule that referenced an
+    on-dark token (`--on-dark`, `--on-dark-dim`, `--on-dark-line`,
+    `--accent-on-dark`, `--dark-2`) was swapped to its light-section
+    equivalent (`--ink`, `--ink-dim`, `--line`, `--accent`, `--sand`/
+    `--card-hover`). **If asked to touch this section's colors again,
+    it's a light section now** - don't reach for on-dark tokens here.
+  - **Chips are now a wrapping grid, not a scroll row**, positioned beside
+    the photo instead of spanning full-width above it. New wrapper
+    `.ap-side` holds `.ap-chips` (the grid) + `.ap-copy` (title/desc)
+    together; `.ap-visual` (the photo) is the other half of a two-column
+    `.ap-stage`. `.ap-chip{flex:1 1 calc(50% - 5px)}` mobile (2/row),
+    `calc(33.333% - 7px)` at ≥821px (3/row) - a natural responsive wrap,
+    not hardcoded row breaks, so it stays correct at 7 items without
+    manual math if a chip is ever added/removed.
+  - **Photo is now on the visual left, chips+copy on the visual right**
+    (desktop only - mobile is a single stacked column). Achieved purely by
+    DOM order: `.ap-side` is now the *first* child of `.ap-stage`,
+    `.ap-visual` the *second* - and since this is an RTL site, the first
+    grid column renders on the right. **No `order` CSS property is
+    involved** - if this section's markup order in `index.html` ever
+    changes, the left/right positions will silently follow it.
+  - **Added Pilates as a 7th activity** (`id:'pilates'`, icon 🤸, `img:null`
+    → falls back to the gradient+emoji tile like yoga/massage already do).
+    Copy adapted from `wellness-day.html`'s own Pilates `ADDONS` entry to
+    match this section's shorter, mood-focused style.
+  - **New copy:** h2 is now "אילו פעילויות מחכות לכם" (was "תבחרו חוויה,
+    תראו איך זה מרגיש"). The eyebrow ("מה נכנס ליום שלכם") was removed
+    entirely - this section has no eyebrow span at all now. Subhead is now
+    "יחד, נבנה את התכנים והפעילויות שאתם רוצים" (was the "קור, נשימה,
+    תנועה, פינוק..." line).
+  - **Found and fixed two real bugs in the same pass, same root cause**:
+    `.ap-visual.ph{display:flex}` (the gradient+emoji fallback tile) and
+    the site's global `img{display:block}` reset (styles.css ~line 74)
+    were both unconditionally overriding the `[hidden]` attribute's
+    default `display:none` - an author-stylesheet rule beats the UA
+    stylesheet's default regardless of selector specificity. Net effect:
+    the fallback tile was rendering *underneath* the real photo for every
+    single activity (not just the photo-less ones), and the `<img>`
+    stayed visible even for activities with `img:null`. This is almost
+    certainly what "remove the bottom photo" in the feedback meant. Fixed
+    with explicit `.ap-visual.ph:not([hidden]){display:flex}` and
+    `.ap-img[hidden]{display:none}`. **This is a general trap worth
+    remembering for any future `[hidden]`-toggled element on this
+    site**: an unconditional `display` rule on that element's own
+    class/selector silently wins over `[hidden]`'s default, no matter how
+    "obviously" the element should be hidden by the attribute alone -
+    always scope such rules with `:not([hidden])` or add an explicit
+    `[hidden]{display:none}` override. The round-1 Playwright check only
+    verified the `hidden` *IDL property* (`element.hidden === true`),
+    which was already correct - it never actually checked the *rendered*
+    `display` value, which is why this passed round-1 review and only
+    surfaced once a human looked at the real page. **If verifying
+    show/hide behavior again on this site, check computed `display`, not
+    just the `hidden` property/attribute.**
+  Verified with Playwright at 390×844 and 1280×900: exactly one visual
+  (photo XOR fallback tile) renders per activity across all 7 - this time
+  checking actual computed `display`, not just the IDL property - white
+  background confirmed, no eyebrow, correct headline/subhead text, chips
+  wrap into multiple rows without scrolling, chips+copy render right /
+  photo renders left at desktop width, no horizontal overflow, no
+  leftover wave-dividers, section still reveals immediately on load.
+  PR #63, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Everything below in the
+  round-1 entry about *why* this section exists and the business-model/
+  brand-voice reasoning is still accurate and worth reading - only the
+  *visual* details (colors, chip layout, exact copy, activity count) are
+  superseded by this entry. Also see this file's other still-outstanding
+  items further down (accessibility statement, font choice).
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23
 - **What changed:** Redesigned the homepage section directly below the hero.
   It used to be an "About/Philosophy" block (`about-us blue-panel`: big
@@ -304,6 +386,16 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 2) — Revised the activity-preview section per live
+  feedback: dark blue-panel → light/white section, chips moved from a
+  scroll row into a wrapping grid beside the photo (photo left, chips+copy
+  right on desktop, pure DOM-order/RTL trick, no `order` CSS), added
+  Pilates as a 7th activity, new headline/subhead, eyebrow removed. Also
+  fixed a real bug found in the same pass: two `[hidden]`-toggled elements
+  (`.ap-visual.ph`, `.ap-img`) had unconditional `display` rules that were
+  silently overriding the `[hidden]` attribute's default, so the fallback
+  emoji tile rendered under the real photo for every activity - fixed with
+  `:not([hidden])`/`[hidden]{display:none}`. PR #63, merged.
 - 2026-09-23 — Replaced the homepage's about-us section (right below the
   hero) with an interactive tap-to-preview activity selector (`.ap-chips`/
   `.ap-stage`, data-driven `AP_ACTIVITIES` array inline in index.html) -
