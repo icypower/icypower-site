@@ -336,10 +336,19 @@
     addSwipe(waStage, function () { goWa(1); }, function () { goWa(-1); });
   }
 
-  /* ---- wellness-events photo carousel: multi-visible sliding window,
-     driven by plain translateX px math (not native scrollLeft, whose
-     sign convention differs across browsers under direction:rtl - see
-     assets/styles.css's .we-track comment for the full reasoning) ---- */
+  /* ---- wellness-events photo carousel, driven by plain translateX px
+     math (not native scrollLeft, whose sign convention differs across
+     browsers under direction:rtl - see assets/styles.css's .we-track
+     comment for the full reasoning).
+     Two modes, picked by the same 680px breakpoint styles.css already
+     uses for this carousel:
+       - desktop (≥681px): multi-visible sliding window - arrows step by
+         one tile-width at a time, tiles sit flush against the viewport
+         edges (3 visible at once).
+       - mobile (≤680px): one tile centered per view, with an equal peek
+         of the previous/next tile on both sides - arrows/swipe move one
+         tile (activeIndex) at a time and the offset is recomputed to
+         keep that tile centered in the viewport. ---- */
   (function () {
     var viewport = document.querySelector('.we-viewport');
     var track = document.querySelector('.we-track');
@@ -347,7 +356,9 @@
     var nextBtn = document.querySelector('.we-carousel .logo-nav.next');
     if (!viewport || !track || !prevBtn || !nextBtn) return;
 
+    var mq = window.matchMedia('(max-width:680px)');
     var offset = 0;
+    var activeIndex = 0;
 
     function maxOffset() {
       return Math.max(0, track.scrollWidth - viewport.clientWidth);
@@ -361,15 +372,35 @@
     }
 
     function apply() {
-      offset = Math.max(0, Math.min(offset, maxOffset()));
-      track.style.transform = 'translateX(' + (-offset) + 'px)';
-      prevBtn.disabled = offset <= 0;
-      nextBtn.disabled = offset >= maxOffset() - 1;
+      var tiles = track.querySelectorAll('.gtile');
+      if (mq.matches) {
+        activeIndex = Math.max(0, Math.min(activeIndex, tiles.length - 1));
+        var tile = tiles[activeIndex];
+        var centeredOffset = tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2;
+        centeredOffset = Math.max(0, Math.min(centeredOffset, maxOffset()));
+        track.style.transform = 'translateX(' + (-centeredOffset) + 'px)';
+        prevBtn.disabled = activeIndex <= 0;
+        nextBtn.disabled = activeIndex >= tiles.length - 1;
+      } else {
+        offset = Math.max(0, Math.min(offset, maxOffset()));
+        track.style.transform = 'translateX(' + (-offset) + 'px)';
+        prevBtn.disabled = offset <= 0;
+        nextBtn.disabled = offset >= maxOffset() - 1;
+      }
     }
 
-    prevBtn.addEventListener('click', function () { offset -= stepSize(); apply(); });
-    nextBtn.addEventListener('click', function () { offset += stepSize(); apply(); });
-    addSwipe(viewport, function () { offset += stepSize(); apply(); }, function () { offset -= stepSize(); apply(); });
+    function goNext() {
+      if (mq.matches) { activeIndex++; } else { offset += stepSize(); }
+      apply();
+    }
+    function goPrev() {
+      if (mq.matches) { activeIndex--; } else { offset -= stepSize(); }
+      apply();
+    }
+
+    prevBtn.addEventListener('click', goPrev);
+    nextBtn.addEventListener('click', goNext);
+    addSwipe(viewport, goNext, goPrev);
     window.addEventListener('resize', apply);
     apply();
   })();

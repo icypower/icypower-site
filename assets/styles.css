@@ -435,7 +435,10 @@ img{max-width:100%;display:block}
 .gallery-grid.we-track{display:flex;gap:12px;direction:ltr;transition:transform .35s var(--ease)}
 .we-track .gtile{flex:0 0 calc((100% - 24px)/3)}
 @media(max-width:680px){
-  .we-track .gtile{flex:0 0 78%}
+  /* mobile: one centered tile per view, with equal peeks of the
+     previous/next tile on both sides - see the centering logic in
+     main.js's wellness-events carousel block */
+  .we-track .gtile{flex:0 0 72%}
 }
 .logo-nav:disabled{opacity:.35;cursor:default;pointer-events:none}
 .gtile.tall{aspect-ratio:4/6}
