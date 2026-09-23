@@ -39,13 +39,16 @@
   }
 
   /* ---- scroll reveal ---- */
-  /* the intro section sits right under the hero and should fade in with
+  /* the intro section (and, on the homepage, the activity-preview section
+     right above it) sit directly under the hero and should fade in with
      the page load itself, not wait for the user to scroll to it */
   var introSection = document.querySelector('.section.intro');
+  var aboveFoldSections = [introSection, document.querySelector('.activity-preview')].filter(Boolean);
   var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-  if (introSection) {
+  if (aboveFoldSections.length) {
     reveals = reveals.filter(function (el) {
-      if (introSection.contains(el)) { el.classList.add('in'); return false; }
+      var isAboveFold = aboveFoldSections.some(function (section) { return section.contains(el); });
+      if (isAboveFold) { el.classList.add('in'); return false; }
       return true;
     });
   }
