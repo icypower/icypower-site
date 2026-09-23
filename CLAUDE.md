@@ -39,6 +39,57 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 4, same day)
+- **What changed:** Eldar showed a reference wellness-business homepage
+  (screenshot of "פינגווין הפקות וולנס") and liked its section format
+  directly below the hero: a decorative squiggle divider, bold headline,
+  short paragraph, a phone-call CTA button, another squiggle, then a row
+  of 3 photos. Asked for the same format built for Icy Power, in the same
+  position (directly below `.hero`, which now flows straight into that
+  new section then `#sessions`) - explicitly **without** the reference's
+  circular mascot/logo icon on the side.
+  - **New section**: `<section class="section" id="wellness-events">`,
+    inserted right after `.hero` and before `#sessions`. Headline "אירועי
+    וולנס מותאמים אישית לחברות ולקבוצות", one paragraph, a
+    `tel:+972548787766` phone-call CTA ("חייגו אלינו" + a new phone-icon
+    SVG - this is the site's first `tel:` CTA; every other CTA on the
+    site is WhatsApp-first, this one is a deliberate exception per
+    Eldar's explicit request to match the reference).
+  - **Reused existing patterns, no new components beyond the divider**:
+    `.section`/`.container`/`.section-head.center` scaffolding,
+    `.btn.btn-primary.btn-lg` for the CTA (same icon+label pattern as the
+    hero's WhatsApp button), and the **bare `.gallery-grid`/`.gtile`**
+    classes (already a 3-column grid at desktop, collapses to 2 at
+    narrower widths via the same media queries `gallery.html` already
+    uses - styles.css:814,848) for the 3-photo row. Photos:
+    `retreat-breathwork.jpg`, `retreat-closing-circle.jpg`,
+    `retreat-aromatherapy2.jpg` (all already existed in `assets/img/`, no
+    uploads needed). DOM order right→left in this RTL site is breathwork,
+    closing-circle, aromatherapy.
+  - **One genuinely new CSS component**: `.squiggle` (styles.css, right
+    after `.section-head` rules) - a small inline-SVG wavy divider. **No
+    squiggle/ornament pattern existed anywhere in this codebase before
+    this** (`.wave-divider` is a full-width panel-*edge* wave shape, a
+    different thing, not reused here). If a future request wants a
+    squiggle divider elsewhere on the site, reuse this `.squiggle` class
+    rather than inventing another one.
+  - **Explicitly did not reuse** `.about-founder` or
+    `assets/img/logo-mark.svg` (the closest "circular icon" patterns in
+    this codebase) - per Eldar's explicit exclusion of the reference's
+    mascot illustration.
+  Verified with Playwright at 390×844 and 1280×900 (new section is
+  `.hero`'s immediate next sibling, `#sessions` follows it, CTA href is
+  correct, 3 photos render, no leftover circular-logo markup, no new
+  horizontal overflow) plus a visual screenshot check at both widths.
+  PR #67, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** This site now has its
+  **first `tel:` CTA** (previously 100% WhatsApp-first) - that was an
+  explicit, deliberate choice for this one section to match the
+  reference Eldar showed, not a site-wide direction change. Don't assume
+  future CTAs should default to phone-call over WhatsApp unless asked.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 3, same day)
 - **What changed:** Oron/Eldar asked to remove two homepage sections
   entirely (declutter the page) but keep their content recoverable rather
@@ -439,6 +490,13 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 4) — Added a new `#wellness-events` section directly
+  below the hero, matching a reference wellness site's format (squiggle
+  divider → headline → paragraph → phone CTA → squiggle → 3-photo row),
+  minus the reference's circular mascot icon per instruction. First
+  `tel:`-based CTA on the site (deliberate exception, not a new default).
+  New `.squiggle` CSS component added; everything else reused existing
+  patterns (`.btn`, `.gallery-grid`/`.gtile`). PR #67, merged.
 - 2026-09-23 (round 3) — Removed the activity-preview and intro sections
   from the homepage entirely (hero now flows straight into the sessions
   grid), but archived both sections' full markup/CSS/JS as standalone
