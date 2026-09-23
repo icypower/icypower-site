@@ -39,6 +39,59 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 3, same day)
+- **What changed:** Oron/Eldar asked to remove two homepage sections
+  entirely (declutter the page) but keep their content recoverable rather
+  than deleted outright: the **activity-preview** tap-to-preview selector
+  (directly below the hero, from round 1/2 above) and the **intro**
+  section (headline "חוויה בלתי נשכחת של נשימות ואמבטיות קרח לעסקים
+  ולקבוצות פרטיות", right below activity-preview). The homepage's hero now
+  flows straight into the `#sessions` ("מה מעניין אתכם?") grid.
+  - Both sections' full markup were saved as **standalone reference files
+    in `archive/`** - `archive/activity-preview-section.html` and
+    `archive/intro-section.html` - before removing them from `index.html`.
+    Each archive file is self-contained: the exact `<section>` markup, the
+    exact inline `<script>` block (for activity-preview, which had one),
+    and a full copy of the CSS rules those sections depend on (as a
+    reference `<style>` block, in case those rules are ever pruned from
+    `assets/styles.css` as "unused"), plus a plain-English numbered
+    "how to restore this" comment at the top of each file. **These
+    archive files are not linked from anywhere and load on no page** -
+    they exist purely as a paste-back-in reference if either section is
+    wanted again later. If asked to restore one, read the file and follow
+    its own restore-instructions comment rather than guessing where things
+    went.
+  - **Nothing was deleted from `assets/styles.css`** (the `.ap-*` and
+    `.intro*`/`.carousel-*` rules are untouched, just unused while no page
+    references those classes) **or from `assets/img`** (the activity
+    photos, `intro-1.jpg` through `intro-7.jpg`, etc. all still exist in
+    the repo, just unreferenced). Only `index.html`'s markup and its
+    trailing inline `<script>` block (the `AP_ACTIVITIES` array + chip
+    click-handler IIFE) were removed from the live page.
+  - `assets/main.js`'s reveal-on-load special case
+    (`aboveFoldSections = [introSection, document.querySelector('.activity-preview')]`,
+    ~line 41-51) was **left as-is** - `.activity-preview` now resolves to
+    `null` and is filtered out by `.filter(Boolean)`, so this is inert,
+    not broken. No need to "clean this up" unless it's visibly bothering a
+    future session; it does nothing on the current page.
+  - Verified with Playwright (390×844): hero's very next sibling section
+    is now `#sessions`, no `.ap-chip`/`.intro-carousel` references remain
+    in `index.html`, no new console/page errors beyond expected local-dev
+    noise (video files not resolving over the sandbox's plain-HTTP
+    preview server - not a real site issue).
+  PR #65, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If either section is ever
+  wanted back, don't rebuild it from scratch - it's already fully written
+  in `archive/activity-preview-section.html` / `archive/intro-section.html`,
+  just needs pasting back into `index.html` per that file's own restore
+  comment. This is also worth knowing as a **general pattern for this
+  repo going forward**: when asked to "remove but don't lose" a section,
+  archive/ is now an established place for full reference copies (not
+  previously used in this repo before today) - keep using it rather than
+  inventing a new location each time.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 2, same day)
 - **What changed:** Oron/Eldar reviewed the activity-preview section from
   round 1 (below) live and asked for a visual revision, which is what's
@@ -386,6 +439,13 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 3) — Removed the activity-preview and intro sections
+  from the homepage entirely (hero now flows straight into the sessions
+  grid), but archived both sections' full markup/CSS/JS as standalone
+  reference files (`archive/activity-preview-section.html`,
+  `archive/intro-section.html`, with restore instructions) instead of
+  deleting the work - nothing removed from `assets/styles.css`/`assets/img`,
+  only unused. PR #65, merged.
 - 2026-09-23 (round 2) — Revised the activity-preview section per live
   feedback: dark blue-panel → light/white section, chips moved from a
   scroll row into a wrapping grid beside the photo (photo left, chips+copy
