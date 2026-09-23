@@ -62,45 +62,46 @@
 </section>
 
 <!-- ===================== ACTIVITY PREVIEW ===================== -->
-<section class="section activity-preview blue-panel" id="activities-preview">
-  <div class="wave-divider wave-top" aria-hidden="true"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,20 C1200,50 900,10 720,30 C540,50 240,10 0,30 Z"/></svg></div>
-  <div class="wave-divider wave-bottom" aria-hidden="true"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,20 C1200,50 900,10 720,30 C540,50 240,10 0,30 Z"/></svg></div>
+<section class="section activity-preview" id="activities-preview">
   <div class="container">
     <div class="section-head center reveal">
-      <span class="eyebrow">מה נכנס ליום שלכם</span>
-      <h2>תבחרו חוויה, תראו איך זה מרגיש</h2>
-      <p>קור, נשימה, תנועה, פינוק - היום שלכם מורכב בדיוק לפי מה שמדליק אתכם.</p>
-    </div>
-
-    <div class="ap-chips reveal d1" role="tablist" aria-label="בחירת סוג חוויה">
-      <button type="button" class="ap-chip is-active" data-activity="icebath" role="tab" aria-selected="true" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">🧊</span><span>אמבט קרח</span>
-      </button>
-      <button type="button" class="ap-chip" data-activity="breathwork" role="tab" aria-selected="false" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">🌬️</span><span>נשימות</span>
-      </button>
-      <button type="button" class="ap-chip" data-activity="yoga" role="tab" aria-selected="false" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">🧘‍♀️</span><span>יוגה</span>
-      </button>
-      <button type="button" class="ap-chip" data-activity="massage" role="tab" aria-selected="false" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">💆</span><span>עיסויים</span>
-      </button>
-      <button type="button" class="ap-chip" data-activity="sound" role="tab" aria-selected="false" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">🎶</span><span>סאונד הילינג</span>
-      </button>
-      <button type="button" class="ap-chip" data-activity="aroma" role="tab" aria-selected="false" aria-controls="ap-panel">
-        <span class="ic" aria-hidden="true">🌿</span><span>ארומתרפיה</span>
-      </button>
+      <h2>אילו פעילויות מחכות לכם</h2>
+      <p>יחד, נבנה את התכנים והפעילויות שאתם רוצים</p>
     </div>
 
     <div class="ap-stage reveal d2" id="ap-panel" role="tabpanel">
+      <div class="ap-side">
+        <div class="ap-chips" role="tablist" aria-label="בחירת סוג חוויה">
+          <button type="button" class="ap-chip is-active" data-activity="icebath" role="tab" aria-selected="true" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🧊</span><span>אמבט קרח</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="breathwork" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🌬️</span><span>נשימות</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="yoga" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🧘‍♀️</span><span>יוגה</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="pilates" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🤸</span><span>פילאטיס</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="massage" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">💆</span><span>עיסויים</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="sound" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🎶</span><span>סאונד הילינג</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="aroma" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🌿</span><span>ארומתרפיה</span>
+          </button>
+        </div>
+        <div class="ap-copy">
+          <h3 class="ap-title">אמבט קרח</h3>
+          <p class="ap-desc">הכניסה שמאפסת את הראש - שניות של קור, ותחושת ניקיון וערנות שנשארת איתכם לכל היום.</p>
+        </div>
+      </div>
       <div class="ap-visual">
         <img class="ap-img" src="assets/img/retreat-icebath.jpg" alt="אמבט קרח" />
         <div class="ap-visual ph" hidden><span class="ap-emoji" aria-hidden="true"></span></div>
-      </div>
-      <div class="ap-copy">
-        <h3 class="ap-title">אמבט קרח</h3>
-        <p class="ap-desc">הכניסה שמאפסת את הראש - שניות של קור, ותחושת ניקיון וערנות שנשארת איתכם לכל היום.</p>
       </div>
     </div>
 
@@ -439,6 +440,7 @@
     { id:'icebath',    title:'אמבט קרח',      icon:'🧊', img:'assets/img/retreat-icebath.jpg',       desc:'הכניסה שמאפסת את הראש - שניות של קור, ותחושת ניקיון וערנות שנשארת איתכם לכל היום.' },
     { id:'breathwork', title:'נשימות',         icon:'🌬️', img:'assets/img/retreat-breathwork.jpg',    desc:'כלי שאפשר לקחת הביתה - טכניקת נשימה שמרגיעה את הגוף בדקות, בכל מצב לחץ שתיתקלו בו.' },
     { id:'yoga',       title:'יוגה',           icon:'🧘‍♀️', img:null,                                    desc:'תרגול עדין שמשחרר את הכתפיים והראש גם יחד - בלי מאמץ, רק תנועה טובה וזרימה נעימה.' },
+    { id:'pilates',    title:'פילאטיס',        icon:'🤸', img:null,                                    desc:'שיעור מזרן אנרגטי שמחזק את הליבה ומעיר את הגוף - בלי ציוד ובלי ניסיון קודם.' },
     { id:'massage',    title:'עיסויים',        icon:'💆', img:null,                                    desc:'הפסקה של פינוק אמיתי - ידיים מקצועיות, שקט, ורגע שכולו בשבילכם.' },
     { id:'sound',      title:'סאונד הילינג',   icon:'🎶', img:'assets/img/retreat-soundbath.jpg',     desc:'שוכבים, עוצמים עיניים, והצלילים עושים את העבודה - רוגע עמוק בלי לעשות כלום.' },
     { id:'aroma',      title:'ארומתרפיה',      icon:'🌿', img:'assets/img/retreat-aromatherapy2.jpg', desc:'מרכיבים תערובת שמנים אישית ולוקחים איתכם הביתה - ריח שמזכיר לכם את התחושה הזו שוב ושוב.' }
