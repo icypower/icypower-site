@@ -413,6 +413,11 @@ img{max-width:100%;display:block}
 .gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,26,43,.05),rgba(12,26,43,.45))}
 .gtile:hover .ph{transform:scale(1.07)}
 .gtile .tag{position:absolute;z-index:2;inset-block-end:12px;inset-inline-start:12px;font-size:.8rem;font-weight:700;color:#fff;background:rgba(12,26,43,.55);padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
+.gtile .tile-caption{position:absolute;z-index:2;inset-inline:14px;inset-block-end:14px;text-align:center;color:#fff}
+.gtile .tile-caption h3{font-size:1.05rem;margin-bottom:4px;color:#fff}
+.gtile .tile-caption p{font-size:.85rem;color:rgba(255,255,255,.85);margin-bottom:10px}
+.gtile .tile-cta{display:inline-flex;align-items:center;padding:7px 16px;border-radius:999px;font-size:.82rem;font-weight:600;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(2px);transition:background .2s var(--ease)}
+.gtile .tile-cta:hover{background:rgba(255,255,255,.24)}
 .gtile.tall{aspect-ratio:4/6}
 .gtile.wide{grid-column:span 2;aspect-ratio:auto}
 
