@@ -39,6 +39,108 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23
+- **What changed:** Redesigned the homepage section directly below the hero.
+  It used to be an "About/Philosophy" block (`about-us blue-panel`: big
+  headline "אז מי אנחנו?", founder names, 2 paragraphs, a photo) — Oron/Eldar
+  felt it was in the wrong spot: that position should build desire in the
+  offering, not explain who the company is, and it no longer matched how the
+  business actually works (no single fixed session anymore — groups now pick
+  from a menu of activities: ice bath, breathwork, yoga, massage, sound
+  healing, aromatherapy, and IcyPower tailors a custom day, same model
+  `wellness-day.html` already builds around). Brand voice was also updated:
+  relaxation + fun + connection + practical stress-management tools + a touch
+  of luxury — explicitly **not** adrenaline/extreme (contradicts older brand
+  guidance further down this file, e.g. the 2026-08-02 entries — that older
+  guidance is superseded) and not zen/spiritual/clinical either.
+  - **New section: interactive "activity preview" selector**, `id="activities-preview"`,
+    inserted directly after `.hero` (was previously the `intro` section).
+    6 tappable chips (`.ap-chip`, real `<button>`s, `role="tab"`/`aria-selected`
+    — single-select ARIA pattern, not `wd-toggle`'s multi-select
+    `aria-pressed`) for אמבט קרח / נשימות / יוגה / עיסויים / סאונד הילינג /
+    ארומתרפיה. Tapping one instantly swaps a large photo + one-line mood
+    description in `.ap-stage` (no page reload, no carousel arrows - this
+    *shows* the "you choose, we tailor" model instead of describing it in
+    prose). Ends with a bridge line ("זה רק טעימה - בואו נבנה את היום שלכם")
+    linking to `wellness-day.html`, the actual next step in the same mental
+    model. Kept a **dark `blue-panel`** treatment (not light) on purpose, to
+    preserve the page's dark/light rhythm and read as premium — and to stay
+    visually distinct from the light, static, 3-up "מה מעניין אתכם?"
+    sessions-grid further down (explicit requirement from Oron: the two
+    must not look like the same kind of section).
+  - **Data-driven, inline in `index.html`** (an `AP_ACTIVITIES` array + a
+    small vanilla-JS IIFE in a `<script>` block before `</body>`) — same
+    convention `wellness-day.html` already uses for its `ADDONS` array
+    (page-specific content stays inline on its own page, not in
+    `assets/main.js`, which stays reserved for shared cross-page behavior).
+    Single-select only, no `localStorage`, no summary/totals — deliberately
+    much lighter than `wellness-day.html`'s real builder, this is just a
+    stateless teaser.
+  - **Built mobile-first per explicit instruction**: `.ap-chips` is a
+    horizontally-scrollable row (`overflow-x:auto`, not wrap — 6 chips with
+    two-word Hebrew labels like "סאונד הילינג" would wrap to multiple rows
+    and push the stage down) and `.ap-stage` stacks to one column by
+    default; the two-column stage and other refinements are a
+    `min-width:821px` enhancement layer on top, not the base design.
+  - **Two activities have no real photo yet** (יוגה, עיסויים — `img:null`)
+    and fall back to the same gradient+emoji tile pattern already
+    established in `wellness-day.html` (don't invent a new fallback look if
+    asked to touch this again). The other 4 use existing
+    `assets/img/retreat-*.jpg` files that were already in the repo.
+  - **Old about-us/founders content was not deleted** — it stays in its
+    exact existing file position (directly before the trust-strip/logo
+    carousel section, right where it always was) but demoted from a
+    full-viewport `blue-panel` to a compact `tight blue-panel` (just added
+    the `tight` class — reuses the exact pattern already used elsewhere in
+    this file, e.g. the gallery-teaser `section tight blue-panel`, no new
+    CSS needed). No copy changes inside it. It's now doing trust-building
+    work ("here are the real people behind this, right before you see who
+    else trusts us") instead of first-impression work.
+  - **`main.js`'s reveal-on-load special case extended**: it previously only
+    force-revealed `.section.intro .reveal` immediately on load (since that
+    section used to sit right under the hero and could already be in view).
+    Now also force-reveals `.activity-preview .reveal`, since that's the
+    section in that position now. **If this position changes again, check
+    this special-case list in `main.js` (~line 41-51) needs updating too.**
+  - Caught and fixed a real bug before merging: an initial version of
+    `.ap-chips` used a `margin-inline:-22px` "bleed to viewport edge" trick
+    that assumed `.container`'s padding was always 22px — but that padding
+    actually changes across breakpoints (16px on narrow phones, 22px+ up).
+    The mismatch caused a few px of real horizontal page overflow on
+    desktop. Fixed by dropping the bleed trick entirely — the chip row just
+    scrolls within the container's own padding at every width, no
+    edge-to-edge bleed. **Don't reintroduce an edge-bleed margin trick here
+    without checking the container's padding-inline value at every
+    breakpoint it needs to work at** — verified with Playwright by diffing
+    `document.documentElement.scrollWidth` against `main` before this
+    change existed, which also surfaced that a small (~16px) horizontal
+    overflow at very narrow widths (~360px) is **pre-existing on `main`**
+    from unrelated components (`.wa-nav`, `.logo-card` off-screen
+    positioning) — not something this session introduced, and out of scope
+    to fix here, but worth knowing if a future session investigates mobile
+    overflow reports.
+  Verified with Playwright at 390×844 and 1280×900: correct DOM order,
+  correct initial/on-click state for every chip, fallback tile renders
+  correctly for the 2 photo-less activities, keyboard Tab+Enter/Space
+  activates chips, bridge link resolves to `wellness-day.html`, stage is
+  1-col mobile / 2-col desktop, no new horizontal overflow. `node -c` on
+  both the new inline script and `main.js`. PR #61, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change. Worth flagging
+  to Oron/Eldar next time either is in a session: `wellness-day.html`'s own
+  `ADDONS` array still lists `aroma: img:null` even though
+  `assets/img/retreat-aromatherapy2.jpg` already exists in the repo and is
+  now used by the new homepage section — a quick follow-up could point that
+  entry at the same file for consistency, but wasn't in scope here.
+- **Anything the next session needs to know:** The brand-voice guidance in
+  this file's older entries (search "adrenaline"/"אתגר" in the 2026-08-02
+  entries) is **outdated** — current direction is relaxation + fun +
+  connection + practical stress-tools + light luxury, not
+  adrenaline/extreme, not zen/spiritual. Also still outstanding from
+  earlier sessions: the Israeli-law accessibility statement + named
+  coordinator (2026-08-07 entry), and Oron's font choice from the 4-font
+  comparison (2026-08-17 entry, below).
+
+### Latest status (previous)
 - **Date:** 2026-08-20
 - **What changed:** Oron asked for a second "premium landing" page alongside
   `evening-retreat.html` - this time a **daytime wellness event for groups**,
@@ -202,6 +304,15 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 — Replaced the homepage's about-us section (right below the
+  hero) with an interactive tap-to-preview activity selector (`.ap-chips`/
+  `.ap-stage`, data-driven `AP_ACTIVITIES` array inline in index.html) -
+  reflects the business's new "pick activities, we tailor the day" model
+  and updated brand voice (relaxation+fun+luxury, not adrenaline/zen).
+  Bridges to wellness-day.html. Old about-us/founders content kept in its
+  same file position but demoted to a compact `tight blue-panel`, now doing
+  trust-building work before the logo carousel instead of first-impression
+  work. Mobile-first per explicit instruction. PR #61, merged.
 - 2026-08-20 — Added `wellness-day.html`: a bright daytime counterpart to the
   evening retreat page, built around an interactive add-on builder (cards →
   live "היום שלי" summary → WhatsApp message generated from the selection).
