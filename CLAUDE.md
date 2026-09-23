@@ -39,6 +39,40 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 7, same day)
+- **What changed:** Eldar shared reference screenshots and asked to
+  "move their writing to the center" and add more space around the CTA
+  in `#wellness-events`. **Checked first with Playwright before
+  touching anything**: the paragraph, phone CTA, and photo-tile captions
+  were already `text-align:center` (added in earlier rounds this
+  session) - so this wasn't a centering bug, just needed more breathing
+  room. Confirmed with Eldar via AskUserQuestion that the ask was
+  spacing only, scoped to the section's paragraph+CTA (not the photo
+  tiles).
+  - **New scoped class**: `.wellness-events-cta{margin-block:28px}`
+    (styles.css, right after `.squiggle`) added to the existing
+    `<a href="tel:...">` button (now `class="btn btn-primary btn-lg
+    wellness-events-cta"`). Doubles the gap above/below the button
+    (14px → 28px each side). **Deliberately scoped to this one button**,
+    not a change to `.section-head p`'s or `.squiggle`'s base margins -
+    those are shared classes used (or reusable) elsewhere on the site,
+    so a global change there would have silently affected other
+    sections too.
+  Verified with Playwright at 390×844/1280×900 (computed margin is 28px
+  top/bottom, no new horizontal overflow) plus a visual screenshot
+  check. PR #73, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change. Still
+  waiting on Eldar to send new photos for the `#wellness-events` photo
+  row (see round 6 entry below) - swap + caption text update when they
+  arrive.
+- **Anything the next session needs to know:** If asked to adjust
+  spacing/alignment again, **check computed styles with Playwright
+  first** before assuming something's broken - this round confirmed
+  centering was already correct and the real ask was just more margin,
+  which would have been easy to misdiagnose as an alignment bug from
+  the screenshots alone.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 6, same day)
 - **What changed:** Eldar pointed at the same reference wellness site
   from round 4 and asked for one more piece of its format: each of the
@@ -579,6 +613,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 7) — Added more spacing around the `#wellness-events`
+  phone CTA (14px → 28px margin each side) via a new scoped
+  `.wellness-events-cta` class. Confirmed with Playwright first that
+  centering was already correct site-wide - the actual ask was just
+  breathing room, not an alignment fix. PR #73, merged.
 - 2026-09-23 (round 6) — Added title+caption+light-CTA overlays to the 3
   photo tiles in `#wellness-events`'s photo row, matching more of the
   round-4 reference site's format. New `.tile-caption`/`.tile-cta` CSS
