@@ -1,0 +1,118 @@
+<!--
+  ARCHIVED SECTION — "intro" (homepage, directly below the activity-preview
+  section, above the sessions grid)
+
+  Headline: "חוויה בלתי נשכחת של נשימות ואמבטיות קרח לעסקים ולקבוצות פרטיות"
+
+  Removed from index.html on 2026-09-23 at the user's request, to declutter
+  the homepage. Saved here so it can be restored later if wanted — this file
+  is NOT wired into the live site, it's just a reference copy.
+
+  To bring it back:
+  1. Paste the <section> markup below back into index.html, in the position
+     you want it (it originally sat right after the activity-preview
+     section and right before the "sessions" section, id="sessions").
+  2. The CSS this section depends on (.intro-heading, .intro h2,
+     .intro p, .intro .accent, .intro .accent-regular, .intro-split,
+     .intro-carousel, .carousel-slide, .carousel-dots, .dot) should still be
+     in assets/styles.css — it was NOT deleted from there, only unused if
+     this section isn't in any page's HTML. If it's ever fully deleted from
+     styles.css, the same rules are copied at the bottom of this file for
+     reference.
+  3. The photo carousel (.intro-carousel/.carousel-slide/.carousel-dots)
+     is driven by shared code already in assets/main.js (not page-specific,
+     no JS needs to be restored) — it activates automatically for any
+     .intro-carousel element found on the page.
+  4. Images referenced (assets/img/intro-1.jpg through intro-7.jpg) were not
+     deleted from the repo, only unused by this removal.
+-->
+
+<section class="section intro">
+  <div class="container">
+    <div class="intro-heading reveal">
+      <h2>חוויה בלתי נשכחת של נשימות ואמבטיות קרח לעסקים ולקבוצות פרטיות</h2>
+    </div>
+    <div class="intro-split">
+      <div class="intro-text reveal">
+        <p>ב-Icy Power אנחנו מאמינים שאפשר לחוות את עולם הנשימות ואמבטיות הקרח אחרת - <span class="accent">עם אנרגיה, צחוק, חיבור והמון חיים</span>.</p>
+        <p>בהדרכה המקצועית שלנו, תתכוננו להרגיש את <span class="accent accent-regular">הכוח שבקור</span>, להתחבר לגוף ולנפש ולשחרר הרבה סטרס ביחד עם צחוקים ואווירה מדהימה.</p>
+        <p>נלווה אתכם מסשן הנשימות המעורר שלנו, עד הטבילה באמבטיית הקרח, ונראה לכם איך להשתמש בשיטות שלמדתם פה בצורה קלילה בבית כדי ליצור שגרה בריאה ואיכותית יותר!</p>
+      </div>
+      <div class="intro-carousel reveal d1">
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-1.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-2.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-3.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-4.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-5.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-6.jpg')"></div>
+        <div class="carousel-slide" style="background-image:url('assets/img/intro-7.jpg')"></div>
+        <div class="carousel-dots">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Reference copy of the CSS this section relies on
+     (kept here in case assets/styles.css ever drops these rules;
+     as of the archive date they are still present there, unused).
+     ============================================================ -->
+<style>
+/* ---------- intro / what is ---------- */
+.intro-heading{text-align:center;margin-bottom:clamp(28px,4vw,48px)}
+.intro h2{
+  max-width:900px;margin:0 auto;
+  font-size:clamp(1.5rem,4.8vw,2.1rem);white-space:normal;
+}
+.intro-heading::after{
+  content:"";display:block;width:56px;height:4px;border-radius:2px;
+  background:var(--accent);margin:20px auto 0;
+}
+@media(min-width:960px){
+  .intro h2{white-space:nowrap;max-width:none;font-size:clamp(1.45rem,2.4vw,1.85rem)}
+}
+.intro p{
+  font-size:clamp(1.05rem,1.3vw,1.25rem);color:var(--ink-dim);
+  max-width:560px;line-height:1.75;margin:0;
+}
+.intro p + p{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.intro .accent{color:var(--accent);font-weight:700}
+.intro .accent-regular{font-weight:400}
+
+/* ---------- intro split layout ---------- */
+.intro-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(36px,5vw,72px);align-items:start;
+}
+
+/* ---------- intro photo carousel ---------- */
+.intro-carousel{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:4/3;border:1px solid var(--line);
+  background:#E7DECF;
+}
+.intro-carousel::after{
+  content:"";position:absolute;inset-inline:0;bottom:0;height:70px;
+  background:linear-gradient(to top, rgba(10,22,32,.45), transparent);
+  pointer-events:none;z-index:3;
+}
+.carousel-slide{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;transition:opacity 1.2s ease;
+}
+.carousel-slide.active{opacity:1}
+.carousel-dots{
+  position:absolute;bottom:16px;inset-inline-start:50%;transform:translateX(50%);
+  display:flex;gap:10px;z-index:4;
+}
+.carousel-dots .dot{
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);
+  transition:background .3s,transform .3s;cursor:pointer;
+}
+.carousel-dots .dot.active{
+  background:#ffffff;border-color:#ffffff;transform:scale(1.3);
+}
+</style>

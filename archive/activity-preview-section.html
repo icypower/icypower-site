@@ -1,0 +1,192 @@
+<!--
+  ARCHIVED SECTION — "activity preview" (homepage, directly below the hero)
+
+  The interactive tap-to-preview activity selector (7 chips: אמבט קרח,
+  נשימות, יוגה, פילאטיס, עיסויים, סאונד הילינג, ארומתרפיה) built earlier
+  this session (PR #61, revised in PR #63) to replace the old about-us
+  block right under the hero.
+
+  Removed from index.html on 2026-09-23 at the user's request, to
+  declutter the homepage. Saved here so it can be restored later if
+  wanted — this file is NOT wired into the live site, it's just a
+  reference copy.
+
+  To bring it back:
+  1. Paste the <section> markup below back into index.html — it originally
+     sat directly after the closing </section> of .hero and directly
+     before the "intro" section (see archive/intro-section.html, also
+     removed the same day).
+  2. Paste the <script> block below back in, right before </body> (it was
+     the last script tag on the page, after <script src="assets/main.js">).
+  3. The CSS this section depends on (.ap-stage, .ap-side, .ap-chips,
+     .ap-chip, .ap-img, .ap-visual.ph, .ap-copy, .ap-bridge, and their
+     @media(min-width:821px) overrides) should still be in
+     assets/styles.css — it was NOT deleted, only unused if this section
+     isn't in any page's HTML. If it's ever fully deleted from styles.css,
+     the same rules are copied at the bottom of this file for reference.
+  4. Also re-add ".activity-preview" to the aboveFoldSections array in
+     assets/main.js's reveal-on-load special case (~line 41-51) if you
+     want this section to reveal immediately on load again instead of
+     waiting for scroll (it's fine either way, just changes the timing).
+  5. Images referenced (assets/img/retreat-icebath.jpg,
+     retreat-breathwork.jpg, retreat-soundbath.jpg,
+     retreat-aromatherapy2.jpg) were not deleted from the repo, only
+     unused by this removal. Yoga/Pilates/Massage never had real photos —
+     they always used the gradient+emoji fallback tile.
+-->
+
+<section class="section activity-preview" id="activities-preview">
+  <div class="container">
+    <div class="section-head center reveal">
+      <h2>אילו פעילויות מחכות לכם</h2>
+      <p>יחד, נבנה את התכנים והפעילויות שאתם רוצים</p>
+    </div>
+
+    <div class="ap-stage reveal d2" id="ap-panel" role="tabpanel">
+      <div class="ap-side">
+        <div class="ap-chips" role="tablist" aria-label="בחירת סוג חוויה">
+          <button type="button" class="ap-chip is-active" data-activity="icebath" role="tab" aria-selected="true" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🧊</span><span>אמבט קרח</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="breathwork" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🌬️</span><span>נשימות</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="yoga" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🧘‍♀️</span><span>יוגה</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="pilates" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🤸</span><span>פילאטיס</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="massage" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">💆</span><span>עיסויים</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="sound" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🎶</span><span>סאונד הילינג</span>
+          </button>
+          <button type="button" class="ap-chip" data-activity="aroma" role="tab" aria-selected="false" aria-controls="ap-panel">
+            <span class="ic" aria-hidden="true">🌿</span><span>ארומתרפיה</span>
+          </button>
+        </div>
+        <div class="ap-copy">
+          <h3 class="ap-title">אמבט קרח</h3>
+          <p class="ap-desc">הכניסה שמאפסת את הראש - שניות של קור, ותחושת ניקיון וערנות שנשארת איתכם לכל היום.</p>
+        </div>
+      </div>
+      <div class="ap-visual">
+        <img class="ap-img" src="assets/img/retreat-icebath.jpg" alt="אמבט קרח" />
+        <div class="ap-visual ph" hidden><span class="ap-emoji" aria-hidden="true"></span></div>
+      </div>
+    </div>
+
+    <p class="ap-bridge reveal d3">
+      זה רק טעימה - <a href="wellness-day.html">בואו נבנה את היום שלכם</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     Paste this back right before </body>, after <script src="assets/main.js">
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+  var AP_ACTIVITIES = [
+    { id:'icebath',    title:'אמבט קרח',      icon:'🧊', img:'assets/img/retreat-icebath.jpg',       desc:'הכניסה שמאפסת את הראש - שניות של קור, ותחושת ניקיון וערנות שנשארת איתכם לכל היום.' },
+    { id:'breathwork', title:'נשימות',         icon:'🌬️', img:'assets/img/retreat-breathwork.jpg',    desc:'כלי שאפשר לקחת הביתה - טכניקת נשימה שמרגיעה את הגוף בדקות, בכל מצב לחץ שתיתקלו בו.' },
+    { id:'yoga',       title:'יוגה',           icon:'🧘‍♀️', img:null,                                    desc:'תרגול עדין שמשחרר את הכתפיים והראש גם יחד - בלי מאמץ, רק תנועה טובה וזרימה נעימה.' },
+    { id:'pilates',    title:'פילאטיס',        icon:'🤸', img:null,                                    desc:'שיעור מזרן אנרגטי שמחזק את הליבה ומעיר את הגוף - בלי ציוד ובלי ניסיון קודם.' },
+    { id:'massage',    title:'עיסויים',        icon:'💆', img:null,                                    desc:'הפסקה של פינוק אמיתי - ידיים מקצועיות, שקט, ורגע שכולו בשבילכם.' },
+    { id:'sound',      title:'סאונד הילינג',   icon:'🎶', img:'assets/img/retreat-soundbath.jpg',     desc:'שוכבים, עוצמים עיניים, והצלילים עושים את העבודה - רוגע עמוק בלי לעשות כלום.' },
+    { id:'aroma',      title:'ארומתרפיה',      icon:'🌿', img:'assets/img/retreat-aromatherapy2.jpg', desc:'מרכיבים תערובת שמנים אישית ולוקחים איתכם הביתה - ריח שמזכיר לכם את התחושה הזו שוב ושוב.' }
+  ];
+
+  var chips = document.querySelectorAll('.ap-chip');
+  var img = document.querySelector('.ap-img');
+  var ph = document.querySelector('.ap-visual.ph');
+  var stage = document.querySelector('.ap-stage');
+  var titleEl = document.querySelector('.ap-title');
+  var descEl = document.querySelector('.ap-desc');
+
+  if (chips.length && stage) {
+    var byId = function (id) {
+      for (var i = 0; i < AP_ACTIVITIES.length; i++) {
+        if (AP_ACTIVITIES[i].id === id) return AP_ACTIVITIES[i];
+      }
+      return null;
+    };
+
+    var render = function (id) {
+      var a = byId(id);
+      if (!a) return;
+      var hasImg = !!a.img;
+      img.hidden = !hasImg;
+      ph.hidden = hasImg;
+      if (hasImg) {
+        img.src = a.img;
+        img.alt = a.title;
+      } else {
+        ph.querySelector('.ap-emoji').textContent = a.icon;
+      }
+      titleEl.textContent = a.title;
+      descEl.textContent = a.desc;
+      chips.forEach(function (c) {
+        var on = c.dataset.activity === id;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    };
+
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () { render(c.dataset.activity); });
+    });
+
+    render(AP_ACTIVITIES[0].id);
+  }
+})();
+</script>
+
+<!-- ============================================================
+     Reference copy of the CSS this section relies on
+     (kept here in case assets/styles.css ever drops these rules;
+     as of the archive date they are still present there, unused).
+     ============================================================ -->
+<style>
+/* ---------- activity preview (tap-to-preview experience selector) ---------- */
+.ap-stage{display:grid;grid-template-columns:1fr;gap:24px;align-items:start;margin-top:8px}
+.ap-side{display:flex;flex-direction:column;gap:20px}
+.ap-chips{display:flex;flex-wrap:wrap;gap:10px}
+.ap-chip{
+  flex:1 1 calc(50% - 5px);
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border-radius:999px;font-weight:700;font-size:.92rem;
+  background:var(--sand);color:var(--ink);
+  border:1.5px solid var(--line);
+  cursor:pointer;font-family:inherit;transition:all .2s var(--ease);white-space:nowrap;
+}
+.ap-chip:hover{background:var(--card-hover);border-color:var(--line-strong);transform:translateY(-2px)}
+.ap-chip.is-active{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+  box-shadow:0 10px 24px -12px var(--accent-glow);
+}
+.ap-img,.ap-visual.ph{
+  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px;
+  border:1px solid var(--line-strong);
+  box-shadow:0 20px 48px -24px rgba(20,40,60,.3);
+}
+.ap-img[hidden]{display:none}
+.ap-visual.ph:not([hidden]){
+  display:flex;align-items:center;justify-content:center;font-size:56px;
+  background:linear-gradient(140deg,#dff0fa,#eaf7f2 55%,#fdf3dd);
+}
+.ap-copy h3{margin-bottom:8px}
+.ap-copy p{font-size:1rem;line-height:1.6}
+.ap-bridge{margin-top:22px;text-align:center;color:var(--ink-dim)}
+.ap-bridge a{color:var(--accent);font-weight:800}
+
+@media(min-width:821px){
+  .ap-stage{grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,34px);margin-top:16px}
+  .ap-chip{flex:1 1 calc(33.333% - 7px)}
+  .ap-img,.ap-visual.ph{aspect-ratio:4/3;border-radius:22px;font-size:64px}
+  .ap-copy p{font-size:1.05rem}
+}
+</style>
