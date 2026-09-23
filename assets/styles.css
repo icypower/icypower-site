@@ -93,6 +93,7 @@ img{max-width:100%;display:block}
 /* ---------- decorative squiggle divider (wellness-events section) ---------- */
 .squiggle{display:flex;justify-content:center;margin-block:14px;color:var(--accent);opacity:.55}
 .squiggle svg{width:96px;height:16px}
+.wellness-events-cta{margin-block:28px}
 
 /* ---------- buttons ---------- */
 .btn{
