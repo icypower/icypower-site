@@ -39,6 +39,41 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-23 (round 9, same day)
+- **What changed:** Eldar asked to remove the "איך זה עובד" section
+  (3-step timeline: נשימה → קרח → אנרגיה, `id="how"`, directly below
+  `#sessions`) from the homepage entirely. Same "archive, don't just
+  delete" convention as round 3 - saved the full markup + its dependent
+  CSS (`.steps-timeline`/`.step`/`.step-circle`/`.step-num` and their
+  mobile vertical-timeline override) to
+  `archive/how-it-works-section.html` (self-contained, restore
+  instructions at the top) before removing the `<section>` from
+  `index.html`. `#sessions` now flows straight into the gallery-strip
+  `blue-panel` section.
+  - **Nothing deleted from `assets/styles.css`** (the `.steps-timeline`
+    etc. rules stay, just unused) or `assets/main.js` (this section had
+    no reveal-on-load special case or other JS tied to it, unlike some
+    earlier removed sections - nothing else needed touching).
+  - **Flagged, not fixed**: `index.html#how` is still linked from the
+    nav bar on every other page on the site, plus two inline CTAs
+    (`open-session.html`, `private-groups.html`). Those links now just
+    land on the homepage top instead of scrolling to a specific spot -
+    a dead anchor, not a broken link, so left as-is per the round-3
+    precedent of not chasing every cross-page reference on a section
+    removal unless asked. If this bothers Eldar later, either restore
+    the section (fixes it automatically) or remove/repoint those nav
+    links - not done proactively this round.
+  Verified with Playwright at 390×844/1280×900: `#sessions`'s next
+  sibling is the gallery-strip section, no `.steps-timeline`/`#how`
+  markup remains, no new horizontal overflow. PR #77, squash-merged to
+  `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `archive/` now holds 3
+  removed-section reference files (`intro-section.html`,
+  `activity-preview-section.html`, `how-it-works-section.html`) - same
+  restore pattern for all three, read the file's own top comment.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 8, same day)
 - **What changed:** Two requests: (1) add 2 more photos to
   `#wellness-events`'s photo row with left/right arrows to reveal the
@@ -691,6 +726,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-23 (round 9) — Removed the "איך זה עובד" 3-step timeline
+  section from the homepage (below `#sessions`), archived to
+  `archive/how-it-works-section.html` per this session's established
+  archive-before-delete convention. `index.html#how` is still linked
+  from nav/CTAs elsewhere on the site (now a dead anchor, not fixed -
+  flagged only). PR #77, merged.
 - 2026-09-23 (round 8) — Turned the `#wellness-events` photo row into a
   genuine 5-photo sliding carousel (added sound-bath + ice-bath photos,
   final order sound bath → breathwork → group circle → aromatherapy →
