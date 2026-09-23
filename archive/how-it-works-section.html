@@ -1,0 +1,104 @@
+<!--
+  ARCHIVED SECTION — "how it works" (homepage, directly below the
+  sessions grid, id="how")
+
+  The 3-step timeline: נשימה (breathwork) → קרח (ice) → אנרגיה (energy),
+  headed "שלושה שלבים - חוויה אחת בלתי נשכחת".
+
+  Removed from index.html on 2026-09-23 at the user's request. Saved
+  here so it can be restored later if wanted — this file is NOT wired
+  into the live site, it's just a reference copy.
+
+  To bring it back:
+  1. Paste the <section> markup below back into index.html — it
+     originally sat directly after the "sessions" section (id="sessions")
+     and directly before the gallery-strip blue-panel section.
+  2. The CSS this section depends on (.steps-timeline, .steps-timeline::before,
+     .step, .step-circle, .step-num, plus the mobile vertical-timeline
+     override) should still be in assets/styles.css — it was NOT
+     deleted, only unused if this section isn't in any page's HTML. If
+     it's ever fully deleted from styles.css, the same rules are copied
+     at the bottom of this file for reference.
+  3. No JS is involved — this section had no main.js-specific logic tied
+     to it (unlike some other removed sections this session), so nothing
+     else needs restoring.
+  4. Note: index.html#how is still linked from the nav bar on every
+     other page on the site, plus two inline CTAs (open-session.html,
+     private-groups.html) — those links currently just land on the
+     homepage top since the #how anchor no longer exists on the page.
+     Restoring this section would make those links scroll to the right
+     place again automatically, with no changes needed elsewhere.
+-->
+
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">איך זה עובד</span>
+      <h2>שלושה שלבים - חוויה אחת בלתי נשכחת</h2>
+      <p>כל סדנה בנויה כמסע קצר - מהנשימה הראשונה ועד החיוכים שאחרי הקרח.</p>
+    </div>
+    <div class="steps-timeline">
+      <div class="step reveal">
+        <span class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg></span>
+        <div>
+          <h3>נשימה</h3>
+          <p>שלושה סבבים של נשימות WHM, עם הסבר קצר וברור על המדע שמאחורי השיטה. כבר כאן מרגישים את ההבדל בגוף.</p>
+        </div>
+      </div>
+      <div class="step reveal d1">
+        <span class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg></span>
+        <div>
+          <h3>קרח</h3>
+          <p>נכנסים למים הקרים. הגוף מסתגל, הראש מתבהר - ומגלים שאתם הרבה יותר חזקים ממה שחשבתם.</p>
+        </div>
+      </div>
+      <div class="step reveal d2">
+        <span class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+        <div>
+          <h3>אנרגיה</h3>
+          <p>יוצאים טעונים, צוחקים ומחוברים. החום חוזר לגוף, וההרגשה של "וואו, עשיתי את זה" נשארת לאורך כל היום.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Reference copy of the CSS this section relies on
+     (kept here in case assets/styles.css ever drops these rules;
+     as of the archive date they are still present there, unused).
+     ============================================================ -->
+<style>
+/* ---------- how-it-works step timeline ---------- */
+.steps-timeline{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-block-start:6px}
+.steps-timeline::before{
+  content:"";position:absolute;z-index:0;
+  inset-inline-start:calc(100%/6);inset-inline-end:calc(100%/6);
+  top:36px;height:2px;background:var(--line-strong);
+}
+.step{position:relative;z-index:1;text-align:center}
+.step-circle{
+  position:relative;z-index:2;
+  width:72px;height:72px;border-radius:50%;
+  display:grid;place-items:center;margin-inline:auto;margin-block-end:18px;
+  background:var(--accent);color:#fff;
+  box-shadow:0 10px 26px -10px var(--accent-glow);
+}
+.step-circle svg{width:30px;height:30px}
+.step-num{display:block;font-size:.82rem;font-weight:800;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.step h3{margin-bottom:8px}
+.step p{font-size:.96rem}
+
+@media(max-width:680px){
+  /* How it works: vertical connected timeline on mobile (circle beside text,
+     line running through the circles) instead of the desktop's centered row */
+  .steps-timeline{grid-template-columns:1fr;gap:32px;padding-block-start:0}
+  .steps-timeline::before{
+    inset-inline-start:32px;inset-inline-end:auto;
+    top:32px;bottom:32px;height:auto;width:2px;
+  }
+  .step{display:flex;align-items:flex-start;gap:16px;text-align:start}
+  .step-circle{margin-inline:0;flex:none;margin-block-end:0;width:64px;height:64px}
+  .step-circle svg{width:26px;height:26px}
+}
+</style>
