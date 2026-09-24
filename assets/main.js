@@ -305,7 +305,11 @@
   var logoStage = document.getElementById('logoStage');
   var logoCards = logoStage ? Array.prototype.slice.call(logoStage.querySelectorAll('.logo-card')) : [];
   if (logoStage && logoCards.length) {
-    var logoActive = 0;
+    var logoPhilipsIndex = logoCards.findIndex(function (card) {
+      var img = card.querySelector('img');
+      return img && img.alt === 'Philips';
+    });
+    var logoActive = logoPhilipsIndex >= 0 ? logoPhilipsIndex : 0;
     var logoCount = logoCards.length;
     function renderLogos() {
       logoCards.forEach(function (card, i) {
@@ -326,8 +330,12 @@
     }
     renderLogos();
     resetLogoTimer();
-    var prevBtn = document.querySelector('.logo-nav.prev');
-    var nextBtn = document.querySelector('.logo-nav.next');
+    /* Scoped to .trust-strip specifically - the wellness-events carousel
+       earlier in the DOM reuses the same bare .logo-nav.prev/.next classes
+       for its own unrelated buttons, and an unscoped selector here would
+       silently grab those instead (picking the first match in the page). */
+    var prevBtn = document.querySelector('.trust-strip .logo-nav.prev');
+    var nextBtn = document.querySelector('.trust-strip .logo-nav.next');
     if (prevBtn) prevBtn.addEventListener('click', function () { goLogo(-1); resetLogoTimer(); });
     if (nextBtn) nextBtn.addEventListener('click', function () { goLogo(1); resetLogoTimer(); });
     logoCards.forEach(function (card, i) {
