@@ -39,6 +39,61 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 13)
+- **What changed:** Two more requests on the `#wellness-events` carousel,
+  both in `assets/main.js`'s wellness-events carousel IIFE:
+  1. **Starts centered on the middle photo on load.** `activeIndex` used
+     to start at `0` (sound bath) - mobile visitors only ever saw the
+     right-side peek until they clicked once. Changed the initial value
+     to `2` (closing-circle, "ביחד כקבוצה") so both-side peeks are
+     visible immediately on page load, no interaction needed. Desktop's
+     initial `offset` stays `0` - it's a windowed multi-tile view with
+     no equivalent "center" concept, and the ask was specifically about
+     the mobile peek-on-load look.
+  2. **Infinite looping, both mobile and desktop** (confirmed scope via
+     AskUserQuestion - Eldar picked "both," not mobile-only). The
+     `prevBtn`/`nextBtn` `disabled` clamping at the first/last position
+     is gone entirely - pressing `next` past the last photo now wraps to
+     the first, and `prev` past the first wraps to the last, on both
+     carousel modes.
+  - **Avoided a real UX trap while building this**: this carousel's
+    `.we-track` slides via a single continuous `translateX()` - naively
+    wrapping the index/offset (like the site's *other* looping
+    carousels, `goLogo`/`goWa`'s coverflow, which wrap via modulo +
+    re-rendering discrete positioned cards, not a sliding track) would
+    have made the wrap visibly slide backward across all 5 tiles instead
+    of jumping straight to the opposite end. **Added a `snapTo(px)`
+    helper** - disables the track's CSS transition for one frame, jumps
+    straight to the wrapped position, forces a reflow, then restores the
+    transition via `requestAnimationFrame` so the *next* move animates
+    normally again. Used by both `goNext`/`goPrev` only on the wrap step
+    itself; every other move still uses the normal animated slide.
+  - **`.logo-nav:disabled` CSS rule** (styles.css, added round 8) is now
+    unused for this carousel specifically (buttons are never disabled
+    again) - left in place per this repo's "don't delete now-unused CSS"
+    convention; grepped first and confirmed the logo/WA coverflows never
+    used `:disabled` either, so nothing else depends on removing it.
+  Verified with Playwright at 390px: on load, tile index 2's caption
+  reads "ביחד כקבוצה" with ~37-38px peek on both sides (screenshot
+  confirms); 3x `next` from load correctly wraps to tile 0, `prev` from
+  tile 0 wraps to tile 4, both fully centered; neither button ever
+  reports `disabled`; no new horizontal overflow. At 1280px: initial
+  view unaffected (offset 0, 3 tiles); repeated `next` clicks wrap
+  `offset` back to `0` past `maxOffset()`; `prev` from `0` wraps to
+  `maxOffset()`; neither button ever `disabled`; no new overflow.
+  `node -c` on `main.js`. PR #85, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If another carousel on
+  this site is ever asked to loop infinitely, check which architecture
+  it uses first - a discrete-positioned-cards carousel (like
+  `.logo-stage`/`.wa-stage`) can wrap with plain modulo arithmetic and a
+  re-render, no special handling needed; a single continuous sliding
+  track (like `.we-track` here) needs the transition-disable/snap
+  technique (`snapTo()` in `main.js`, this carousel) or the wrap will
+  visibly slide backward across every tile in between instead of
+  jumping to the far end.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-23 (round 12, same day)
 - **What changed:** Round 10's mobile carousel centering fix turned out
   to only actually work for the *middle* tiles (2-4) - Eldar sent a
@@ -857,6 +912,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 13) — Wellness-events carousel now starts centered
+  on the middle photo (closing-circle) on load instead of the first, and
+  next/prev loop infinitely on both mobile and desktop instead of
+  disabling at the ends - wrap uses a transition-disabled instant snap
+  (`snapTo()`) so it doesn't visibly slide across every tile. PR #85,
+  merged.
 - 2026-09-23 (round 12) — Fixed the `#wellness-events` mobile carousel
   for real: round 10's centering only worked for middle tiles, not the
   first/last. Two bugs: `.we-track` wasn't positioned so
