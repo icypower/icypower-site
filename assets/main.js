@@ -158,7 +158,36 @@
      and playing underneath - no flash of black/blank. */
   var heroVidA = document.getElementById('heroVideoA');
   var heroVidB = document.getElementById('heroVideoB');
-  if (heroVidA && heroVidB) {
+  var heroMq = window.matchMedia('(max-width:680px)');
+  if (heroVidA && heroVidB && heroMq.matches) {
+    /* Mobile: a single short clip Eldar provided, just looped natively -
+       no crossfade machinery needed for one clip, and #heroVideoB stays
+       unused. Desktop keeps the multi-clip crossfade below untouched. */
+    heroVidA.src = 'assets/video/hero-mobile-1.mp4';
+    heroVidA.loop = true;
+    heroVidA.classList.add('is-active');
+    heroVidA.play();
+
+    function heroMobileResume() {
+      if (!document.hidden && heroVidA.paused) { heroVidA.play(); }
+    }
+    document.addEventListener('visibilitychange', heroMobileResume);
+    window.addEventListener('pageshow', heroMobileResume);
+
+    function heroMobileKick() {
+      if (heroVidA.paused) { heroVidA.play(); }
+    }
+    var mobileKickEvents = ['touchstart', 'click', 'scroll', 'keydown'];
+    function heroMobileKickOnce() {
+      heroMobileKick();
+      mobileKickEvents.forEach(function (evt) {
+        document.removeEventListener(evt, heroMobileKickOnce);
+      });
+    }
+    mobileKickEvents.forEach(function (evt) {
+      document.addEventListener(evt, heroMobileKickOnce, { once: true, passive: true });
+    });
+  } else if (heroVidA && heroVidB) {
     var heroClips = [
       'assets/video/hero-9.mp4',
       'assets/video/hero-16.mp4',
