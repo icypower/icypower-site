@@ -499,6 +499,10 @@ img{max-width:100%;display:block}
 .split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
 .split .media{aspect-ratio:4/3;border-radius:var(--radius);background-size:cover;background-position:center;border:1px solid var(--line)}
 
+/* inline session-preview video (portrait clip, so capped width rather
+   than stretched full-container - reuses .media's border/radius look) */
+.session-video{max-width:360px;width:100%;margin-inline:auto;display:block;border-radius:var(--radius);border:1px solid var(--line)}
+
 /* ---------- contact ---------- */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 .contact-methods{display:grid;gap:14px}
