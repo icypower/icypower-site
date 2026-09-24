@@ -39,6 +39,64 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 25, same day)
+- **What changed:** Follow-up on round 24's `business.html` video embed -
+  Eldar liked the placement but not the presentation: the raw portrait
+  `<video>` (810×1440, capped 360px wide) sitting always-visible in the
+  page flow looked like an awkward narrow window. Replaced it with a
+  **click-to-open preview**, matching a pattern this repo already had
+  built for this exact video file on `booking.html`.
+  - **New poster photo**: cropped Eldar's newly-attached photo (a
+    poolside group session, 1195×896 source) to 16:9 with Pillow, saved
+    as `assets/img/session-preview-poster.jpg` - everyone stays fully
+    framed, no heads cut off.
+  - **`business.html`'s video block replaced with a clickable
+    `.sp-preview`** div (background-image: the new poster, centered
+    circular play-button SVG, `role="button"`/`tabindex`/keyboard
+    Enter-Space support) in the exact same DOM position as before
+    (3rd top-level section, between the text+photo block and the
+    "נשמור לכם תאריך?" CTA band).
+  - **Reused `booking.html`'s existing click-to-open-video-modal
+    pattern almost exactly** (`.bk-media`/`.bk-video-modal`/
+    `bkOpenVideo`/`bkCloseVideo`, built for this same
+    `session-preview.mp4` file) - a fixed-position dark-backdrop modal
+    (`#spVideoModal`) holding the real `<video controls>`, toggled via
+    an `.open` class. **The "click outside closes it" behavior Eldar
+    asked for was already solved once in `booking.html`** - a click
+    listener on the modal backdrop itself checks `e.target.id ===
+    'spVideoModal'` (i.e. the click landed on the backdrop, not
+    bubbled from the video or close button) before closing. Copied
+    that exact technique rather than reinventing it.
+  - **Built with a new `sp-` prefix, not reusing `bk-`** - this is
+    page-specific interactive markup/JS (per this repo's established
+    convention: page-specific behavior stays inline on its own page,
+    not in shared `assets/main.js` - see `wellness-day.html`'s
+    `ADDONS`/`booking.html`'s own modals), so `business.html` gets its
+    own self-contained copy (CSS in its own `<style>` block, JS in its
+    own inline `<script>` before `assets/main.js`'s `<script src>`
+    tag) rather than sharing booking.html's `bk-` classes/functions
+    across pages.
+  - **Removed the now-dead `.session-video` CSS rule** added last
+    round (`assets/styles.css`) - safe to delete outright rather than
+    leave unused, since it was added and superseded within back-to-
+    back rounds (not a case of "might be restored later").
+  Verified with Playwright at 1280px/390px: preview renders in the
+  correct DOM position; clicking it adds `.open` to the modal and
+  resolves the correct video `src`; clicking the backdrop (not the
+  video) removes `.open` again and pauses the video. Screenshot
+  confirms the poster crop looks clean, play button centered. No new
+  horizontal overflow, no console errors. PR #109, squash-merged to
+  `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `business.html` and
+  `booking.html` now both have their **own separate copies** of this
+  click-to-open-video-modal pattern (`sp-`/`bk-` prefixes, both built
+  around `session-preview.mp4`) - if this pattern is ever wanted on a
+  3rd page, or if it needs a behavior fix, consider whether it's
+  finally worth promoting into a shared helper in `assets/main.js`
+  instead of copy-pasting a third time.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 24, same day)
 - **What changed:** Three homepage-polish requests plus one business-page
   addition, all in one round:
@@ -1325,6 +1383,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 25) — Replaced business.html's always-visible
+  portrait video embed with a clickable horizontal poster (cropped
+  16:9) + play button that pops the video up in a modal, closing on
+  backdrop click - reused booking.html's existing pattern for this
+  same video file, built as its own sp-prefixed copy. PR #109, merged.
 - 2026-09-24 (round 24) — Moved the trust-strip logo carousel and
   wa-reviews carousel to sit right after the sessions grid instead of
   much further down the page; added a Philips logo (background
