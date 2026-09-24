@@ -39,6 +39,36 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 21, same day)
+- **What changed:** Eldar circled both nav arrows on the
+  `#wellness-events` carousel in a screenshot and pointed out they were
+  pointing **inward** (toward the carousel center) instead of outward -
+  the left-side button showed `›` and the right-side button showed `‹`,
+  backward from the usual convention. Swapped the SVG chevron `path`
+  values between the `.prev` and `.next` buttons **in this one
+  carousel's markup only** (`index.html`) - left button now shows `‹`
+  (points left/outward), right button now shows `›` (points
+  right/outward). **Did not touch the click handlers** - the same
+  buttons still call the same `goPrev`/`goNext` functions in
+  `assets/main.js` as before, so next/prev functionality (and the
+  round-15 infinite-loop behavior) is unchanged, only the icon glyphs
+  swapped.
+  - **Scoped correctly**: this site has two other carousels
+    (`.logo-stage`/`.wa-stage`) reusing the same `.logo-nav` button
+    class with their own separate `prev`/`next` markup instances - grep
+    confirmed only the `#wellness-events` instance's `<path>` values
+    were touched, the logo carousel and WA-reviews carousel's own arrow
+    icons are untouched.
+  Verified with Playwright at 390px/1280px: screenshot confirms both
+  arrows now visually point outward; clicking left still advances to
+  the next photo and right still goes back (checked via the centered
+  tile's caption text before/after each click, not just visual icon
+  direction). No new horizontal overflow. PR #101, squash-merged to
+  `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 20, same day)
 - **What changed:** Swapped `business.html`'s why-us section photo
   (`<h2>חוויה שהם לא ישכחו</h2>`, the group-beach-ice-bath photo) for
@@ -1115,6 +1145,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 21) — Fixed the `#wellness-events` carousel's nav
+  arrow icons, which pointed inward instead of outward - swapped the
+  SVG chevron paths between the two buttons in this carousel's markup
+  only (click handlers/functionality unchanged, other carousels on the
+  site unaffected). PR #101, merged.
 - 2026-09-24 (round 20) — Swapped `business.html`'s why-us section
   photo (`ph-land-3.jpg`, not shared with any other page) for one
   Eldar attached in chat, center-cropped from a square source to the
