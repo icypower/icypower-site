@@ -39,6 +39,80 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 15, same day)
+- **What changed:** Round 13's infinite loop for the `#wellness-events`
+  carousel had a real UX flaw Eldar caught from a live screenshot: at
+  the boundary (e.g. reaching the last photo on the right), pressing
+  `next` again teleported instantly back to the first photo with **no
+  animation and no visible "next" content during the press** - it felt
+  like a dead end followed by a jump, not a loop. Eldar wanted the
+  opposite-end photo to already be peeking in as you approach the
+  boundary, then keep sliding continuously in the same direction
+  forever, never snapping backward.
+  - **Rebuilt the carousel's loop mechanism in `assets/main.js`** around
+    **cloned tiles** instead of round-13's index-wrap-and-snap: the 5
+    real tiles are cloned once before and once after themselves
+    (`aria-hidden`, purely decorative, inserted at setup) so the track
+    is actually 15 tiles wide (`cloneBefore(5) + real(5) + cloneAfter(5)`).
+    Now `next`/`prev` from the last/first real tile is just a **normal
+    one-step animated slide into a clone** - and since a clone is
+    visually identical to the real tile it stands in for, the "next"
+    photo genuinely peeks in and slides into place, exactly matching
+    what Eldar described.
+  - **The wrap itself is still an instant re-render (no snap-drag
+    across everything)** - but timed correctly this round: once resting
+    on a clone between clicks, the *next* navigation first does an
+    **imperceptible instant swap** (`transition:none`, forced reflow)
+    back to the equivalent real tile, which lands on the exact same
+    rendered pixels (a clone sits exactly one full 5-tile
+    "cycle-width" from its real counterpart, and cycle-width is
+    measured directly from tile geometry, not assumed) - **then**,
+    only after a full paint has committed that swap (double
+    `requestAnimationFrame`, not a single one - a single rAF wasn't
+    reliably enough separation and the animated move right after it
+    would sometimes inherit the disabled transition, silently killing
+    its own animation), the transition is re-enabled and the actual
+    requested move plays normally. **This two-step ordering is the
+    part that's easy to get subtly wrong** - doing the remap and the
+    next move in the same tick (even with one rAF) can make the move
+    itself render instantly instead of animating, which looks like the
+    same bug in a different spot. If this carousel (or a similar clone-
+    based infinite loop) is touched again, keep the double-rAF gap
+    between the snap and the next transform change.
+  - Same clone-and-swap technique powers **both mobile** (index-based
+    centering, `activeIndex` now ranges within `[realStart, realStart+
+    realCount)` between remaps) **and desktop** (offset-based windowed
+    scroll, same logic keyed on px `offset` and a measured `cycleWidth()`
+    instead of tile count).
+  - `maxOffset()`/`maxOffsetMobile()` (round-12's edge-clamping helpers)
+    are gone entirely - clamping is fundamentally incompatible with a
+    true loop, replaced by the clone-and-remap approach above.
+  Verified with a `MutationObserver` on `.we-track`'s `style` attribute
+  to directly observe the two-step sequence (instant snap, then a
+  separate animated move) rather than trusting sampled transform values
+  alone - confirmed the snap always lands on a position that's pixel-
+  identical in rendered content (same centered photo + same peeks) to
+  what was showing right before it. 15 consecutive `next` clicks (3
+  full loops) on mobile land back on the mathematically correct tile
+  (verified via the centered tile's own caption text, not a "closest to
+  center" guess). `prev` wrap verified the same way, both breakpoints.
+  No new horizontal overflow after heavy clicking. Buttons never
+  `disabled`. Visual screenshot confirms correct centering post-wrap.
+  `node -c` on `main.js`. PR #89, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If this carousel (or any
+  future clone-based infinite-loop carousel on this site) needs
+  touching again: (1) the clone-and-remap-with-double-rAF pattern here
+  is the reference implementation for a *sliding-track* infinite loop -
+  different from `.logo-stage`/`.wa-stage`'s coverflow loop (which
+  re-renders discrete positioned cards via modulo index, no clones
+  needed, since there's no continuous track to keep visually
+  continuous across a wrap); (2) a single `requestAnimationFrame`
+  between disabling and re-enabling the transition is **not** reliably
+  enough separation - use two, chained - or the move right after the
+  snap can silently render without animating.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 14, same day)
 - **What changed:** Copy-only update to `business.html`'s hero (companies/
   teams page), per Eldar's new wording. `<h1>` changed from "אירוע
@@ -933,6 +1007,15 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 15) — Rebuilt the `#wellness-events` carousel's
+  infinite loop around cloned tiles (5 real tiles cloned once before +
+  once after themselves) instead of round-13's index-wrap-and-snap -
+  fixes a real UX flaw where the wrap boundary teleported instantly
+  with no "next photo" animation. Now next/prev always animates a
+  normal slide, including into a clone at the boundary; once resting on
+  a clone, the next click does an imperceptible instant swap back to
+  the real tile (double-rAF timed) before its own move animates. Same
+  technique on mobile and desktop. PR #89, merged.
 - 2026-09-24 (round 14) — Rewrote `business.html`'s hero headline and
   lead paragraph (now 4 short paragraphs) with Eldar's new copy -
   stress-relief/team-connection/take-home-tools framing instead of
