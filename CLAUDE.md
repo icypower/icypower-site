@@ -39,6 +39,25 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 20, same day)
+- **What changed:** Swapped `business.html`'s why-us section photo
+  (`<h2>חוויה שהם לא ישכחו</h2>`, the group-beach-ice-bath photo) for
+  one Eldar attached directly in chat (a couple in an outdoor ice bath).
+  Grepped `assets/img/ph-land-3.jpg` first - only referenced on
+  `business.html`, not shared with any other page - so per this repo's
+  established convention, overwrote the file content in place, no HTML
+  change needed. The new source photo was square (1024×1024); center-
+  cropped with Python/Pillow to the existing file's 1000×563 landscape
+  aspect ratio - both people fully framed, no heads cut off (no ffmpeg
+  in this environment, same as earlier rounds).
+  Verified by re-reading the cropped file with the Read tool before
+  committing. Playwright screenshot of the media panel at 1280px/390px
+  confirms it renders correctly. No new horizontal overflow at either
+  width. PR #99, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 19, same day)
 - **What changed:** Follow-up on round 18's "חברות וצוותים" card photo -
   Eldar sent a screenshot showing the crop had too much palm-tree/
@@ -1096,6 +1115,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 20) — Swapped `business.html`'s why-us section
+  photo (`ph-land-3.jpg`, not shared with any other page) for one
+  Eldar attached in chat, center-cropped from a square source to the
+  existing landscape aspect ratio. PR #99, merged.
 - 2026-09-24 (round 19) — Re-cropped the "חברות וצוותים" card photo
   lower (from the original source, not the already-cropped file) per
   Eldar's feedback - less top background, more of the seated group.
