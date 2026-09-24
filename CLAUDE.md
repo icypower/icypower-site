@@ -39,6 +39,66 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 27, same day)
+- **What changed:** Two requests on the trust-strip logo carousel
+  ("כבר עבדנו עם"): center the Philips logo on load, and make its
+  arrows behave like the already-fixed wellness-events carousel
+  arrows.
+  - **Philips now centered on page load** - `assets/main.js`'s logo
+    carousel setup finds the card whose `<img alt="Philips">` and sets
+    `logoActive` to its index at init, instead of always starting at
+    index 0 (idf.webp). Robust to future logo reordering/additions -
+    doesn't hardcode an index.
+  - **Found and fixed a real, pre-existing bug while wiring up the
+    arrows**: the carousel's prev/next buttons were selected with an
+    **unscoped** `document.querySelector('.logo-nav.prev'/'.next')`.
+    The wellness-events carousel (earlier in the DOM, every page load)
+    reuses those exact same bare class names for its own unrelated
+    buttons - so this selector was silently grabbing wellness-events'
+    buttons instead of the trust-strip's own, every single time. Net
+    effect: **the real trust-strip prev/next buttons had no click
+    handler at all** (clicking them did nothing), while the unrelated
+    wellness-events buttons picked up an extra, stray `goLogo()`
+    listener stacked on top of their own correct handler. This bug
+    predates today's session (existed since round 8, when
+    wellness-events first reused the `.logo-nav` class) - the reorder
+    in round 24 didn't introduce it, just didn't happen to surface it
+    either. **Fixed by scoping both selectors to `.trust-strip`**
+    (`document.querySelector('.trust-strip .logo-nav.prev'/'.next')`),
+    matching the exact scoping pattern the wellness-events carousel's
+    own setup already uses (`.we-carousel .logo-nav.prev`/`.next`) for
+    the identical reason - **any time a new carousel reuses the shared
+    `.logo-nav` button class, its JS setup must scope the selector to
+    that carousel's own container, never query it bare.**
+  - **Swapped the two buttons' SVG chevron paths** so they point
+    outward (right-side button now points right, left-side now points
+    left) instead of inward - the same icon-direction fix already
+    applied to the wellness-events carousel in round 21. **Click-
+    binding direction needed no change** - once properly scoped,
+    `prevBtn->goLogo(-1)` (right button, reveals the right-peeking
+    previous logo) and `nextBtn->goLogo(1)` (left button, reveals the
+    left-peeking next logo) were already correct, unlike the
+    wellness-events case in round 22 which needed the bindings
+    themselves swapped too. Aria-labels ("הקודם"/"הבא") were already
+    accurate and left unchanged.
+  Verified with Playwright: Philips is centered on load; clicking the
+  right-side button reveals Vamos (index-1 from Philips, the
+  right-peeking logo); clicking the left-side button from a fresh load
+  reveals IDF (wrapping forward, the left-peeking logo); confirmed the
+  wellness-events carousel's own arrows still work correctly and
+  independently (no leftover double-binding from the old bug). PR
+  #113, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** This site has (at
+  least) two independent carousels sharing the bare `.logo-nav`
+  button class (wellness-events, trust-strip) - **any future carousel
+  JS that queries `.logo-nav.prev`/`.logo-nav.next` must scope the
+  selector to its own container**, never call
+  `document.querySelector('.logo-nav.prev')` bare, or it will silently
+  bind to whichever carousel's buttons happen to appear first in the
+  DOM instead of its own - exactly the bug this round fixed.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 26, same day)
 - **What changed:** Two small fixes to round 25's `business.html` video
   preview modal, per Eldar's screenshot feedback:
@@ -1420,6 +1480,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 27) — Trust-strip logo carousel now centers on
+  Philips on load; fixed a real pre-existing bug where its prev/next
+  buttons were selected with an unscoped query that silently grabbed
+  the wellness-events carousel's buttons instead (scoped to
+  .trust-strip, matching the pattern .we-carousel already used); also
+  swapped its arrow icons to point outward. PR #113, merged.
 - 2026-09-24 (round 26) — Fixed black letterbox bars around the
   business.html video modal (box was fixed-width, mismatched the
   portrait clip's own aspect - switched to width:auto sizing around
