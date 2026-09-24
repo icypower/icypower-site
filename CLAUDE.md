@@ -39,6 +39,31 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 18, same day)
+- **What changed:** Swapped the "חברות וצוותים" (companies/teams) card
+  photo on the homepage `#sessions` grid for one Eldar attached
+  directly in chat (outdoor group breathwork/meditation circle,
+  pergola/pool setting). `index.html`'s card already referenced
+  `assets/img/card-biz-2.jpg` - grepped it first and confirmed that
+  filename is **not** shared with anything else (`business.html`'s own
+  hero uses a different file, `card-biz.jpg`), so per this repo's
+  established convention, overwrote `card-biz-2.jpg`'s file content in
+  place instead of adding a new filename - no HTML change needed.
+  Cropped/resized with Python/Pillow to match the existing card photo's
+  800×643 aspect ratio (no ffmpeg in this environment, same as earlier
+  rounds).
+  Verified by re-reading the resized file with the Read tool before
+  committing (confirms the crop, since a byte-swap gives no other
+  structural signal it worked) - the full group circle is framed
+  correctly. Playwright screenshot of `#sessions` at 1280px/390px
+  confirms the card renders the new photo. Grep-confirmed
+  `business.html` (different file) is unaffected. No new horizontal
+  overflow (pre-existing ~1px mobile overflow, documented in earlier
+  rounds, unrelated). PR #95, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 17, same day)
 - **What changed:** Copy-only update to `index.html`'s `#wellness-events`
   section (the squiggle-divider section right below the hero). Headline
@@ -1042,6 +1067,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 18) — Swapped the "חברות וצוותים" homepage card
+  photo for one Eldar attached in chat, overwriting
+  `assets/img/card-biz-2.jpg` in place (not shared with any other page).
+  PR #95, merged.
 - 2026-09-24 (round 17) — Replaced the `#wellness-events` section's
   lead paragraph with new copy per Eldar's wording; headline unchanged.
   Copy-only. PR #93, merged.
