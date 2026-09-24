@@ -39,6 +39,54 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 22, same day)
+- **What changed:** Follow-up on round 21's arrow-icon fix - the icons
+  pointed outward correctly, but Eldar reported the *behavior* was
+  still backward: pressing the left arrow revealed the picture peeking
+  on the **right**, and the right arrow revealed the picture peeking on
+  the **left**. Root cause in `assets/main.js`'s wellness-events
+  carousel IIFE: `prevBtn` (renders on the right in this RTL section)
+  was bound to `goPrev()`, and `nextBtn` (renders on the left) to
+  `goNext()` - the click bindings never matched the buttons' actual
+  screen position, only round 21's icon direction did.
+  - **Fixed by swapping which function each button calls**:
+    `prevBtn.addEventListener('click', goNext)` and
+    `nextBtn.addEventListener('click', goPrev)` (previously the
+    reverse). Now the right-side button genuinely reveals the
+    right-peeking picture, left-side button the left-peeking one -
+    matches the arrow direction from round 21 for the first time.
+  - **Swapped the two buttons' `aria-label` text too** (`index.html`) -
+    `prevBtn`'s now says "הבא" (next), `nextBtn`'s now says "הקודם"
+    (previous), so screen readers describe the actual behavior, not
+    the stale CSS class name (`prev`/`next` class names themselves were
+    left alone - internal selectors only, not user-facing).
+  - **Swipe gestures needed no change** - `addSwipe(viewport, goNext,
+    goPrev)` already follows the universal "swipe left = advance
+    forward" convention, which is independent of button screen
+    position and was already correct.
+  - **The underlying `goNext`/`goPrev` functions and the round-15
+    clone-based infinite loop were not touched** - only which button
+    calls which function, so the loop/wrap behavior carried over
+    unchanged.
+  Verified with Playwright at 390px/1280px: clicking the right-side
+  button advances forward through the photo sequence (confirmed via
+  the centered tile's own caption text, not a "closest to center"
+  guess), left-side button goes backward - both directions correct on
+  both breakpoints. Re-verified the infinite loop still works after the
+  swap (15 clicks = 3 full loops lands back on the correct tile,
+  buttons never `disabled`). Confirmed the logo carousel's own separate
+  prev/next buttons are untouched. No new horizontal overflow. `node -c`
+  on `main.js`. PR #103, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If this carousel's
+  arrows are ever touched again, remember there are TWO separate
+  things that both need to agree for "left arrow reveals left picture"
+  to actually be true: (1) which way the SVG icon points (round 21),
+  and (2) which JS function the button's click listener actually calls
+  (round 22, this round) - fixing only one without the other produces
+  an arrow that looks right but does the wrong thing, or vice versa.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 21, same day)
 - **What changed:** Eldar circled both nav arrows on the
   `#wellness-events` carousel in a screenshot and pointed out they were
@@ -1145,6 +1193,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 22) — Fixed the actual behavior behind round 21's
+  arrow-icon fix: the right/left arrows were revealing the opposite
+  side's picture (click bindings never matched screen position, only
+  the icon did). Swapped `prevBtn`/`nextBtn`'s `goNext`/`goPrev`
+  bindings and their `aria-label` text to match; swipe was already
+  correct. Loop/wrap behavior re-verified unaffected. PR #103, merged.
 - 2026-09-24 (round 21) — Fixed the `#wellness-events` carousel's nav
   arrow icons, which pointed inward instead of outward - swapped the
   SVG chevron paths between the two buttons in this carousel's markup
