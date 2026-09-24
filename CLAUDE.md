@@ -39,6 +39,27 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 14, same day)
+- **What changed:** Copy-only update to `business.html`'s hero (companies/
+  teams page), per Eldar's new wording. `<h1>` changed from "אירוע
+  אמבטיות קרח לצוות שלכם" to "חוויה משותפת, שחרור סטרס, והקניית כלים
+  לצוותים ומנהלים" - moves the framing from "ice bath event" to
+  stress-relief/team-connection/take-home-tools. The single lead `<p>`
+  was replaced with **4 short paragraphs** (stress-relief opener → why
+  it matters today → the accumulating-pressure problem → "ובדיוק בשביל
+  זה אנחנו כאן"), matching the multi-paragraph copy Eldar supplied
+  directly. No CSS/layout change - `.page-hero p` styling already
+  applies to any paragraph in that container, so the extra `<p>` tags
+  just stack with normal spacing; verified visually this doesn't look
+  cramped. Nothing else on the page touched (feature-list bullets,
+  CTAs, hero photo, breadcrumb unchanged).
+  Verified with a visual screenshot at 390px and 1280px - copy reads
+  cleanly against the hero photo at both widths, no cramping. Confirmed
+  no new horizontal overflow. PR #87, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 13)
 - **What changed:** Two more requests on the `#wellness-events` carousel,
   both in `assets/main.js`'s wellness-events carousel IIFE:
@@ -912,6 +933,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 14) — Rewrote `business.html`'s hero headline and
+  lead paragraph (now 4 short paragraphs) with Eldar's new copy -
+  stress-relief/team-connection/take-home-tools framing instead of
+  "ice bath event." Copy-only, no layout/CSS change. PR #87, merged.
 - 2026-09-24 (round 13) — Wellness-events carousel now starts centered
   on the middle photo (closing-circle) on load instead of the first, and
   next/prev loop infinitely on both mobile and desktop instead of
