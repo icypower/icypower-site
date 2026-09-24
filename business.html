@@ -162,7 +162,7 @@
 <!-- SESSION PREVIEW VIDEO MODAL -->
 <div class="sp-video-modal" id="spVideoModal" role="dialog" aria-modal="true">
   <div class="sp-video-inner">
-    <video id="spVideoEl" src="assets/video/session-preview.mp4" controls playsinline preload="none"></video>
+    <video id="spVideoEl" src="assets/video/session-preview.mp4" playsinline preload="none" onclick="spToggleVideo()"></video>
   </div>
 </div>
 
@@ -179,6 +179,10 @@ function spCloseVideo(){
   v.pause();
   document.getElementById('spVideoModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+function spToggleVideo(){
+  var v = document.getElementById('spVideoEl');
+  if (v.paused) { v.play().catch(function(){}); } else { v.pause(); }
 }
 document.getElementById('spVideoModal').addEventListener('click', function(e){ if (e.target.id === 'spVideoModal') spCloseVideo(); });
 </script>
