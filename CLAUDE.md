@@ -39,6 +39,52 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 28, same day)
+- **What changed:** Swapped the wa-reviews testimonial screenshot for
+  a new one Eldar attached (a longer WhatsApp group thank-you
+  conversation) and made it render bigger than the other cards, per
+  his request.
+  - **`assets/img/wa-review-5.jpg` overwritten** with the new
+    screenshot (resized to 1000px wide, same file convention as the
+    other review images).
+  - **New `.wa-shot-card.wide` modifier** (`assets/styles.css`) -
+    420px desktop / 260px mobile, vs. the other cards' shared
+    300px/200px - applied only to this one card (`index.html`,
+    `class="wa-shot-card wide"`). Deliberately scoped to just this
+    card, not a change to the shared `.wa-shot-card` base width, since
+    Eldar asked to enlarge *this* screenshot specifically, not the
+    whole carousel.
+  - **Found and fixed a real bug while wiring this up**:
+    `assets/main.js`'s `renderWa()` was overwriting each card's
+    `className` wholesale on every render
+    (`card.className = 'wa-shot-card pos-' + offset`) - this would
+    have silently **stripped the new `.wide` class** the very first
+    time the carousel advanced past this card, since nothing preserved
+    it across re-renders. Fixed by checking `classList.contains('wide')`
+    before each render and re-appending it to the new className.
+    **If any other modifier class is ever added to a carousel card
+    driven by a similar `className = '... pos-' + offset` re-render
+    pattern on this site (logo carousel, wellness-events track), check
+    whether that render function preserves extra classes the same
+    way** - the logo/wellness carousels don't currently have any such
+    modifier classes, so they're not at risk today, but the pattern
+    itself doesn't protect against it automatically.
+  Verified with Playwright: the `.wide` class survives 5 consecutive
+  carousel `next` clicks (confirms the className-preservation fix
+  actually works, not just that it looks right once); the wide card's
+  rendered width is consistently larger than the standard cards at
+  every coverflow position (pos-0/±1/±2); screenshot confirms the new
+  screenshot displays correctly and visibly bigger when centered. PR
+  #115, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `.wa-shot-card.wide` is
+  now an established pattern for "this one testimonial should render
+  bigger than the rest" - reuse that class (don't invent a new one) if
+  another landscape/wide screenshot needs the same treatment later,
+  and remember `renderWa()` now preserves it automatically across
+  re-renders.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 27, same day)
 - **What changed:** Two requests on the trust-strip logo carousel
   ("כבר עבדנו עם"): center the Philips logo on load, and make its
@@ -1480,6 +1526,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 28) — Swapped the wa-reviews testimonial
+  screenshot for a new one and made it render bigger via a new
+  .wa-shot-card.wide modifier (scoped to just that card); fixed a real
+  bug in renderWa() that would have silently stripped that modifier
+  class on the carousel's first re-render. PR #115, merged.
 - 2026-09-24 (round 27) — Trust-strip logo carousel now centers on
   Philips on load; fixed a real pre-existing bug where its prev/next
   buttons were selected with an unscoped query that silently grabbed
