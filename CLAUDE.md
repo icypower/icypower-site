@@ -39,6 +39,25 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 17, same day)
+- **What changed:** Copy-only update to `index.html`'s `#wellness-events`
+  section (the squiggle-divider section right below the hero). Headline
+  ("אירועי וולנס מותאמים אישית לחברות ולקבוצות") is **unchanged** -
+  only the lead paragraph below it was replaced: was "לא עוד חבילה
+  קבועה מהמדף - אנחנו בונים איתכם אירוע וולנס שמתאים בול לקבוצה שלכם,
+  כדי שכל אחד ואחת ייצאו רגועים יותר, מחוברים יותר, וטעונים מחדש.",
+  now "כל קבוצה היא אחרת, וגם האירוע שמתאים לה. ב־Icy Power אנחנו
+  בונים יחד איתכם חוויה שמתאימה לאנשים שלכם, לאווירה שאתם מחפשים
+  ולמטרה של האירוע." per Eldar's new wording. No CSS/layout touched -
+  same `.section-head p` styling applies automatically.
+  Verified with a visual screenshot at 390px/1280px - renders cleanly
+  under the headline at both widths. No new horizontal overflow (the
+  small pre-existing ~1px mobile overflow documented in earlier rounds
+  is unrelated/unaffected). PR #93, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 16, same day)
 - **What changed:** Small copy trim on `business.html`'s hero, following
   up on round 14. Headline shortened from "חוויה משותפת, שחרור סטרס,
@@ -1023,6 +1042,9 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 17) — Replaced the `#wellness-events` section's
+  lead paragraph with new copy per Eldar's wording; headline unchanged.
+  Copy-only. PR #93, merged.
 - 2026-09-24 (round 16) — Trimmed `business.html`'s hero further:
   shortened headline (dropped "לצוותים ומנהלים"), removed the opening
   lead paragraph that echoed it. Copy-only. PR #91, merged.
