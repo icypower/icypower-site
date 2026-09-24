@@ -39,6 +39,44 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 29, same day)
+- **What changed:** Follow-up on the `business.html` session-preview
+  video modal - Eldar's screenshot showed the native browser video-
+  player chrome still visible inside the popup (a scrubber/progress
+  bar with time remaining, ±10s skip buttons, a volume icon, and
+  picture-in-picture/fullscreen icons top-left). He wants **none of
+  that** - just the video playing, with the **only** interaction being
+  tap-to-pause / tap-again-to-resume.
+  - **Removed the `controls` attribute** from `#spVideoEl`
+    (`business.html`) - this alone removes every native control shown
+    in the screenshot (Chrome's built-in `<video controls>` chrome).
+  - **Added `spToggleVideo()`**, wired to the video's `onclick` -
+    pauses if playing, plays if paused. This is now the video's only
+    interactive behavior.
+  - **Backdrop-click-to-close needed no change** - that existing
+    listener only fires when the click lands on the dark backdrop
+    element itself (`e.target.id === 'spVideoModal'`), never on the
+    video, so it stays completely independent of the new toggle-on-
+    click behavior added directly to the video.
+  Verified with Playwright: `#spVideoEl` no longer has the `controls`
+  attribute; directly exercised `spToggleVideo()`'s logic by
+  instrumenting `play`/`pause` (headless Chromium here has no H.264
+  decoder, so real playback state can't be observed - same limitation
+  noted in earlier rounds) - three consecutive toggles produced
+  `play → pause → play`, confirming the flip-state logic is correct.
+  Confirmed backdrop-click-to-close still works unaffected. PR #117,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `business.html`'s
+  session-preview video is now fully custom-interaction (no native
+  `<video controls>` chrome at all) - click the video itself to
+  toggle play/pause, click the backdrop to close. If a similar
+  no-native-controls video is ever wanted elsewhere on the site
+  (e.g. `booking.html`'s own `bk-`-prefixed video modal still has
+  `controls` and hasn't been touched this round), this `spToggleVideo`
+  pattern is the one to reuse.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 28, same day)
 - **What changed:** Swapped the wa-reviews testimonial screenshot for
   a new one Eldar attached (a longer WhatsApp group thank-you
@@ -1526,6 +1564,11 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 29) — Removed the native <video controls> chrome
+  from business.html's session-preview modal (scrubber, skip, volume,
+  PiP/fullscreen icons) and replaced it with a single click-to-toggle
+  play/pause handler on the video itself; backdrop-click-to-close
+  stays independent and unaffected. PR #117, merged.
 - 2026-09-24 (round 28) — Swapped the wa-reviews testimonial
   screenshot for a new one and made it render bigger via a new
   .wa-shot-card.wide modifier (scoped to just that card); fixed a real
