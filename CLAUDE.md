@@ -39,6 +39,77 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 24, same day)
+- **What changed:** Three homepage-polish requests plus one business-page
+  addition, all in one round:
+  1. **Reordered two homepage sections in `index.html`.** The trust-strip
+     logo carousel ("כבר עבדנו עם") now sits right after the sessions
+     grid ("מה מעניין אתכם?"), and the WhatsApp-reviews carousel
+     ("הודעות מלקוחות שלנו") sits right after that - both used to be
+     much further down the page (trust-strip was second-to-last, right
+     before the CTA band; wa-reviews was right after the gallery strip).
+     New order: hero → wellness-events → sessions → **trust-strip** →
+     **wa-reviews** → gallery strip ("ככה זה נראה") → faq → about-us →
+     cta-section. Pure markup cut/paste, no CSS changes - confirmed both
+     carousels' JS (`main.js` ~line 305/340) reads `.logo-card`/
+     `.wa-shot-card` counts from the DOM at runtime, doesn't care where
+     in the page their parent section sits.
+  2. **Added a Philips logo** to the trust-strip carousel (`#logoStage`,
+     now 8 cards). Eldar's attached PNG had a **solid black background
+     baked in** (not transparent - confirmed via pixel sampling, no
+     alpha channel) - existing logo files in `assets/img/logos/` are
+     all flat images with their own white/plain background baked in
+     too (not relying on `.logo-card`'s `background:#fff` through
+     transparency), so matched that exact convention: used Pillow to
+     replace near-black pixels (threshold ~20/255) with white, saved as
+     `assets/img/logos/philips.png`. **If another logo with a colored/
+     dark background is ever added, check its transparency first** -
+     this repo's convention is a baked-in white background in the file
+     itself, not a transparent PNG relying on the card's CSS background.
+  3. **Added a new testimonial screenshot** to the wa-reviews carousel
+     (`#waStage`, now 5 cards) - `assets/img/wa-review-5.jpg`, resized
+     to 900px wide from Eldar's attached WhatsApp group screenshot.
+     Unlike the 4 existing portrait screenshots, this one is landscape
+     (1216×864 source) - `.wa-shot-card` has no fixed aspect ratio
+     (fixed `width:300px`, `height:auto`), so it just renders shorter
+     within the same card width, no CSS change needed.
+  4. **Embedded `assets/video/session-preview.mp4` directly on
+     `business.html`**, in a new `<section>` between the existing
+     "חוויה שהם לא ישכחו" text+photo block and the "נשמור לכם תאריך?"
+     CTA band. This video file already existed in the repo but was
+     previously used only inside `booking.html`'s click-to-open preview
+     modal (`#bkVideoModal`) - this is the **first place on the site
+     it plays inline, always-visible, not behind a click**. Has
+     `controls` and **no `autoplay`** - deliberately different from
+     every other video on this site (the hero's background clips),
+     since this one carries **real audio** (it's a portrait
+     810×1440 h264/aac clip) and autoplaying sound on page load would
+     be a bad experience. New scoped CSS class `.session-video`
+     (styles.css, right after `.split .media`) caps it at 360px wide
+     since it's portrait - reuses `.media`'s border/radius look for
+     visual consistency without touching that shared class.
+  Verified with Playwright at 1280px: homepage section order matches
+  the target sequence exactly (checked via `body > section` DOM order);
+  `#logoStage`/`#waStage` child counts are 8/5 as expected; clicked
+  through the wa-reviews carousel 5 times with no errors; screenshot
+  confirms the Philips logo renders on a clean white background
+  matching the other cards. `business.html`'s new video section is the
+  3rd top-level `<section>` (right after the split text+photo block,
+  right before the CTA band), resolves the correct `src`, `controls`
+  true, `autoplay` false. No new horizontal overflow at 1280px. PR
+  #107, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** `.logo-card`/
+  `.wa-shot-card` counts are read dynamically by `main.js` - adding or
+  removing a card from either carousel (like this round did twice)
+  never needs a JS change, just markup. If `assets/video/
+  session-preview.mp4` needs replacing later, it's now referenced in
+  **two places**: `booking.html`'s click-to-open modal AND
+  `business.html`'s new always-visible embed - keep both in sync if
+  the video content changes, or split them onto separate files if they
+  should ever diverge.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 23, same day)
 - **What changed:** Eldar uploaded a new file directly to `main` -
   `assets/video/Updated new hero vid (short).MOV` (2160x3840 portrait
@@ -1254,6 +1325,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 24) — Moved the trust-strip logo carousel and
+  wa-reviews carousel to sit right after the sessions grid instead of
+  much further down the page; added a Philips logo (background
+  converted from black to white) and a new testimonial screenshot;
+  embedded session-preview.mp4 directly (controls, no autoplay) on
+  business.html's "חוויה שהם לא ישכחו" section. PR #107, merged.
 - 2026-09-24 (round 23) — Hero background video now branches by screen
   size: mobile loads and loops Eldar's newly-uploaded short clip
   (compressed 40MB→6.2MB with ffmpeg), desktop keeps its original
