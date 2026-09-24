@@ -358,7 +358,10 @@
 
     var mq = window.matchMedia('(max-width:680px)');
     var offset = 0;
-    var activeIndex = 0;
+    /* starts on the middle tile (closing-circle, "ביחד כקבוצה") so the
+       mobile view already shows a peek on both sides on page load,
+       instead of only the right-side peek a start of 0 would give. */
+    var activeIndex = 2;
 
     function maxOffset() {
       return Math.max(0, track.scrollWidth - viewport.clientWidth);
@@ -413,32 +416,78 @@
       track.querySelectorAll('.gtile').forEach(function (t) { t.style.flexBasis = ''; });
     }
 
+    /* Instantly jumps the track to a given px offset with no animation
+       (disables the CSS transition for one frame, forces a reflow, then
+       restores it) - used only when a next/prev press wraps around from
+       the last position back to the first (or vice versa), so the track
+       snaps straight to the far end instead of visibly sliding backward
+       across every tile in between. */
+    function snapTo(px) {
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + (-px) + 'px)';
+      track.offsetHeight; // force reflow
+      requestAnimationFrame(function () {
+        track.style.transition = '';
+      });
+    }
+
     function apply() {
       var tiles = track.querySelectorAll('.gtile');
       if (mq.matches) {
         layoutMobile();
-        activeIndex = Math.max(0, Math.min(activeIndex, tiles.length - 1));
         var tile = tiles[activeIndex];
         var centeredOffset = tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2;
         centeredOffset = Math.max(0, Math.min(centeredOffset, maxOffsetMobile()));
         track.style.transform = 'translateX(' + (-centeredOffset) + 'px)';
-        prevBtn.disabled = activeIndex <= 0;
-        nextBtn.disabled = activeIndex >= tiles.length - 1;
       } else {
         clearMobileLayout();
-        offset = Math.max(0, Math.min(offset, maxOffset()));
         track.style.transform = 'translateX(' + (-offset) + 'px)';
-        prevBtn.disabled = offset <= 0;
-        nextBtn.disabled = offset >= maxOffset() - 1;
       }
     }
 
     function goNext() {
-      if (mq.matches) { activeIndex++; } else { offset += stepSize(); }
+      var tiles = track.querySelectorAll('.gtile');
+      if (mq.matches) {
+        if (activeIndex >= tiles.length - 1) {
+          activeIndex = 0;
+          layoutMobile();
+          var tile = tiles[0];
+          var centeredOffset = Math.max(0, Math.min(tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2, maxOffsetMobile()));
+          snapTo(centeredOffset);
+          return;
+        }
+        activeIndex++;
+      } else {
+        var max = maxOffset();
+        if (offset >= max - 1) {
+          offset = 0;
+          snapTo(0);
+          return;
+        }
+        offset = Math.min(offset + stepSize(), max);
+      }
       apply();
     }
     function goPrev() {
-      if (mq.matches) { activeIndex--; } else { offset -= stepSize(); }
+      var tiles = track.querySelectorAll('.gtile');
+      if (mq.matches) {
+        if (activeIndex <= 0) {
+          activeIndex = tiles.length - 1;
+          layoutMobile();
+          var lastMax = maxOffsetMobile();
+          snapTo(lastMax);
+          return;
+        }
+        activeIndex--;
+      } else {
+        if (offset <= 0) {
+          var max2 = maxOffset();
+          offset = max2;
+          snapTo(max2);
+          return;
+        }
+        offset = Math.max(offset - stepSize(), 0);
+      }
       apply();
     }
 
