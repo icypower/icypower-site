@@ -359,6 +359,10 @@ img{max-width:100%;display:block}
   cursor:pointer;
 }
 .wa-shot-card img{width:100%;height:auto;display:block}
+/* landscape testimonials (a wide group-chat screenshot, not the usual
+   tall single-message one) render small at the shared 300px card width
+   since their height scales down with it - widen just this variant */
+.wa-shot-card.wide{width:420px}
 /* pos-0: front card fully visible */
 .wa-shot-card.pos-0{transform:translateX(0) scale(1);z-index:5;opacity:1;pointer-events:none}
 /* pos-1/-1: side cards shifted just enough to peek ~35% from behind the center card */
@@ -379,6 +383,7 @@ img{max-width:100%;display:block}
 @media(max-width:680px){
   .wa-stage{width:min(300px,88vw);height:320px}
   .wa-shot-card{width:200px}
+  .wa-shot-card.wide{width:260px}
   .wa-shot-card.pos-1{transform:translateX(-72px) scale(.76)}
   .wa-shot-card.pos--1{transform:translateX(72px) scale(.76)}
   .wa-shot-card.pos-2{transform:translateX(-140px) scale(.54)}
