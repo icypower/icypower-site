@@ -39,6 +39,35 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 19, same day)
+- **What changed:** Follow-up on round 18's "חברות וצוותים" card photo -
+  Eldar sent a screenshot showing the crop had too much palm-tree/
+  pergola background at the top and not enough of the seated group.
+  Re-ran the crop **from the original uploaded source image** (not the
+  already-cropped `card-biz-2.jpg`, to avoid double-crop quality loss -
+  same approach as the original swap) with the crop window shifted much
+  further down (top-bias increased from removing ~1/3 of the excess
+  height off the top to ~72%), so the visible window now sits mostly
+  toward the bottom of the source photo - cuts the pergola roof/palm
+  trees almost entirely, keeps the full seated group prominent with no
+  heads cut off. Same 800×643 aspect ratio, `assets/img/card-biz-2.jpg`
+  overwritten in place again - no HTML changes.
+  Verified by re-reading the newly cropped file with the Read tool
+  before committing (confirms the framing directly). Playwright
+  screenshot of `#sessions` at 1280px/390px confirms the card renders
+  correctly in context - the group now fills most of the frame. No new
+  horizontal overflow (pre-existing ~1px mobile overflow, documented in
+  earlier rounds, unrelated). PR #97, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If this same photo needs
+  re-cropping again, always re-crop from the original source file
+  (`/root/.claude/uploads/.../b04f65d7-image.jpg` in this session's
+  scratchpad - not preserved across sessions, so if a future session
+  needs it, ask Eldar to re-attach) rather than the already-cropped
+  `card-biz-2.jpg`, to avoid compounding quality loss from a crop-of-a-
+  crop.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 18, same day)
 - **What changed:** Swapped the "חברות וצוותים" (companies/teams) card
   photo on the homepage `#sessions` grid for one Eldar attached
@@ -1067,6 +1096,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 19) — Re-cropped the "חברות וצוותים" card photo
+  lower (from the original source, not the already-cropped file) per
+  Eldar's feedback - less top background, more of the seated group.
+  PR #97, merged.
 - 2026-09-24 (round 18) — Swapped the "חברות וצוותים" homepage card
   photo for one Eldar attached in chat, overwriting
   `assets/img/card-biz-2.jpg` in place (not shared with any other page).
