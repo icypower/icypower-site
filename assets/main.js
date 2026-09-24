@@ -348,7 +348,20 @@
        - mobile (≤680px): one tile centered per view, with an equal peek
          of the previous/next tile on both sides - arrows/swipe move one
          tile (activeIndex) at a time and the offset is recomputed to
-         keep that tile centered in the viewport. ---- */
+         keep that tile centered in the viewport.
+
+     True infinite loop, both modes: the 5 real tiles are cloned once
+     before and once after themselves (aria-hidden, purely decorative),
+     so pressing next past the last real tile animates a normal slide
+     into a clone that looks identical to the first tile - the upcoming
+     photo's peek is genuinely visible mid-slide, never a blind jump.
+     Once resting on a clone between clicks, the very next next/prev
+     first performs an imperceptible instant (transition-disabled) swap
+     back to the equivalent real tile before animating the requested
+     move - imperceptible because a clone sits exactly one full
+     cycle-width away from its real counterpart, so the swap changes
+     which (identical-looking) tile is centered without changing a
+     single visible pixel. ---- */
   (function () {
     var viewport = document.querySelector('.we-viewport');
     var track = document.querySelector('.we-track');
@@ -357,32 +370,51 @@
     if (!viewport || !track || !prevBtn || !nextBtn) return;
 
     var mq = window.matchMedia('(max-width:680px)');
+
+    var realTiles = Array.prototype.slice.call(track.querySelectorAll('.gtile'));
+    var realCount = realTiles.length;
+    if (!realCount) return;
+    var cloneBefore = realTiles.map(function (t) {
+      var clone = t.cloneNode(true);
+      clone.classList.add('gtile-clone');
+      clone.setAttribute('aria-hidden', 'true');
+      return clone;
+    });
+    var cloneAfter = realTiles.map(function (t) {
+      var clone = t.cloneNode(true);
+      clone.classList.add('gtile-clone');
+      clone.setAttribute('aria-hidden', 'true');
+      return clone;
+    });
+    cloneBefore.forEach(function (c) { track.insertBefore(c, realTiles[0]); });
+    cloneAfter.forEach(function (c) { track.appendChild(c); });
+    var realStart = realCount; // cloneBefore occupies indices [0, realCount)
+
     var offset = 0;
+    var offsetInitialized = false;
     /* starts on the middle tile (closing-circle, "ביחד כקבוצה") so the
        mobile view already shows a peek on both sides on page load,
        instead of only the right-side peek a start of 0 would give. */
-    var activeIndex = 2;
+    var activeIndex = realStart + 2;
 
-    function maxOffset() {
-      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    function allTiles() {
+      return track.querySelectorAll('.gtile');
     }
 
-    /* track.scrollWidth (used by maxOffset above, fine for desktop) is
-       unreliable for the mobile centering math: track isn't itself a
-       scroll container (overflow:visible - .we-viewport is the one with
-       overflow:hidden), and in that case browsers don't reliably include
-       the trailing/end padding in scrollWidth once content already
-       overflows past it. That under-counted the last tile's max scroll
-       position by about one peek-width, clamping it flush against the
-       right edge instead of centered. Computing the max directly from
-       the last tile's own geometry (same formula as the normal centering
-       math, just for the last tile) sidesteps scrollWidth entirely. */
-    function maxOffsetMobile() {
-      var tiles = track.querySelectorAll('.gtile');
-      if (!tiles.length) return 0;
-      var last = tiles[tiles.length - 1];
-      var centered = last.offsetLeft + last.offsetWidth / 2 - viewport.clientWidth / 2;
-      return Math.max(0, centered);
+    function realStartOffset() {
+      var tiles = allTiles();
+      return tiles[realStart] ? tiles[realStart].offsetLeft : 0;
+    }
+
+    /* Width of one full 5-tile cycle, measured as the distance between
+       the first real tile and its clone one cycle later - used both to
+       know when a move has wandered into clone territory and to swap
+       back by exactly that distance (see the module comment above). */
+    function cycleWidth() {
+      var tiles = allTiles();
+      var a = tiles[realStart];
+      var b = tiles[realStart + realCount];
+      return a && b ? b.offsetLeft - a.offsetLeft : 0;
     }
 
     function stepSize() {
@@ -394,13 +426,13 @@
 
     /* On mobile, tile width and track padding are set here as exact px
        (not left to CSS percentages) so the peek is provably symmetric
-       on every slide including the first/last - a track padding-inline
-       percentage and a tile flex-basis percentage would otherwise
-       compound against each other (the tile's % resolves against the
-       track's own content box, which the padding itself shrinks),
-       which is what made the first/last-slide peeks come out uneven. */
+       on every slide - a track padding-inline percentage and a tile
+       flex-basis percentage would otherwise compound against each
+       other (the tile's % resolves against the track's own content
+       box, which the padding itself shrinks). Applies to every tile,
+       clones included, so all 15 stay uniformly sized. */
     function layoutMobile() {
-      var tiles = track.querySelectorAll('.gtile');
+      var tiles = allTiles();
       if (!tiles.length) return;
       var vw = viewport.clientWidth;
       var peek = vw * 0.14;
@@ -413,31 +445,16 @@
     function clearMobileLayout() {
       track.style.paddingLeft = '';
       track.style.paddingRight = '';
-      track.querySelectorAll('.gtile').forEach(function (t) { t.style.flexBasis = ''; });
+      allTiles().forEach(function (t) { t.style.flexBasis = ''; });
     }
 
-    /* Instantly jumps the track to a given px offset with no animation
-       (disables the CSS transition for one frame, forces a reflow, then
-       restores it) - used only when a next/prev press wraps around from
-       the last position back to the first (or vice versa), so the track
-       snaps straight to the far end instead of visibly sliding backward
-       across every tile in between. */
-    function snapTo(px) {
-      track.style.transition = 'none';
-      track.style.transform = 'translateX(' + (-px) + 'px)';
-      track.offsetHeight; // force reflow
-      requestAnimationFrame(function () {
-        track.style.transition = '';
-      });
-    }
-
-    function apply() {
-      var tiles = track.querySelectorAll('.gtile');
+    function render() {
+      var tiles = allTiles();
       if (mq.matches) {
         layoutMobile();
         var tile = tiles[activeIndex];
+        if (!tile) return;
         var centeredOffset = tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2;
-        centeredOffset = Math.max(0, Math.min(centeredOffset, maxOffsetMobile()));
         track.style.transform = 'translateX(' + (-centeredOffset) + 'px)';
       } else {
         clearMobileLayout();
@@ -445,50 +462,72 @@
       }
     }
 
-    function goNext() {
-      var tiles = track.querySelectorAll('.gtile');
+    /* Keeps activeIndex/offset within one cycle of the real tiles,
+       snapping back invisibly (snapRender) when a previous move left
+       the carousel resting on a clone. Calls `move` once the position
+       is safe: immediately if no snap was needed (this move animates
+       normally), or after the snap has had a full paint to land with
+       no transition (two rAFs - the reliable way to guarantee a style
+       change is committed before re-enabling the transition) so the
+       move that follows still animates instead of inheriting the
+       snap's disabled transition. */
+    function ensureInBoundsThen(move) {
+      var snapped = false;
       if (mq.matches) {
-        if (activeIndex >= tiles.length - 1) {
-          activeIndex = 0;
-          layoutMobile();
-          var tile = tiles[0];
-          var centeredOffset = Math.max(0, Math.min(tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2, maxOffsetMobile()));
-          snapTo(centeredOffset);
-          return;
+        if (activeIndex >= realStart + realCount) {
+          activeIndex -= realCount;
+          snapped = true;
+        } else if (activeIndex < realStart) {
+          activeIndex += realCount;
+          snapped = true;
         }
-        activeIndex++;
       } else {
-        var max = maxOffset();
-        if (offset >= max - 1) {
-          offset = 0;
-          snapTo(0);
-          return;
+        var base = realStartOffset();
+        var cw = cycleWidth();
+        if (cw) {
+          if (offset >= base + cw) {
+            offset -= cw;
+            snapped = true;
+          } else if (offset < base) {
+            offset += cw;
+            snapped = true;
+          }
         }
-        offset = Math.min(offset + stepSize(), max);
       }
-      apply();
+      if (!snapped) {
+        move();
+        return;
+      }
+      track.style.transition = 'none';
+      render();
+      track.offsetHeight; // force reflow
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          track.style.transition = '';
+          move();
+        });
+      });
+    }
+
+    function apply() {
+      if (!mq.matches && !offsetInitialized) {
+        offset = realStartOffset();
+        offsetInitialized = true;
+      }
+      render();
+    }
+
+    function goNext() {
+      ensureInBoundsThen(function () {
+        if (mq.matches) { activeIndex++; } else { offset += stepSize(); }
+        render();
+      });
     }
     function goPrev() {
-      var tiles = track.querySelectorAll('.gtile');
-      if (mq.matches) {
-        if (activeIndex <= 0) {
-          activeIndex = tiles.length - 1;
-          layoutMobile();
-          var lastMax = maxOffsetMobile();
-          snapTo(lastMax);
-          return;
-        }
-        activeIndex--;
-      } else {
-        if (offset <= 0) {
-          var max2 = maxOffset();
-          offset = max2;
-          snapTo(max2);
-          return;
-        }
-        offset = Math.max(offset - stepSize(), 0);
-      }
-      apply();
+      ensureInBoundsThen(function () {
+        if (mq.matches) { activeIndex--; } else { offset -= stepSize(); }
+        render();
+      });
     }
 
     prevBtn.addEventListener('click', goPrev);
