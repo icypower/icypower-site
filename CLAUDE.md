@@ -39,6 +39,20 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 30, same day)
+- **What changed:** Removed the ghost "לפרטים נוספים" button Eldar
+  circled in a screenshot, from `business.html`'s hero `.hero-actions`
+  row - only the WhatsApp CTA ("לתיאום סדנה לצוות") remains. One-line
+  removal, no CSS/layout change needed (the row already handles a
+  single button fine).
+  Verified with Playwright at 390px: `.hero-actions` now has exactly
+  one `<a>`, no new horizontal overflow, screenshot confirms a clean
+  layout with no leftover gap where the button used to be. PR #119,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 29, same day)
 - **What changed:** Follow-up on the `business.html` session-preview
   video modal - Eldar's screenshot showed the native browser video-
@@ -1564,6 +1578,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 30) — Removed the "לפרטים נוספים" ghost button from
+  business.html's hero - only the WhatsApp CTA remains. PR #119, merged.
 - 2026-09-24 (round 29) — Removed the native <video controls> chrome
   from business.html's session-preview modal (scrubber, skip, volume,
   PiP/fullscreen icons) and replaced it with a single click-to-toggle
