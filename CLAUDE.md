@@ -39,6 +39,22 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 16, same day)
+- **What changed:** Small copy trim on `business.html`'s hero, following
+  up on round 14. Headline shortened from "חוויה משותפת, שחרור סטרס,
+  והקניית כלים לצוותים ומנהלים" to "חוויה משותפת, שחרור סטרס, והקניית
+  כלים" (dropped the trailing "לצוותים ומנהלים"). Removed the opening
+  lead paragraph entirely ("מורידים את הסטרס. מתחברים כצוות. יוצאים עם
+  כלים ליום־יום.") since it echoed the headline - the hero now starts
+  straight into "אנחנו יודעים שסביבת העבודה..." (the 3 remaining
+  paragraphs from round 14 are unchanged). Copy-only, no CSS/layout.
+  Verified with a visual screenshot at 390px/1280px - no leftover gap
+  or spacing issue where the removed paragraph was. No new horizontal
+  overflow. PR #91, squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** Nothing else pending.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 15, same day)
 - **What changed:** Round 13's infinite loop for the `#wellness-events`
   carousel had a real UX flaw Eldar caught from a live screenshot: at
@@ -1007,6 +1023,9 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 16) — Trimmed `business.html`'s hero further:
+  shortened headline (dropped "לצוותים ומנהלים"), removed the opening
+  lead paragraph that echoed it. Copy-only. PR #91, merged.
 - 2026-09-24 (round 15) — Rebuilt the `#wellness-events` carousel's
   infinite loop around cloned tiles (5 real tiles cloned once before +
   once after themselves) instead of round-13's index-wrap-and-snap -
