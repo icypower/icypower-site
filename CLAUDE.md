@@ -39,6 +39,43 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 26, same day)
+- **What changed:** Two small fixes to round 25's `business.html` video
+  preview modal, per Eldar's screenshot feedback:
+  1. **Black letterbox bars on both sides of the video (desktop and
+     mobile).** Root cause: `.sp-video-inner` had a fixed
+     `max-width:420px` and the `<video>` had `width:100%` - whenever
+     that box's aspect ratio didn't match the portrait clip's own
+     (810×1440), the video letterboxed inside the mismatched box with
+     its own default black background showing through the gap. Fixed
+     by switching to `width:auto;height:auto` on the video itself with
+     `max-width:92vw;max-height:80vh` doing the actual clamping - the
+     box (`.sp-video-inner`, also `width:auto`) now hugs the video's
+     real rendered size exactly, so there's no mismatched space left
+     for black bars to fill. Added a thin `2px solid #fff` border
+     directly on the video for the "white boundary line, not too
+     thick" look Eldar asked for (replacing the border that used to
+     sit on the outer box).
+  2. **Removed the × close button** (`.sp-video-close`, both the
+     button element and its CSS rule) - closing via a click on the
+     dark backdrop outside the video was already implemented and
+     untouched, that's the only close affordance now.
+  Verified with Playwright at 1280px/390px: the close button no longer
+  exists in the DOM; the video element's bounding box exactly matches
+  `.sp-video-inner`'s (confirms no leftover letterbox padding).
+  Screenshot confirms a clean thin white border around the video with
+  the × gone. Backdrop-click-to-close re-verified working. PR #111,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If a modal video's box
+  is ever sized with a fixed `max-width`/`width:100%` combo like this
+  again, remember that mismatches between the box's aspect and the
+  video's own intrinsic aspect show as the video's own default black
+  background filling the gap - size the box around the video (`width:
+  auto` + `max-width`/`max-height` on the `<video>` itself) instead of
+  the other way around, unless a deliberate letterbox look is wanted.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 25, same day)
 - **What changed:** Follow-up on round 24's `business.html` video embed -
   Eldar liked the placement but not the presentation: the raw portrait
@@ -1383,6 +1420,12 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 26) — Fixed black letterbox bars around the
+  business.html video modal (box was fixed-width, mismatched the
+  portrait clip's own aspect - switched to width:auto sizing around
+  the video, added a thin white border) and removed the × close
+  button (backdrop-click-to-close was already the working affordance).
+  PR #111, merged.
 - 2026-09-24 (round 25) — Replaced business.html's always-visible
   portrait video embed with a clickable horizontal poster (cropped
   16:9) + play button that pops the video up in a modal, closing on
