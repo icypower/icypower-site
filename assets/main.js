@@ -530,8 +530,14 @@
       });
     }
 
-    prevBtn.addEventListener('click', goPrev);
-    nextBtn.addEventListener('click', goNext);
+    /* prevBtn renders on the right (RTL) and nextBtn on the left - bound
+       to goNext/goPrev respectively (not goPrev/goNext) so each button
+       actually reveals the picture peeking on the side it's positioned
+       on and points toward, instead of the opposite side. Swipe stays
+       as-is: swiping left already means "advance forward" regardless of
+       button position, which already matches this. */
+    prevBtn.addEventListener('click', goNext);
+    nextBtn.addEventListener('click', goPrev);
     addSwipe(viewport, goNext, goPrev);
     window.addEventListener('resize', apply);
     apply();
