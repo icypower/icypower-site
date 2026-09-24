@@ -39,6 +39,67 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-24 (round 23, same day)
+- **What changed:** Eldar uploaded a new file directly to `main` -
+  `assets/video/Updated new hero vid (short).MOV` (2160x3840 portrait
+  HEVC, 50fps, 17.7s, ~40MB) - and asked for it to become the hero
+  section's background video **only on mobile view**, with desktop
+  left completely unchanged.
+  - **Compressed with ffmpeg** (installed fresh this session - wasn't
+    present, same one-time-setup situation as earlier sessions that
+    needed it) to 900px wide, 30fps, H.264, CRF 26, audio stripped,
+    `+faststart` - 40MB → 6.2MB, well under Cloudflare Pages' 25MB/file
+    limit (that limit bit an earlier round of this project once before,
+    see the 2026-08-02 hero-video History entries - checked proactively
+    this time instead of finding out from a failed deploy). Saved as
+    `assets/video/hero-mobile-1.mp4`; the raw `.MOV` was removed from
+    the repo (it was just staging input, never meant to ship as-is).
+  - **`assets/main.js`'s hero-video block (~line 159) now branches on
+    `matchMedia('(max-width:680px)')`** - the same mobile breakpoint
+    the wellness-events carousel already uses elsewhere in this file,
+    reused here for consistency rather than inventing a new one.
+    **Mobile**: loads `hero-mobile-1.mp4` into `#heroVideoA` only, sets
+    native `loop=true`, and skips the `ended`-driven crossfade
+    machinery entirely (pointless for a single clip) - `#heroVideoB`
+    stays unused/hidden, harmless. The existing visibility-resume
+    (tab/app backgrounding) and first-interaction Low-Power-Mode-kick
+    behaviors were duplicated into this mobile branch too (renamed
+    `heroMobileResume`/`heroMobileKick*` to avoid colliding with the
+    desktop path's identically-purposed functions), since those
+    concerns apply regardless of clip count. **Desktop**: the original
+    9-clip `heroClips` array and `heroSwitch`/`heroQueueNext` crossfade
+    cycle is completely untouched, same code path, same variable names,
+    inside an `else` branch of the same top-level `if`.
+  - **No `index.html`/`assets/styles.css` changes** - the existing
+    `.hero-video-frame`/`#heroVideoA`/`#heroVideoB` markup and full-bleed
+    styling already work unmodified for either a single looping clip or
+    the multi-clip crossfade; only which clip(s) load and how they cycle
+    changes, purely in `main.js`.
+  Verified with Playwright: at 390px, `#heroVideoA`'s resolved `src` is
+  `hero-mobile-1.mp4` with `loop:true`, `#heroVideoB` never gets a `src`
+  at all. At 1280px, `#heroVideoA`/`#heroVideoB` still load the
+  original first two clips from the unchanged 9-clip array - confirms
+  desktop's code path is byte-for-byte the same as before this change.
+  `node -c` on `main.js`. (Headless Chromium in this sandbox has no
+  H.264 decoder, so actual playback couldn't be watched - the same
+  "no supported sources" console warning appeared identically on both
+  viewports, confirming it's a pre-existing environment limitation, not
+  something this change introduced - verified correctness via `src`/
+  `loop` state instead, same fallback approach used earlier this
+  session when the Browser preview tool was unavailable.) PR #105,
+  squash-merged to `main`.
+- **Next goal:** Nothing pending from this specific change.
+- **Anything the next session needs to know:** If this clip ever needs
+  swapping again, `hero-mobile-1.mp4` is the filename to overwrite (or
+  add a `hero-mobile-2.mp4` etc. and update the one-item array in
+  `main.js` if Eldar wants more than one mobile clip in rotation later -
+  today it's deliberately just one, looped). The mobile/desktop split
+  lives entirely in that one `matchMedia('(max-width:680px)')` check at
+  the top of the hero-video block - don't thread a condition through
+  every helper function, keep the two paths as separate, independently-
+  readable branches like this round did.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 22, same day)
 - **What changed:** Follow-up on round 21's arrow-icon fix - the icons
   pointed outward correctly, but Eldar reported the *behavior* was
@@ -1193,6 +1254,10 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-24 (round 23) — Hero background video now branches by screen
+  size: mobile loads and loops Eldar's newly-uploaded short clip
+  (compressed 40MB→6.2MB with ffmpeg), desktop keeps its original
+  9-clip crossfade sequence completely unchanged. PR #105, merged.
 - 2026-09-24 (round 22) — Fixed the actual behavior behind round 21's
   arrow-icon fix: the right/left arrows were revealing the opposite
   side's picture (click bindings never matched screen position, only
