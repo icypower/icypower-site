@@ -355,7 +355,10 @@
         var offset = i - waActive;
         if (offset > waCount / 2) offset -= waCount;
         if (offset < -waCount / 2) offset += waCount;
-        card.className = 'wa-shot-card pos-' + offset;
+        // preserve any size modifier (e.g. "wide") instead of overwriting
+        // the whole className, which would silently strip it every render
+        var wide = card.classList.contains('wide');
+        card.className = 'wa-shot-card pos-' + offset + (wide ? ' wide' : '');
       });
     }
     function goWa(delta) {
