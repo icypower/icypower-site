@@ -39,6 +39,49 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-29
+- **What changed:** New **private client proposal page** for "קבוצת בגירים",
+  built at Eldar's request (he's asleep and asked for all decisions to be
+  made autonomously; he'll review and correct tomorrow). Live at
+  `https://icypower.pages.dev/proposals/bgirim-4q8x2m/` (hidden, see below).
+  - **Purpose:** make the organizer *imagine* 4–5 wellness event concepts.
+    It's a visual story, not a quote: no prices, CTAs, forms or payment details.
+  - **Structure:** full-bleed opening photo + personalized heading →
+    sticky, accessible tab selector (WAI-ARIA tabs, automatic activation,
+    arrows mirrored for RTL, Home/End, `#event-0N` deep links) → one panel
+    per concept, same template: hero photo **or** muted looping video
+    (only loads for the visible concept, pause button, off under
+    prefers-reduced-motion/Save-Data), intro + facts, activity cards,
+    ~2h timeline beside a sticky photo, facilitators + food, editorial
+    gallery (native `<dialog>` lightbox, swipe row on mobile, never
+    auto-rotates), "next concept" link.
+  - **Look:** the site's existing premium "retreat" dialect (night navy
+    `#0e1420`, gold `#d3a75c`, Frank Ruhl Libre + Heebo, same as
+    `evening-retreat.html`/`invites/`) but quieter: no stars, glows, ✦ or
+    emoji. Alternates dark photo bands with warm-ivory reading sections.
+    Loads `/assets/styles.css` for tokens + `.reveal`.
+  - **Content/presentation split:** ALL content is in
+    `proposals/bgirim-4q8x2m/content.js` (Hebrew placeholders for now:
+    "אירוע 01", "שם הקונספט", "פעילות 01"…, with existing site photos).
+    Shared template in `proposals/_shared/` (`proposal.css`,
+    `proposal.js`, `media/` = compressed opening photo + video posters).
+    `proposals/README.md` explains editing + creating another proposal.
+  - **Privacy:** not linked anywhere on the site; `noindex` meta +
+    `X-Robots-Tag`/`Referrer-Policy: no-referrer` for `/proposals/*` in
+    `_headers`. Anyone with the link can open it (Eldar chose this over a login).
+  - Verified with Playwright at 1440px and 390px: no horizontal
+    overflow, no JS errors, tab keyboard behavior, sticky-bar scroll on
+    switch, lightbox open/arrow/Esc + focus return, hash deep link,
+    videos never load under reduced motion. (Headless Chromium can't
+    decode H.264, so actual video playback couldn't be observed.)
+- **Next goal:** Eldar replaces the placeholder content in `content.js`
+  (real concept names, activities, schedule, facilitators, food, photos).
+- **Anything the next session needs to know:** Don't add proposal links
+  to any public page. Keep hero videos small (the 6–10 MB clips in
+  `assets/video/` are too heavy). Placeholder facilitators show initials
+  until a `photo` path is added.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-24 (round 30, same day)
 - **What changed:** Removed the ghost "לפרטים נוספים" button Eldar
   circled in a screenshot, from `business.html`'s hero `.hero-actions`
@@ -1578,6 +1621,9 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-29 — Built the private "קבוצת בגירים" proposal page
+  (`proposals/bgirim-4q8x2m/`, content in `content.js`, shared template in
+  `proposals/_shared/`), hidden + noindex, navy/gold premium style.
 - 2026-09-24 (round 30) — Removed the "לפרטים נוספים" ghost button from
   business.html's hero - only the WhatsApp CTA remains. PR #119, merged.
 - 2026-09-24 (round 29) — Removed the native <video controls> chrome
