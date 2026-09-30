@@ -62,7 +62,6 @@
         '</picture>' +
         '<div class="pp-scrim" aria-hidden="true"></div>' +
         '<div class="pp-wrap pp-opening-body">' +
-          '<p class="pp-eyebrow pp-rise">' + esc(P.eyebrow || 'הצעה אישית') + '</p>' +
           '<h1 id="pp-title" class="pp-rise pp-rise-2"><span class="pp-for">עבור</span> ' + esc(P.client) + '</h1>' +
           (P.subtitle ? '<p class="pp-subtitle pp-rise pp-rise-3">' + esc(P.subtitle) + '</p>' : '') +
           (P.intro ? '<p class="pp-lead pp-rise pp-rise-4">' + esc(P.intro) + '</p>' : '') +
@@ -95,7 +94,6 @@
     return '<header class="pp-ev-hero">' + media +
       '<div class="pp-scrim" aria-hidden="true"></div>' +
       '<div class="pp-wrap pp-ev-hero-body">' +
-        '<p class="pp-eyebrow">' + esc(ev.label || ('אירוע ' + pad(i + 1))) + ' <span class="pp-of">/ ' + pad(events.length) + '</span></p>' +
         '<h2 class="pp-ev-title">' + esc(ev.name) + '</h2>' +
         (ev.tagline ? '<p class="pp-ev-tagline">' + esc(ev.tagline) + '</p>' : '') +
       '</div>' +
@@ -138,7 +136,7 @@
         '<div class="pp-head reveal"><h3>' + esc(ev.scheduleTitle || 'מהלך האירוע') + '</h3>' +
           (ev.scheduleNote ? '<p class="pp-note">' + esc(ev.scheduleNote) + '</p>' : '') + '</div>' +
         '<ol class="pp-timeline">' + ev.schedule.map(function (s) {
-          return '<li class="reveal"><span class="pp-time">' + esc(s.time) + '</span>' +
+          return '<li class="reveal">' +
             '<div><p class="pp-step-title">' + esc(s.title) + '</p>' +
             (s.text ? '<p class="pp-step-text">' + esc(s.text) + '</p>' : '') + '</div></li>';
         }).join('') + '</ol>' +

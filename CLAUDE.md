@@ -39,18 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (latest+2)
+- **Date:** 2026-09-30 (latest+3)
 - **What changed:** Proposal page, per Eldar:
-  - **Removed all section eyebrows**: החוויה, הזרימה, המנחים, השולחן,
-    גלריה. Each one repeated its headline. The amber accent moved to a
-    44×3px line under every section headline (`h3::after`). The event-hero
-    label "אירוע 0X / 05" and the opening's "הצעה אישית" stay.
-  - **Event hero text is now at the top of the photo**, not the bottom,
-    with a top-weighted scrim. The video pause button stays bottom corner
-    on all sizes.
-  - Facilitator and food headlines now use the brand blue, like the others.
-  - Verified: outcomes title still centred on the "מה חווים באירוע" line,
-    no overflow or JS errors at 1440 and 390px.
+  - **The timeline has no times.** Each step is now an amber dot on a thin
+    line plus its title and text. The `time` field was removed from the
+    renderer and from `content.js`.
+  - **All remaining eyebrows are removed**: the opening's "הצעה אישית" and
+    each event hero's "אירוע 0X / 05". The `.pp-eyebrow`/`.pp-of` CSS and
+    the `eyebrow` content field are gone. The tabs still show "אירוע 0X",
+    and the h1's "עבור" line stays because it's part of the headline.
+  - Verified at 1440 and 390px: 0 eyebrows rendered, no overflow or JS errors.
 - **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
@@ -1665,6 +1663,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: removed timeline times and all remaining
+  eyebrows (hero labels).
 - 2026-09-30 — Proposal page: removed all section eyebrows (amber line now
   under headlines); event-hero title moved to the top of the photo.
 - 2026-09-30 — Proposal page: outcomes list aligned with the experience
