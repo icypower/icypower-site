@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+23)
+- **What changed:** Option 03's intro (aromatherapy + oil blending) now uses
+  Eldar's text, with spelling fixed (עצמנו, ששכחנו) and the long sentence
+  split in two.
+- **Next goal:** Eldar sends the rest of the copy for 03–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+22)
 - **What changed:** Option 02 (meditation + writing) now uses Eldar's
   intro and three outcomes. Punctuation fixes: the sentence-initial "ו" was
@@ -1798,6 +1805,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 03 intro replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 02 intro and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: restructured into 6 options in Eldar's new order, reusing his copy; placeholders for tai chi, lecture and improv.
 - 2026-09-30 — Proposal page: option 03 schedule replaced with Eldar's steps.
