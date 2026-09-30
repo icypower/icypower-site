@@ -120,8 +120,9 @@ body.pp{
 .pp-tab-num{font-size:.8rem;font-weight:600;color:var(--pp-brand)}
 .pp-tab-name{font-family:var(--pp-display);font-size:1.08rem;font-weight:400;white-space:nowrap}
 
+/* no scroll anchoring inside panels: hiding the old panel on a tab switch made the browser jump to the page bottom */
+.pp-panel{outline:none;overflow-anchor:none}
 /* panel switch: short fade, no layout motion */
-.pp-panel{outline:none}
 .pp-panel.pp-enter{animation:ppFade .45s var(--pp-ease)}
 @keyframes ppFade{from{opacity:0}to{opacity:1}}
 
