@@ -14,7 +14,7 @@ proposals/
     proposal.css      layout + styling (navy/gold premium style, RTL)
     proposal.js       builds the page from content.js; tabs, video, lightbox
     media/            opening photo + video poster frames
-  bgirim-4q8x2m/      one client's proposal (קבוצת בגירים)
+  bgirim-4q8x2m/      one client's proposal (עובדי עיריית תל אביב)
     index.html        page shell — normally never edited
     content.js        ALL the content — the only file to edit
 ```
