@@ -58,7 +58,7 @@
         '</picture>' +
         '<div class="pp-scrim" aria-hidden="true"></div>' +
         '<div class="pp-wrap pp-opening-body">' +
-          '<h1 id="pp-title" class="pp-rise pp-rise-2"><span class="pp-for">עבור</span> ' + esc(P.client) + '</h1>' +
+          '<h1 id="pp-title" class="pp-rise pp-rise-2">' + esc(P.client) + '</h1>' +
           (P.subtitle ? '<p class="pp-subtitle pp-rise pp-rise-3">' + esc(P.subtitle) + '</p>' : '') +
           (P.intro ? '<p class="pp-lead pp-rise pp-rise-4">' + esc(P.intro) + '</p>' : '') +
           '<a class="pp-down pp-rise pp-rise-4" href="#concepts">לקונספטים' + ICON.down + '</a>' +

@@ -22,7 +22,7 @@ proposals/
 ## Editing a proposal
 
 Edit only `content.js` in that proposal's folder: the client name, the
-intro, and for each event its name, tagline, facts, hero photo/video,
+intro, and for each event its name, tagline, outcomes, hero photo/video,
 activities, schedule, food and gallery. Add or remove
 items in a list and the layout adjusts. Delete or empty a section and
 it disappears for that event. The comments at the top of `content.js`
