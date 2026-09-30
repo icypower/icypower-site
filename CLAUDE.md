@@ -39,6 +39,19 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+33)
+- **What changed:** Removed food and tea from every schedule step:
+  - 01, step 5: "משהו לאכול" removed
+  - 02, step 3: "תה" removed
+  - 03, step 1: "תה" removed
+  - 05, step 5: "ואז משהו טוב לאכול" removed
+  - The reception step of 04 and 06 is now "מגיעים, מתמקמים, שותים משהו
+    חם ומכירים את המדריכים." (the same as 01)
+  - Hot drinks ("שתייה חמה" / "משהו חם") were kept.
+- **Next goal:** Eldar sends the remaining copy (04 intro/activities, 05
+  intro/activities/schedule, 06 schedule).
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+32)
 - **What changed:** Option 06 (laughter + improv) now uses Eldar's intro,
   both activity texts and three outcomes. Spelling and punctuation fixed:
@@ -1879,6 +1892,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: removed food/tea mentions from all schedules; new reception text for 04 and 06.
 - 2026-09-30 — Proposal page: option 06 intro, activities and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: removed taglines on 02/06; fixed the tab switch jumping (scroll anchoring) and stopped the auto-scroll on tab click.
 - 2026-09-30 — Proposal page: option 05 outcomes replaced with Eldar's three.
