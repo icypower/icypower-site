@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+38)
+- **What changed:** Option 01's hero photo crop moved up (`position` '76% 60%'
+  became '76% 12%'), so wide screens show the heads and the pool and less of
+  the tub's wooden base. The mobile crop is unchanged in practice.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+37)
 - **What changed:** Option 01's schedule image ("מהלך המפגש") is now Eldar's
   pergola-and-pool photo (`proposals/_shared/media/ice-schedule.jpg`):
@@ -1940,6 +1947,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 hero crop shifted up.
 - 2026-09-30 — Proposal page: option 01 schedule image replaced with Eldar's pergola photo.
 - 2026-09-30 — Proposal page: option 01 hero video replaced by Eldar's photo; new gallery photo; optional image `position` crop field.
 - 2026-09-30 — Proposal page: option 01 gallery replaced with 5 real photos from Eldar.

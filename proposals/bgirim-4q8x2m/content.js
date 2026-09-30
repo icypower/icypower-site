@@ -51,7 +51,7 @@ window.PROPOSAL = {
         type: 'image',
         src: '/proposals/_shared/media/ice-hero.jpg',
         alt: 'המדריך משוחח עם משתתפת שיושבת באמבטיית קרח בגינה',
-        position: '76% 60%'
+        position: '76% 12%'
       },
       activitiesTitle: 'מה חווים במפגש',
       activities: [
