@@ -39,22 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (latest+6)
-- **What changed:** Proposal page fonts switched to **"Friendly modern"**
-  (Eldar's pick from 4 research-based options): **Rubik** for headings,
-  tabs, names and timeline steps (weight 500), and **Assistant** for body,
-  intro, lists and the food text (300–700).
-  - Replaced the old defaults, Frank Ruhl Libre + Heebo, which Eldar
-    felt looked generic.
-  - Research basis: font–brand congruence (Doyle & Bottomley), "natural"
-    shapes rated most pleasing (Henderson, Giese & Cote 2004), avoiding
-    overexposed defaults (Butterick; AI-design critiques).
-  - Tokens: `--pp-display` / `--pp-text` in `proposals/_shared/proposal.css`
-    (the old `--pp-serif` is gone). Body text is now 1.125rem because
-    Hebrew reads small, and letter-spacing on Hebrew labels was removed.
-  - Google Fonts link in `proposals/bgirim-4q8x2m/index.html` updated.
-  - Verified with Playwright at 1440 and 390px, fonts actually loaded:
-    no overflow or JS errors.
+- **Date:** 2026-09-30 (latest+7)
+- **What changed:** Proposal page gallery photos made smaller, per Eldar:
+  - **Desktop:** row height went from `clamp(150px,17vw,230px)` to
+    `clamp(110px,11.5vw,170px)`, and the grid is capped at 920px wide.
+    At 1440px the gallery is now 349px tall × 920px wide (was ~478 × 1100).
+  - **Phones:** the swipe-row tiles are 56% of the width (was 76%), snap
+    to the start, and keep a 16px edge gutter (`scroll-padding-inline`).
+  - No overflow or JS errors at 1440 and 390px.
 - **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
@@ -1669,6 +1661,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: gallery photos made smaller (desktop grid
+  capped + shorter rows; narrower swipe tiles on phones).
 - 2026-09-30 — Proposal page fonts: Rubik headings + Assistant body
   ("Friendly modern"), replacing Frank Ruhl Libre + Heebo.
 - 2026-09-30 — Proposal page: removed "עבור" from the hero headline and

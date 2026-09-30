@@ -195,7 +195,7 @@ body.pp{
 
 /* ---------- gallery (editorial mosaic; swipe row on mobile) ---------- */
 
-.pp-gallery{list-style:none;padding:0;margin:0;display:grid;gap:clamp(10px,1.4vw,18px);grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(150px,17vw,230px)}
+.pp-gallery{list-style:none;padding:0;margin:0;display:grid;gap:clamp(10px,1.4vw,18px);grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(110px,11.5vw,170px);max-width:920px}
 .pp-gallery li:first-child{grid-column:span 2;grid-row:span 2}
 /* 1 large + the rest — every count 1–6 fills its grid with no holes */
 .pp-gallery-1{grid-template-columns:minmax(0,1fr)}
@@ -266,7 +266,8 @@ body.pp{
   /* gallery becomes a user-controlled swipe row */
   .pp-gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px);scrollbar-width:none}
   .pp-gallery::-webkit-scrollbar{display:none}
-  .pp-gallery li{flex:0 0 76%;height:auto;aspect-ratio:4/5;scroll-snap-align:center}
+  .pp-gallery{max-width:none;scroll-padding-inline:clamp(16px,4vw,40px)}
+  .pp-gallery li{flex:0 0 56%;height:auto;aspect-ratio:4/5;scroll-snap-align:start}
   .pp-swipe-hint{display:block;margin-top:14px;font-size:.85rem;color:var(--pp-ink-dim)}
   .pp-lb-prev,.pp-lb-next{top:auto;bottom:18px;transform:none}
   .pp-footer .pp-wrap{flex-direction:column;align-items:flex-start}
