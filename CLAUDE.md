@@ -39,6 +39,12 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+20)
+- **What changed:** Option 03's schedule ("מהלך המפגש") now uses Eldar's
+  five steps. A full stop was added to step 2.
+- **Next goal:** unchanged.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+19)
 - **What changed:** Option 03's two activity texts (מדיטציה מודרכת, סדנת
   רפלקסולוגיה) now use Eldar's copy. The "touch is feet only" sentence
@@ -1763,6 +1769,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 03 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: option 03 activity texts replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 03 tagline, intro and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 02 schedule replaced with Eldar's steps.
