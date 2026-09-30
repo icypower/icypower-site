@@ -268,12 +268,12 @@ window.PROPOSAL = {
         {
           name: 'עיסויים',
           text: 'מעסים מקצועיים עוברים בין המשתתפים לעיסוי קצר בכתפיים, בצוואר או בכפות הידיים, עם בגדים. כל אחד מחליט אם ואיפה.',
-          image: { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים על מזרנים בפרגולה מול בריכה' }
+          image: { src: '/proposals/_shared/media/spa-massage.jpg', alt: 'ידיים מעסות כתפיים וגב עליון' }
         },
         {
           name: 'סדנת רפלקסולוגיה',
           text: 'מכירים כמה נקודות מרכזיות בכף הרגל ולומדים איך לעבוד איתן דרך מגע פשוט ומונחה. אפשר לתרגל בצמדים או על עצמכם, בקצב שנעים לכל אחד.',
-          image: { src: '/assets/img/g09.jpg', alt: 'משתתפים שוכבים על מזרנים בין צמחים' }
+          image: { src: '/proposals/_shared/media/spa-reflexology.jpg', alt: 'לחיצה על נקודות רפלקסולוגיה בכף הרגל' }
         },
         {
           name: 'הרצאה',
@@ -290,15 +290,16 @@ window.PROPOSAL = {
         { title: 'סיום', text: 'מעגל שיתוף.' }
       ],
       scheduleImage: {
-        src: '/assets/img/retreat-gate.jpg',
-        alt: 'שער כניסה מעוצב לגינה'
+        src: '/proposals/_shared/media/spa-schedule.jpg',
+        alt: 'מעסה מעסה גב של משתתפת על מיטת טיפולים ליד הבריכה בערב',
+        position: '50% 72%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים בפרגולה' },
         { src: '/assets/img/g09.jpg', alt: 'משתתפים שוכבים על מזרנים בין צמחים' },
         { src: '/assets/img/retreat-closing-circle.jpg', alt: 'מעגל ערב בפרגולה' },
-        { src: '/assets/img/g10.jpg', alt: 'משתתפים שוכבים על מזרנים בגינה' }
+        { src: '/proposals/_shared/media/spa-gallery-feet.jpg', alt: 'עיסוי כפות רגליים ליד הבריכה בערב', position: '50% 66%' }
       ]
     },
 
