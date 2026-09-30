@@ -55,7 +55,7 @@ body.pp{
 .pp-head{max-width:640px;margin-bottom:clamp(28px,4vw,48px)}
 .pp-head h3{font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand)}
 /* amber accent line under each section headline */
-.pp-head h3::after,.pp-exp-title::after,.pp-people h3::after,.pp-food h3::after{content:"";display:block;width:44px;height:3px;border-radius:3px;background:var(--pp-amber);margin-top:.45em}
+.pp-head h3::after,.pp-exp-title::after,.pp-food h3::after{content:"";display:block;width:44px;height:3px;border-radius:3px;background:var(--pp-amber);margin-top:.45em}
 .pp-note{margin-top:10px;font-size:.95rem;color:var(--pp-ink-dim)}
 
 .pp-sec{padding-block:clamp(56px,8vw,112px)}
@@ -180,19 +180,12 @@ body.pp{
 .pp-step-text{margin-top:4px;color:var(--pp-ink-dim);font-size:.98rem}
 .pp-flow-media{position:sticky;top:calc(var(--pp-tabbar-h) + 32px);aspect-ratio:4/5}
 
-/* ---------- facilitators + food ---------- */
-.pp-pf-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(44px,8vw,120px);align-items:start}
-.pp-pf-solo{grid-template-columns:minmax(0,1fr);max-width:760px}
-.pp-people h3,.pp-food h3{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:26px;color:var(--pp-brand)}
-.pp-people-list{list-style:none;padding:0;margin:0;display:grid;gap:22px}
-.pp-people-list li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;align-items:center;padding-block-end:22px;border-block-end:1px solid var(--pp-line)}
-.pp-people-list li:last-child{border:0;padding-block-end:0}
-.pp-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--pp-ice);color:var(--pp-brand);font-family:var(--pp-serif);font-weight:700;border:2px solid var(--pp-amber);font-size:1.35rem}
-.pp-avatar img{width:100%;height:100%;object-fit:cover}
-.pp-person-name{font-family:var(--pp-serif);font-size:1.2rem;font-weight:700;line-height:1.3}
-.pp-person-role{font-size:.88rem;font-weight:600;color:var(--pp-amber-ink)}
-.pp-person-bio{margin-top:4px;color:var(--pp-ink-dim);font-size:.97rem}
-.pp-food-media{aspect-ratio:3/2;margin-bottom:28px}
+/* ---------- food & drinks ---------- */
+/* food & drinks: text beside a photo */
+.pp-food{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,96px);align-items:center}
+.pp-food-solo{grid-template-columns:minmax(0,1fr);max-width:760px}
+.pp-food h3{font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:22px;color:var(--pp-brand)}
+.pp-food-media{aspect-ratio:3/2;max-height:min(46vh,420px);width:100%}
 .pp-food-text{color:var(--pp-ink-dim);max-width:48ch}
 .pp-food-items{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-wrap:wrap;gap:4px 0}
 .pp-food-items li{font-family:var(--pp-serif);font-size:1.08rem}
@@ -266,7 +259,7 @@ body.pp{
   .pp-exp-top .pp-outcomes{padding-block-start:24px}
   .pp-acts,.pp-acts-2,.pp-acts-4{grid-template-columns:minmax(0,1fr)}
   .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/10;max-height:32vh}
-  .pp-pf-grid{grid-template-columns:minmax(0,1fr)}
+  .pp-food{grid-template-columns:minmax(0,1fr);gap:24px}
   .pp-timeline li{padding-inline-start:26px}
   /* gallery becomes a user-controlled swipe row */
   .pp-gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px);scrollbar-width:none}

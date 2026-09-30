@@ -35,10 +35,6 @@
     return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="' + esc(o.src) + '" alt="' + esc(o.alt) + '"' +
       (eager ? '' : ' loading="lazy"') + ' decoding="async" />';
   }
-  function initials(name) {
-    var w = String(name || '').trim().split(/\s+/);
-    return esc(((w[0] || '').charAt(0) + (w[1] || '').charAt(0)) || '·');
-  }
   var ICON = {
     pause: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg>',
     play: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13a.8.8 0 0 0 1.2.7l10.2-6.5a.8.8 0 0 0 0-1.4L9.2 4.8A.8.8 0 0 0 8 5.5z"/></svg>',
@@ -145,24 +141,17 @@
     '</div></section>';
   }
 
-  function renderPeopleAndFood(ev) {
-    var hasF = has(ev.facilitators), food = ev.food;
-    if (!hasF && !food) return '';
-    var people = hasF ? '<div class="pp-people reveal">' +
-        '<h3>' + esc(ev.facilitatorsTitle || 'מי מוביל את האירוע') + '</h3>' +
-        '<ul class="pp-people-list">' + ev.facilitators.map(function (f) {
-          return '<li><div class="pp-avatar">' + (f.photo ? img({ src: f.photo, alt: '' }) : '<span aria-hidden="true">' + initials(f.name) + '</span>') + '</div>' +
-            '<div><p class="pp-person-name">' + esc(f.name) + '</p>' +
-            (f.role ? '<p class="pp-person-role">' + esc(f.role) + '</p>' : '') +
-            (f.bio ? '<p class="pp-person-bio">' + esc(f.bio) + '</p>' : '') + '</div></li>';
-        }).join('') + '</ul></div>' : '';
-    var foodHtml = food ? '<div class="pp-food reveal d1">' +
-        (food.image ? '<figure class="pp-food-media">' + img(food.image) + '</figure>' : '') +
+  function renderFood(ev) {
+    var food = ev.food;
+    if (!food) return '';
+    return '<section class="pp-sec pp-light pp-ev-food"><div class="pp-wrap pp-food' + (food.image ? '' : ' pp-food-solo') + '">' +
+      '<div class="pp-food-body reveal">' +
         '<h3>' + esc(food.title || 'אוכל ושתייה') + '</h3>' +
         (food.text ? '<p class="pp-food-text">' + esc(food.text) + '</p>' : '') +
         (has(food.items) ? '<ul class="pp-food-items">' + food.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
-      '</div>' : '';
-    return '<section class="pp-sec pp-light2 pp-ev-people"><div class="pp-wrap pp-pf-grid' + (hasF && food ? '' : ' pp-pf-solo') + '">' + people + foodHtml + '</div></section>';
+      '</div>' +
+      (food.image ? '<figure class="pp-food-media reveal d1">' + img(food.image) + '</figure>' : '') +
+    '</div></section>';
   }
 
   function renderGallery(ev, i) {
@@ -196,7 +185,7 @@
     var id = 'event-' + pad(i + 1);
     return '<div class="pp-panel" role="tabpanel" id="' + id + '" aria-labelledby="tab-' + id + '" tabindex="0" hidden>' +
       '<article>' + renderHero(ev, i) + renderExperience(ev) + renderSchedule(ev) +
-      renderPeopleAndFood(ev) + renderGallery(ev, i) + renderNext(i) + '</article></div>';
+      renderFood(ev) + renderGallery(ev, i) + renderNext(i) + '</article></div>';
   }
 
   root.innerHTML = renderOpening() +
