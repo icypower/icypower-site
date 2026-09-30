@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+26)
+- **What changed:** Option 04 (tai chi + sound healing) now uses Eldar's
+  three outcomes. Its intro, activities and schedule are still Claude's
+  placeholders.
+- **Next goal:** Eldar sends the rest of the copy for 04–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+25)
 - **What changed:** Option 03's schedule now has Eldar's five steps (a new
   step 2, "הסבר על עולם הריחות"). Spelling: ארומתרפיה.
@@ -1819,6 +1826,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 04 outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 03 schedule replaced with Eldar's five steps.
 - 2026-09-30 — Proposal page: removed the food section from all options; gallery background alternates.
 - 2026-09-30 — Proposal page: option 03 intro replaced with Eldar's copy.
