@@ -39,6 +39,23 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+47)
+- **What changed:** Eldar's photos went into options 06 and 05. All files
+  are in `proposals/_shared/media/`; phone-screenshot black bars were
+  cropped off.
+  - **Option 06 (laughter + improv):**
+    - schedule image: `laugh-schedule.jpg`, women standing on mats in the
+      evening pergola
+    - gallery: ph-land-4 (the ice-tub guys) became `laugh-gallery-1.jpg`
+      (flower-crown improv pose), now the large tile
+    - gallery: about-us (the big group photo) became `laugh-gallery-2.jpg`
+      (two women laughing by the pool)
+  - **Option 05 (spa day):** in the gallery, we-soundbath.jpg (the
+    sound-healing woman) became `spa-gallery-talk.jpg`, a group listening
+    to a talk by the pool at night; it is now the large tile
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+46)
 - **What changed:** Option 06 (laughter + improv) now has Eldar's photos on
   both activity cards, in `proposals/_shared/media/`:
@@ -2055,6 +2072,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 06 schedule + 2 gallery photos, option 05 gallery photo replaced.
 - 2026-09-30 — Proposal page: option 06 laughter and improv card photos replaced.
 - 2026-09-30 — Proposal page: opening text made more legible (white, heavier, shadow, darker scrim).
 - 2026-09-30 — Proposal page: option 05 massage/reflexology cards, schedule and one gallery photo replaced.
