@@ -39,6 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+39)
+- **What changed:** Option 01's "אמבטיית קרח" activity card image is now
+  `assets/img/ph-land-3.jpg`, a smiling participant in the bamboo tub talking
+  with the guide. Eldar sent a screenshot and it was matched to the existing
+  file. It replaced intro-3.jpg.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+38)
 - **What changed:** Option 01's hero photo crop moved up (`position` '76% 60%'
   became '76% 12%'), so wide screens show the heads and the pool and less of
@@ -1947,6 +1955,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 ice-bath card image replaced with ph-land-3.jpg.
 - 2026-09-30 — Proposal page: option 01 hero crop shifted up.
 - 2026-09-30 — Proposal page: option 01 schedule image replaced with Eldar's pergola photo.
 - 2026-09-30 — Proposal page: option 01 hero video replaced by Eldar's photo; new gallery photo; optional image `position` crop field.
