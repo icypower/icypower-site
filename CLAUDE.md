@@ -39,6 +39,23 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+43)
+- **What changed:** Feedback said the option tabs didn't read as buttons.
+  - **Tabs are now raised chips.** White, rounded, with a border and a soft
+    shadow. The selected tab is filled brand blue with white text. Hover
+    lifts a chip and press pushes it down. The old underline indicator is
+    gone.
+  - **Nudge animation.** When the tab row first comes fully into view, the
+    unselected chips do a small staggered hop (`ppNudge`, `--i` per tab).
+    It repeats every 6s, at most 3 times, and stops for good on any tab
+    click or keypress. Turned off under prefers-reduced-motion.
+  - `--pp-tabbar-h` is now set from JS to the real bar height (on load and
+    resize), because the chips changed it: 100px on desktop, 89px on phones.
+  - Checked at 1440 and 390 px: tab-switch scroll regression passes, no
+    overflow, no JS errors.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+42)
 - **What changed:** Option 04 (tai chi + sound healing) now has Eldar's
   photos, all in `proposals/_shared/media/`:
@@ -2003,6 +2020,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: tabs restyled as button chips + a gentle one-time hop nudge.
 - 2026-09-30 — Proposal page: option 04 tai chi card, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: option 03 card/schedule/gallery photos from Eldar; gallery now honors image `position`.
 - 2026-09-30 — Proposal page: option 02 hero, both card images and schedule image replaced with Eldar's photos.

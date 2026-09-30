@@ -101,25 +101,28 @@ body.pp{
 .pp-sentinel{height:1px}
 .pp-tabbar{position:sticky;top:0;z-index:30;background:var(--pp-base);border-block-end:1px solid var(--pp-line);transition:box-shadow .3s}
 .pp-tabbar.is-stuck{box-shadow:0 10px 24px -20px rgba(18,52,77,.55)}
-.pp-tabs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pp-tabs{display:flex;gap:10px;padding-block:12px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .pp-tabs::-webkit-scrollbar{display:none}
+/* tabs look like buttons: raised chips, the selected one filled */
 .pp-tab{
-  flex:1 0 auto;min-width:0;scroll-snap-align:start;
-  display:flex;flex-direction:column;align-items:flex-start;gap:2px;
-  background:none;border:0;cursor:pointer;font:inherit;text-align:start;
-  color:var(--pp-ink-dim);padding:16px 22px 17px;position:relative;
-  transition:color .25s;
+  flex:0 0 auto;min-width:0;scroll-snap-align:start;
+  display:flex;flex-direction:column;align-items:flex-start;gap:1px;
+  background:#fff;border:1px solid var(--pp-line);border-radius:14px;cursor:pointer;font:inherit;text-align:start;
+  color:var(--pp-ink-dim);padding:9px 18px 10px;position:relative;
+  box-shadow:0 1px 2px rgba(18,52,77,.06),0 6px 14px -10px rgba(18,52,77,.45);
+  transition:color .25s,background-color .25s,border-color .25s,box-shadow .25s,transform .25s var(--pp-ease);
 }
-.pp-tab:first-child{padding-inline-start:0}
-.pp-tab::after{content:"";position:absolute;inset-inline:22px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--pp-brand);transform:scaleX(0);transition:transform .35s var(--pp-ease)}
-.pp-tab:first-child::after{inset-inline-start:0}
-.pp-tab:hover{color:var(--pp-ink)}
-.pp-tab[aria-selected="true"]{color:var(--pp-ink)}
+.pp-tab:hover{color:var(--pp-ink);border-color:var(--pp-brand);transform:translateY(-1px)}
+.pp-tab:active{transform:translateY(1px);box-shadow:0 1px 2px rgba(18,52,77,.1)}
+.pp-tab[aria-selected="true"]{background:var(--pp-brand);border-color:var(--pp-brand);color:#fff;box-shadow:0 8px 18px -10px rgba(28,110,156,.8)}
+.pp-tab[aria-selected="true"] .pp-tab-num{color:rgba(255,255,255,.82)}
 .pp-tab[aria-selected="true"] .pp-tab-name{font-weight:500}
-.pp-tab[aria-selected="true"]::after{transform:scaleX(1)}
-.pp-tab:focus-visible{outline-offset:-4px}
+.pp-tab:focus-visible{outline-offset:3px}
 .pp-tab-num{font-size:.8rem;font-weight:600;color:var(--pp-brand)}
 .pp-tab-name{font-family:var(--pp-display);font-size:1.08rem;font-weight:400;white-space:nowrap}
+/* "you can press these": a small staggered hop, played a few times until the reader taps a tab */
+@keyframes ppNudge{0%,100%{transform:translateY(0)}28%{transform:translateY(-6px)}50%{transform:translateY(0)}66%{transform:translateY(-2px)}82%{transform:translateY(0)}}
+.pp-tabs.pp-nudge .pp-tab:not([aria-selected="true"]){animation:ppNudge .9s var(--pp-ease) both;animation-delay:calc(var(--i,0) * 90ms)}
 
 /* no scroll anchoring inside panels: hiding the old panel on a tab switch made the browser jump to the page bottom */
 .pp-panel{outline:none;overflow-anchor:none}
@@ -254,9 +257,9 @@ body.pp{
   .pp-opening{min-height:max(520px,100svh)}
   .pp-opening-body{padding-top:84px}
   .pp-ev-hero{min-height:max(400px,64svh)}
-  .pp-tab{padding:13px 16px 14px}
-  .pp-tab::after{inset-inline:16px}
-  .pp-tab-name{font-size:1.02rem}
+  .pp-tabs{gap:8px;padding-block:10px}
+  .pp-tab{padding:7px 14px 8px;border-radius:12px}
+  .pp-tab-name{font-size:1rem}
   /* fade the trailing edge so it is obvious the tab row scrolls */
   .pp-tabbar .pp-wrap{padding-inline-end:0}
   .pp-tabs{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 36px);mask-image:linear-gradient(to right,transparent 0,#000 36px);padding-inline-end:28px}
@@ -281,5 +284,6 @@ body.pp{
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .pp-rise,.pp-panel.pp-enter{animation:none}
-  .pp figure img,.pp-gtile img,.pp-tab::after,.pp-next-name svg{transition:none}
+  .pp figure img,.pp-gtile img,.pp-tab,.pp-next-name svg{transition:none}
+  .pp-tabs.pp-nudge .pp-tab{animation:none}
 }
