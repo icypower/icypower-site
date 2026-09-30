@@ -108,8 +108,8 @@
     var hasIntro = ev.intro || has(ev.outcomes), hasActs = has(ev.activities);
     if (!hasIntro && !hasActs) return '';
     return '<section class="pp-sec pp-light pp-ev-exp"><div class="pp-wrap">' +
-      '<div class="pp-head reveal"><p class="pp-eyebrow">החוויה</p><h3>' + esc(ev.activitiesTitle || 'מה חווים באירוע') + '</h3></div>' +
-      (hasIntro ? '<div class="pp-intro-grid reveal">' +
+      '<div class="pp-exp-top reveal">' +
+        '<p class="pp-eyebrow">החוויה</p><h3 class="pp-exp-title">' + esc(ev.activitiesTitle || 'מה חווים באירוע') + '</h3>' +
         (ev.intro ? '<p class="pp-ev-lead">' + esc(ev.intro) + '</p>' : '') +
         (has(ev.outcomes) ? '<div class="pp-outcomes">' +
           '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
@@ -117,7 +117,7 @@
             return '<li><strong>' + esc(o.title) + '</strong>' + (o.text ? ' — ' + esc(o.text) : '') + '</li>';
           }).join('') + '</ul>' +
         '</div>' : '') +
-      '</div>' : '') +
+      '</div>' +
       (hasActs ? '<div class="pp-acts pp-acts-' + Math.min(ev.activities.length, 4) + '">' +
         ev.activities.map(function (a, k) {
           return '<article class="pp-act reveal d' + Math.min(k + 1, 4) + '">' +
