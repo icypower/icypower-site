@@ -39,22 +39,18 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (latest)
-- **What changed:** Proposal page layout tweaks, per Eldar:
-  1. The **"החוויה / מה חווים באירוע" heading now sits above the concept's
-     intro paragraph**. Intro, outcomes and activity cards are now one
-     section, rendered by `renderExperience()` in
-     `proposals/_shared/proposal.js`, which replaced `renderIntro` and
-     `renderActivities`.
-  2. The **outcomes are now a plain bullet list** (bold title — sentence,
-     amber bullets) instead of the ice-blue panel. Data shape unchanged:
-     `outcomes: [{title, text}]`.
-  3. **Activity images are smaller**, so image + text fit on one screen:
-     - desktop: 4:3, capped at `min(34vh,300px)`
-     - phone: 16:10, capped at `32vh`
-     Measured tallest card: 409px at 1440×900, 395px at 1280×720 and
-     364px at 390×844, all well within the viewport.
-  - No overflow or JS errors at 1440, 1280 and 390px.
+- **Date:** 2026-09-30 (latest+1)
+- **What changed:** Proposal page, "experience" section, per Eldar:
+  - **The "מה הקבוצה לוקחת איתה" list now starts on the same line as the
+    "מה חווים באירוע" headline.** `.pp-exp-top` is a grid with areas
+    `eyebrow / title+outcomes / lead+outcomes`, and the outcomes title is
+    vertically centred on the headline's first line.
+  - **Smaller gap under the hero.** `.pp-ev-exp` top padding is now
+    `clamp(32px,4.5vw,60px)`, down from up to 112px.
+  - On phones everything stacks: eyebrow, headline, intro, outcomes.
+  - Measured with Playwright at 1440 and 1280px: the outcomes title's
+    centre equals the headline's first-line centre. No overflow or JS errors.
+- **Open question to Eldar:** whether to drop the eyebrow labels (see chat).
 - **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
@@ -1669,6 +1665,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: outcomes list aligned with the experience
+  headline; tighter gap under the event hero.
 - 2026-09-30 — Proposal page: experience heading moved above the intro,
   outcomes turned into a plain bullet list, activity images made smaller.
 - 2026-09-30 — Proposal page: replaced the facts box with a "what the group

@@ -145,7 +145,16 @@ body.pp{
 .pp-vidbtn svg{width:18px;height:18px;fill:currentColor}
 
 /* ---------- experience: heading → intro + outcomes → activity cards ---------- */
-.pp-intro-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
+/* grid: eyebrow on its own row, then the headline and the outcomes list
+   start on the same line; intro sits under the headline */
+.pp-ev-exp{padding-block-start:clamp(32px,4.5vw,60px)}
+.pp-exp-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"eyebrow ." "title outcomes" "lead outcomes";column-gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
+.pp-exp-top .pp-eyebrow{grid-area:eyebrow;justify-self:start}
+.pp-exp-title{grid-area:title;font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand);margin-bottom:clamp(18px,2.4vw,28px)}
+.pp-exp-top .pp-ev-lead{grid-area:lead}
+.pp-exp-top .pp-outcomes{grid-area:outcomes;
+  /* centre the outcomes title on the headline's first line */
+  padding-block-start:calc((clamp(1.7rem,3.4vw,2.5rem) * 1.15 - .95rem * 1.75) / 2)}
 .pp-ev-lead{font-family:var(--pp-serif);font-size:clamp(1.2rem,2.1vw,1.55rem);line-height:1.6;color:var(--pp-ink)}
 .pp-outcomes-title{font-size:.95rem;font-weight:700;color:var(--pp-amber-ink);margin-bottom:10px}
 .pp-outcomes ul{margin:0;padding-inline-start:1.2em;display:grid;gap:10px}
@@ -261,7 +270,8 @@ body.pp{
   /* fade the trailing edge so it is obvious the tab row scrolls */
   .pp-tabbar .pp-wrap{padding-inline-end:0}
   .pp-tabs{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 36px);mask-image:linear-gradient(to right,transparent 0,#000 36px);padding-inline-end:28px}
-  .pp-intro-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .pp-exp-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"eyebrow" "title" "lead" "outcomes";row-gap:0}
+  .pp-exp-top .pp-outcomes{padding-block-start:24px}
   .pp-acts,.pp-acts-2,.pp-acts-4{grid-template-columns:minmax(0,1fr)}
   .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/10;max-height:32vh}
   .pp-pf-grid{grid-template-columns:minmax(0,1fr)}
