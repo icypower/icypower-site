@@ -164,7 +164,7 @@
       '<ul class="pp-gallery pp-gallery-' + n + '" data-event="' + i + '">' +
         ev.gallery.map(function (g, k) {
           return '<li class="reveal d' + Math.min(k + 1, 4) + '"><button type="button" class="pp-gtile" data-index="' + k + '" aria-label="הגדלת תמונה ' + (k + 1) + ' מתוך ' + ev.gallery.length + (g.alt ? ': ' + esc(g.alt) : '') + '">' +
-            img({ src: g.src, alt: '' }) + '</button></li>';
+            img({ src: g.src, alt: '', position: g.position }) + '</button></li>';
         }).join('') +
       '</ul>' +
       '<p class="pp-swipe-hint" aria-hidden="true">החליקו לתמונות נוספות</p>' +

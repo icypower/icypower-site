@@ -165,12 +165,12 @@ window.PROPOSAL = {
         {
           name: 'ארומתרפיה',
           text: 'נכיר מגוון של שמנים אתריים, נלמד על ההשפעה והאופי של כל ריח, ונגלה לאילו ניחוחות אנחנו מתחברים באופן טבעי.',
-          image: { src: '/assets/img/retreat-aromatherapy2.jpg', alt: 'בקבוקוני שמנים אתריים על שולחן' }
+          image: { src: '/proposals/_shared/media/aroma-smell.jpg', alt: 'משתתפת מריחה בקבוקון שמן אתרי', position: '55% 42%' }
         },
         {
           name: 'רקיחת שמנים אישיים',
           text: 'מתוך ההתנסות, כל משתתף ירכיב לעצמו תערובת אישית בבקבוקון קטן, ריח ייחודי שהוא בוחר ולוקח איתו הביתה.',
-          image: { src: '/assets/img/whatyouget-side.jpg', alt: 'שולחן ערוך בפרגולה מול בריכה' }
+          image: { src: '/proposals/_shared/media/aroma-blend.jpg', alt: 'משתתפות יושבות סביב מגש בקבוקוני שמנים על בד כחול', position: '50% 64%' }
         }
       ],
       scheduleTitle: 'מהלך המפגש',
@@ -182,15 +182,16 @@ window.PROPOSAL = {
         { title: 'שיתוף למי שרוצה', text: 'אפשר לשתף או פשוט להקשיב.' }
       ],
       scheduleImage: {
-        src: '/assets/img/whatyouget-side.jpg',
-        alt: 'שולחן ערוך בפרגולה מול בריכה'
+        src: '/proposals/_shared/media/aroma-schedule.jpg',
+        alt: 'המנחה יושבת על מזרן בגינה ומסבירה לקבוצה',
+        position: '50% 38%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/retreat-aromatherapy2.jpg', alt: 'שמנים אתריים ונר' },
         { src: '/assets/img/card-open-2.jpg', alt: 'משתתפות צוחקות בשיחה' },
         { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' },
-        { src: '/assets/img/g12.jpg', alt: 'משתתפות יושבות על מזרנים' }
+        { src: '/proposals/_shared/media/aroma-blend.jpg', alt: 'משתתפות מריחות שמנים סביב מגש הבקבוקונים', position: '50% 16%' }
       ]
     },
 
