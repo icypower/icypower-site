@@ -1,7 +1,7 @@
 /* =====================================================================
    Icy Power — private proposal template
-   Builds on /assets/styles.css (brand tokens, Heebo, .reveal), with the
-   Frank Ruhl Libre display serif from evening-retreat.html / invites/.
+   Builds on /assets/styles.css (brand tokens, .reveal). Type: "Friendly modern"
+   (chosen by Eldar 2026-09-30) — Rubik headings + Assistant body.
    Colours: palette A "Glacier Morning" (see :root) — bright, light and
    premium; no particles, glows, ornaments or emoji.
    RTL-first: logical properties throughout.
@@ -23,7 +23,8 @@
   --pp-on-photo:#fff;
   --pp-on-photo-dim:rgba(255,255,255,.88);
   --pp-on-photo-line:rgba(255,255,255,.4);
-  --pp-serif:'Frank Ruhl Libre',Georgia,serif;
+  --pp-display:'Rubik','Assistant',system-ui,sans-serif;   /* headings, tabs, names */
+  --pp-text:'Assistant','Rubik',system-ui,sans-serif;      /* body, leads, lists */
   --pp-r:10px;
   --pp-ease:var(--ease,cubic-bezier(.22,.61,.36,1));
   --pp-wrap:1180px;
@@ -33,13 +34,15 @@
 html{scroll-padding-top:var(--pp-tabbar-h)}
 html.pp-locked{overflow:hidden}
 body.pp{
+  font-family:var(--pp-text);
+  font-size:1.125rem; /* Hebrew reads small at 16–17px */
   background:var(--pp-base);
   background-image:none;
   color:var(--pp-ink);
   font-weight:400;
   line-height:1.75;
 }
-.pp h1,.pp h2,.pp h3,.pp h4{font-family:var(--pp-serif);font-weight:700;letter-spacing:0;line-height:1.15}
+.pp h1,.pp h2,.pp h3,.pp h4{font-family:var(--pp-display);font-weight:500;letter-spacing:0;line-height:1.15}
 .pp p{color:inherit}
 .pp-wrap{max-width:var(--pp-wrap);margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
 .pp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -68,7 +71,7 @@ body.pp{
 
 /* ---------- header + opening ---------- */
 .pp-top{position:absolute;inset-inline:0;top:0;z-index:5;padding-block:22px}
-.pp-brand{display:inline-flex;align-items:center;gap:10px;color:var(--pp-on-photo);font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+.pp-brand{display:inline-flex;align-items:center;gap:10px;color:var(--pp-on-photo);font-family:var(--pp-display);font-weight:600;font-size:1.05rem;letter-spacing:.01em}
 .pp-brand img{width:34px;height:34px;object-fit:contain}
 
 .pp-scrim{position:absolute;inset:0;pointer-events:none;
@@ -81,7 +84,7 @@ body.pp{
 .pp-opening-media img{object-fit:cover;object-position:50% 45%}
 .pp-opening-body{position:relative;z-index:2;width:100%;padding-block:0 clamp(88px,14vh,170px)}
 .pp-opening h1{font-size:clamp(2.6rem,7.4vw,5.6rem);color:#fff;max-width:14ch}
-.pp-subtitle{font-family:var(--pp-serif);font-size:clamp(1.15rem,2.2vw,1.55rem);color:#fff;margin-top:18px}
+.pp-subtitle{font-family:var(--pp-display);font-weight:400;font-size:clamp(1.15rem,2.2vw,1.55rem);color:#fff;margin-top:18px}
 .pp-lead{max-width:56ch;margin-top:18px;font-size:clamp(1rem,1.5vw,1.12rem);font-weight:300;color:var(--pp-on-photo-dim)}
 .pp-down{display:inline-flex;align-items:center;gap:8px;margin-top:30px;font-size:.95rem;font-weight:500;color:var(--pp-on-photo);border-block-end:1px solid var(--pp-on-photo-line);padding-block-end:4px;transition:border-color .3s,color .3s}
 .pp-down:hover{border-color:var(--pp-amber);color:#fff}
@@ -111,11 +114,11 @@ body.pp{
 .pp-tab:first-child::after{inset-inline-start:0}
 .pp-tab:hover{color:var(--pp-ink)}
 .pp-tab[aria-selected="true"]{color:var(--pp-ink)}
-.pp-tab[aria-selected="true"] .pp-tab-name{font-weight:700}
+.pp-tab[aria-selected="true"] .pp-tab-name{font-weight:500}
 .pp-tab[aria-selected="true"]::after{transform:scaleX(1)}
 .pp-tab:focus-visible{outline-offset:-4px}
-.pp-tab-num{font-size:.76rem;font-weight:600;letter-spacing:.06em;color:var(--pp-brand)}
-.pp-tab-name{font-family:var(--pp-serif);font-size:1.12rem;font-weight:500;white-space:nowrap}
+.pp-tab-num{font-size:.8rem;font-weight:600;color:var(--pp-brand)}
+.pp-tab-name{font-family:var(--pp-display);font-size:1.08rem;font-weight:400;white-space:nowrap}
 
 /* panel switch: short fade, no layout motion */
 .pp-panel{outline:none}
@@ -149,7 +152,7 @@ body.pp{
 .pp-exp-top .pp-outcomes{grid-area:outcomes;
   /* centre the outcomes title on the headline's first line */
   padding-block-start:calc((clamp(1.7rem,3.4vw,2.5rem) * 1.15 - .95rem * 1.75) / 2)}
-.pp-ev-lead{font-family:var(--pp-serif);font-size:clamp(1.2rem,2.1vw,1.55rem);line-height:1.6;color:var(--pp-ink)}
+.pp-ev-lead{font-family:var(--pp-text);font-weight:400;font-size:clamp(1.2rem,2vw,1.45rem);line-height:1.65;color:var(--pp-ink)}
 .pp-outcomes-title{font-size:.95rem;font-weight:700;color:var(--pp-amber-ink);margin-bottom:10px}
 .pp-outcomes ul{margin:0;padding-inline-start:1.2em;display:grid;gap:10px}
 .pp-outcomes li{color:var(--pp-ink-dim);line-height:1.6}
@@ -175,7 +178,7 @@ body.pp{
 .pp-timeline li{position:relative;padding-inline-start:32px;padding-block:0 28px}
 .pp-timeline li:last-child{padding-block-end:0}
 .pp-timeline li::before{content:"";position:absolute;inset-inline-start:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--pp-amber);box-shadow:0 0 0 3px var(--pp-ice)}
-.pp-step-title{font-family:var(--pp-serif);font-size:1.2rem;font-weight:500;color:var(--pp-ink);line-height:1.4}
+.pp-step-title{font-family:var(--pp-display);font-size:1.15rem;font-weight:500;color:var(--pp-ink);line-height:1.4}
 .pp-step-text{margin-top:4px;color:var(--pp-ink-dim);font-size:.98rem}
 .pp-flow-media{position:sticky;top:calc(var(--pp-tabbar-h) + 32px);aspect-ratio:4/5}
 
@@ -187,7 +190,7 @@ body.pp{
 .pp-food-media{aspect-ratio:3/2;max-height:min(46vh,420px);width:100%}
 .pp-food-text{color:var(--pp-ink-dim);max-width:48ch}
 .pp-food-items{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-wrap:wrap;gap:4px 0}
-.pp-food-items li{font-family:var(--pp-serif);font-size:1.08rem}
+.pp-food-items li{font-size:1.1rem;font-weight:600}
 .pp-food-items li:not(:last-child)::after{content:"·";color:var(--pp-amber-ink);margin-inline:12px}
 
 /* ---------- gallery (editorial mosaic; swipe row on mobile) ---------- */
@@ -210,8 +213,8 @@ body.pp{
 /* ---------- next concept ---------- */
 .pp-ev-next{padding-block:clamp(44px,6vw,80px)}
 .pp-next{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;padding:28px 0 0;background:none;border:0;border-block-start:1px solid var(--pp-line);cursor:pointer;font:inherit;color:var(--pp-ink);text-align:start}
-.pp-next-kicker{font-size:.84rem;font-weight:600;letter-spacing:.06em;color:var(--pp-amber-ink)}
-.pp-next-name{display:inline-flex;align-items:center;gap:14px;font-family:var(--pp-serif);font-size:clamp(1.5rem,3.4vw,2.4rem);font-weight:700;line-height:1.2;color:var(--pp-brand)}
+.pp-next-kicker{font-size:.9rem;font-weight:600;color:var(--pp-amber-ink)}
+.pp-next-name{display:inline-flex;align-items:center;gap:14px;font-family:var(--pp-display);font-size:clamp(1.5rem,3.4vw,2.4rem);font-weight:500;line-height:1.2;color:var(--pp-brand)}
 .pp-next-name svg{width:clamp(22px,2.6vw,32px);height:clamp(22px,2.6vw,32px);transition:transform .35s var(--pp-ease)}
 .pp-next:hover .pp-next-name svg{transform:translateX(-6px)}
 
