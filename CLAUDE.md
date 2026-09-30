@@ -39,6 +39,23 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+31)
+- **What changed:**
+  1. Removed the taglines from options 02 and 06. No option has a tagline
+     now.
+  2. **Tab-switch scroll fixed.** Two causes:
+     - Real bug: Chrome's scroll anchoring. Hiding the old panel sometimes
+       made the page jump to the bottom. Fixed with `overflow-anchor:none`
+       on `.pp-panel` (`proposal.css`).
+     - `select()` used to auto-scroll to the new option's top whenever the
+       tab bar was pinned. Eldar didn't want that, so clicking a tab (or
+       using the arrow keys) now keeps the scroll position. Only the "next
+       option" button at the bottom still jumps to the new option's top.
+  - Verified with Playwright at 1440 and 390 px: 12 tab switches from
+    different scroll positions, and scrollY is unchanged every time.
+- **Next goal:** Eldar sends the rest of the copy for 04–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+30)
 - **What changed:** Option 05 (spa day) now uses Eldar's three outcomes.
   The third one, "היכרות טובה יותר עם הגוף", replaced Claude's "תחושה
@@ -1852,6 +1869,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: removed taglines on 02/06; fixed the tab switch jumping (scroll anchoring) and stopped the auto-scroll on tab click.
 - 2026-09-30 — Proposal page: option 05 outcomes replaced with Eldar's three.
 - 2026-09-30 — Proposal page: option 04 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: option 03 schedule step 2 text updated.

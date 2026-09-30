@@ -255,11 +255,9 @@
     if (opts.hash !== false) {
       try { history.replaceState(null, '', '#' + panels[i].id); } catch (e) {}
     }
-    var top = panelTop(i);
-    // if the reader is already inside the concepts (tab bar pinned), bring the new concept's top into view
-    var inside = tabbar.classList.contains('is-stuck') || window.pageYOffset > top + 2;
-    if (opts.scroll === 'always' || (opts.scroll !== 'never' && inside)) {
-      window.scrollTo({ top: top, behavior: behavior() });
+    // switching tabs keeps the reader where they are; only the "next option" button jumps to the new option's top
+    if (opts.scroll === 'always') {
+      window.scrollTo({ top: panelTop(i), behavior: behavior() });
     }
     syncVideos();
   }
