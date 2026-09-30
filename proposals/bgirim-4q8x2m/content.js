@@ -137,7 +137,7 @@ window.PROPOSAL = {
         { src: '/assets/img/g03.jpg', alt: 'קבוצה שוכבת על מזרנים בחלל מקורה' },
         { src: '/assets/img/retreat-breathwork.jpg', alt: 'משתתפים שוכבים בעיניים עצומות' },
         { src: '/assets/img/g10.jpg', alt: 'משתתפים שוכבים על מזרנים בגינה' },
-        { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים בפרגולה מול בריכה' },
+        { src: '/proposals/_shared/media/med-gallery-writing.jpg', alt: 'קבוצה יושבת על כריות ליד הבריכה בערב וכותבת במחברות', position: '50% 62%' },
         { src: '/assets/img/g13.jpg', alt: 'קבוצה מתרגלת על מזרנים' }
       ]
     },
