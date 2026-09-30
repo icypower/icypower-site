@@ -39,6 +39,15 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+11)
+- **What changed:** The renderer supports an optional per-option `title`
+  (the big hero heading); the tab and the "next option" link keep using
+  `name`. Option 01's heading is now "סדנת קרח ונשימות WHM", its tab stays
+  "קרח ונשימות WHM", and its tagline was removed. The field docs at the top
+  of `content.js` now explain name/title/tagline.
+- **Next goal:** unchanged.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+10)
 - **What changed:** Option 01's name is now "קרח ונשימות WHM" (also the tab
   label) and its tagline is "לשחרר את הסטרס ולהיטען באנרגיה טובה." Checked
@@ -1695,6 +1704,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: optional `title` field (hero heading separate
+  from the tab name); option 01 heading "סדנת קרח ונשימות WHM", tagline removed.
 - 2026-09-30 — Proposal page: option 01 renamed "קרח ונשימות WHM" with a
   new tagline.
 - 2026-09-30 — Proposal page: option 01 intro and outcomes replaced with
