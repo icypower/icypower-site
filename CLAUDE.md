@@ -39,6 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+52)
+- **What changed:** The Icy Power logo at the top of the proposal page (and
+  in the optional footer) is now a link to the site's home page (`/`). It
+  opens in the same tab, and hover dims it slightly.
+  - Note: this is the page's only outbound link. `Referrer-Policy:
+    no-referrer` on `/proposals/*` means the home page won't see which
+    proposal the visitor came from.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+51)
 - **What changed:** The client name (the opening h1) changed from "קבוצת
   בגירים" to "עובדי עיריית תל אביב". The folder and URL stay
@@ -2101,6 +2111,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: logo links to the site home page.
 - 2026-09-30 — Proposal page: client name changed to עובדי עיריית תל אביב (URL unchanged).
 - 2026-09-30 — Proposal page: option 05 gallery g09 crop shifted down.
 - 2026-09-30 — Proposal page: option 02 gallery sound-healing photo replaced with a writing-circle photo.

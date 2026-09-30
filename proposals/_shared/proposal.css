@@ -73,6 +73,8 @@ body.pp{
 .pp-top{position:absolute;inset-inline:0;top:0;z-index:5;padding-block:22px}
 .pp-brand{display:inline-flex;align-items:center;gap:10px;color:var(--pp-on-photo);font-family:var(--pp-display);font-weight:600;font-size:1.05rem;letter-spacing:.01em}
 .pp-brand img{width:34px;height:34px;object-fit:contain}
+.pp-brand{text-decoration:none;transition:opacity .2s}
+.pp-brand:hover{opacity:.8}
 
 .pp-scrim{position:absolute;inset:0;pointer-events:none;
   background:
