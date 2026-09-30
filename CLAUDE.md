@@ -39,6 +39,19 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+44)
+- **What changed:** Option 05 (spa day) now has Eldar's photos, all in
+  `proposals/_shared/media/`:
+  - massage card: `spa-massage.jpg`
+  - reflexology card: `spa-reflexology.jpg`
+  - schedule image: `spa-schedule.jpg`, an evening massage by the pool;
+    position '50% 72%'
+  - gallery: g10.jpg was replaced with `spa-gallery-feet.jpg` (an evening
+    foot massage); position '50% 66%'
+  - The hero and the lecture card are unchanged.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+43)
 - **What changed:** Feedback said the option tabs didn't read as buttons.
   - **Tabs are now raised chips.** White, rounded, with a border and a soft
@@ -2020,6 +2033,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 05 massage/reflexology cards, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: tabs restyled as button chips + a gentle one-time hop nudge.
 - 2026-09-30 — Proposal page: option 04 tai chi card, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: option 03 card/schedule/gallery photos from Eldar; gallery now honors image `position`.
