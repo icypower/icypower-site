@@ -39,6 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+35)
+- **What changed:** Option 01's gallery now shows 5 real photos from Eldar,
+  in the order he sent them. They are saved as
+  `proposals/_shared/media/ice-gallery-1..5.jpg`, 140–370 KB each, from
+  images he pasted in chat (about 1376px wide; the originals may be sharper).
+  The old gallery images were removed from this option only.
+- **Next goal:** Eldar sends the remaining copy, plus photos for the other
+  options.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+34)
 - **What changed:** The opening text (client name, subtitle, intro and link)
   now sits at the **top** of the opening photo, just under the logo:
@@ -1903,6 +1913,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 gallery replaced with 5 real photos from Eldar.
 - 2026-09-30 — Proposal page: opening text moved to the top of the photo (desktop + mobile).
 - 2026-09-30 — Proposal page: removed food/tea mentions from all schedules; new reception text for 04 and 06.
 - 2026-09-30 — Proposal page: option 06 intro, activities and outcomes replaced with Eldar's copy.
