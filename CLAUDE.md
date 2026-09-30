@@ -39,6 +39,35 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30
+- **What changed:** Recoloured the private proposal page
+  (`proposals/bgirim-4q8x2m/`) from dark navy + gold to **palette A,
+  "Glacier Morning"**. Eldar found the navy too dark and wanted it bright,
+  positive and fun but still premium. He asked for research-based options,
+  was shown 5 palettes and picked A. The tokens are at the top of
+  `proposals/_shared/proposal.css`:
+  - Cloud Dancer `#F0EEE9` (60% base, Pantone 2026)
+  - ice blue `#DDEFF6` (30%)
+  - ink `#12344D` for text
+  - the site's teal-blue `#1C6E9C` for headings and the selected tab
+  - amber `#F2B544` (10%) for accents only, `#8A5A00` when it's small text
+  Research basis: brightness drives pleasure (Valdez & Mehrabian 1994),
+  low saturation reads premium (JCR 2025 "Color of Status"),
+  sky/water blues are preferred (Palmer & Schloss 2010), yellow means joy
+  (Jonauskaite 2020), and the split follows NN/g's 60-30-10.
+  - Dark bands became ice-blue bands. Text on photos keeps a scrim tinted
+    with the ink colour. The lightbox stays dark, which is normal for
+    viewing photos.
+  - All text pairs checked: body text ~11:1, secondary 6.2:1, headings
+    and brand text 4.7:1. Re-verified with Playwright at 1440px and
+    390px: no overflow or JS errors, and tabs, lightbox, deep links and
+    reduced motion all unchanged.
+- **Next goal:** Eldar replaces the placeholder content in `content.js`.
+- **Anything the next session needs to know:** Use the `--pp-*` tokens.
+  Never put amber `#F2B544` behind or as small text on light
+  backgrounds; use `--pp-amber-ink` for that.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-29
 - **What changed:** New **private client proposal page** for "קבוצת בגירים",
   built at Eldar's request (he's asleep and asked for all decisions to be
@@ -1621,6 +1650,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page recoloured to research-based palette A
+  "Glacier Morning" (Cloud Dancer / ice blue / brand teal-blue / amber), per Eldar.
 - 2026-09-29 — Built the private "קבוצת בגירים" proposal page
   (`proposals/bgirim-4q8x2m/`, content in `content.js`, shared template in
   `proposals/_shared/`), hidden + noindex, navy/gold premium style.
