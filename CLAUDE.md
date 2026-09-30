@@ -39,6 +39,12 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+25)
+- **What changed:** Option 03's schedule now has Eldar's five steps (a new
+  step 2, "הסבר על עולם הריחות"). Spelling: ארומתרפיה.
+- **Next goal:** Eldar sends the rest of the copy for 03–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+24)
 - **What changed:** Removed the food section ("אוכל ושתייה") from all 6
   options (the `food` field is gone from `content.js`). The gallery now uses
@@ -1813,6 +1819,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 03 schedule replaced with Eldar's five steps.
 - 2026-09-30 — Proposal page: removed the food section from all options; gallery background alternates.
 - 2026-09-30 — Proposal page: option 03 intro replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 02 intro and outcomes replaced with Eldar's copy.
