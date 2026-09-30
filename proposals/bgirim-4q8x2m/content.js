@@ -27,7 +27,6 @@ window.PROPOSAL = {
     srcMobile: '/proposals/_shared/media/opening-900.jpg',
     alt: 'קבוצה על מזרנים בפרגולה ליד בריכה, רגע לפני תרגול נשימה'
   },
-  selectorTitle: 'בחרו קונספט כדי לראות איך הוא ייראה',
   footerNote: 'הצעה זו הוכנה במיוחד עבור קבוצת בגירים',
 
   events: [

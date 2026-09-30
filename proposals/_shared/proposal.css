@@ -100,8 +100,6 @@ body.pp{
 
 /* ---------- concepts selector ---------- */
 .pp-concepts{background:var(--pp-base);outline:none}
-.pp-concepts-head{color:var(--pp-ink);padding-block:clamp(44px,6vw,72px) clamp(16px,2.4vw,26px)}
-.pp-concepts-head h2{font-size:clamp(1.5rem,3vw,2.2rem);color:var(--pp-brand);max-width:24ch}
 .pp-sentinel{height:1px}
 .pp-tabbar{position:sticky;top:0;z-index:30;background:var(--pp-base);border-block-end:1px solid var(--pp-line);transition:box-shadow .3s}
 .pp-tabbar.is-stuck{box-shadow:0 10px 24px -20px rgba(18,52,77,.55)}
