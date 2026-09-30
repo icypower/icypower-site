@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+30)
+- **What changed:** Option 05 (spa day) now uses Eldar's three outcomes.
+  The third one, "היכרות טובה יותר עם הגוף", replaced Claude's "תחושה
+  שחשבו עליהם".
+- **Next goal:** Eldar sends the rest of the copy for 04–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+29)
 - **What changed:** Option 04 (tai chi + sound healing) now uses Eldar's
   five schedule steps; the em dash in step 5 became a comma. Its intro and
@@ -1845,6 +1852,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 05 outcomes replaced with Eldar's three.
 - 2026-09-30 — Proposal page: option 04 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: option 03 schedule step 2 text updated.
 - 2026-09-30 — Proposal page: option 03 outcomes replaced with Eldar's three.
