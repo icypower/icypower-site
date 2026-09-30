@@ -39,6 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+12)
+- **What changed:** Option 01's intro and both activity texts (סדנת נשימות,
+  אמבטיית קרח) were replaced with Eldar's copy, with spelling and grammar
+  fixed (טכניקת, מכניסה, "למצב תודעה מיוחד", "עולות", "ונצא" for a
+  consistent tense, ליום־יום).
+- **Next goal:** unchanged.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+11)
 - **What changed:** The renderer supports an optional per-option `title`
   (the big hero heading); the tab and the "next option" link keep using
@@ -1704,6 +1712,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 intro and activity texts replaced
+  with Eldar's copy (spelling fixed).
 - 2026-09-30 — Proposal page: optional `title` field (hero heading separate
   from the tab name); option 01 heading "סדנת קרח ונשימות WHM", tagline removed.
 - 2026-09-30 — Proposal page: option 01 renamed "קרח ונשימות WHM" with a
