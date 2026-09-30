@@ -144,27 +144,23 @@ body.pp{
 .pp-vidbtn:hover{background:rgba(var(--pp-shade),.78);border-color:var(--pp-amber)}
 .pp-vidbtn svg{width:18px;height:18px;fill:currentColor}
 
-/* ---------- intro + outcomes ("what the group takes away") ---------- */
-.pp-ev-intro{padding-block:clamp(48px,7vw,96px) 0}
-.pp-intro-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(28px,6vw,88px);align-items:center}
-.pp-ev-lead{font-family:var(--pp-serif);font-size:clamp(1.25rem,2.3vw,1.7rem);line-height:1.6;color:var(--pp-ink)}
-.pp-outcomes{background:var(--pp-ice);border-radius:var(--pp-r);padding:clamp(20px,2.6vw,30px) clamp(20px,2.6vw,32px);border-block-start:3px solid var(--pp-amber)}
-.pp-outcomes-title{font-size:.9rem;font-weight:700;letter-spacing:.02em;color:var(--pp-amber-ink);margin-bottom:6px}
-.pp-outcomes ol{list-style:none;margin:0;padding:0}
-.pp-outcomes li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;padding-block:14px;border-block-end:1px solid var(--pp-line)}
-.pp-outcomes li:last-child{border-block-end:0;padding-block-end:0}
-.pp-outcome-num{font-family:var(--pp-serif);font-weight:700;font-size:1.05rem;color:var(--pp-brand);line-height:1.5}
-.pp-outcome-title{font-family:var(--pp-serif);font-weight:700;font-size:1.12rem;line-height:1.45;color:var(--pp-ink)}
-.pp-outcome-text{margin-top:2px;font-size:.95rem;line-height:1.6;color:var(--pp-ink-dim)}
+/* ---------- experience: heading → intro + outcomes → activity cards ---------- */
+.pp-intro-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
+.pp-ev-lead{font-family:var(--pp-serif);font-size:clamp(1.2rem,2.1vw,1.55rem);line-height:1.6;color:var(--pp-ink)}
+.pp-outcomes-title{font-size:.95rem;font-weight:700;color:var(--pp-amber-ink);margin-bottom:10px}
+.pp-outcomes ul{margin:0;padding-inline-start:1.2em;display:grid;gap:10px}
+.pp-outcomes li{color:var(--pp-ink-dim);line-height:1.6}
+.pp-outcomes li::marker{color:var(--pp-amber)}
+.pp-outcomes strong{color:var(--pp-ink);font-weight:700}
 
 /* ---------- activities ---------- */
-.pp-acts{display:grid;gap:clamp(28px,3.4vw,44px) clamp(20px,2.6vw,36px);grid-template-columns:repeat(3,minmax(0,1fr))}
+.pp-acts{display:grid;gap:clamp(28px,3.4vw,40px) clamp(20px,2.6vw,32px);grid-template-columns:repeat(3,minmax(0,1fr))}
 .pp-acts-2,.pp-acts-4{grid-template-columns:repeat(2,minmax(0,1fr))}
-.pp-act-media{aspect-ratio:4/5;margin-bottom:20px}
-.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:3/2}
+.pp-act-media{aspect-ratio:4/3;max-height:min(34vh,300px);width:100%;margin-bottom:14px}
+.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/9}
 .pp-act:hover .pp-act-media img{transform:scale(1.03)}
 .pp-act-num{font-size:.8rem;font-weight:600;letter-spacing:.08em;color:var(--pp-amber-ink);margin-bottom:6px}
-.pp-act h4{font-size:clamp(1.3rem,2vw,1.6rem);margin-bottom:10px}
+.pp-act h4{font-size:clamp(1.2rem,1.8vw,1.45rem);margin-bottom:6px}
 .pp-act-text{color:var(--pp-ink-dim);max-width:42ch}
 
 /* ---------- schedule ---------- */
@@ -265,9 +261,9 @@ body.pp{
   /* fade the trailing edge so it is obvious the tab row scrolls */
   .pp-tabbar .pp-wrap{padding-inline-end:0}
   .pp-tabs{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 36px);mask-image:linear-gradient(to right,transparent 0,#000 36px);padding-inline-end:28px}
-  .pp-intro-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .pp-intro-grid{grid-template-columns:minmax(0,1fr);gap:24px}
   .pp-acts,.pp-acts-2,.pp-acts-4{grid-template-columns:minmax(0,1fr)}
-  .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:4/3}
+  .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/10;max-height:32vh}
   .pp-pf-grid{grid-template-columns:minmax(0,1fr)}
   .pp-timeline::before{inset-inline-start:50px}
   .pp-timeline li{grid-template-columns:50px minmax(0,1fr)}
