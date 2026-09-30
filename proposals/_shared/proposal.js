@@ -201,10 +201,6 @@
 
   root.innerHTML = renderOpening() +
     '<main id="concepts" class="pp-concepts" tabindex="-1">' +
-      '<div class="pp-concepts-head"><div class="pp-wrap reveal">' +
-        '<p class="pp-eyebrow">הקונספטים</p>' +
-        '<h2>' + esc(P.selectorTitle || 'בחרו קונספט') + '</h2>' +
-      '</div></div>' +
       '<div class="pp-tabbar"><div class="pp-wrap"><div class="pp-tabs" role="tablist" aria-label="קונספטים לאירוע">' + renderTabs() + '</div></div></div>' +
       events.map(renderPanel).join('') +
     '</main>' +
