@@ -216,7 +216,7 @@ window.PROPOSAL = {
         {
           name: 'טאי צ\'י',
           text: 'תנועות איטיות וזורמות בעמידה, בהנחיית המדריך, שמשחררות את הגוף ומחברות אותו לנשימה. לא צריך ניסיון או כושר מיוחד, כל אחד זז בקצב שלו.',
-          image: { src: '/assets/img/g13.jpg', alt: 'קבוצה מתרגלת על מזרנים' }
+          image: { src: '/proposals/_shared/media/taichi.jpg', alt: 'משתתפים מתרגלים טאי צ׳י ליד הבריכה', position: '50% 40%' }
         },
         {
           name: 'סאונד הילינג',
@@ -233,15 +233,16 @@ window.PROPOSAL = {
         { title: 'מעגל שיתוף', text: 'חוזרים לאט, יושבים יחד ומשתפים במה שעבר עלינו, למי שמתאים.' }
       ],
       scheduleImage: {
-        src: '/assets/img/retreat-gate.jpg',
-        alt: 'שער כניסה מעוצב לגינה'
+        src: '/proposals/_shared/media/taichi-schedule.jpg',
+        alt: 'משתתפות מתרגלות תנועה על מזרנים בפרגולה בערב',
+        position: '50% 38%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים בפרגולה' },
         { src: '/assets/img/retreat-soundbath.jpg', alt: 'קערות צליל ונרות' },
         { src: '/assets/img/retreat-closing-circle.jpg', alt: 'מעגל ערב בפרגולה' },
-        { src: '/assets/img/retreat-breathwork.jpg', alt: 'משתתפים שוכבים בעיניים עצומות' }
+        { src: '/assets/img/g13.jpg', alt: 'המדריך עומד מול קבוצה שיושבת על מזרנים', position: '50% 50%' }
       ]
     },
 
