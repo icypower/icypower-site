@@ -39,6 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+24)
+- **What changed:** Removed the food section ("אוכל ושתייה") from all 6
+  options (the `food` field is gone from `content.js`). The gallery now uses
+  the light background when an option has no food section, so it doesn't
+  merge with the schedule section above it; with food it stays dark, as before.
+- **Next goal:** Eldar sends the rest of the copy for 03–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+23)
 - **What changed:** Option 03's intro (aromatherapy + oil blending) now uses
   Eldar's text, with spelling fixed (עצמנו, ששכחנו) and the long sentence
@@ -1805,6 +1813,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: removed the food section from all options; gallery background alternates.
 - 2026-09-30 — Proposal page: option 03 intro replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 02 intro and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: restructured into 6 options in Eldar's new order, reusing his copy; placeholders for tai chi, lecture and improv.

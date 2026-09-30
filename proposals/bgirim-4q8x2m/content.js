@@ -78,12 +78,6 @@ window.PROPOSAL = {
         src: '/assets/img/intro-6.jpg',
         alt: 'מדריך מלווה משתתפת בתוך אמבטיית קרח'
       },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'אחרי הקור הגוף מבקש משהו חם. מחכים לכם שתייה חמה, פירות ומשהו מתוק קטן.',
-        items: ['תה צמחים', 'שוקו חם', 'פירות העונה', 'עוגיות ביתיות'],
-        image: { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' }
-      },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/intro-4.jpg', alt: 'משתתף מחייך בתוך אמבטיית קרח ממותגת של Icy Power' },
@@ -138,12 +132,6 @@ window.PROPOSAL = {
         src: '/assets/img/retreat-closing-circle.jpg',
         alt: 'מעגל משתתפים יושבים על מזרנים בערב'
       },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'שולחן קליל וצבעוני שמחכה לכם בסוף, בלי שום דבר כבד.',
-        items: ['תה צמחים', 'מים בטעמים', 'פירות חתוכים', 'חטיפי תמרים ואגוזים'],
-        image: { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' }
-      },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/g03.jpg', alt: 'קבוצה שוכבת על מזרנים בחלל מקורה' },
@@ -194,12 +182,6 @@ window.PROPOSAL = {
         src: '/assets/img/whatyouget-side.jpg',
         alt: 'שולחן ערוך בפרגולה מול בריכה'
       },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'אוכל קל שלא מתחרה בריחות, בשביל ההפסקה שבין הפעילויות.',
-        items: ['תה צמחים', 'לימונדה עם נענע', 'מאפים קטנים', 'פירות'],
-        image: { src: '/assets/img/whatyouget-side.jpg', alt: 'שולחן ערוך בפרגולה מול בריכה' }
-      },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/retreat-aromatherapy2.jpg', alt: 'שמנים אתריים ונר' },
@@ -247,12 +229,6 @@ window.PROPOSAL = {
       scheduleImage: {
         src: '/assets/img/retreat-gate.jpg',
         alt: 'שער כניסה מעוצב לגינה'
-      },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'משהו חם ועוטף שמתאים לסוף של מפגש רגוע.',
-        items: ['תה צ\'אי', 'מרק עונתי', 'לחם טרי ומטבלים', 'שוקולד מריר'],
-        image: { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' }
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
@@ -310,12 +286,6 @@ window.PROPOSAL = {
         src: '/assets/img/retreat-gate.jpg',
         alt: 'שער כניסה מעוצב לגינה'
       },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'שולחן קליל וצבעוני שמחכה לכם בסוף, בלי שום דבר כבד.',
-        items: ['תה צמחים', 'מים בטעמים', 'פירות חתוכים', 'חטיפי תמרים ואגוזים'],
-        image: { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' }
-      },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים בפרגולה' },
@@ -366,12 +336,6 @@ window.PROPOSAL = {
       scheduleImage: {
         src: '/assets/img/about-us.jpg',
         alt: 'קבוצה גדולה מצטלמת יחד בגינה'
-      },
-      food: {
-        title: 'אוכל ושתייה',
-        text: 'אוכל שמח שאפשר לאכול בעמידה, בין צחוק לצחוק.',
-        items: ['לימונדה קרה', 'פופקורן', 'ירקות ומטבלים', 'עוגת שוקולד'],
-        image: { src: '/assets/img/retreat-villa-spread.jpg', alt: 'שולחן אוכל ערוך ליד בריכה' }
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [

@@ -157,7 +157,8 @@
   function renderGallery(ev, i) {
     if (!has(ev.gallery)) return '';
     var n = Math.min(ev.gallery.length, 6);
-    return '<section class="pp-sec pp-dark pp-ev-gallery"><div class="pp-wrap">' +
+    // alternate backgrounds: dark after the light food section, light when there's no food
+    return '<section class="pp-sec ' + (ev.food ? 'pp-dark' : 'pp-light') + ' pp-ev-gallery"><div class="pp-wrap">' +
       '<div class="pp-head reveal"><h3>' + esc(ev.galleryTitle || 'רגעים מאירועים קודמים') + '</h3></div>' +
       '<ul class="pp-gallery pp-gallery-' + n + '" data-event="' + i + '">' +
         ev.gallery.map(function (g, k) {
