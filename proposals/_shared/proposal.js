@@ -61,7 +61,7 @@
           '<h1 id="pp-title" class="pp-rise pp-rise-2">' + esc(P.client) + '</h1>' +
           (P.subtitle ? '<p class="pp-subtitle pp-rise pp-rise-3">' + esc(P.subtitle) + '</p>' : '') +
           (P.intro ? '<p class="pp-lead pp-rise pp-rise-4">' + esc(P.intro) + '</p>' : '') +
-          '<a class="pp-down pp-rise pp-rise-4" href="#concepts">לקונספטים' + ICON.down + '</a>' +
+          '<a class="pp-down pp-rise pp-rise-4" href="#concepts">לאפשרויות' + ICON.down + '</a>' +
         '</div>' +
       '</section>';
   }
@@ -70,7 +70,7 @@
     return events.map(function (ev, i) {
       var id = 'event-' + pad(i + 1);
       return '<button type="button" role="tab" class="pp-tab" id="tab-' + id + '" aria-controls="' + id + '" aria-selected="false" tabindex="-1">' +
-        '<span class="pp-tab-num">' + esc(ev.label || ('אירוע ' + pad(i + 1))) + '</span>' +
+        '<span class="pp-tab-num">' + esc(ev.label || ('אפשרות ' + pad(i + 1))) + '</span>' +
         '<span class="pp-tab-name">' + esc(ev.name) + '</span>' +
       '</button>';
     }).join('');
@@ -108,7 +108,7 @@
         (has(ev.outcomes) ? '<div class="pp-outcomes">' +
           '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
           '<ul>' + ev.outcomes.map(function (o) {
-            return '<li><strong>' + esc(o.title) + '</strong>' + (o.text ? ' — ' + esc(o.text) : '') + '</li>';
+            return '<li><strong>' + esc(o.title) + '</strong>' + (o.text ? ': ' + esc(o.text) : '') + '</li>';
           }).join('') + '</ul>' +
         '</div>' : '') +
       '</div>' +
@@ -173,9 +173,9 @@
     if (events.length < 2) return '';
     var last = i === events.length - 1;
     var ni = last ? 0 : i + 1, nev = events[ni];
-    return '<nav class="pp-sec pp-light pp-ev-next" aria-label="מעבר בין קונספטים"><div class="pp-wrap">' +
+    return '<nav class="pp-sec pp-light pp-ev-next" aria-label="מעבר בין האפשרויות"><div class="pp-wrap">' +
       '<button type="button" class="pp-next" data-go="' + ni + '">' +
-        '<span class="pp-next-kicker">' + (last ? 'חזרה לקונספט הראשון' : 'לקונספט הבא') + '</span>' +
+        '<span class="pp-next-kicker">' + (last ? 'חזרה לאפשרות הראשונה' : 'לאפשרות הבאה') + '</span>' +
         '<span class="pp-next-name">' + esc(nev.label || '') + ' · ' + esc(nev.name) + ICON.arrowNext + '</span>' +
       '</button>' +
     '</div></nav>';
@@ -190,7 +190,7 @@
 
   root.innerHTML = renderOpening() +
     '<main id="concepts" class="pp-concepts" tabindex="-1">' +
-      '<div class="pp-tabbar"><div class="pp-wrap"><div class="pp-tabs" role="tablist" aria-label="קונספטים לאירוע">' + renderTabs() + '</div></div></div>' +
+      '<div class="pp-tabbar"><div class="pp-wrap"><div class="pp-tabs" role="tablist" aria-label="אפשרויות למפגש">' + renderTabs() + '</div></div></div>' +
       events.map(renderPanel).join('') +
     '</main>' +
     '<footer class="pp-footer"><div class="pp-wrap">' +
