@@ -70,7 +70,7 @@
   function renderTabs() {
     return events.map(function (ev, i) {
       var id = 'event-' + pad(i + 1);
-      return '<button type="button" role="tab" class="pp-tab" id="tab-' + id + '" aria-controls="' + id + '" aria-selected="false" tabindex="-1">' +
+      return '<button type="button" role="tab" class="pp-tab" id="tab-' + id + '" aria-controls="' + id + '" aria-selected="false" tabindex="-1" style="--i:' + i + '">' +
         '<span class="pp-tab-num">' + esc(ev.label || ('אפשרות ' + pad(i + 1))) + '</span>' +
         '<span class="pp-tab-name">' + esc(ev.name) + '</span>' +
       '</button>';
@@ -284,6 +284,39 @@
     if (!b) return;
     select(+b.getAttribute('data-go'), { focus: true, scroll: 'always' });
   });
+
+  // keep --pp-tabbar-h (scroll padding, sticky offsets) equal to the real bar height
+  function syncTabbarH() { document.documentElement.style.setProperty('--pp-tabbar-h', tabbar.offsetHeight + 'px'); }
+  syncTabbarH();
+  window.addEventListener('resize', syncTabbarH);
+
+  // tab nudge: when the tab row first comes into view, the chips hop once, then
+  // again every few seconds (3 times at most) until the reader uses a tab
+  (function () {
+    if (reduceMQ.matches || !('IntersectionObserver' in window)) return;
+    var runs = 0, timer = null, done = false;
+    function play() {
+      if (done || runs >= 3) return;
+      runs++;
+      tablist.classList.remove('pp-nudge');
+      void tablist.offsetWidth; // restart the animation
+      tablist.classList.add('pp-nudge');
+      timer = setTimeout(play, 6000);
+    }
+    function stop() {
+      done = true;
+      clearTimeout(timer);
+      tablist.classList.remove('pp-nudge');
+    }
+    tablist.addEventListener('click', stop);
+    tablist.addEventListener('keydown', stop);
+    var io = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      io.disconnect();
+      timer = setTimeout(play, 700);
+    }, { threshold: 1 });
+    io.observe(tablist);
+  })();
 
   // sticky tab bar: add a hairline shadow once it is pinned
   if ('IntersectionObserver' in window) {
