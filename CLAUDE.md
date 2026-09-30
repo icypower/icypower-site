@@ -39,6 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+51)
+- **What changed:** The client name (the opening h1) changed from "קבוצת
+  בגירים" to "עובדי עיריית תל אביב". The folder and URL stay
+  `proposals/bgirim-4q8x2m/` on purpose, so any link already sent keeps
+  working.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+50)
 - **What changed:** In option 05's gallery, the g09.jpg tile is now cropped
   to the lower part of the photo (position '50% 82%'), so the front
@@ -2093,6 +2101,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: client name changed to עובדי עיריית תל אביב (URL unchanged).
 - 2026-09-30 — Proposal page: option 05 gallery g09 crop shifted down.
 - 2026-09-30 — Proposal page: option 02 gallery sound-healing photo replaced with a writing-circle photo.
 - 2026-09-30 — Proposal page: footer removed (now optional via footerNote).
