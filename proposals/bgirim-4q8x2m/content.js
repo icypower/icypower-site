@@ -296,7 +296,7 @@ window.PROPOSAL = {
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
         { src: '/proposals/_shared/media/spa-gallery-talk.jpg', alt: 'קבוצה יושבת על כריות ליד הבריכה בערב ומקשיבה להרצאה', position: '50% 55%' },
-        { src: '/assets/img/g09.jpg', alt: 'משתתפים שוכבים על מזרנים בין צמחים' },
+        { src: '/assets/img/g09.jpg', alt: 'משתתפים שוכבים על מזרנים בין צמחים', position: '50% 82%' },
         { src: '/assets/img/retreat-closing-circle.jpg', alt: 'מעגל ערב בפרגולה' },
         { src: '/proposals/_shared/media/spa-gallery-feet.jpg', alt: 'עיסוי כפות רגליים ליד הבריכה בערב', position: '50% 66%' }
       ]

@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+50)
+- **What changed:** In option 05's gallery, the g09.jpg tile is now cropped
+  to the lower part of the photo (position '50% 82%'), so the front
+  participant is fully in view.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+49)
 - **What changed:** In option 02's gallery, we-soundbath.jpg (the
   sound-healing woman) was replaced with `med-gallery-writing.jpg`, a group
@@ -2086,6 +2093,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 05 gallery g09 crop shifted down.
 - 2026-09-30 — Proposal page: option 02 gallery sound-healing photo replaced with a writing-circle photo.
 - 2026-09-30 — Proposal page: footer removed (now optional via footerNote).
 - 2026-09-30 — Proposal page: option 06 schedule + 2 gallery photos, option 05 gallery photo replaced.
