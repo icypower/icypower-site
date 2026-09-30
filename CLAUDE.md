@@ -39,6 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+37)
+- **What changed:** Option 01's schedule image ("מהלך המפגש") is now Eldar's
+  pergola-and-pool photo (`proposals/_shared/media/ice-schedule.jpg`):
+  - converted from a phone screenshot, with the black bars cropped off
+  - 921×1637
+  - `position: '50% 82%'`, so the participants show in both the desktop 4:5
+    frame and the mobile 16:10 frame
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+36)
 - **What changed:**
   - **Option 01 hero:** the video (hero-4.mp4) became Eldar's photo of the
@@ -1930,6 +1940,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 schedule image replaced with Eldar's pergola photo.
 - 2026-09-30 — Proposal page: option 01 hero video replaced by Eldar's photo; new gallery photo; optional image `position` crop field.
 - 2026-09-30 — Proposal page: option 01 gallery replaced with 5 real photos from Eldar.
 - 2026-09-30 — Proposal page: opening text moved to the top of the photo (desktop + mobile).
