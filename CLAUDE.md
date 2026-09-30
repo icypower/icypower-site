@@ -39,6 +39,20 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+42)
+- **What changed:** Option 04 (tai chi + sound healing) now has Eldar's
+  photos, all in `proposals/_shared/media/`:
+  - tai chi card: `taichi.jpg`, tai chi by the pool; position '50% 40%'
+  - schedule image: `taichi-schedule.jpg`, women stretching in the evening
+    pergola; black bars and the iPhone home bar cropped off; position
+    '50% 38%'
+  - gallery: retreat-breathwork.jpg was replaced with `assets/img/g13.jpg`
+    (the guide standing in front of a seated group). Eldar sent a screenshot
+    and it was matched to this existing file.
+  - The hero and the sound-healing card are unchanged.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+41)
 - **What changed:** Option 03 (aromatherapy) now has Eldar's photos, all in
   `proposals/_shared/media/`. Phone-screenshot black bars were cropped off.
@@ -1989,6 +2003,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 04 tai chi card, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: option 03 card/schedule/gallery photos from Eldar; gallery now honors image `position`.
 - 2026-09-30 — Proposal page: option 02 hero, both card images and schedule image replaced with Eldar's photos.
 - 2026-09-30 — Proposal page: option 01 ice-bath card image replaced with ph-land-3.jpg.
