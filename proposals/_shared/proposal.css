@@ -52,16 +52,9 @@ body.pp{
 .pp-opening :focus-visible,.pp-ev-hero :focus-visible,.pp-lightbox :focus-visible{outline-color:var(--pp-amber)}
 
 /* ---------- shared type ---------- */
-.pp-eyebrow{
-  font-size:.84rem;font-weight:600;letter-spacing:.06em;
-  color:var(--pp-amber-ink);margin-bottom:14px;
-  display:inline-flex;align-items:center;gap:10px;
-}
-.pp-eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--pp-amber)}
-.pp-opening .pp-eyebrow,.pp-ev-hero .pp-eyebrow{color:var(--pp-amber)}
 .pp-head{max-width:640px;margin-bottom:clamp(28px,4vw,48px)}
 .pp-head h3{font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand)}
-/* the amber accent line (formerly the eyebrow dash) now sits under each section headline */
+/* amber accent line under each section headline */
 .pp-head h3::after,.pp-exp-title::after,.pp-people h3::after,.pp-food h3::after{content:"";display:block;width:44px;height:3px;border-radius:3px;background:var(--pp-amber);margin-top:.45em}
 .pp-note{margin-top:10px;font-size:.95rem;color:var(--pp-ink-dim)}
 
@@ -137,7 +130,6 @@ body.pp{
 .pp-ev-hero .pp-scrim{background:
     linear-gradient(to left,rgba(var(--pp-shade),.5) 0%,rgba(var(--pp-shade),.2) 42%,rgba(var(--pp-shade),0) 70%),
     linear-gradient(to bottom,rgba(var(--pp-shade),.86) 0%,rgba(var(--pp-shade),.5) 34%,rgba(var(--pp-shade),.06) 66%,rgba(var(--pp-shade),.22) 100%)}
-.pp-of{color:var(--pp-on-photo-dim);letter-spacing:.1em}
 .pp-ev-title{font-size:clamp(2.3rem,6vw,4.4rem);color:#fff}
 .pp-ev-tagline{margin-top:14px;max-width:46ch;font-size:clamp(1.02rem,1.7vw,1.2rem);font-weight:300;color:var(--pp-on-photo-dim)}
 .pp-vidbtn{
@@ -150,8 +142,7 @@ body.pp{
 .pp-vidbtn svg{width:18px;height:18px;fill:currentColor}
 
 /* ---------- experience: heading → intro + outcomes → activity cards ---------- */
-/* grid: eyebrow on its own row, then the headline and the outcomes list
-   start on the same line; intro sits under the headline */
+/* grid: headline and outcomes list start on the same line; intro under the headline */
 .pp-ev-exp{padding-block-start:clamp(32px,4.5vw,60px)}
 .pp-exp-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"title outcomes" "lead outcomes";column-gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
 .pp-exp-title{grid-area:title;font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand);margin-bottom:clamp(18px,2.4vw,28px)}
@@ -181,12 +172,10 @@ body.pp{
 .pp-flow-solo{grid-template-columns:minmax(0,1fr);max-width:760px}
 
 .pp-timeline{list-style:none;padding:0;margin:0;position:relative}
-.pp-timeline::before{content:"";position:absolute;top:10px;bottom:10px;inset-inline-start:58px;width:1px;background:rgba(18,52,77,.22)}
-.pp-timeline li{display:grid;grid-template-columns:58px minmax(0,1fr);gap:0;padding-block:0 30px;position:relative}
+.pp-timeline::before{content:"";position:absolute;top:10px;bottom:10px;inset-inline-start:5px;width:1px;background:rgba(18,52,77,.22)}
+.pp-timeline li{position:relative;padding-inline-start:32px;padding-block:0 28px}
 .pp-timeline li:last-child{padding-block-end:0}
-.pp-timeline li::before{content:"";position:absolute;inset-inline-start:54px;top:9px;width:9px;height:9px;border-radius:50%;background:var(--pp-amber);border:2px solid var(--pp-ice);box-sizing:content-box;margin:-2px}
-.pp-time{font-variant-numeric:tabular-nums;font-size:.95rem;font-weight:600;color:var(--pp-brand);padding-top:1px;text-align:end;padding-inline-end:22px}
-.pp-timeline li>div{padding-inline-start:28px}
+.pp-timeline li::before{content:"";position:absolute;inset-inline-start:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--pp-amber);box-shadow:0 0 0 3px var(--pp-ice)}
 .pp-step-title{font-family:var(--pp-serif);font-size:1.2rem;font-weight:500;color:var(--pp-ink);line-height:1.4}
 .pp-step-text{margin-top:4px;color:var(--pp-ink-dim);font-size:.98rem}
 .pp-flow-media{position:sticky;top:calc(var(--pp-tabbar-h) + 32px);aspect-ratio:4/5}
@@ -278,11 +267,7 @@ body.pp{
   .pp-acts,.pp-acts-2,.pp-acts-4{grid-template-columns:minmax(0,1fr)}
   .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/10;max-height:32vh}
   .pp-pf-grid{grid-template-columns:minmax(0,1fr)}
-  .pp-timeline::before{inset-inline-start:50px}
-  .pp-timeline li{grid-template-columns:50px minmax(0,1fr)}
-  .pp-timeline li::before{inset-inline-start:46px}
-  .pp-time{padding-inline-end:16px;font-size:.88rem}
-  .pp-timeline li>div{padding-inline-start:22px}
+  .pp-timeline li{padding-inline-start:26px}
   /* gallery becomes a user-controlled swipe row */
   .pp-gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px);scrollbar-width:none}
   .pp-gallery::-webkit-scrollbar{display:none}
