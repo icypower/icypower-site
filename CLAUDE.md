@@ -39,19 +39,15 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (latest+4)
-- **What changed:** Proposal page, per Eldar: **removed the "מי מוביל את
-  האירוע" (facilitators) section entirely**; he doesn't find it
-  important.
-  - "אוכל ושתייה" now takes its place: a stand-alone section after the
-    timeline, with the text (headline + amber line, description, items)
-    beside a photo on desktop and stacked on phones.
-  - `renderPeopleAndFood` became `renderFood`. The `initials()` helper,
-    the people/avatar CSS and the `facilitators` data in `content.js`
-    are all removed.
-  - Panel order is now: hero → experience → timeline → food → gallery →
-    next concept.
-  - Verified at 1440 and 390px: no overflow or JS errors.
+- **Date:** 2026-09-30 (latest+5)
+- **What changed:** Proposal page opening, per Eldar:
+  - **Removed "עבור"**: the h1 is now just the client name.
+  - **Raised the opening text block.** Bottom padding went from
+    `clamp(40px,7vw,84px)` to `clamp(88px,14vh,170px)`.
+  - Also fixed a stale "facts" mention in `proposals/README.md`.
+- **In progress:** Eldar asked for research-based font recommendations
+  (Hebrew, premium, not "AI-looking"). Options are being presented in
+  chat; no font change yet.
 - **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
@@ -1666,6 +1662,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: removed "עבור" from the hero headline and
+  raised the opening text.
 - 2026-09-30 — Proposal page: removed the facilitators section; food &
   drinks now stands alone in its place (text beside photo).
 - 2026-09-30 — Proposal page: removed timeline times and all remaining

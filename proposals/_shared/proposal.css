@@ -79,9 +79,8 @@ body.pp{
 .pp-opening{position:relative;min-height:max(560px,100svh);display:flex;align-items:flex-end;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
 .pp-opening-media,.pp-opening-media img{position:absolute;inset:0;width:100%;height:100%}
 .pp-opening-media img{object-fit:cover;object-position:50% 45%}
-.pp-opening-body{position:relative;z-index:2;width:100%;padding-block:0 clamp(40px,7vw,84px)}
+.pp-opening-body{position:relative;z-index:2;width:100%;padding-block:0 clamp(88px,14vh,170px)}
 .pp-opening h1{font-size:clamp(2.6rem,7.4vw,5.6rem);color:#fff;max-width:14ch}
-.pp-for{display:block;font-family:var(--pp-serif);font-weight:500;font-size:.38em;color:var(--pp-amber);margin-bottom:.35em;letter-spacing:.02em}
 .pp-subtitle{font-family:var(--pp-serif);font-size:clamp(1.15rem,2.2vw,1.55rem);color:#fff;margin-top:18px}
 .pp-lead{max-width:56ch;margin-top:18px;font-size:clamp(1rem,1.5vw,1.12rem);font-weight:300;color:var(--pp-on-photo-dim)}
 .pp-down{display:inline-flex;align-items:center;gap:8px;margin-top:30px;font-size:.95rem;font-weight:500;color:var(--pp-on-photo);border-block-end:1px solid var(--pp-on-photo-line);padding-block-end:4px;transition:border-color .3s,color .3s}
