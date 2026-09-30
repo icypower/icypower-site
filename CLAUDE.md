@@ -39,15 +39,32 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (latest+7)
-- **What changed:** Proposal page gallery photos made smaller, per Eldar:
-  - **Desktop:** row height went from `clamp(150px,17vw,230px)` to
-    `clamp(110px,11.5vw,170px)`, and the grid is capped at 920px wide.
-    At 1440px the gallery is now 349px tall × 920px wide (was ~478 × 1100).
-  - **Phones:** the swipe-row tiles are 56% of the width (was 76%), snap
-    to the start, and keep a 16px edge gutter (`scroll-padding-inline`).
-  - No overflow or JS errors at 1440 and 390px.
-- **Next goal:** Eldar fills in the real content in `content.js`.
+- **Date:** 2026-09-30 (latest+8)
+- **What changed:** The proposal page now has **real content** for the 5
+  options Eldar defined. All Hebrew copy is in
+  `proposals/bgirim-4q8x2m/content.js`:
+  1. קרח ונשימות (ice bath + breathwork)
+  2. ארומתרפיה וכתיבה (aromatherapy + writing workshop)
+  3. מדיטציה ורפלקסולוגיה (guided meditation + reflexology workshop)
+  4. סאונד הילינג ועיסויים (sound healing + massages)
+  5. צחוק וכתיבה (laughter workshop + writing workshop)
+  - Labels changed from "אירוע/קונספט" to "אפשרות" across the renderer.
+  - The outcomes separator is now ": " instead of an em dash.
+  - Added a poster frame for `hero-2.mp4` (option 5's hero).
+  - **Copy principles** (from research):
+    - specific and sensory, not generic; outcomes in the reader's terms
+    - no em dashes, "not X but Y", AI buzzwords or everything-in-threes
+    - plain tab names for scannability
+    - organizer-risk reducers: "no one has to", touch limited and opt-in
+- **Assumptions Eldar must confirm** (written as plausible, not verified):
+  - the food/drink items for each option
+  - option 2: a personal aroma blend is taken home
+  - option 3: reflexology is practised in pairs or on yourself
+  - option 4: a short clothed massage on shoulders/neck/hands
+  - option 5: the laughter session is based on laughter yoga
+  - **Photos:** there are no real photos yet for writing, reflexology,
+    massage or laughter; nearby images are used as placeholders.
+- **Next goal:** Eldar reviews the copy and sends real photos.
 
 ### Latest status (previous, same day)
 - **Date:** 2026-09-30
@@ -1661,6 +1678,9 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: real content and copy for the 5 options
+  (ice+breath, aroma+writing, meditation+reflexology, sound+massage,
+  laughter+writing).
 - 2026-09-30 — Proposal page: gallery photos made smaller (desktop grid
   capped + shorter rows; narrower swipe tiles on phones).
 - 2026-09-30 — Proposal page fonts: Rubik headings + Assistant body
