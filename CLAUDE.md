@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+48)
+- **What changed:** Removed the page footer (the Icy Power logo and "הוכן
+  במיוחד עבור קבוצת בגירים"). The renderer now outputs the footer only when
+  `content.js` sets `footerNote`, and this proposal no longer sets it.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+47)
 - **What changed:** Eldar's photos went into options 06 and 05. All files
   are in `proposals/_shared/media/`; phone-screenshot black bars were
@@ -2072,6 +2079,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: footer removed (now optional via footerNote).
 - 2026-09-30 — Proposal page: option 06 schedule + 2 gallery photos, option 05 gallery photo replaced.
 - 2026-09-30 — Proposal page: option 06 laughter and improv card photos replaced.
 - 2026-09-30 — Proposal page: opening text made more legible (white, heavier, shadow, darker scrim).

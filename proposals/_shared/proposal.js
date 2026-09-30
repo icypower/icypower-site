@@ -195,10 +195,11 @@
       '<div class="pp-tabbar"><div class="pp-wrap"><div class="pp-tabs" role="tablist" aria-label="אפשרויות למפגש">' + renderTabs() + '</div></div></div>' +
       events.map(renderPanel).join('') +
     '</main>' +
-    '<footer class="pp-footer"><div class="pp-wrap">' +
+    // footer only when content.js sets footerNote
+    (P.footerNote ? '<footer class="pp-footer"><div class="pp-wrap">' +
       '<span class="pp-brand"><img src="/assets/img/icy_power_Logo.png" alt="" width="30" height="30" loading="lazy" /><span>Icy Power</span></span>' +
-      (P.footerNote ? '<p>' + esc(P.footerNote) + '</p>' : '') +
-    '</div></footer>' +
+      '<p>' + esc(P.footerNote) + '</p>' +
+    '</div></footer>' : '') +
     '<dialog class="pp-lightbox" aria-label="תמונה מוגדלת">' +
       '<figure><img alt="" /><figcaption></figcaption></figure>' +
       '<p class="pp-lb-count" aria-live="polite"></p>' +
