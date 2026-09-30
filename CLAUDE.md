@@ -39,6 +39,25 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+41)
+- **What changed:** Option 03 (aromatherapy) now has Eldar's photos, all in
+  `proposals/_shared/media/`. Phone-screenshot black bars were cropped off.
+  - ארומתרפיה card: `aroma-smell.jpg`, a woman smelling a bottle; position
+    '55% 42%'
+  - רקיחת שמנים card: `aroma-blend.jpg`, cropped to the blue cloth and the
+    tray of bottles; position '50% 64%'
+  - schedule image: `aroma-schedule.jpg`, the facilitator talking in the
+    garden
+  - gallery: g12.jpg was replaced with the same `aroma-blend.jpg` (Eldar sent
+    the same photo again), cropped to the faces ('50% 16%') so it doesn't
+    repeat the card
+  - The hero is unchanged.
+- **Bug fix:** `renderGallery` wasn't passing an image's `position` into
+  `img()`, so gallery crops were ignored (this also affected option 01's
+  ice-gallery-6). It is passed through now.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+40)
 - **What changed:** Option 02 (meditation + writing) now has Eldar's photos,
   all in `proposals/_shared/media/`. Phone-screenshot black bars were cropped
@@ -1970,6 +1989,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 03 card/schedule/gallery photos from Eldar; gallery now honors image `position`.
 - 2026-09-30 — Proposal page: option 02 hero, both card images and schedule image replaced with Eldar's photos.
 - 2026-09-30 — Proposal page: option 01 ice-bath card image replaced with ph-land-3.jpg.
 - 2026-09-30 — Proposal page: option 01 hero crop shifted up.
