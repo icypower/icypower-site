@@ -90,7 +90,7 @@
     return '<header class="pp-ev-hero">' + media +
       '<div class="pp-scrim" aria-hidden="true"></div>' +
       '<div class="pp-wrap pp-ev-hero-body">' +
-        '<h2 class="pp-ev-title">' + esc(ev.name) + '</h2>' +
+        '<h2 class="pp-ev-title">' + esc(ev.title || ev.name) + '</h2>' +
         (ev.tagline ? '<p class="pp-ev-tagline">' + esc(ev.tagline) + '</p>' : '') +
       '</div>' +
     '</header>';
