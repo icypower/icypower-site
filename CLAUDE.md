@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+13)
+- **What changed:** Option 01's schedule ("מהלך המפגש") uses Eldar's five
+  steps. Small fixes: "ומה חשוב" became "ולמה חשוב", and a full stop was
+  added to step 4.
+- **Next goal:** unchanged.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+12)
 - **What changed:** Option 01's intro and both activity texts (סדנת נשימות,
   אמבטיית קרח) were replaced with Eldar's copy, with spelling and grammar
@@ -1712,6 +1719,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: option 01 intro and activity texts replaced
   with Eldar's copy (spelling fixed).
 - 2026-09-30 — Proposal page: optional `title` field (hero heading separate
