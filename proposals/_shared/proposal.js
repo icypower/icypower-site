@@ -103,12 +103,17 @@
   }
 
   function renderIntro(ev) {
-    if (!ev.intro && !has(ev.facts)) return '';
+    if (!ev.intro && !has(ev.outcomes)) return '';
     return '<section class="pp-sec pp-light pp-ev-intro"><div class="pp-wrap pp-intro-grid reveal">' +
       (ev.intro ? '<p class="pp-ev-lead">' + esc(ev.intro) + '</p>' : '') +
-      (has(ev.facts) ? '<dl class="pp-facts">' + ev.facts.map(function (f) {
-        return '<div><dt>' + esc(f.label) + '</dt><dd>' + esc(f.value) + '</dd></div>';
-      }).join('') + '</dl>' : '') +
+      (has(ev.outcomes) ? '<aside class="pp-outcomes">' +
+        '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
+        '<ol>' + ev.outcomes.map(function (o, k) {
+          return '<li><span class="pp-outcome-num" aria-hidden="true">' + pad(k + 1) + '</span>' +
+            '<div><p class="pp-outcome-title">' + esc(o.title) + '</p>' +
+            (o.text ? '<p class="pp-outcome-text">' + esc(o.text) + '</p>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+      '</aside>' : '') +
     '</div></section>';
   }
 

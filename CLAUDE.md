@@ -39,18 +39,20 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (later)
-- **What changed:** On the proposal page, removed the "הקונספטים / בחרו
-  קונספט כדי לראות איך הוא ייראה" heading block, per Eldar. The sticky
-  tab bar now sits directly under the opening photo. Removed
-  `.pp-concepts-head` from the JS and CSS, and `selectorTitle` from
-  `content.js`. Re-verified tabs, lightbox and deep links with Playwright.
-- **Pending decision:** Eldar said the per-event "facts" box (duration /
-  group size / location) isn't relevant, since every session is 30
-  people, 2 hours, at their location. I gave him 3 research-based
-  replacements to choose from: (1) "what your group takes away"
-  outcomes, (2) a real past-client quote, (3) the concept's "peak
-  moment" in one sensory line. Until he picks, the box is unchanged.
+- **Date:** 2026-09-30 (later still)
+- **What changed:** On the proposal page, replaced the per-event "facts"
+  box (duration / group size / location) with a **"מה הקבוצה לוקחת איתה"**
+  outcomes panel. Eldar picked this from 3 research-based options; it
+  follows NN/g's outcomes-over-features guidance and event-proposal
+  practice of leading with what the client gains.
+  - Format: an ice-blue panel with an amber top rule, holding 3 numbered
+    items (a short title plus one sentence).
+  - Data: `outcomes: [{title, text}]` plus an optional `outcomesTitle`
+    in `content.js`. `facts` was removed from the renderer and CSS.
+  - Hebrew placeholder outcomes are drafted for all 5 events; Eldar will
+    replace them.
+  - Verified at 1440px and 390px: no overflow or JS errors.
+- **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
 - **Date:** 2026-09-30
@@ -1664,6 +1666,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: replaced the facts box with a "what the group
+  takes away" outcomes panel (3 items per event, Hebrew placeholders).
 - 2026-09-30 — Proposal page: removed the concepts heading; the tab bar now
   sits directly under the hero.
 - 2026-09-30 — Proposal page recoloured to research-based palette A
