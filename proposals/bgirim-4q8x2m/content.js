@@ -75,8 +75,9 @@ window.PROPOSAL = {
         { title: 'מתחממים ונפרדים', text: 'מגבות, שתייה חמה וסבב של שיתוף.' }
       ],
       scheduleImage: {
-        src: '/assets/img/intro-6.jpg',
-        alt: 'מדריך מלווה משתתפת בתוך אמבטיית קרח'
+        src: '/proposals/_shared/media/ice-schedule.jpg',
+        alt: 'משתתפות יושבות בפרגולה מול הבריכה והדקלים',
+        position: '50% 82%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
