@@ -102,22 +102,22 @@ window.PROPOSAL = {
         { title: 'רענון לנפש', text: 'לשחרר את העומס ולצאת רגועים ונינוחים בחזרה לשגרה.' }
       ],
       hero: {
-        type: 'video',
-        src: '/assets/video/hero-15.mp4',
-        poster: '/proposals/_shared/media/poster-hero-15.jpg',
-        alt: 'משתתפים שוכבים על מזרנים בעיניים עצומות'
+        type: 'image',
+        src: '/proposals/_shared/media/med-hero.jpg',
+        alt: 'משתתפים שוכבים בשורה על מזרנים בפרגולה בעיניים עצומות, והמדריך עובר ביניהם',
+        position: '50% 76%'
       },
       activitiesTitle: 'מה חווים במפגש',
       activities: [
         {
           name: 'מדיטציה מודרכת',
           text: 'שוכבים, עוצמים עיניים ונותנים לקול להוביל אתכם פנימה, דרך התודעה והנשימה. נבחן קצת את התודעה ונלמד קצת להשקיט את המחשבות הבלתי פוסקות.',
-          image: { src: '/assets/img/g10.jpg', alt: 'משתתפים שוכבים על מזרנים בגינה' }
+          image: { src: '/proposals/_shared/media/med-meditation.jpg', alt: 'משתתפות שוכבות על מזרנים בעיניים עצומות במדיטציה', position: '50% 60%' }
         },
         {
           name: 'סדנת כתיבה',
           text: 'דרך הנחיה פשוטה ומדויקת ניכנס לכתיבה אינטואיטיבית, בלי לחשוב יותר מדי ובלי לחפש את המילים הנכונות. כך ניתן למה שיושב בפנים לעלות בצורה טבעית, ונגלה דרך הכתיבה מחשבות, זיכרונות ותחושות שלא תמיד מקבלים מקום בשגרה.',
-          image: { src: '/assets/img/g12.jpg', alt: 'משתתפות יושבות על מזרנים ומשוחחות' }
+          image: { src: '/proposals/_shared/media/med-writing.jpg', alt: 'משתתפת כותבת במחברת ליד שולחן עץ' }
         }
       ],
       scheduleTitle: 'מהלך המפגש',
@@ -129,8 +129,9 @@ window.PROPOSAL = {
         { title: 'שיתוף למי שרוצה', text: 'אפשר להקריא, לשתף או פשוט להקשיב.' }
       ],
       scheduleImage: {
-        src: '/assets/img/retreat-closing-circle.jpg',
-        alt: 'מעגל משתתפים יושבים על מזרנים בערב'
+        src: '/proposals/_shared/media/med-schedule.jpg',
+        alt: 'משתתפת יושבת על מזרן ומקשיבה להנחיה',
+        position: '50% 32%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
