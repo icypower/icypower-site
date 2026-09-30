@@ -296,7 +296,7 @@ window.PROPOSAL = {
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
-        { src: '/assets/img/we-soundbath.jpg', alt: 'משתתפים שוכבים בפרגולה' },
+        { src: '/proposals/_shared/media/spa-gallery-talk.jpg', alt: 'קבוצה יושבת על כריות ליד הבריכה בערב ומקשיבה להרצאה', position: '50% 55%' },
         { src: '/assets/img/g09.jpg', alt: 'משתתפים שוכבים על מזרנים בין צמחים' },
         { src: '/assets/img/retreat-closing-circle.jpg', alt: 'מעגל ערב בפרגולה' },
         { src: '/proposals/_shared/media/spa-gallery-feet.jpg', alt: 'עיסוי כפות רגליים ליד הבריכה בערב', position: '50% 66%' }
@@ -342,16 +342,17 @@ window.PROPOSAL = {
         { title: 'סיום', text: 'סבב קצר של "איך היה".' }
       ],
       scheduleImage: {
-        src: '/assets/img/about-us.jpg',
-        alt: 'קבוצה גדולה מצטלמת יחד בגינה'
+        src: '/proposals/_shared/media/laugh-schedule.jpg',
+        alt: 'משתתפות עומדות על מזרנים בפרגולה בערב',
+        position: '40% 40%'
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
-        { src: '/assets/img/ph-land-4.jpg', alt: 'שני משתתפים צוחקים בתוך אמבטיית קרח' },
+        { src: '/proposals/_shared/media/laugh-gallery-1.jpg', alt: 'משתתפת עם זר פרחים מאלתרת תנוחה מצחיקה, וחברתה מחייכת', position: '50% 35%' },
         { src: '/assets/img/card-open-2.jpg', alt: 'משתתפות צוחקות בשיחה' },
         { src: '/assets/img/g11.jpg', alt: 'משתתפים מנסים לעמוד על רגל אחת' },
         { src: '/assets/img/g04.jpg', alt: 'זוג בתרגיל משותף' },
-        { src: '/assets/img/about-us.jpg', alt: 'קבוצה גדולה מצטלמת יחד בגינה' }
+        { src: '/proposals/_shared/media/laugh-gallery-2.jpg', alt: 'שתי משתתפות צוחקות ליד שולחן מול הבריכה', position: '50% 30%' }
       ]
     }
   ]
