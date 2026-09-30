@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+10)
+- **What changed:** Option 01's name is now "קרח ונשימות WHM" (also the tab
+  label) and its tagline is "לשחרר את הסטרס ולהיטען באנרגיה טובה." Checked
+  at 1440 and 390 px: no overflow, and the tab bar still scrolls fine.
+- **Next goal:** unchanged (see the previous entry).
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+9)
 - **What changed:** Option 01 (קרח ונשימות) now uses Eldar's own copy for
   its intro (WHM breathwork, then ice baths with a guide) and its three
@@ -1688,6 +1695,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 renamed "קרח ונשימות WHM" with a
+  new tagline.
 - 2026-09-30 — Proposal page: option 01 intro and outcomes replaced with
   Eldar's copy (spelling fixed).
 - 2026-09-30 — Proposal page: real content and copy for the 5 options
