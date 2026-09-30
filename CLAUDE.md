@@ -39,6 +39,14 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+22)
+- **What changed:** Option 02 (meditation + writing) now uses Eldar's
+  intro and three outcomes. Punctuation fixes: the sentence-initial "ו" was
+  dropped and a full stop added. The placeholders listed in the previous
+  entry for 04/05/06 still stand.
+- **Next goal:** Eldar sends copy for options 03–06.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+21)
 - **What changed:** The proposal now has **6 options** in Eldar's new order:
   1. Wim Hof (ice + breath): unchanged
@@ -1790,6 +1798,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 02 intro and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: restructured into 6 options in Eldar's new order, reusing his copy; placeholders for tai chi, lecture and improv.
 - 2026-09-30 — Proposal page: option 03 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: option 03 activity texts replaced with Eldar's copy.
