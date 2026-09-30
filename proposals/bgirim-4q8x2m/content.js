@@ -16,7 +16,7 @@
      כתבו מה המשתתפים מרוויחים, לא מה עושים.
 
    hero.type:
-     'image' → { type:'image', src, alt }
+     'image' → { type:'image', src, alt, position? }   (position = מיקוד החיתוך, למשל '50% 30%')
      'video' → { type:'video', src, poster, alt }   (מושתק, בלולאה, עם כפתור השהיה)
    ===================================================================== */
 
@@ -48,10 +48,10 @@ window.PROPOSAL = {
         { title: 'התחושה שאחרי', text: 'שחרור של הורמונים חיוניים והזנקה של מערכת העצבים, ראש חד וצלול והמון אנרגיה טובה, ולרוב גם חיוך ענק.' }
       ],
       hero: {
-        type: 'video',
-        src: '/assets/video/hero-4.mp4',
-        poster: '/proposals/_shared/media/poster-hero-4.jpg',
-        alt: 'מדריך כורע בין שתי אמבטיות קרח מתכת שבהן יושבים משתתפים'
+        type: 'image',
+        src: '/proposals/_shared/media/ice-hero.jpg',
+        alt: 'המדריך משוחח עם משתתפת שיושבת באמבטיית קרח בגינה',
+        position: '76% 60%'
       },
       activitiesTitle: 'מה חווים במפגש',
       activities: [
@@ -83,8 +83,8 @@ window.PROPOSAL = {
         { src: '/proposals/_shared/media/ice-gallery-1.jpg', alt: 'משתתפת עוצמת עיניים ומחייכת בתוך אמבטיית קרח מתכת' },
         { src: '/proposals/_shared/media/ice-gallery-2.jpg', alt: 'משתתפות יושבות בפרגולה מול הבריכה' },
         { src: '/proposals/_shared/media/ice-gallery-3.jpg', alt: 'המדריך מלווה משתתפים ששוכבים על מזרנים בתרגול נשימה' },
-        { src: '/proposals/_shared/media/ice-gallery-4.jpg', alt: 'משתתפות שוכבות עם ידיים על הבטן בתרגול נשימה' },
-        { src: '/proposals/_shared/media/ice-gallery-5.jpg', alt: 'המדריך משוחח עם משתתפת שיושבת באמבטיית קרח' }
+        { src: '/proposals/_shared/media/ice-gallery-6.jpg', alt: 'המדריך עומד ליד קבוצה ששוכבת על מזרנים בפרגולה בתרגול נשימה', position: '50% 72%' },
+        { src: '/proposals/_shared/media/ice-gallery-4.jpg', alt: 'משתתפות שוכבות עם ידיים על הבטן בתרגול נשימה' }
       ]
     },
 

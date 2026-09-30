@@ -33,6 +33,7 @@
   function img(o, cls, eager) {
     if (!o || !o.src) return '';
     return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="' + esc(o.src) + '" alt="' + esc(o.alt) + '"' +
+      (o.position ? ' style="object-position:' + esc(o.position) + '"' : '') + // optional crop focus, e.g. '50% 30%'
       (eager ? '' : ' loading="lazy"') + ' decoding="async" />';
   }
   var ICON = {
