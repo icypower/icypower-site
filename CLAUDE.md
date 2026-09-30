@@ -39,6 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+9)
+- **What changed:** Option 01 (קרח ונשימות) now uses Eldar's own copy for
+  its intro (WHM breathwork, then ice baths with a guide) and its three
+  outcomes (כלי שאפשר לקחת הביתה / חוויה שלא שוכחים / התחושה שאחרי), with
+  spelling and punctuation fixed (ממשיכים, טכניקה; the em dash became a
+  comma, per the no-em-dash rule). Nothing else changed.
+- **Next goal:** Eldar reviews the other options' copy, confirms the
+  assumptions below, and sends real photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+8)
 - **What changed:** The proposal page now has **real content** for the 5
   options Eldar defined. All Hebrew copy is in
@@ -1678,6 +1688,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 intro and outcomes replaced with
+  Eldar's copy (spelling fixed).
 - 2026-09-30 — Proposal page: real content and copy for the 5 options
   (ice+breath, aroma+writing, meditation+reflexology, sound+massage,
   laughter+writing).
