@@ -39,6 +39,17 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+34)
+- **What changed:** The opening text (client name, subtitle, intro and link)
+  now sits at the **top** of the opening photo, just under the logo:
+  - `.pp-opening` uses `align-items:flex-start`
+  - body padding-top is `clamp(96px,15vh,150px)` on desktop and 84px on
+    phones
+  - the scrim is now top-weighted to keep the text readable
+  - checked at 1440 and 390 px
+- **Next goal:** Eldar sends the remaining copy.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+33)
 - **What changed:** Removed food and tea from every schedule step:
   - 01, step 5: "משהו לאכול" removed
@@ -1892,6 +1903,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: opening text moved to the top of the photo (desktop + mobile).
 - 2026-09-30 — Proposal page: removed food/tea mentions from all schedules; new reception text for 04 and 06.
 - 2026-09-30 — Proposal page: option 06 intro, activities and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: removed taglines on 02/06; fixed the tab switch jumping (scroll anchoring) and stopped the auto-scroll on tab click.

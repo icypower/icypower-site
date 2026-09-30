@@ -77,12 +77,13 @@ body.pp{
 .pp-scrim{position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(to left,rgba(var(--pp-shade),.55) 0%,rgba(var(--pp-shade),.22) 42%,rgba(var(--pp-shade),0) 70%),
-    linear-gradient(to top,rgba(var(--pp-shade),.86) 0%,rgba(var(--pp-shade),.5) 34%,rgba(var(--pp-shade),.06) 66%,rgba(var(--pp-shade),.28) 100%)}
+    linear-gradient(to bottom,rgba(var(--pp-shade),.82) 0%,rgba(var(--pp-shade),.55) 38%,rgba(var(--pp-shade),.08) 72%,rgba(var(--pp-shade),.2) 100%)}
 
-.pp-opening{position:relative;min-height:max(560px,100svh);display:flex;align-items:flex-end;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
+.pp-opening{position:relative;min-height:max(560px,100svh);display:flex;align-items:flex-start;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
 .pp-opening-media,.pp-opening-media img{position:absolute;inset:0;width:100%;height:100%}
 .pp-opening-media img{object-fit:cover;object-position:50% 45%}
-.pp-opening-body{position:relative;z-index:2;width:100%;padding-block:0 clamp(88px,14vh,170px)}
+/* text sits near the top, just under the logo bar */
+.pp-opening-body{position:relative;z-index:2;width:100%;padding-block:clamp(96px,15vh,150px) 48px}
 .pp-opening h1{font-size:clamp(2.6rem,7.4vw,5.6rem);color:#fff;max-width:14ch}
 .pp-subtitle{font-family:var(--pp-display);font-weight:400;font-size:clamp(1.15rem,2.2vw,1.55rem);color:#fff;margin-top:18px}
 .pp-lead{max-width:56ch;margin-top:18px;font-size:clamp(1rem,1.5vw,1.12rem);font-weight:300;color:var(--pp-on-photo-dim)}
@@ -251,6 +252,7 @@ body.pp{
   :root{--pp-tabbar-h:66px}
   .pp-top{padding-block:16px}
   .pp-opening{min-height:max(520px,100svh)}
+  .pp-opening-body{padding-top:84px}
   .pp-ev-hero{min-height:max(400px,64svh)}
   .pp-tab{padding:13px 16px 14px}
   .pp-tab::after{inset-inline:16px}
