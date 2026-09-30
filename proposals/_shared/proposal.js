@@ -50,7 +50,7 @@
     var h = P.heroImage || {};
     return '' +
       '<header class="pp-top"><div class="pp-wrap">' +
-        '<span class="pp-brand"><img src="/assets/img/icy_power_Logo.png" alt="" width="34" height="34" /><span>Icy Power</span></span>' +
+        '<a class="pp-brand" href="/" aria-label="Icy Power, לאתר הבית"><img src="/assets/img/icy_power_Logo.png" alt="" width="34" height="34" /><span>Icy Power</span></a>' +
       '</div></header>' +
       '<section class="pp-opening" aria-labelledby="pp-title">' +
         '<picture class="pp-opening-media">' +
@@ -197,7 +197,7 @@
     '</main>' +
     // footer only when content.js sets footerNote
     (P.footerNote ? '<footer class="pp-footer"><div class="pp-wrap">' +
-      '<span class="pp-brand"><img src="/assets/img/icy_power_Logo.png" alt="" width="30" height="30" loading="lazy" /><span>Icy Power</span></span>' +
+      '<a class="pp-brand" href="/" aria-label="Icy Power, לאתר הבית"><img src="/assets/img/icy_power_Logo.png" alt="" width="30" height="30" loading="lazy" /><span>Icy Power</span></a>' +
       '<p>' + esc(P.footerNote) + '</p>' +
     '</div></footer>' : '') +
     '<dialog class="pp-lightbox" aria-label="תמונה מוגדלת">' +
