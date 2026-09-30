@@ -39,6 +39,23 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+36)
+- **What changed:**
+  - **Option 01 hero:** the video (hero-4.mp4) became Eldar's photo of the
+    guide talking to a participant in the tub
+    (`proposals/_shared/media/ice-hero.jpg`, formerly ice-gallery-5).
+  - **Option 01 gallery:** that photo left the gallery, and his new pergola
+    breathwork photo (`ice-gallery-6.jpg`, portrait) was added. The order is
+    1,2,3,6,4, so the two mat photos sit diagonally.
+  - **New optional `position` field** on any image object (hero, activity,
+    gallery). It is rendered as an inline `object-position` to control the
+    crop focus. It is used on the hero ('76% 60%', so phones show the
+    participant) and on the new gallery photo. Documented in the
+    `content.js` header.
+  - `poster-hero-4.jpg` is now unused but kept.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+35)
 - **What changed:** Option 01's gallery now shows 5 real photos from Eldar,
   in the order he sent them. They are saved as
@@ -1913,6 +1930,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 01 hero video replaced by Eldar's photo; new gallery photo; optional image `position` crop field.
 - 2026-09-30 — Proposal page: option 01 gallery replaced with 5 real photos from Eldar.
 - 2026-09-30 — Proposal page: opening text moved to the top of the photo (desktop + mobile).
 - 2026-09-30 — Proposal page: removed food/tea mentions from all schedules; new reception text for 04 and 06.
