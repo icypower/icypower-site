@@ -39,6 +39,21 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+40)
+- **What changed:** Option 02 (meditation + writing) now has Eldar's photos,
+  all in `proposals/_shared/media/`. Phone-screenshot black bars were cropped
+  off the three screenshots.
+  - hero: `med-hero.jpg`, a portrait photo of a row lying on mats; replaces
+    the hero-15 video; position '50% 76%'
+  - meditation card: `med-meditation.jpg`, position '50% 60%'
+  - writing card: `med-writing.jpg`
+  - schedule image: `med-schedule.jpg`, a woman seated on a mat; position
+    '50% 32%'
+  - Checked at 1900, 1440 and 390 px. Because the hero photo is portrait,
+    desktop shows only a strip of it.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+39)
 - **What changed:** Option 01's "אמבטיית קרח" activity card image is now
   `assets/img/ph-land-3.jpg`, a smiling participant in the bamboo tub talking
@@ -1955,6 +1970,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 02 hero, both card images and schedule image replaced with Eldar's photos.
 - 2026-09-30 — Proposal page: option 01 ice-bath card image replaced with ph-land-3.jpg.
 - 2026-09-30 — Proposal page: option 01 hero crop shifted up.
 - 2026-09-30 — Proposal page: option 01 schedule image replaced with Eldar's pergola photo.
