@@ -61,6 +61,8 @@ body.pp{
 .pp-opening .pp-eyebrow,.pp-ev-hero .pp-eyebrow{color:var(--pp-amber)}
 .pp-head{max-width:640px;margin-bottom:clamp(28px,4vw,48px)}
 .pp-head h3{font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand)}
+/* the amber accent line (formerly the eyebrow dash) now sits under each section headline */
+.pp-head h3::after,.pp-exp-title::after,.pp-people h3::after,.pp-food h3::after{content:"";display:block;width:44px;height:3px;border-radius:3px;background:var(--pp-amber);margin-top:.45em}
 .pp-note{margin-top:10px;font-size:.95rem;color:var(--pp-ink-dim)}
 
 .pp-sec{padding-block:clamp(56px,8vw,112px)}
@@ -129,9 +131,12 @@ body.pp{
 @keyframes ppFade{from{opacity:0}to{opacity:1}}
 
 /* ---------- event hero ---------- */
-.pp-ev-hero{position:relative;min-height:clamp(440px,78svh,820px);display:flex;align-items:flex-end;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
+.pp-ev-hero{position:relative;min-height:clamp(440px,78svh,820px);display:flex;align-items:flex-start;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
 .pp-ev-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pp-ev-hero-body{position:relative;z-index:2;width:100%;padding-block:0 clamp(36px,6vw,72px)}
+.pp-ev-hero-body{position:relative;z-index:2;width:100%;padding-block:clamp(32px,5vw,64px) 0}
+.pp-ev-hero .pp-scrim{background:
+    linear-gradient(to left,rgba(var(--pp-shade),.5) 0%,rgba(var(--pp-shade),.2) 42%,rgba(var(--pp-shade),0) 70%),
+    linear-gradient(to bottom,rgba(var(--pp-shade),.86) 0%,rgba(var(--pp-shade),.5) 34%,rgba(var(--pp-shade),.06) 66%,rgba(var(--pp-shade),.22) 100%)}
 .pp-of{color:var(--pp-on-photo-dim);letter-spacing:.1em}
 .pp-ev-title{font-size:clamp(2.3rem,6vw,4.4rem);color:#fff}
 .pp-ev-tagline{margin-top:14px;max-width:46ch;font-size:clamp(1.02rem,1.7vw,1.2rem);font-weight:300;color:var(--pp-on-photo-dim)}
@@ -148,8 +153,7 @@ body.pp{
 /* grid: eyebrow on its own row, then the headline and the outcomes list
    start on the same line; intro sits under the headline */
 .pp-ev-exp{padding-block-start:clamp(32px,4.5vw,60px)}
-.pp-exp-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"eyebrow ." "title outcomes" "lead outcomes";column-gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
-.pp-exp-top .pp-eyebrow{grid-area:eyebrow;justify-self:start}
+.pp-exp-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"title outcomes" "lead outcomes";column-gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(40px,5vw,64px)}
 .pp-exp-title{grid-area:title;font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--pp-brand);margin-bottom:clamp(18px,2.4vw,28px)}
 .pp-exp-top .pp-ev-lead{grid-area:lead}
 .pp-exp-top .pp-outcomes{grid-area:outcomes;
@@ -190,7 +194,7 @@ body.pp{
 /* ---------- facilitators + food ---------- */
 .pp-pf-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(44px,8vw,120px);align-items:start}
 .pp-pf-solo{grid-template-columns:minmax(0,1fr);max-width:760px}
-.pp-people h3,.pp-food h3{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:26px}
+.pp-people h3,.pp-food h3{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:26px;color:var(--pp-brand)}
 .pp-people-list{list-style:none;padding:0;margin:0;display:grid;gap:22px}
 .pp-people-list li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;align-items:center;padding-block-end:22px;border-block-end:1px solid var(--pp-line)}
 .pp-people-list li:last-child{border:0;padding-block-end:0}
@@ -263,14 +267,13 @@ body.pp{
   .pp-top{padding-block:16px}
   .pp-opening{min-height:max(520px,100svh)}
   .pp-ev-hero{min-height:max(400px,64svh)}
-  .pp-vidbtn{bottom:auto;top:16px}
   .pp-tab{padding:13px 16px 14px}
   .pp-tab::after{inset-inline:16px}
   .pp-tab-name{font-size:1.02rem}
   /* fade the trailing edge so it is obvious the tab row scrolls */
   .pp-tabbar .pp-wrap{padding-inline-end:0}
   .pp-tabs{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 36px);mask-image:linear-gradient(to right,transparent 0,#000 36px);padding-inline-end:28px}
-  .pp-exp-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"eyebrow" "title" "lead" "outcomes";row-gap:0}
+  .pp-exp-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "lead" "outcomes";row-gap:0}
   .pp-exp-top .pp-outcomes{padding-block-start:24px}
   .pp-acts,.pp-acts-2,.pp-acts-4{grid-template-columns:minmax(0,1fr)}
   .pp-act-media,.pp-acts-2 .pp-act-media,.pp-acts-4 .pp-act-media{aspect-ratio:16/10;max-height:32vh}

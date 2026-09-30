@@ -109,7 +109,7 @@
     if (!hasIntro && !hasActs) return '';
     return '<section class="pp-sec pp-light pp-ev-exp"><div class="pp-wrap">' +
       '<div class="pp-exp-top reveal">' +
-        '<p class="pp-eyebrow">החוויה</p><h3 class="pp-exp-title">' + esc(ev.activitiesTitle || 'מה חווים באירוע') + '</h3>' +
+        '<h3 class="pp-exp-title">' + esc(ev.activitiesTitle || 'מה חווים באירוע') + '</h3>' +
         (ev.intro ? '<p class="pp-ev-lead">' + esc(ev.intro) + '</p>' : '') +
         (has(ev.outcomes) ? '<div class="pp-outcomes">' +
           '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
@@ -135,7 +135,7 @@
     if (!has(ev.schedule)) return '';
     return '<section class="pp-sec pp-dark pp-ev-flow"><div class="pp-wrap pp-flow-grid' + (ev.scheduleImage ? '' : ' pp-flow-solo') + '">' +
       '<div class="pp-flow-main">' +
-        '<div class="pp-head reveal"><p class="pp-eyebrow">הזרימה</p><h3>' + esc(ev.scheduleTitle || 'מהלך האירוע') + '</h3>' +
+        '<div class="pp-head reveal"><h3>' + esc(ev.scheduleTitle || 'מהלך האירוע') + '</h3>' +
           (ev.scheduleNote ? '<p class="pp-note">' + esc(ev.scheduleNote) + '</p>' : '') + '</div>' +
         '<ol class="pp-timeline">' + ev.schedule.map(function (s) {
           return '<li class="reveal"><span class="pp-time">' + esc(s.time) + '</span>' +
@@ -151,7 +151,7 @@
     var hasF = has(ev.facilitators), food = ev.food;
     if (!hasF && !food) return '';
     var people = hasF ? '<div class="pp-people reveal">' +
-        '<p class="pp-eyebrow">המנחים</p><h3>' + esc(ev.facilitatorsTitle || 'מי מוביל את האירוע') + '</h3>' +
+        '<h3>' + esc(ev.facilitatorsTitle || 'מי מוביל את האירוע') + '</h3>' +
         '<ul class="pp-people-list">' + ev.facilitators.map(function (f) {
           return '<li><div class="pp-avatar">' + (f.photo ? img({ src: f.photo, alt: '' }) : '<span aria-hidden="true">' + initials(f.name) + '</span>') + '</div>' +
             '<div><p class="pp-person-name">' + esc(f.name) + '</p>' +
@@ -160,7 +160,7 @@
         }).join('') + '</ul></div>' : '';
     var foodHtml = food ? '<div class="pp-food reveal d1">' +
         (food.image ? '<figure class="pp-food-media">' + img(food.image) + '</figure>' : '') +
-        '<p class="pp-eyebrow">השולחן</p><h3>' + esc(food.title || 'אוכל ושתייה') + '</h3>' +
+        '<h3>' + esc(food.title || 'אוכל ושתייה') + '</h3>' +
         (food.text ? '<p class="pp-food-text">' + esc(food.text) + '</p>' : '') +
         (has(food.items) ? '<ul class="pp-food-items">' + food.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
       '</div>' : '';
@@ -171,7 +171,7 @@
     if (!has(ev.gallery)) return '';
     var n = Math.min(ev.gallery.length, 6);
     return '<section class="pp-sec pp-dark pp-ev-gallery"><div class="pp-wrap">' +
-      '<div class="pp-head reveal"><p class="pp-eyebrow">גלריה</p><h3>' + esc(ev.galleryTitle || 'רגעים מאירועים קודמים') + '</h3></div>' +
+      '<div class="pp-head reveal"><h3>' + esc(ev.galleryTitle || 'רגעים מאירועים קודמים') + '</h3></div>' +
       '<ul class="pp-gallery pp-gallery-' + n + '" data-event="' + i + '">' +
         ev.gallery.map(function (g, k) {
           return '<li class="reveal d' + Math.min(k + 1, 4) + '"><button type="button" class="pp-gtile" data-index="' + k + '" aria-label="הגדלת תמונה ' + (k + 1) + ' מתוך ' + ev.gallery.length + (g.alt ? ': ' + esc(g.alt) : '') + '">' +
