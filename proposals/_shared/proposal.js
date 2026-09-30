@@ -102,26 +102,23 @@
     '</header>';
   }
 
-  function renderIntro(ev) {
-    if (!ev.intro && !has(ev.outcomes)) return '';
-    return '<section class="pp-sec pp-light pp-ev-intro"><div class="pp-wrap pp-intro-grid reveal">' +
-      (ev.intro ? '<p class="pp-ev-lead">' + esc(ev.intro) + '</p>' : '') +
-      (has(ev.outcomes) ? '<aside class="pp-outcomes">' +
-        '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
-        '<ol>' + ev.outcomes.map(function (o, k) {
-          return '<li><span class="pp-outcome-num" aria-hidden="true">' + pad(k + 1) + '</span>' +
-            '<div><p class="pp-outcome-title">' + esc(o.title) + '</p>' +
-            (o.text ? '<p class="pp-outcome-text">' + esc(o.text) + '</p>' : '') + '</div></li>';
-        }).join('') + '</ol>' +
-      '</aside>' : '') +
-    '</div></section>';
-  }
-
-  function renderActivities(ev) {
-    if (!has(ev.activities)) return '';
-    return '<section class="pp-sec pp-light pp-ev-acts"><div class="pp-wrap">' +
+  // Intro + outcomes + activities form one "experience" section: the
+  // "החוויה / מה חווים באירוע" heading leads it, above the intro paragraph.
+  function renderExperience(ev) {
+    var hasIntro = ev.intro || has(ev.outcomes), hasActs = has(ev.activities);
+    if (!hasIntro && !hasActs) return '';
+    return '<section class="pp-sec pp-light pp-ev-exp"><div class="pp-wrap">' +
       '<div class="pp-head reveal"><p class="pp-eyebrow">החוויה</p><h3>' + esc(ev.activitiesTitle || 'מה חווים באירוע') + '</h3></div>' +
-      '<div class="pp-acts pp-acts-' + Math.min(ev.activities.length, 4) + '">' +
+      (hasIntro ? '<div class="pp-intro-grid reveal">' +
+        (ev.intro ? '<p class="pp-ev-lead">' + esc(ev.intro) + '</p>' : '') +
+        (has(ev.outcomes) ? '<div class="pp-outcomes">' +
+          '<p class="pp-outcomes-title">' + esc(ev.outcomesTitle || 'מה הקבוצה לוקחת איתה') + '</p>' +
+          '<ul>' + ev.outcomes.map(function (o) {
+            return '<li><strong>' + esc(o.title) + '</strong>' + (o.text ? ' — ' + esc(o.text) : '') + '</li>';
+          }).join('') + '</ul>' +
+        '</div>' : '') +
+      '</div>' : '') +
+      (hasActs ? '<div class="pp-acts pp-acts-' + Math.min(ev.activities.length, 4) + '">' +
         ev.activities.map(function (a, k) {
           return '<article class="pp-act reveal d' + Math.min(k + 1, 4) + '">' +
             (a.image ? '<figure class="pp-act-media">' + img(a.image) + '</figure>' : '') +
@@ -130,7 +127,7 @@
             (a.text ? '<p class="pp-act-text">' + esc(a.text) + '</p>' : '') +
           '</article>';
         }).join('') +
-      '</div>' +
+      '</div>' : '') +
     '</div></section>';
   }
 
@@ -200,7 +197,7 @@
   function renderPanel(ev, i) {
     var id = 'event-' + pad(i + 1);
     return '<div class="pp-panel" role="tabpanel" id="' + id + '" aria-labelledby="tab-' + id + '" tabindex="0" hidden>' +
-      '<article>' + renderHero(ev, i) + renderIntro(ev) + renderActivities(ev) + renderSchedule(ev) +
+      '<article>' + renderHero(ev, i) + renderExperience(ev) + renderSchedule(ev) +
       renderPeopleAndFood(ev) + renderGallery(ev, i) + renderNext(i) + '</article></div>';
   }
 

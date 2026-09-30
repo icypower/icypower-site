@@ -39,19 +39,22 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
-- **Date:** 2026-09-30 (later still)
-- **What changed:** On the proposal page, replaced the per-event "facts"
-  box (duration / group size / location) with a **"מה הקבוצה לוקחת איתה"**
-  outcomes panel. Eldar picked this from 3 research-based options; it
-  follows NN/g's outcomes-over-features guidance and event-proposal
-  practice of leading with what the client gains.
-  - Format: an ice-blue panel with an amber top rule, holding 3 numbered
-    items (a short title plus one sentence).
-  - Data: `outcomes: [{title, text}]` plus an optional `outcomesTitle`
-    in `content.js`. `facts` was removed from the renderer and CSS.
-  - Hebrew placeholder outcomes are drafted for all 5 events; Eldar will
-    replace them.
-  - Verified at 1440px and 390px: no overflow or JS errors.
+- **Date:** 2026-09-30 (latest)
+- **What changed:** Proposal page layout tweaks, per Eldar:
+  1. The **"החוויה / מה חווים באירוע" heading now sits above the concept's
+     intro paragraph**. Intro, outcomes and activity cards are now one
+     section, rendered by `renderExperience()` in
+     `proposals/_shared/proposal.js`, which replaced `renderIntro` and
+     `renderActivities`.
+  2. The **outcomes are now a plain bullet list** (bold title — sentence,
+     amber bullets) instead of the ice-blue panel. Data shape unchanged:
+     `outcomes: [{title, text}]`.
+  3. **Activity images are smaller**, so image + text fit on one screen:
+     - desktop: 4:3, capped at `min(34vh,300px)`
+     - phone: 16:10, capped at `32vh`
+     Measured tallest card: 409px at 1440×900, 395px at 1280×720 and
+     364px at 390×844, all well within the viewport.
+  - No overflow or JS errors at 1440, 1280 and 390px.
 - **Next goal:** Eldar fills in the real content in `content.js`.
 
 ### Latest status (previous, same day)
@@ -1666,6 +1669,8 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: experience heading moved above the intro,
+  outcomes turned into a plain bullet list, activity images made smaller.
 - 2026-09-30 — Proposal page: replaced the facts box with a "what the group
   takes away" outcomes panel (3 items per event, Hebrew placeholders).
 - 2026-09-30 — Proposal page: removed the concepts heading; the tab bar now
