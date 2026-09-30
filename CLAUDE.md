@@ -39,6 +39,16 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+46)
+- **What changed:** Option 06 (laughter + improv) now has Eldar's photos on
+  both activity cards, in `proposals/_shared/media/`:
+  - laughter card: `laugh.jpg`, three women laughing; position '12% 30%' so
+    the laughing face on the left isn't cropped
+  - improv card: `improv.jpg`; position '50% 30%'
+  - The hero, schedule and gallery are unchanged.
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+45)
 - **What changed:** The opening text is easier to read on the photo:
   - intro paragraph (`.pp-lead`): now full white instead of 88%, weight 400
@@ -2045,6 +2055,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 06 laughter and improv card photos replaced.
 - 2026-09-30 — Proposal page: opening text made more legible (white, heavier, shadow, darker scrim).
 - 2026-09-30 — Proposal page: option 05 massage/reflexology cards, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: tabs restyled as button chips + a gentle one-time hop nudge.
