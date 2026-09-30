@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+18)
+- **What changed:** Option 03 now uses Eldar's copy for its tagline ("לצלול
+  עמוק לתוך הגוף והנפש."), its intro and its three outcomes. The activity
+  texts are unchanged.
+- **Next goal:** unchanged.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+17)
 - **What changed:** Option 02's schedule ("מהלך המפגש") now uses Eldar's
   five steps, word for word.
@@ -1749,6 +1756,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: option 03 tagline, intro and outcomes replaced with Eldar's copy.
 - 2026-09-30 — Proposal page: option 02 schedule replaced with Eldar's steps.
 - 2026-09-30 — Proposal page: removed the "about two hours" schedule note from all options.
 - 2026-09-30 — Proposal page: option 02 activity texts replaced with Eldar's copy.
