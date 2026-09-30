@@ -80,11 +80,11 @@ window.PROPOSAL = {
       },
       galleryTitle: 'רגעים ממפגשים קודמים',
       gallery: [
-        { src: '/assets/img/intro-4.jpg', alt: 'משתתף מחייך בתוך אמבטיית קרח ממותגת של Icy Power' },
-        { src: '/assets/img/ph-land-4.jpg', alt: 'שני משתתפים צוחקים בתוך אמבטיית קרח' },
-        { src: '/assets/img/g08.jpg', alt: 'משתתפת באמבטיית קרח ליד רול־אפ של Icy Power' },
-        { src: '/assets/img/g07.jpg', alt: 'משתתפים סביב אמבטיית קרח בחצר' },
-        { src: '/assets/img/intro-7.jpg', alt: 'שתי אמבטיות קרח מתכת ומשתתפים סביבן' }
+        { src: '/proposals/_shared/media/ice-gallery-1.jpg', alt: 'משתתפת עוצמת עיניים ומחייכת בתוך אמבטיית קרח מתכת' },
+        { src: '/proposals/_shared/media/ice-gallery-2.jpg', alt: 'משתתפות יושבות בפרגולה מול הבריכה' },
+        { src: '/proposals/_shared/media/ice-gallery-3.jpg', alt: 'המדריך מלווה משתתפים ששוכבים על מזרנים בתרגול נשימה' },
+        { src: '/proposals/_shared/media/ice-gallery-4.jpg', alt: 'משתתפות שוכבות עם ידיים על הבטן בתרגול נשימה' },
+        { src: '/proposals/_shared/media/ice-gallery-5.jpg', alt: 'המדריך משוחח עם משתתפת שיושבת באמבטיית קרח' }
       ]
     },
 
