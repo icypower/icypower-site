@@ -39,6 +39,18 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-09-30 (latest+45)
+- **What changed:** The opening text is easier to read on the photo:
+  - intro paragraph (`.pp-lead`): now full white instead of 88%, weight 400
+    instead of 300, and a slightly larger size
+  - whole opening body: soft text-shadow
+  - "לאפשרויות" link: weight 600
+  - the top-weighted scrim is darker and extends further down
+    (.88 → .74 at 40% → .35 at 62%)
+  - checked at 1440 and 390 px
+- **Next goal:** Eldar sends the remaining copy and photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+44)
 - **What changed:** Option 05 (spa day) now has Eldar's photos, all in
   `proposals/_shared/media/`:
@@ -2033,6 +2045,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-09-30 — Proposal page: opening text made more legible (white, heavier, shadow, darker scrim).
 - 2026-09-30 — Proposal page: option 05 massage/reflexology cards, schedule and one gallery photo replaced.
 - 2026-09-30 — Proposal page: tabs restyled as button chips + a gentle one-time hop nudge.
 - 2026-09-30 — Proposal page: option 04 tai chi card, schedule and one gallery photo replaced.

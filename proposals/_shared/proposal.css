@@ -77,7 +77,7 @@ body.pp{
 .pp-scrim{position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(to left,rgba(var(--pp-shade),.55) 0%,rgba(var(--pp-shade),.22) 42%,rgba(var(--pp-shade),0) 70%),
-    linear-gradient(to bottom,rgba(var(--pp-shade),.82) 0%,rgba(var(--pp-shade),.55) 38%,rgba(var(--pp-shade),.08) 72%,rgba(var(--pp-shade),.2) 100%)}
+    linear-gradient(to bottom,rgba(var(--pp-shade),.88) 0%,rgba(var(--pp-shade),.74) 40%,rgba(var(--pp-shade),.35) 62%,rgba(var(--pp-shade),.08) 80%,rgba(var(--pp-shade),.2) 100%)}
 
 .pp-opening{position:relative;min-height:max(560px,100svh);display:flex;align-items:flex-start;background:var(--pp-ink);color:var(--pp-on-photo);overflow:hidden}
 .pp-opening-media,.pp-opening-media img{position:absolute;inset:0;width:100%;height:100%}
@@ -86,8 +86,10 @@ body.pp{
 .pp-opening-body{position:relative;z-index:2;width:100%;padding-block:clamp(96px,15vh,150px) 48px}
 .pp-opening h1{font-size:clamp(2.6rem,7.4vw,5.6rem);color:#fff;max-width:14ch}
 .pp-subtitle{font-family:var(--pp-display);font-weight:400;font-size:clamp(1.15rem,2.2vw,1.55rem);color:#fff;margin-top:18px}
-.pp-lead{max-width:56ch;margin-top:18px;font-size:clamp(1rem,1.5vw,1.12rem);font-weight:300;color:var(--pp-on-photo-dim)}
-.pp-down{display:inline-flex;align-items:center;gap:8px;margin-top:30px;font-size:.95rem;font-weight:500;color:var(--pp-on-photo);border-block-end:1px solid var(--pp-on-photo-line);padding-block-end:4px;transition:border-color .3s,color .3s}
+/* opening text sits on a photo: full white, regular weight and a soft shadow so it stays readable on busy areas */
+.pp-opening-body{text-shadow:0 1px 2px rgba(0,0,0,.35),0 2px 14px rgba(0,0,0,.35)}
+.pp-lead{max-width:56ch;margin-top:18px;font-size:clamp(1.05rem,1.55vw,1.18rem);font-weight:400;line-height:1.75;color:#fff}
+.pp-down{display:inline-flex;align-items:center;gap:8px;margin-top:30px;font-size:1rem;font-weight:600;color:var(--pp-on-photo);border-block-end:1px solid var(--pp-on-photo-line);padding-block-end:4px;transition:border-color .3s,color .3s}
 .pp-down:hover{border-color:var(--pp-amber);color:#fff}
 .pp-down svg{width:18px;height:18px}
 
