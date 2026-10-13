@@ -39,6 +39,13 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-13 (later)
+- **What changed:** A proposal headline written only in English (Latin
+  letters, no Hebrew) is now centred on the page and laid out left-to-right
+  (`.pp-title-ltr`, set by `markLatinTitle()` in `proposal.js`). Hebrew or
+  mixed headlines stay right-aligned as before. Checked at 1440 and 390 px.
+
+### Latest status (previous, same day)
 - **Date:** 2026-10-13
 - **What changed:** The proposal page is now a reusable sales asset with a
   personal headline per lead.
@@ -2134,6 +2141,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-13 — Proposal page: English-only headlines centred.
 - 2026-10-13 — Proposal page made reusable: folder → sessions-4q8x2m, per-lead headline via ?c= code (D1 settings.proposal_links, /api/proposal-title, tracker UI); legacy bgirim link preserved.
 - 2026-09-30 — Proposal page: logo links to the site home page.
 - 2026-09-30 — Proposal page: client name changed to עובדי עיריית תל אביב (URL unchanged).

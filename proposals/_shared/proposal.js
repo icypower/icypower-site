@@ -210,6 +210,16 @@
 
   document.title = (P.eyebrow || 'הצעה אישית') + ' · ' + P.client + ' · Icy Power';
 
+  /* An all-English headline (no Hebrew letters, e.g. "herbal life") is centred on the
+     page and laid out left-to-right; a Hebrew one stays right-aligned as designed. */
+  function markLatinTitle(h1) {
+    var t = h1.textContent || '';
+    var latin = /[A-Za-z]/.test(t) && !/[\u0590-\u05FF]/.test(t);
+    h1.classList.toggle('pp-title-ltr', latin);
+    if (latin) h1.setAttribute('dir', 'ltr'); else h1.removeAttribute('dir');
+  }
+  markLatinTitle(document.getElementById('pp-title'));
+
   /* ---------------- personal headline (?c=<code>) ----------------
      A link made in the tracker carries a short code; the lead's name is looked
      up live, so it can be renamed after the link was sent. The headline stays
@@ -227,6 +237,7 @@
       done = true;
       if (name) {
         h1.textContent = name;
+        markLatinTitle(h1);
         document.title = (P.eyebrow || 'הצעה אישית') + ' · ' + name + ' · Icy Power';
       }
       h1.classList.remove('pp-pending');
