@@ -21,7 +21,9 @@
    ===================================================================== */
 
 window.PROPOSAL = {
-  client: 'עובדי עיריית תל\u00A0אביב', // \u00A0 keeps "תל אביב" on one line
+  // Default headline. Each lead normally gets a personal link from the tracker
+  // (More → "Proposal page links"), which swaps this for the lead's name via ?c=<code>.
+  client: 'המפגש הבא שלכם',
   subtitle: 'שש אפשרויות למפגש שלכם אצלנו',
   intro:
     'הכנו לכם שש אפשרויות למפגש של שעתיים. כל אחת משלבת פעילויות שעובדות טוב ביחד, ' +

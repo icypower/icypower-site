@@ -210,6 +210,34 @@
 
   document.title = (P.eyebrow || 'הצעה אישית') + ' · ' + P.client + ' · Icy Power';
 
+  /* ---------------- personal headline (?c=<code>) ----------------
+     A link made in the tracker carries a short code; the lead's name is looked
+     up live, so it can be renamed after the link was sent. The headline stays
+     hidden for a moment while it loads (no flash of the default), and falls back
+     to the default if the lookup fails or takes too long. */
+  (function () {
+    var code = (new URLSearchParams(location.search).get('c') || '').trim();
+    if (!/^[a-z0-9]{4,16}$/i.test(code)) return;
+    var h1 = document.getElementById('pp-title');
+    if (!h1 || !window.fetch) return;
+    h1.classList.add('pp-pending');
+    var done = false;
+    function show(name) {
+      if (done) return;
+      done = true;
+      if (name) {
+        h1.textContent = name;
+        document.title = (P.eyebrow || 'הצעה אישית') + ' · ' + name + ' · Icy Power';
+      }
+      h1.classList.remove('pp-pending');
+    }
+    setTimeout(function () { show(null); }, 2500);
+    fetch('/api/proposal-title?c=' + encodeURIComponent(code), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { show(d && d.name); })
+      .catch(function () { show(null); });
+  })();
+
   /* ---------------- tabs ---------------- */
   var tabs = [].slice.call(root.querySelectorAll('.pp-tab'));
   var panels = [].slice.call(root.querySelectorAll('.pp-panel'));

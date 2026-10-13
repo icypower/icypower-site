@@ -39,6 +39,29 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-13
+- **What changed:** The proposal page is now a reusable sales asset with a
+  personal headline per lead.
+  - **Folder renamed:** `proposals/bgirim-4q8x2m/` → `proposals/sessions-4q8x2m/`
+    (a neutral URL). Its default headline (`content.js` `client`) is "המפגש
+    הבא שלכם".
+  - **Personal links:** `?c=<code>` in the URL. `proposal.js` fetches the name
+    from the new `functions/api/proposal-title.js`, which reads
+    `settings.proposal_links` (JSON `[{id,name,created}]`) from D1 (the
+    existing `DB` binding on `icypower`). While loading, the h1 is hidden
+    (`.pp-pending`); after a 2.5s timeout, or on any error, it falls back to
+    the default. `document.title` follows the name.
+  - **Managed from the tracker:** icypower-management `tracker-site`, More →
+    "Proposal page links": create, copy, preview, rename and delete. No schema
+    change; it's a settings key, like `qr_target_url`.
+  - **Legacy link kept:** `proposals/bgirim-4q8x2m/index.html` is now a shell
+    that loads sessions' content.js and forces the Tel Aviv headline, so the
+    link already sent to them still works unchanged.
+  - **Other:** the h1 got `text-wrap:balance`. Tested with Playwright and a
+    mocked API: name / 404 / network failure / no code / legacy / deep link.
+- **Next goal:** Eldar creates links per lead from the tracker.
+
+### Latest status (previous, same day)
 - **Date:** 2026-09-30 (latest+52)
 - **What changed:** The Icy Power logo at the top of the proposal page (and
   in the optional footer) is now a link to the site's home page (`/`). It
@@ -2111,6 +2134,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-13 — Proposal page made reusable: folder → sessions-4q8x2m, per-lead headline via ?c= code (D1 settings.proposal_links, /api/proposal-title, tracker UI); legacy bgirim link preserved.
 - 2026-09-30 — Proposal page: logo links to the site home page.
 - 2026-09-30 — Proposal page: client name changed to עובדי עיריית תל אביב (URL unchanged).
 - 2026-09-30 — Proposal page: option 05 gallery g09 crop shifted down.
