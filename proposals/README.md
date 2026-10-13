@@ -14,10 +14,22 @@ proposals/
     proposal.css      layout + styling (navy/gold premium style, RTL)
     proposal.js       builds the page from content.js; tabs, video, lightbox
     media/            opening photo + video poster frames
-  bgirim-4q8x2m/      one client's proposal (עובדי עיריית תל אביב)
+  sessions-4q8x2m/    THE reusable sessions proposal (six options), sent to every lead
     index.html        page shell — normally never edited
     content.js        ALL the content — the only file to edit
+  bgirim-4q8x2m/      legacy link (sent to עיריית תל אביב before the page became
+                      reusable): loads sessions-4q8x2m's content with a fixed headline
 ```
+
+## Personal links (headline per lead)
+
+The sessions page is one shared page. Each lead gets their own link,
+`/proposals/sessions-4q8x2m/?c=<code>`, and the page shows that lead's name
+as the big headline. Links are created, renamed and deleted in the tracker
+app: **More → "Proposal page links"**. They're stored in D1
+(`settings.proposal_links`) and read live by `functions/api/proposal-title.js`,
+so a rename also updates links that were already sent. A link with no code (or
+an unknown one) shows the default headline from `content.js` (`client`).
 
 ## Editing a proposal
 
