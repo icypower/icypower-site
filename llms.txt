@@ -9,6 +9,7 @@
 - [Evening retreat (ריטריט ערב)](https://icypower.pages.dev/evening-retreat): an evening wellness retreat for groups at a villa in Savyon - breathwork, ice bath, sound healing.
 - [Open workshop (סדנה פתוחה)](https://icypower.pages.dev/open-session): individuals join a scheduled group session.
 - [Couples workshop (סדנת זוגות)](https://icypower.pages.dev/couples)
+- [Wellness day builder (יום וולנס לחברות וקבוצות)](https://icypower.pages.dev/wellness-day): a full wellness day for companies and groups anywhere in Israel; pick activities (breathwork, ice baths, yoga, pilates, massage, sound healing, healthy catering).
 - [Book a morning workshop (הזמנת מקום)](https://icypower.pages.dev/booking)
 
 ## Key facts

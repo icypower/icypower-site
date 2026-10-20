@@ -15,7 +15,7 @@ north and south (not as far as Eilat).
 | AI answer engines | `llms.txt` | Plain-English summary for ChatGPT / Claude / Perplexity. Keep in sync when services change. |
 | IndexNow (Bing, Yandex → also ChatGPT search / Copilot) | `<key>.txt` at the root + `.github/workflows/indexnow.yml` | Pings all sitemap URLs after every push to `main`. |
 | Share images | `assets/img/og/*.jpg` | 1200×630. |
-| Hidden pages | `_headers` + meta robots | proposals, invites, divorced-and-happy, archive, waiver, wellness-day, booking-success are `noindex` and not in the sitemap. |
+| Hidden pages | `_headers` + meta robots | proposals, invites, divorced-and-happy, archive, waiver, booking-success are `noindex` and not in the sitemap. |
 
 URLs: Cloudflare Pages serves `/business.html` at `/business` (308 redirect),
 so canonical URLs and the sitemap use the extension-less form.

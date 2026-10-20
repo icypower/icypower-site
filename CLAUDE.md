@@ -51,8 +51,10 @@ that already happened once (see History).
     `assets/img/og/*` share images (1200×630), IndexNow key file
     (`84d58e…txt` at the root) + `.github/workflows/indexnow.yml` that pings
     Bing/Yandex after each push to `main`.
-  - Hidden pages (archive, invites, divorced-and-happy, waiver, wellness-day,
-    booking-success) are `noindex` via `_headers`/meta and not in the sitemap.
+  - Hidden pages (archive, invites, divorced-and-happy, waiver,
+    booking-success, proposals) are `noindex` via `_headers`/meta and not in
+    the sitemap. `wellness-day.html` is public again (#180), so it is indexed
+    and in the sitemap.
   - Footer line on every page now lists the service areas; home-page images
     below the hero are `loading="lazy"`.
   - A weekly Claude scheduled task works through the content backlog in
@@ -60,6 +62,21 @@ that already happened once (see History).
 - **Human-only (optional):** Google Search Console / Bing Webmaster / Google
   Business Profile need a login; see "Things only a human can do" in
   `seo/README.md`.
+
+### Latest status (previous, same day)
+- **Date:** 2026-10-20
+- **What changed:** At Eldar's request, `wellness-day.html` (the day
+  builder) is linked from the site again. The same 7 links PR #81 removed
+  are back:
+  - the "☀️ אירוע וולנס ליום שלם" hero button on `business.html` and on
+    `private-groups.html`
+  - the 5 `.tile-cta` buttons on the homepage `#wellness-events` carousel
+    tiles
+  - On phones (≤680px), that hero button now gets its own row, so its label
+    isn't cut off. On `private-groups.html` the evening-retreat button got
+    the same fix (it was already cut off before this change).
+  - Checked at 390 and 1280 px: links work, no new overflow.
+- **Next goal:** Eldar works on the day builder page itself.
 
 ### Latest status (previous)
 - **Date:** 2026-10-13 (later)
@@ -2165,6 +2182,7 @@ that already happened once (see History).
 
 ### History (previous)
 - 2026-10-20 — Free SEO foundation (meta/OG/JSON-LD generator, sitemap, robots, llms.txt, IndexNow, noindex hidden pages) + weekly SEO agent.
+- 2026-10-20 — wellness-day.html linked from the site again (the 7 links removed in #81); hero buttons get their own row on phones.
 - 2026-10-13 — Proposal page: English-only headlines centred.
 - 2026-10-13 — Proposal page made reusable: folder → sessions-4q8x2m, per-lead headline via ?c= code (D1 settings.proposal_links, /api/proposal-title, tracker UI); legacy bgirim link preserved.
 - 2026-09-30 — Proposal page: logo links to the site home page.
