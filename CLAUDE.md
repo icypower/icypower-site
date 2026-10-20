@@ -39,6 +39,21 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-20
+- **What changed:** At Eldar's request, `wellness-day.html` (the day
+  builder) is linked from the site again. The same 7 links PR #81 removed
+  are back:
+  - the "☀️ אירוע וולנס ליום שלם" hero button on `business.html` and on
+    `private-groups.html`
+  - the 5 `.tile-cta` buttons on the homepage `#wellness-events` carousel
+    tiles
+  - On phones (≤680px), that hero button now gets its own row, so its label
+    isn't cut off. On `private-groups.html` the evening-retreat button got
+    the same fix (it was already cut off before this change).
+  - Checked at 390 and 1280 px: links work, no new overflow.
+- **Next goal:** Eldar works on the day builder page itself.
+
+### Latest status (previous)
 - **Date:** 2026-10-13 (later)
 - **What changed:** A proposal headline written only in English (Latin
   letters, no Hebrew) is now centred on the page and laid out left-to-right
@@ -2141,6 +2156,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-20 — wellness-day.html linked from the site again (the 7 links removed in #81); hero buttons get their own row on phones.
 - 2026-10-13 — Proposal page: English-only headlines centred.
 - 2026-10-13 — Proposal page made reusable: folder → sessions-4q8x2m, per-lead headline via ?c= code (D1 settings.proposal_links, /api/proposal-title, tracker UI); legacy bgirim link preserved.
 - 2026-09-30 — Proposal page: logo links to the site home page.
