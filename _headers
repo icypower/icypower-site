@@ -7,3 +7,36 @@
 /proposals/*
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
   Referrer-Policy: no-referrer
+
+/archive/*
+  X-Robots-Tag: noindex, nofollow
+
+/invites/*
+  X-Robots-Tag: noindex, nofollow
+
+/divorced-and-happy/*
+  X-Robots-Tag: noindex, nofollow
+
+/waiver
+  X-Robots-Tag: noindex
+
+/waiver.html
+  X-Robots-Tag: noindex
+
+/wellness-day
+  X-Robots-Tag: noindex
+
+/wellness-day.html
+  X-Robots-Tag: noindex
+
+/booking-success
+  X-Robots-Tag: noindex
+
+/booking-success.html
+  X-Robots-Tag: noindex
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8

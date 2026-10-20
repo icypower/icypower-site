@@ -1,0 +1,27 @@
+# Icy Power - https://icypower.pages.dev
+# Search engines and AI assistants are welcome to read the public pages.
+User-agent: *
+Allow: /
+Disallow: /go
+Disallow: /api/
+Disallow: /archive/
+
+# AI search / answer engines (explicitly allowed so we get cited)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://icypower.pages.dev/sitemap.xml
