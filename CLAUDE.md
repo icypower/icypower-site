@@ -39,6 +39,31 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22 (later)
+- **What changed:** Two changes to the day builder (`wellness-day.html`):
+  1. **Real photos.** Three add-ons that only had an emoji placeholder now
+     use real photos from our events. Each was pre-cropped to the card's
+     16:10 frame and saved in `assets/img/`:
+     - יוגה: `wd-yoga.jpg`, from `proposals/_shared/media/poster-hero-13.jpg`
+     - ארומתרפיה: `wd-aroma.jpg`, hands blending oils around the tray, from
+       `aroma-blend.jpg`
+     - מסאג׳ים: `wd-massage.jpg`, a massage by the pool, from
+       `spa-schedule.jpg`
+     - פילאטיס and חבילת יינות keep the placeholder; no photo in the repo
+       shows either.
+  2. **Card footer.** Removed the grey "לפי הרכב היום" label. A price now
+     shows only when an add-on has `price` set. The "הוספה ליום" button
+     was redesigned:
+     - full width, 46px tall, solid brand blue
+     - a "+" icon that turns into a check, and the label changes to "נוסף
+       ליום"; the state is driven by `aria-pressed`
+     - selected state is mint
+     - focus ring, press feedback, and no motion under reduced-motion
+  - Checked at 390 and 1280 px: toggling works both ways, the summary
+    updates, and there are no overflow or JS errors.
+- **Next goal:** Eldar sends pilates and wine photos.
+
+### Latest status (previous, 2026-10-22)
 - **Date:** 2026-10-22
 - **What changed:** Added 4 SEO skills for the weekly SEO agent, copied
   (and read in full) from coreyhaines31/marketingskills, MIT:
@@ -2193,6 +2218,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Day builder: real photos for yoga/aroma/massage; removed "לפי הרכב היום"; redesigned the add-to-day button (+ → ✓, mint when selected).
 - 2026-10-22 — Added reviewed SEO skills (marketingskills, MIT) to .claude/skills + .claude/product-marketing.md for the weekly SEO agent.
 - 2026-10-20 — Free SEO foundation (meta/OG/JSON-LD generator, sitemap, robots, llms.txt, IndexNow, noindex hidden pages) + weekly SEO agent.
 - 2026-10-20 — wellness-day.html linked from the site again (the 7 links removed in #81); hero buttons get their own row on phones.

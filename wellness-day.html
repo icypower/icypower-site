@@ -521,20 +521,40 @@
   .wd-price{font-size:13.5px;font-weight:800;color:var(--day-blue);white-space:nowrap;}
   .wd-price small{display:block;font-weight:600;font-size:11px;color:var(--ink-faint);}
   .wd-toggle{
-    font-family:inherit;cursor:pointer;flex:1;
-    display:inline-flex;align-items:center;justify-content:center;gap:7px;
-    padding:10px 14px;border-radius:999px;font-weight:800;font-size:14px;
-    white-space:nowrap;
-    background:rgba(28,110,156,.08);color:var(--day-blue);
-    border:1.5px solid transparent;
-    transition:all .2s var(--ease);
+    font-family:inherit;cursor:pointer;flex:1;min-height:46px;
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:9px 16px;border-radius:14px;font-weight:800;font-size:14.5px;
+    white-space:nowrap;-webkit-tap-highlight-color:transparent;
+    background:var(--day-blue);color:#fff;border:0;
+    box-shadow:0 10px 22px -14px rgba(28,110,156,.95),inset 0 1px 0 rgba(255,255,255,.18);
+    transition:background .2s var(--ease),box-shadow .2s var(--ease),transform .12s var(--ease),color .2s;
   }
-  .wd-toggle:hover{background:rgba(28,110,156,.15);}
-  .wd-card.is-on .wd-toggle{
+  .wd-toggle:hover{background:#185f87;box-shadow:0 14px 26px -14px rgba(28,110,156,1),inset 0 1px 0 rgba(255,255,255,.18);}
+  .wd-toggle:active{transform:scale(.97);}
+  .wd-toggle:focus-visible{outline:3px solid var(--day-sun);outline-offset:3px;}
+  .wd-toggle .ico{
+    position:relative;width:22px;height:22px;flex:none;border-radius:50%;
+    background:rgba(255,255,255,.2);display:grid;place-items:center;
+    transition:background .2s;
+  }
+  .wd-toggle .ico svg{
+    position:absolute;width:14px;height:14px;fill:none;stroke:currentColor;
+    stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+    transition:transform .3s var(--ease),opacity .2s;
+  }
+  .wd-toggle .i-check{opacity:0;transform:scale(.4) rotate(-45deg);}
+  .wd-toggle[aria-pressed="true"]{
     background:var(--day-mint);color:#04372d;
-    box-shadow:0 10px 24px -12px rgba(63,181,154,.9);
+    box-shadow:0 10px 22px -14px rgba(63,181,154,1),inset 0 1px 0 rgba(255,255,255,.3);
   }
-  .wd-card.is-on .wd-toggle:hover{background:#37a48c;}
+  .wd-toggle[aria-pressed="true"]:hover{background:#37a48c;}
+  .wd-toggle[aria-pressed="true"] .ico{background:#fff;color:#1f8a70;}
+  .wd-toggle[aria-pressed="true"] .i-plus{opacity:0;transform:scale(.4) rotate(90deg);}
+  .wd-toggle[aria-pressed="true"] .i-check{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .wd-toggle,.wd-toggle .ico svg{transition:none;}
+    .wd-toggle:active{transform:none;}
+  }
 
   /* highlighted catering card */
   .wd-card.is-feature{background:linear-gradient(180deg,#fff,var(--day-cream));}
@@ -806,7 +826,7 @@
      img    - נתיב לתמונה. אם אין תמונה עדיין - שמים null ומופיע
               רקע מעוצב עם האייקון במקום.
      icon   - אימוג'י שמופיע כשאין תמונה
-     price  - מחיר לאדם בשקלים. null = "לפי הרכב היום" (לא נכנס לסכום)
+     price  - מחיר לאדם בשקלים. null = לא מוצג מחיר (לא נכנס לסכום)
      group  - 'content' (תכנים וסדנאות) או 'food' (אוכל ושתייה)
      order  - מיקום בסדר היום (מספר קטן = מוקדם יותר). משפיע רק על
               הסדר שבו התוכן מופיע ב"היום שלי"
@@ -814,7 +834,7 @@
 var ADDONS = [
   {
     id:'yoga', title:'יוגה', group:'content', order:10, price:null,
-    dur:'כ-60 דק׳', img:null, icon:'🧘‍♀️',
+    dur:'כ-60 דק׳', img:'assets/img/wd-yoga.jpg', icon:'🧘‍♀️',
     desc:'פתיחה רכה ליום - תרגול יוגה מונחה בחוץ, מותאם לכל רמה. גוף שמתעורר, ראש שמתפנה.'
   },
   {
@@ -834,12 +854,12 @@ var ADDONS = [
   },
   {
     id:'aroma', title:'ארומתרפיה', group:'content', order:50, price:null,
-    dur:'כ-45 דק׳', img:null, icon:'🌿',
+    dur:'כ-45 דק׳', img:'assets/img/wd-aroma.jpg', icon:'🌿',
     desc:'פינת שמנים אתריים עם הסבר והתנסות - כל אחד מרכיב לעצמו תערובת אישית לקחת הביתה.'
   },
   {
     id:'massage', title:'מסאג׳ים', group:'content', order:60, price:null,
-    dur:'לאורך היום', img:null, icon:'💆',
+    dur:'לאורך היום', img:'assets/img/wd-massage.jpg', icon:'💆',
     desc:'עמדת מעסים מקצועיים שפועלת במקביל לשאר התכנים - כל אחד מגיע לתורו לרגע של פינוק.'
   },
   {
@@ -889,14 +909,18 @@ var ADDONS = [
 
     var price = a.price
       ? '<div class="wd-price">' + a.price + ' ₪<small>לאדם</small></div>'
-      : '<div class="wd-price" style="color:var(--ink-faint);font-weight:600">לפי הרכב היום</div>';
+      : '';
 
     return '<article class="wd-card' + (a.price ? ' is-feature' : '') + (isOn(a.id) ? ' is-on' : '') + '" data-addon="' + a.id + '">' +
       pic +
       '<div class="body"><h3>' + a.title + '</h3><p>' + a.desc + '</p></div>' +
       '<div class="foot">' +
         '<button type="button" class="wd-toggle" data-toggle="' + a.id + '" aria-pressed="' + (isOn(a.id) ? 'true' : 'false') + '">' +
-          '<span class="lbl">' + (isOn(a.id) ? '✓ נוסף ליום' : 'הוספה ליום') + '</span>' +
+          '<span class="ico" aria-hidden="true">' +
+            '<svg class="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>' +
+            '<svg class="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' +
+          '</span>' +
+          '<span class="lbl">' + (isOn(a.id) ? 'נוסף ליום' : 'הוספה ליום') + '</span>' +
         '</button>' + price +
       '</div></article>';
   }
@@ -970,7 +994,7 @@ var ADDONS = [
     card.classList.toggle('is-on', on);
     var btn = card.querySelector('[data-toggle]');
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    btn.querySelector('.lbl').textContent = on ? '✓ נוסף ליום' : 'הוספה ליום';
+    btn.querySelector('.lbl').textContent = on ? 'נוסף ליום' : 'הוספה ליום';
   }
 
   function toggle(id){
