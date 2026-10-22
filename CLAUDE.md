@@ -39,6 +39,28 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22 (latest+3)
+- **What changed:** In `wellness-day.html`, at Eldar's request:
+  - **Removed the hero eyebrow** ("☀️ אירוע וולנס · יום שלם לקבוצה").
+  - **Removed every emoji except "☀️ היום שלי"**: the three hero pills,
+    the two group titles ("תכנים וסדנאות" / "אוכל ושתייה"), and the
+    `icon` field on every `ADDONS` entry (field and its doc line deleted).
+    The ✓ badge on the "base" line in the summary is a plain check
+    character, not an emoji, and was kept.
+  - **Photo-less cards** (פילאטיס, חבילת יינות) now show a faint Icy
+    Power logo (`icy_power_Logo.png`, opacity .3) on the gradient
+    instead of an emoji. Don't use `logo-mark.svg` there: it is drawn in
+    white and invisible on light backgrounds.
+  - **Pilates and wine photos still missing.** Eldar said stock photos are
+    fine, but this cloud environment's network policy blocks every image
+    host (Unsplash, Pexels, Pixabay, Wikimedia, Openverse). His Google
+    Drive had nothing either. Either allow a host in the environment's
+    network settings, or Eldar sends the photos.
+  - Checked at 390 and 1280 px: the rendered text has no emoji other than
+    "☀️ היום שלי", and there are no overflow or JS errors.
+- **Next goal:** Photos for pilates and wine.
+
+### Latest status (previous, same day)
 - **Date:** 2026-10-22 (latest+2)
 - **What changed:** Trimmed the top of `wellness-day.html` at Eldar's
   request:
@@ -2259,6 +2281,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Day builder: removed hero eyebrow and all emoji except "☀️ היום שלי"; logo placeholder on photo-less cards.
 - 2026-10-22 — Day builder: removed hero CTAs, the "always included" section and the builder intro line.
 - 2026-10-22 — Day builder: removed the duration bubbles from the cards.
 - 2026-10-22 — Day builder summary: removed the priced-add-ons total and the final-price note.
