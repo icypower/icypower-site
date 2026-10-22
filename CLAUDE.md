@@ -39,6 +39,22 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22 (latest+2)
+- **What changed:** Trimmed the top of `wellness-day.html` at Eldar's
+  request:
+  - **Hero:** removed both CTAs ("בואו נבנה את היום שלכם ↓" and "לדבר
+    איתנו בוואטסאפ"). The hero now ends at its three pills.
+  - **Removed the whole `.wd-base` section** ("מה תמיד כלול, בלי קשר למה
+    שתבחרו", its "זה הבסיס…" sub-line and the four included items). Its
+    CSS is left unused.
+  - **Builder intro:** removed the "לחצו על מה שמעניין אתכם…" paragraph;
+    only the "בנו את יום הוולנס שלכם" h2 remains.
+  - **Still there:** the "הבסיס של Icy Power – תמיד כלול" first line in
+    the "היום שלי" summary (not asked).
+  - Checked at 390 and 1280 px.
+- **Next goal:** Eldar sends pilates and wine photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-10-22 (latest+1)
 - **What changed:** At Eldar's request, the day builder's cards
   (`wellness-day.html`) no longer show the duration bubbles ("כ-60 דק׳"
@@ -2243,6 +2259,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Day builder: removed hero CTAs, the "always included" section and the builder intro line.
 - 2026-10-22 — Day builder: removed the duration bubbles from the cards.
 - 2026-10-22 — Day builder summary: removed the priced-add-ons total and the final-price note.
 - 2026-10-22 — Day builder: real photos for yoga/aroma/massage; removed "לפי הרכב היום"; redesigned the add-to-day button (+ → ✓, mint when selected).
