@@ -39,6 +39,20 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22 (latest)
+- **What changed:** In the day builder's "היום שלי" summary panel
+  (`wellness-day.html`), removed the pricing block at Eldar's request: the
+  "תוספות מתומחרות" total with its "—" and "שאר התכנים מתומחרים לפי
+  היום" line (`#wdTotal` and its JS), and the "המחיר הסופי נקבע…"
+  paragraph. The panel now goes from the chosen items straight to the
+  WhatsApp button.
+  - The `.totals`/`.note` CSS is left unused.
+  - An add-on's `price`, if set, still shows on its card and in the summary
+    line, but there is no total any more.
+  - Checked at 390 and 1280 px.
+- **Next goal:** Eldar sends pilates and wine photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-10-22 (later)
 - **What changed:** Two changes to the day builder (`wellness-day.html`):
   1. **Real photos.** Three add-ons that only had an emoji placeholder now
@@ -2218,6 +2232,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Day builder summary: removed the priced-add-ons total and the final-price note.
 - 2026-10-22 — Day builder: real photos for yoga/aroma/massage; removed "לפי הרכב היום"; redesigned the add-to-day button (+ → ✓, mint when selected).
 - 2026-10-22 — Added reviewed SEO skills (marketingskills, MIT) to .claude/skills + .claude/product-marketing.md for the weekly SEO agent.
 - 2026-10-20 — Free SEO foundation (meta/OG/JSON-LD generator, sitemap, robots, llms.txt, IndexNow, noindex hidden pages) + weekly SEO agent.
