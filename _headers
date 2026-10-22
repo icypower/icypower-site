@@ -34,3 +34,15 @@
 
 /llms.txt
   Content-Type: text/plain; charset=utf-8
+
+/.claude/*
+  X-Robots-Tag: noindex, nofollow
+
+/seo/*
+  X-Robots-Tag: noindex, nofollow
+
+/CLAUDE.md
+  X-Robots-Tag: noindex, nofollow
+
+/README.md
+  X-Robots-Tag: noindex, nofollow

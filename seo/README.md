@@ -17,6 +17,17 @@ north and south (not as far as Eilat).
 | Share images | `assets/img/og/*.jpg` | 1200×630. |
 | Hidden pages | `_headers` + meta robots | proposals, invites, divorced-and-happy, archive, waiver, booking-success are `noindex` and not in the sitemap. |
 
+| SEO skills | `.claude/skills/{seo-audit,ai-seo,schema,site-architecture}` | Reviewed copies from marketingskills (MIT); business facts for them in `.claude/product-marketing.md`. See `.claude/skills/README.md`. |
+
+Notes from the skills worth keeping in mind:
+- Google stopped showing FAQ rich results in May 2026. The FAQPage markup
+  stays because AI engines (Perplexity, ChatGPT) still read it, but don't
+  expect expandable FAQs in Google.
+- Google's LocalBusiness rich result needs a street address; we don't
+  publish one on purpose, so the markup is for understanding, not a rich result.
+- Claude's web search uses Brave Search, ChatGPT and Copilot use Bing. Bing is
+  covered by IndexNow; check search.brave.com for the brand now and then.
+
 URLs: Cloudflare Pages serves `/business.html` at `/business` (308 redirect),
 so canonical URLs and the sitemap use the extension-less form.
 

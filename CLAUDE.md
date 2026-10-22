@@ -39,6 +39,18 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22
+- **What changed:** Added 4 SEO skills for the weekly SEO agent, copied
+  (and read in full) from coreyhaines31/marketingskills, MIT:
+  `.claude/skills/{seo-audit,ai-seo,schema,site-architecture}`. Provenance,
+  what was trimmed and house rules are in `.claude/skills/README.md`.
+  Business facts the skills read instead of asking questions are in
+  `.claude/product-marketing.md`; keep it accurate when the business
+  changes. The weekly scheduled SEO task now loads these skills.
+- **Still needed from Eldar/Oron (login required):** Google Search Console,
+  Bing Webmaster Tools, Google Business Profile; see `seo/README.md`.
+
+### Latest status (previous, 2026-10-20)
 - **Date:** 2026-10-20
 - **What changed:** Free SEO foundation for the whole public site (Eldar asked
   for the best free SEO, fully autonomous, aimed at leads from corporate events
@@ -2181,6 +2193,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Added reviewed SEO skills (marketingskills, MIT) to .claude/skills + .claude/product-marketing.md for the weekly SEO agent.
 - 2026-10-20 — Free SEO foundation (meta/OG/JSON-LD generator, sitemap, robots, llms.txt, IndexNow, noindex hidden pages) + weekly SEO agent.
 - 2026-10-20 — wellness-day.html linked from the site again (the 7 links removed in #81); hero buttons get their own row on phones.
 - 2026-10-13 — Proposal page: English-only headlines centred.
