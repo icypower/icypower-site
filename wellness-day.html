@@ -895,10 +895,8 @@ var ADDONS = [
   /* ---------- render the add-on cards ---------- */
   function cardHtml(a){
     var pic = a.img
-      ? '<div class="pic"><img src="' + a.img + '" alt="' + a.title + '" loading="lazy">' +
-        (a.dur ? '<span class="dur">' + a.dur + '</span>' : '') + '</div>'
-      : '<div class="pic ph"><span aria-hidden="true">' + a.icon + '</span>' +
-        (a.dur ? '<span class="dur">' + a.dur + '</span>' : '') + '</div>';
+      ? '<div class="pic"><img src="' + a.img + '" alt="' + a.title + '" loading="lazy"></div>'
+      : '<div class="pic ph"><span aria-hidden="true">' + a.icon + '</span></div>';
 
     var price = a.price
       ? '<div class="wd-price">' + a.price + ' ₪<small>לאדם</small></div>'
