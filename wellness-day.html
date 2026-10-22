@@ -608,7 +608,7 @@
   .wd-sum .totals .val{font-size:22px;font-weight:900;color:#fff;line-height:1.2;}
   .wd-sum .totals .val small{display:block;font-size:11.5px;font-weight:500;color:rgba(238,246,251,.55);}
   .wd-sum .note{font-size:11.5px;color:rgba(238,246,251,.5);margin-top:10px;line-height:1.55;}
-  .wd-sum .btn{width:100%;margin-top:14px;}
+  .wd-sum .btn{width:100%;margin-top:18px;}
   .wd-sum .btn-clear{
     display:block;margin:10px auto 0;background:none;border:none;cursor:pointer;
     font-family:inherit;font-size:12.5px;color:rgba(238,246,251,.5);text-decoration:underline;
@@ -738,13 +738,6 @@
         <div class="wd-sum" id="wdSum">
           <h3>☀️ היום שלי</h3>
           <div id="wdSumBody"></div>
-          <div class="totals">
-            <div>
-              <div class="lbl">תוספות מתומחרות</div>
-              <div class="val" id="wdTotal">—<small>לאדם</small></div>
-            </div>
-          </div>
-          <p class="note">המחיר הסופי נקבע לפי גודל הקבוצה, הלוקיישן ומשך היום. נשמח לשלוח לכם הצעת מחיר מדויקת תוך זמן קצר.</p>
           <a href="#" class="btn btn-wa btn-lg" id="wdWa" target="_blank" rel="noopener">שליחת היום שלי בוואטסאפ</a>
           <button type="button" class="btn-clear" id="wdClear">ניקוי הבחירות</button>
         </div>
@@ -961,8 +954,6 @@ var ADDONS = [
     }
 
     var sum = list.reduce(function(t,a){ return t + (a.price || 0); }, 0);
-    var totalEl = document.getElementById('wdTotal');
-    totalEl.innerHTML = (sum ? sum + ' ₪' : '—') + '<small>' + (sum ? 'לאדם, לתוספות שנבחרו' : 'שאר התכנים מתומחרים לפי היום') + '</small>';
 
     /* WhatsApp message with the selection */
     var msg = 'היי! בניתי לעצמי יום וולנס באתר ואשמח להצעת מחיר.\n\n';
