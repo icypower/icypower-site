@@ -39,6 +39,17 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-10-22 (latest+1)
+- **What changed:** At Eldar's request, the day builder's cards
+  (`wellness-day.html`) no longer show the duration bubbles ("כ-60 דק׳"
+  and so on) on their photos; `cardHtml()` stops rendering `.dur`.
+  - The `dur` field stays in `ADDONS`. It still appears as the small grey
+    line under each chosen item in the "היום שלי" panel.
+  - The `.wd-card .dur` CSS is left unused.
+  - Checked at 390 and 1280 px.
+- **Next goal:** Eldar sends pilates and wine photos.
+
+### Latest status (previous, same day)
 - **Date:** 2026-10-22 (latest)
 - **What changed:** In the day builder's "היום שלי" summary panel
   (`wellness-day.html`), removed the pricing block at Eldar's request: the
@@ -2232,6 +2243,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-10-22 — Day builder: removed the duration bubbles from the cards.
 - 2026-10-22 — Day builder summary: removed the priced-add-ons total and the final-price note.
 - 2026-10-22 — Day builder: real photos for yoga/aroma/massage; removed "לפי הרכב היום"; redesigned the add-to-day button (+ → ✓, mint when selected).
 - 2026-10-22 — Added reviewed SEO skills (marketingskills, MIT) to .claude/skills + .claude/product-marketing.md for the weekly SEO agent.
