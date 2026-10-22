@@ -501,6 +501,7 @@
   .wd-card .pic{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e8f2f8;}
   .wd-card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
   .wd-card:hover .pic img{transform:scale(1.05);}
+  .wd-card .pic.ph .ph-mark{width:72px;height:72px;object-fit:contain;opacity:.3;}
   .wd-card .pic.ph{
     display:flex;align-items:center;justify-content:center;font-size:46px;
     background:linear-gradient(140deg,#dff0fa,#eaf7f2 55%,#fdf3dd);
@@ -687,14 +688,13 @@
     <span class="wd-blob" aria-hidden="true" style="width:180px;height:180px;top:18%;inset-inline-end:6%;animation-delay:-2s"></span>
     <span class="wd-blob" aria-hidden="true" style="width:120px;height:120px;top:62%;inset-inline-start:12%;animation-delay:-6s"></span>
 
-    <span class="wd-eyebrow">☀️ אירוע וולנס · יום שלם לקבוצה</span>
     <h1>אירוע וולנס תפור אישית בשבילכם</h1>
     <p class="lead">אנחנו מגיעים אליכם - לכל מתחם, גינה, חוף או מקום עבודה בארץ - ומרימים יום שלם של אנרגיה, רוגע וחיבור. אתם בוחרים מה נכנס ליום, אנחנו מביאים את הצוות, הציוד והוייב.</p>
 
     <div class="wd-pills">
-      <span class="wd-pill">📍 מגיעים לכל לוקיישן בארץ</span>
-      <span class="wd-pill">🧑‍🤝‍🧑 צוותים, קבוצות ומשפחות</span>
-      <span class="wd-pill">🧩 בונים את היום מהתכנים שתבחרו</span>
+      <span class="wd-pill">מגיעים לכל לוקיישן בארץ</span>
+      <span class="wd-pill">צוותים, קבוצות ומשפחות</span>
+      <span class="wd-pill">בונים את היום מהתכנים שתבחרו</span>
     </div>
   </section>
 
@@ -706,11 +706,11 @@
     <div class="wd-layout">
       <div>
         <div class="wd-group">
-          <div class="wd-group-title">🧘 תכנים וסדנאות</div>
+          <div class="wd-group-title">תכנים וסדנאות</div>
           <div class="wd-cards" data-cards="content"></div>
         </div>
         <div class="wd-group">
-          <div class="wd-group-title">🥗 אוכל ושתייה</div>
+          <div class="wd-group-title">אוכל ושתייה</div>
           <div class="wd-cards" data-cards="food"></div>
         </div>
       </div>
@@ -798,8 +798,7 @@
      desc   - תיאור קצר (2-3 שורות)
      dur    - משך משוער (או '' אם לא רלוונטי)
      img    - נתיב לתמונה. אם אין תמונה עדיין - שמים null ומופיע
-              רקע מעוצב עם האייקון במקום.
-     icon   - אימוג'י שמופיע כשאין תמונה
+              רקע מעוצב עם הלוגו במקום.
      price  - מחיר לאדם בשקלים. null = לא מוצג מחיר (לא נכנס לסכום)
      group  - 'content' (תכנים וסדנאות) או 'food' (אוכל ושתייה)
      order  - מיקום בסדר היום (מספר קטן = מוקדם יותר). משפיע רק על
@@ -808,47 +807,47 @@
 var ADDONS = [
   {
     id:'yoga', title:'יוגה', group:'content', order:10, price:null,
-    dur:'כ-60 דק׳', img:'assets/img/wd-yoga.jpg', icon:'🧘‍♀️',
+    dur:'כ-60 דק׳', img:'assets/img/wd-yoga.jpg',
     desc:'פתיחה רכה ליום - תרגול יוגה מונחה בחוץ, מותאם לכל רמה. גוף שמתעורר, ראש שמתפנה.'
   },
   {
     id:'pilates', title:'פילאטיס', group:'content', order:12, price:null,
-    dur:'כ-50 דק׳', img:null, icon:'🤸',
+    dur:'כ-50 דק׳', img:null,
     desc:'שיעור פילאטיס מזרן אנרגטי שמחזק את הליבה ומעיר את הגוף - בלי ציוד ובלי ניסיון קודם.'
   },
   {
     id:'breathwork', title:'סדנת נשימות', group:'content', order:20, price:null,
-    dur:'כ-60 דק׳', img:'assets/img/retreat-breathwork.jpg', icon:'🌬️',
+    dur:'כ-60 דק׳', img:'assets/img/retreat-breathwork.jpg',
     desc:'החתימה שלנו. מסע מודרך בין מצבי תודעה בעזרת שיטות נשימה עוצמתיות - חוויה שרובם לא מכירים.'
   },
   {
     id:'icebath', title:'אמבטיות קרח', group:'content', order:30, price:null,
-    dur:'כ-60 דק׳', img:'assets/img/retreat-icebath.jpg', icon:'🧊',
+    dur:'כ-60 דק׳', img:'assets/img/retreat-icebath.jpg',
     desc:'תחנת אמבטיות קרח עם הדרכה צמודה - האתגר שכולם מדברים עליו אחר כך, וההרגשה שאחריו.'
   },
   {
     id:'aroma', title:'ארומתרפיה', group:'content', order:50, price:null,
-    dur:'כ-45 דק׳', img:'assets/img/wd-aroma.jpg', icon:'🌿',
+    dur:'כ-45 דק׳', img:'assets/img/wd-aroma.jpg',
     desc:'פינת שמנים אתריים עם הסבר והתנסות - כל אחד מרכיב לעצמו תערובת אישית לקחת הביתה.'
   },
   {
     id:'massage', title:'מסאג׳ים', group:'content', order:60, price:null,
-    dur:'לאורך היום', img:'assets/img/wd-massage.jpg', icon:'💆',
+    dur:'לאורך היום', img:'assets/img/wd-massage.jpg',
     desc:'עמדת מעסים מקצועיים שפועלת במקביל לשאר התכנים - כל אחד מגיע לתורו לרגע של פינוק.'
   },
   {
     id:'sound', title:'סאונד הילינג', group:'content', order:70, price:null,
-    dur:'כ-45 דק׳', img:'assets/img/retreat-soundbath.jpg', icon:'🎶',
+    dur:'כ-45 דק׳', img:'assets/img/retreat-soundbath.jpg',
     desc:'סגירה מושלמת ליום - קערות טיבטיות, גונגים וצלילים שמכניסים את כל הקבוצה לרוגע עמוק.'
   },
   {
     id:'catering', title:'קייטרינג בריאות', group:'food', order:99, price:null,
-    dur:'לאורך היום', img:'assets/img/retreat-villa-spread.jpg', icon:'🥗',
+    dur:'לאורך היום', img:'assets/img/retreat-villa-spread.jpg',
     desc:'פירות העונה, ירקות, כריכי בריאות ומיצי בריאות סחוטים - פינה שנשארת פתוחה לאורך כל היום.'
   },
   {
     id:'wine', title:'חבילת יינות', group:'food', order:100, price:null,
-    dur:'לאורך היום', img:null, icon:'🍷',
+    dur:'לאורך היום', img:null,
     desc:'מבחר יינות איכותיים לאורך היום - נגיעה חגיגית שמשלימה את החוויה.'
   }
 ];
@@ -877,7 +876,7 @@ var ADDONS = [
   function cardHtml(a){
     var pic = a.img
       ? '<div class="pic"><img src="' + a.img + '" alt="' + a.title + '" loading="lazy"></div>'
-      : '<div class="pic ph"><span aria-hidden="true">' + a.icon + '</span></div>';
+      : '<div class="pic ph"><img class="ph-mark" src="assets/img/icy_power_Logo.png" alt="" aria-hidden="true"></div>';
 
     var price = a.price
       ? '<div class="wd-price">' + a.price + ' ₪<small>לאדם</small></div>'
