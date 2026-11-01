@@ -39,6 +39,20 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-11-01
+- **What changed:** Weekly SEO run (scheduled task, now runs inside the
+  long-lived session so it can push). Added a 9-question FAQ for HR buyers
+  to `business.html` (new `#faq` section above the "נשמור לכם תאריך?" CTA),
+  reusing the home page's `.faq-item` markup and `main.js` accordion. The
+  same Q&As are in `seo/pages.json`, so the page's FAQPage JSON-LD matches.
+  Only facts already on the site; session length, space, winter and
+  insurance are left out until Eldar/Oron confirm them.
+  Checked at 390 and 1280 px: no overflow, no JS errors.
+- **Still needed from Eldar/Oron:** Search Console tag, Facebook page URL,
+  Instagram/Facebook website links, Google Business Profile (see the
+  2026-10-28 plan in chat and `seo/README.md`).
+
+### Latest status (previous)
 - **Date:** 2026-10-22 (latest+3)
 - **What changed:** In `wellness-day.html`, at Eldar's request:
   - **Removed the hero eyebrow** ("☀️ אירוע וולנס · יום שלם לקבוצה").
@@ -2281,6 +2295,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-11-01 — Weekly SEO: HR-buyer FAQ on business.html + matching FAQPage schema.
 - 2026-10-22 — Day builder: removed hero eyebrow and all emoji except "☀️ היום שלי"; logo placeholder on photo-less cards.
 - 2026-10-22 — Day builder: removed hero CTAs, the "always included" section and the builder intro line.
 - 2026-10-22 — Day builder: removed the duration bubbles from the cards.
