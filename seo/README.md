@@ -50,9 +50,9 @@ so canonical URLs and the sitemap use the extension-less form.
 | Local modifiers | במרכז, בתל אביב, בשרון, בצפון, בדרום, בירושלים, בחיפה, בבאר שבע | use naturally in copy; no thin per-city doorway pages |
 
 ## Content backlog for the weekly agent (one item per run, best first)
-1. `/business`: add an FAQ block for HR buyers (how long, how many people, what
-   space is needed, indoor/outdoor, winter, insurance/safety, what's included,
-   how to book) + matching `faq` in `pages.json`.
+1. ~~`/business`: FAQ block for HR buyers~~ - done 2026-11-01. Still
+   unanswered because the site has no confirmed facts: session length, space
+   needed, indoor/outdoor, winter, insurance. Add them once Eldar/Oron confirm.
 2. A guide page: "רעיונות ליום גיבוש לעובדים" - genuinely useful list, with the
    ice-bath workshop as one option and a CTA.
 3. A guide page: "אמבטיות קרח - כל מה שצריך לדעת לפני הפעם הראשונה" (safety,
