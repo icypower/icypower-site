@@ -53,8 +53,7 @@ so canonical URLs and the sitemap use the extension-less form.
 1. ~~`/business`: FAQ block for HR buyers~~ - done 2026-11-01. Still
    unanswered because the site has no confirmed facts: session length, space
    needed, indoor/outdoor, winter, insurance. Add them once Eldar/Oron confirm.
-2. A guide page: "רעיונות ליום גיבוש לעובדים" - genuinely useful list, with the
-   ice-bath workshop as one option and a CTA.
+2. ~~Guide page "רעיונות ליום גיבוש לעובדים"~~ - done 2026-11-08 (`team-day-ideas.html`).
 3. A guide page: "אמבטיות קרח - כל מה שצריך לדעת לפני הפעם הראשונה" (safety,
    benefits with honest wording, who shouldn't do it).
 4. A guide page: "רעיונות למסיבת רווקות שונה".
