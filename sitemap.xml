@@ -8,8 +8,14 @@
   </url>
   <url>
     <loc>https://icypower.pages.dev/business</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <priority>0.9</priority>
+    <image:image><image:loc>https://icypower.pages.dev/assets/img/og/og-business.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://icypower.pages.dev/team-day-ideas</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://icypower.pages.dev/assets/img/og/og-business.jpg</image:loc></image:image>
   </url>
   <url>

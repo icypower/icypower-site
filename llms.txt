@@ -10,6 +10,7 @@
 - [Open workshop (סדנה פתוחה)](https://icypower.pages.dev/open-session): individuals join a scheduled group session.
 - [Couples workshop (סדנת זוגות)](https://icypower.pages.dev/couples)
 - [Wellness day builder (יום וולנס לחברות וקבוצות)](https://icypower.pages.dev/wellness-day): a full wellness day for companies and groups anywhere in Israel; pick activities (breathwork, ice baths, yoga, pilates, massage, sound healing, healthy catering).
+- [Team-day ideas guide (רעיונות ליום גיבוש לעובדים)](https://icypower.pages.dev/team-day-ideas): what to ask before choosing a team day, the wellness activities on offer, and a sample full-day order.
 - [Book a morning workshop (הזמנת מקום)](https://icypower.pages.dev/booking)
 
 ## Key facts

@@ -39,6 +39,21 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-11-08
+- **What changed:** Weekly SEO run: new public guide page
+  `team-day-ideas.html` ("רעיונות ליום גיבוש לעובדים", URL
+  `/team-day-ideas`). It reuses the business page's nav, `.page-hero`,
+  `.prose`/`.feature-list`, `.sessions-grid`/`.session-card` and CTA band,
+  with only facts already on the site (day-builder activity texts, FAQ).
+  Linked from every page's footer ("רעיונות ליום גיבוש", under הסדנאות)
+  and from the `/business` FAQ heading; in `seo/pages.json`, the sitemap
+  and `llms.txt`. Note: in `.feature-list` items, wrap mixed text (e.g.
+  `<b>` + text) in one `<span>`, because the `li` is `display:flex`.
+  Checked at 390 and 1280 px: no overflow, no JS errors.
+- **Still needed from Eldar/Oron:** Search Console tag, Facebook page URL,
+  Instagram/Facebook website links, Google Business Profile.
+
+### Latest status (previous)
 - **Date:** 2026-11-01
 - **What changed:** Weekly SEO run (scheduled task, now runs inside the
   long-lived session so it can push). Added a 9-question FAQ for HR buyers
@@ -2295,6 +2310,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-11-08 — Weekly SEO: new guide page team-day-ideas.html, linked from all footers and the business FAQ.
 - 2026-11-01 — Weekly SEO: HR-buyer FAQ on business.html + matching FAQPage schema.
 - 2026-10-22 — Day builder: removed hero eyebrow and all emoji except "☀️ היום שלי"; logo placeholder on photo-less cards.
 - 2026-10-22 — Day builder: removed hero CTAs, the "always included" section and the builder intro line.
