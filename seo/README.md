@@ -49,6 +49,9 @@ so canonical URLs and the sitemap use the extension-less form.
 | Core activity | אמבטיות קרח, אמבט קרח, שיטת וים הוף, סדנת נשימות, סדנת וים הוף | home, `/open-session` |
 | Local modifiers | במרכז, בתל אביב, בשרון, בצפון, בדרום, בירושלים, בחיפה, בבאר שבע | use naturally in copy; no thin per-city doorway pages |
 
+## Publishing rule (from 2026-11-23)
+Eldar's rule: nothing goes live without his approval. Each Sunday the agent prepares changes on a `claude/seo-week-*` branch, pushes only that branch (Cloudflare preview), sends a summary + screenshots + suggestions, and merges to `main` only after Eldar says yes in chat.
+
 ## Content backlog for the weekly agent (one item per run, best first)
 1. ~~`/business`: FAQ block for HR buyers~~ - done 2026-11-01. Still
    unanswered because the site has no confirmed facts: session length, space
