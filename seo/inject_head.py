@@ -44,8 +44,10 @@ def page_graph(p):
     url = SITE + p['path']
     g = []
     if p['path'] == '/':
+        # name + alternateName are what Google reads for the site name shown in results.
         g.append({"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/",
-                  "name": BIZ['name'], "inLanguage": "he-IL",
+                  "name": BIZ['name'], "alternateName": BIZ['alternateName'],
+                  "inLanguage": "he-IL",
                   "publisher": {"@id": SITE + "/#business"}})
     # Full business node on every page: crawlers don't resolve @id across pages.
     g.append(org_graph())
