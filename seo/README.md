@@ -49,13 +49,15 @@ so canonical URLs and the sitemap use the extension-less form.
 | Core activity | אמבטיות קרח, אמבט קרח, שיטת וים הוף, סדנת נשימות, סדנת וים הוף | home, `/open-session` |
 | Local modifiers | במרכז, בתל אביב, בשרון, בצפון, בדרום, בירושלים, בחיפה, בבאר שבע | use naturally in copy; no thin per-city doorway pages |
 
+## Publishing rule (from 2026-11-23)
+Eldar's rule: nothing goes live without his approval. Each Sunday the agent prepares changes on a `claude/seo-week-*` branch, pushes only that branch (Cloudflare preview), sends a summary + screenshots + suggestions, and merges to `main` only after Eldar says yes in chat.
+
 ## Content backlog for the weekly agent (one item per run, best first)
 1. ~~`/business`: FAQ block for HR buyers~~ - done 2026-11-01. Still
    unanswered because the site has no confirmed facts: session length, space
    needed, indoor/outdoor, winter, insurance. Add them once Eldar/Oron confirm.
 2. ~~Guide page "רעיונות ליום גיבוש לעובדים"~~ - done 2026-11-08 (`team-day-ideas.html`).
-3. A guide page: "אמבטיות קרח - כל מה שצריך לדעת לפני הפעם הראשונה" (safety,
-   benefits with honest wording, who shouldn't do it).
+3. ~~Guide page "אמבטיות קרח"~~ - done 2026-11-25 (`ice-bath-guide.html`).
 4. A guide page: "רעיונות למסיבת רווקות שונה".
 5. A "where we come to" (אזורי שירות) page: one real page describing how
    events work in the centre / Sharon / Jerusalem / north / south, travel

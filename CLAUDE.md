@@ -39,6 +39,28 @@ that already happened once (see History).
    "Important history" below for exactly why this rule exists.
 
 ### Latest status
+- **Date:** 2026-11-25
+- **What changed:** Published (Eldar approved in chat):
+  - new guide page `ice-bath-guide.html` ("אמבטיות קרח: כל מה שצריך לדעת
+    לפני הפעם הראשונה", `/ice-bath-guide`), rebuilt after the 2026-11-15
+    copy was lost. Only facts already on the site; linked from every footer
+    and from a line under the home-page FAQ; in `seo/pages.json`, sitemap
+    and `llms.txt`.
+  - the home page's WebSite JSON-LD now has `alternateName` (אייסי פאוור,
+    IcyPower) so Google can show "Icy Power" instead of "Cloudflare" as the
+    site name. The old "ICYPOWERR" alias was dropped.
+- **New rule (Eldar, 2026-11-23): nothing goes live without his approval.**
+  The weekly Sunday SEO task prepares changes on a `claude/seo-week-*`
+  branch, pushes only that branch (Cloudflare gives a preview URL like
+  `claude-seo-week-YYYY-MM-DD.icypower.pages.dev`), sends a summary,
+  screenshots and suggestions, and merges only after he says yes.
+- **GitHub access:** since mid-November the Claude GitHub connection is
+  signed in as `eldar-marom`, now a Write collaborator on this repo, so
+  pushes work again.
+- **Still needed from Eldar/Oron:** Search Console verification tag,
+  Instagram/Facebook website links, Google Business Profile.
+
+### Latest status (previous)
 - **Date:** 2026-11-08
 - **What changed:** Weekly SEO run: new public guide page
   `team-day-ideas.html` ("רעיונות ליום גיבוש לעובדים", URL
@@ -2310,6 +2332,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-11-25 — Published ice-bath-guide.html + WebSite alternateName (site name); weekly SEO now approval-only.
 - 2026-11-08 — Weekly SEO: new guide page team-day-ideas.html, linked from all footers and the business FAQ.
 - 2026-11-01 — Weekly SEO: HR-buyer FAQ on business.html + matching FAQPage schema.
 - 2026-10-22 — Day builder: removed hero eyebrow and all emoji except "☀️ היום שלי"; logo placeholder on photo-less cards.
