@@ -57,8 +57,14 @@ that already happened once (see History).
 - **GitHub access:** since mid-November the Claude GitHub connection is
   signed in as `eldar-marom`, now a Write collaborator on this repo, so
   pushes work again.
-- **Still needed from Eldar/Oron:** Search Console verification tag,
-  Instagram/Facebook website links, Google Business Profile.
+- **Google Search Console (2026-11-25):** Eldar started verification with the
+  HTML-file method. `googledb10ea8548b02621.html` is at the site root, and
+  `_redirects` serves it with a 200 rewrite so Cloudflare doesn't
+  308-redirect it to the extensionless URL. Don't delete either file: Google
+  re-checks them, and losing them un-verifies the site. If the file method
+  ever fails, use the HTML-tag (meta) method instead.
+- **Still needed from Eldar/Oron:** Instagram/Facebook website links, Google
+  Business Profile.
 
 ### Latest status (previous)
 - **Date:** 2026-11-08
@@ -2332,6 +2338,7 @@ that already happened once (see History).
 - **Anything the next session needs to know:** See the 2026-08-03 entry's notes about push auth (`GITHUB_TOKEN_ICYPOWER`) and the two-session-at-once risk.
 
 ### History (previous)
+- 2026-11-25 — Added the Google Search Console verification file + `_redirects` rewrite.
 - 2026-11-25 — Published ice-bath-guide.html + WebSite alternateName (site name); weekly SEO now approval-only.
 - 2026-11-08 — Weekly SEO: new guide page team-day-ideas.html, linked from all footers and the business FAQ.
 - 2026-11-01 — Weekly SEO: HR-buyer FAQ on business.html + matching FAQPage schema.
