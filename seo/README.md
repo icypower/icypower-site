@@ -57,8 +57,7 @@ Eldar's rule: nothing goes live without his approval. Each Sunday the agent prep
    unanswered because the site has no confirmed facts: session length, space
    needed, indoor/outdoor, winter, insurance. Add them once Eldar/Oron confirm.
 2. ~~Guide page "רעיונות ליום גיבוש לעובדים"~~ - done 2026-11-08 (`team-day-ideas.html`).
-3. A guide page: "אמבטיות קרח - כל מה שצריך לדעת לפני הפעם הראשונה" (safety,
-   benefits with honest wording, who shouldn't do it).
+3. ~~Guide page "אמבטיות קרח"~~ - done 2026-11-25 (`ice-bath-guide.html`).
 4. A guide page: "רעיונות למסיבת רווקות שונה".
 5. A "where we come to" (אזורי שירות) page: one real page describing how
    events work in the centre / Sharon / Jerusalem / north / south, travel
